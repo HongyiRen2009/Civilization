@@ -6,7 +6,7 @@
 -Add achievement sounds
 ***GAMEPLAY***
 -black market+market
--more schievements
+-more achievements
 -secret achievements?
 -improve mountain generation?
 
