@@ -1,5 +1,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devhellopement</title>
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 </head>
 <div class="flex-grid" id="stats" style.display:none;>
 	<button class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
@@ -434,6 +436,7 @@ top:93%;
 }
 </style>
 <script>
+const click = new Audio('./sounds/click.mp3');
 const canvas = document.querySelector("canvas")
 canvas.height = screen.height-225
 canvas.width = screen.width
@@ -1077,6 +1080,7 @@ const p = {
 		piecepositions:[{x:0,y:0}],
 		near: "building",
 		effect(){
+			click.play();
 			p.population=1
 			resources-=1
 		},
@@ -1093,6 +1097,7 @@ const p = {
 		piecepositions:[{x:0,y:0}],
 		near: "building",
 		effect(){
+			click.play();
 			p.population=4
 			resources-=3
 		},
@@ -1108,6 +1113,7 @@ const p = {
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
 		near: "building",
 		effect(){
+			click.play();
 			p.population=8
 			resources-=5
 		},
@@ -1124,6 +1130,7 @@ const p = {
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		near: "building",
 		effect(){
+			click.play();
 			p.population=40
 			resources-=20
 		},
@@ -1139,6 +1146,7 @@ const p = {
 		piecepositions:[{x:0,y:0}],
 		near: "building",
 		effect(){
+			click.play();
 			resources -=0.25
 		},
 		requires(){
@@ -1153,6 +1161,7 @@ const p = {
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		near: "building",
 		effect(){
+			click.play();
 			p.food=2
 			resources-=2
 			
@@ -1168,6 +1177,7 @@ const p = {
 		description: "A small farm that produces 5 food. Requires 2 resources to construct and 1 person operating it",
 		near: "building",
 		effect(){
+			click.play();
 			p.food=5
 			resources-=3
 			unemployed-=1
@@ -1183,6 +1193,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		effect(){
+			click.play();
 			p.food=20
 			resources-=10
 			unemployed-=3
@@ -1199,6 +1210,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river",
 		effect(){
+			click.play();
 			p.food=30
 			resources-=20
 			unemployed-=5
@@ -1215,6 +1227,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1}],
 		near: "building",
 		effect(){
+			click.play();
 			luck+=1
 			resources-=40
 			unemployed-=10
@@ -1231,6 +1244,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		effect(){
+			click.play();
 			p.military=10
 			resources-=6
 			unemployed-=3
@@ -1249,6 +1263,7 @@ const p = {
 		piecepositions: [{x:0,y:0}],
 		near: "building",
 		effect(){
+			click.play();
 			resources-=3
 		},
 		requires(){
@@ -1264,7 +1279,7 @@ const p = {
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "hill",
 		effect(){
-			
+			click.play();
 			p.resources=3
 			resources-=3
 			unemployed-=1
@@ -1280,6 +1295,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		near: "hill",
 		effect(){
+			click.play();
 			p.resources=14
 			resources-=12
 			unemployed-=3
@@ -1295,6 +1311,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "hill",
 		effect(){
+			click.play();
 			p.resources=30
 			resources-=25
 			unemployed-=8
