@@ -9,4 +9,6 @@
 -more achievements
 -secret achievements?
 -improve mountain generation?
+-add more buildings that all have different shapes so creating a full city requires strategy and using multiple buildings?
+(expanding on non-flexible building mechanic)
 
