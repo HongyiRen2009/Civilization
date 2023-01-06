@@ -1,0 +1,12 @@
+***GRAPHICS***
+-Add graphics to tiles?(pixel art)
+-Add animations to all tiles(probably not, would cause lag)
+***SOUNDS***
+-Add sounds for the buttons presses on menu
+-Add achievement sounds
+***GAMEPLAY***
+-black market+market
+-more schievements
+-secret achievements?
+-improve mountain generation?
+
