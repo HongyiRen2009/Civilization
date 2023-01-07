@@ -1,7 +1,6 @@
 ******GRAPHICS******
 -Add graphics to tiles?(pixel art)
 -Add animations to all tiles(probably not, would cause lag)
--forced labor image(pickaxe)(this is also wrong)
 -images for achievements?(simple, small)
 square shaped? maybe circle? or rounded square(mixture)
 -image of gameplay on title screen(maybe made with pixel art? Might be difficult, would look awesome)
