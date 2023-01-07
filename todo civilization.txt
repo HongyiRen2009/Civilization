@@ -1,14 +1,31 @@
-***GRAPHICS***
+******GRAPHICS******
 -Add graphics to tiles?(pixel art)
 -Add animations to all tiles(probably not, would cause lag)
-***SOUNDS***
+-selling slaves for resources image(chain)(this is very wrong)
+-black market image: robber(cloak)
+-forced labor image(pickaxe)(this is also wrong)
+-images for achievements?(simple, small)
+square shaped? maybe circle? or rounded square(mixture)
+-image of gameplay on title screen(maybe made with pixel art? Might be difficult, would look awesome)
+-images of different good/bad events? Probably not
+
+******SOUNDS******
 -Add sounds for the buttons presses on menu
 -Add achievement sounds
-***GAMEPLAY***
+-Add general bad event/good event sound(s)
+maybe specific ones? (etc. burning sound effect for FIRE! event) might not work for things like OH NO(virus) event
+-Different sounds for different buttons(End Year button might have a different sound than Market button)
+-simple, relaxing quiet music in background of gameplay for a more relaxing, and at times, more frustrating time
+-louder, maybe epic music for title screen and achievements?
+-Jeopardy-like music for market
+-market buying noise, maybe lower tone for purchase noise the more that purchase will negatively 
+affect the player's virtue 
+
+******GAMEPLAY******
 -black market+market
 -more achievements
 -secret achievements?
 -improve mountain generation?
--add more buildings that all have different shapes so creating a full city requires strategy and using multiple buildings?
-(expanding on non-flexible building mechanic)
+-might be cool to have more buildings that have unique shapes so that using land efficiently is harder
+-rotatable buildings? Might be hard to code
 
