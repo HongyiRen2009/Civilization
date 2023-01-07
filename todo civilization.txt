@@ -1,7 +1,6 @@
 ******GRAPHICS******
 -Add graphics to tiles?(pixel art)
 -Add animations to all tiles(probably not, would cause lag)
--selling slaves for resources image(chain)(this is very wrong)
 -black market image: robber(cloak)
 -forced labor image(pickaxe)(this is also wrong)
 -images for achievements?(simple, small)
