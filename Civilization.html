@@ -514,7 +514,11 @@ let punishamount = 0
 let allowed = true;
 let military = 0;
 let currentpop = 2;
-const click = new Audio('click.mp3');
+const click = new Audio('sounds/click.mp3');
+const build_music = new Audio('music/Build_music.wav');
+const market_music = new Audio('music/Market_music.wav');
+const menu_music = new Audio('music/Menu_music.wav');
+const kaching = new Audio('sounds/Purchase.wav');
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
@@ -528,7 +532,6 @@ let difficultymultiplier = 0
 const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
-
 savewidths = document.getElementsByClassName("save-grid")
 const temporaryeffects = []
 const m = {
@@ -965,6 +968,8 @@ for (const el of savewidths){
 el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${150*(screen.height/900)}px ${50*(screen.height/900)}px`
 }
 function marketscreen(){
+	build_music.pause()
+	market_music.play()
 	document.body.style.overflow = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + resources
@@ -1022,6 +1027,7 @@ function marketscreen(){
 
 		}
 		buy.onclick = function(){
+			kaching.play()
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
@@ -1209,6 +1215,8 @@ function clearsave(index){
 
 }
 function menu(){
+	build_music.pause()
+	market_music.pause()
 ispainting = false
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("difficulty-flex").style.display = 'none'
@@ -1223,6 +1231,7 @@ document.getElementById("title_start").innerHTML = 'Civilization'
 	document.getElementById("save-flex").style.display = "none"
 }
 function savescreen(save){
+	
 ispainting = false
 	document.getElementById("back_button").hidden = false
 	const ele2 = document.getElementsByClassName("clear_button")
@@ -3747,6 +3756,9 @@ for (i=0;i!=rivergrid.length;i++){
 	ctx.stroke()
 }
 function start(){
+	build_music.play()
+	market_music.pause()
+	menu_music.pause()
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width
 	document.getElementById("popup_block_buttons").style.height = screen.height+200
