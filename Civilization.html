@@ -1,4 +1,6 @@
 <head>
+<title>Civilization</title>
+<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon' />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <div class="flex-grid" id="stats" style.display:none;>
@@ -286,12 +288,13 @@ margin: auto;
 .save_button{
 margin: auto;
 	font-size: 20px;
-	width: 120px;
+	width: 150px;
 	border-style: solid;
 	border-radius: 6px;
 	transition-duration: 0.1s;
 	background-color: #f0e87a;
 	grid-row:6;
+	white-space: nowrap;
 	
 }
 .save_button:hover:enabled{
@@ -519,6 +522,8 @@ const build_music = new Audio('music/Build_music.wav');
 const market_music = new Audio('music/Market_music.wav');
 const menu_music = new Audio('music/Menu_music.wav');
 const kaching = new Audio('sounds/Purchase.wav');
+market_music.loop = true
+build_music.loop = true
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
@@ -541,12 +546,13 @@ const m = {
 		pricemod: 1,
 		title: "Mercenaries",
 		description: "Hire mercenaries to fight for you. Gain ",
-		image: "⚔",
+		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -563,12 +569,13 @@ const m = {
 		pricemod: 1.5,
 		title: "Supply wagons",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "🍞",
+		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -585,12 +592,13 @@ const m = {
 		pricemod: 1,
 		title: "Slaves",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "🍞",
+		image: "<img src = 'images/marketPickaxe.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -608,13 +616,14 @@ const m = {
 		pricemod: 1,
 		title: "Export Slaves",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "🍞",
+		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "population",
 		allowed: true,
 		choosetext(){
-			if (this.price*this.pricemod>population){
+			this.allowed = true
+			if (this.amountincrease<currentpop){
 				this.allowed = false
 			}
 			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
@@ -630,12 +639,13 @@ const m = {
 		pricemod: 1,
 		title: "Arms agreement",
 		description: "Hire mercenaries to fight for you. Gain ",
-		image: "⚔",
+		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -652,12 +662,13 @@ const m = {
 		pricemod: 0.75,
 		title: "Stolen food",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "🍞",
+		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -674,12 +685,13 @@ const m = {
 		pricemod: 0.5,
 		title: "Crime group",
 		description: "Hire mercenaries to fight for you. Gain ",
-		image: "⚔",
+		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -696,12 +708,13 @@ const m = {
 		pricemod: 0.5,
 		title: "Kidnapping",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "🍞",
+		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -719,12 +732,13 @@ const m = {
 		pricemod: 1.8,
 		title: "Assassination",
 		description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
-		image: "🍞",
+		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -741,12 +755,13 @@ const m = {
 		pricemod: 1,
 		title: "Dark Magic",
 		description: "Hire a dark magic artist to preform some rituals.<br> Increases luck",
-		image: "🍞",
+		image: "<img src = 'images/marketCloak.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -762,13 +777,14 @@ const m = {
 		price:5,
 		pricemod: 1,
 		title: "Infiltrate",
-		description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kindom",
-		image: "🍞",
+		description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kingdom",
+		image: "<img src = 'images/marketCloak.png' width='50' height='60'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -786,12 +802,13 @@ const m = {
 		pricemod: 1.5,
 		title: "Fake News",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image: "🍞",
+		image:"<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -805,39 +822,17 @@ const m = {
 		}
 	},
 	{
-		price:25,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Medium Farm",
-		image: "🍞",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[7].unlocked = true
-			unlocked[7]=true
-		}
-	
-	},
-	{
 	price:25,
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get the instructions on how to construct an Medium Mine",
-		image: "🍞",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -850,16 +845,42 @@ const m = {
 		}
 	},
 	{
-		price:50,
+		price:25,
 		pricemod: 1,
 		title: "Blueprints",
-		description: "Get the instructions on how to construct an Insula",
-		image: "🍞",
+		description: "Get the instructions on how to construct a Medium Farm",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[7].unlocked = true
+			unlocked[7]=true
+		}
+	
+	},
+	
+	{
+		price:50,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct an Insula",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -876,12 +897,13 @@ const m = {
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get the instructions on how to construct a Large Farm",
-		image: "🍞",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -894,38 +916,17 @@ const m = {
 		}
 	},
 	{
-		price:130,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Temple",
-		image: "🍞",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.price = Math.max(65,130-Math.floor((reputation/10)*10))
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[9].unlocked = true
-			unlocked[9]=true
-		}
-	},
-	{
 		price:50,
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get the instructions on how to construct a Large Mine",
-		image: "🍞",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -938,16 +939,41 @@ const m = {
 		}
 	},
 	{
-		price:300,
+		price:130,
 		pricemod: 1,
 		title: "Blueprints",
-		description: "Get the instructions on how to construct a Mega Temple",
-		image: "🍞",
+		description: "Get the instructions on how to construct a Temple",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+			this.allowed = true
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(65,130-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[9].unlocked = true
+			unlocked[9]=true
+		}
+	},
+	
+	{
+		price:300,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Mega Temple",
+		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
@@ -999,6 +1025,7 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
 		}
 		else if (el.stock>0){
+			debugger
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
@@ -1013,10 +1040,10 @@ function marketscreen(){
 		buy.className = "save_button"
 		buy.style.gridRow = "5"
 		if (i<4){
-			buy.id = "m"
+			buy.id = "m"+i
 		}
 		else{
-			buy.id = "bm"
+			buy.id = "bm"+i
 		}
 		if (!el.allowed){
 			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
@@ -1028,21 +1055,35 @@ function marketscreen(){
 		}
 		buy.onclick = function(){
 			kaching.play()
+			
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
-			console.log(buy.id)
-			if (getRandomInt(0,100-(buy.id = "bm" ? 30:0)+reputation)>5&&el.title!="blueprints"){
+			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5&&el.title!="blueprints"){
 			status.style.color = "green"
 			status.innerHTML = "<h1>TRADE SUCCESSFUL</h1>"
 			el.purchaseeffect();
 			el.stock-=1;
-			if (buy.id=="m"){
-			reputation+=getRandomInt(0,5)
+			
+			if (buy.id.includes("b")){
+			reputation-=getRandomInt(0,5)
 			}
 			else
 			{
-				reputation-=getRandomInt(0,5)
+				reputation+=getRandomInt(0,5)
+			}
+			debugger
+			for (let j =0,len=marketitems.length;j<len;j++){
+				marketitems[j].choosetext()
+				if (!marketitems[j].allowed&&marketitems[j].stock>0){
+					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitems[j].price*marketitems[j].pricemod)} ${marketitems[j].whichthing}</strong>`
+				}
+				else{
+					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = false
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitems[j].price*marketitems[j].pricemod)} ${marketitems[j].whichthing}</strong>`
+
+				}
 			}
 			document.getElementById("mresource").innerHTML = "Resources: " + resources
 			document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
@@ -1053,6 +1094,7 @@ function marketscreen(){
 				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
 			buy.disabled = true
 			}
+			
 			}
 			else{
 				status.style.color = "red"
@@ -1212,6 +1254,7 @@ function clearsave(index){
 	localStorage.removeItem('amounts'+index)
 	localStorage.removeItem('unlocked'+index)
 	localStorage.removeItem('marketmod'+index)
+	localStorage.removeItem('marketitems'+index)
 
 }
 function menu(){
@@ -1357,6 +1400,7 @@ function save(bindex){
 	localStorage.setItem('unlocked'+bindex, JSON.stringify(unlocked));
 	localStorage.setItem('luck'+bindex, JSON.stringify(luck));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel]));
+	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 
 	document.getElementById("save-flex").style.display = "none"
 	start()
@@ -1367,6 +1411,7 @@ function load(bindex){
 	gridstats.length=0
 	grid.length=0
 	hillgrid.length=0
+	marketitems.length=0
 
 	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
 	const localriver = JSON.parse(localStorage.getItem('river'+bindex));
@@ -1381,14 +1426,21 @@ function load(bindex){
 	const difficultymultiplier = JSON.parse(localStorage.getItem('multiply'+bindex));
 	const localbuildingamounts = JSON.parse(localStorage.getItem('amounts'+bindex));
 	const localunlocked = JSON.parse(localStorage.getItem('unlocked'+bindex));
+	const localmarketitems = JSON.parse(localStorage.getItem('marketitems'+bindex));
 	luck = JSON.parse(localStorage.getItem('luck'+bindex));
 	const localmarketmod = JSON.parse(localStorage.getItem('marketmod'+bindex));
 	m.assissin = localmarketmod[0]
+	m.spy = localmarketmod[1]
+	m.rebel = localmarketmod[2]
+	
 	if (localstats.length>0){
 		first_turn=false
 	}
 	for (i=0;i!=localgrid.length;i++){
 	grid.push(localgrid[i])
+	}
+	for (i=0;i!=localmarketitems.length;i++){
+	marketitems.push(localmarketitems[i])
 	}
 	for (i=0;i!=localriver.length;i++){
 	rivergrid.push(localriver[i])
@@ -3826,7 +3878,7 @@ function turnpopup(){
 		displaypopup(0)
 		return
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop))) <= 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return
@@ -3892,7 +3944,7 @@ function selectmarketitems(){
 		blueprintsitems.push(m.marketselections[7])
 	}
 	
-	marketitems.push(m.marketselections[getRandomInt(0,2)],m.marketselections[getRandomInt(3,4)],blueprintsitems[getRandomInt(0,blueprintsitems.length-1)],m.marketselections[m.marketselections.length-1],m.marketselections[getRandomInt(5,7)],m.marketselections[getRandomInt(8,11)])
+	marketitems.push(m.marketselections[getRandomInt(0,2)],m.marketselections[getRandomInt(3,4)],blueprintsitems[getRandomInt(0,1)],m.marketselections[m.marketselections.length-1],m.marketselections[getRandomInt(5,7)],m.marketselections[getRandomInt(8,11)], getRandomInt(1,2)==1 ? m.marketselections[getRandomInt(8,11)]:m.marketselections[m.marketselections.length-1])
 }
 function next_turn(){
 	document.getElementById("turn").innerHTML = "please wait"
@@ -3918,11 +3970,12 @@ function next_turn(){
 	else{
 		document.getElementById("mbutton").disabled=false
 		for (const p of m.marketselections){
-		p.price +=Math.max(getRandomInt(-3,3)+p.stock-4+Math.floor(difficulty/10),5)
+		p.price +=Math.min(getRandomInt(-3,3)+p.stock-4+Math.floor(difficulty/20),5)
+		p.price = Math.max(p.price,3)
 		if(p.stock<10&&p.title!="blueprint"){p.stock+=1}
 	}
 }
-	setTimeout(enable,1000)
+	setTimeout(enable,700)
 	
 }
 function select(index){
@@ -4023,7 +4076,9 @@ function displayUI(){
 		const ele = document.getElementsByClassName("select-choice")
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
+				if (!el.id == "mbutton"||difficulty>3){
 				el.disabled = true
+				}
 			}
 		}
 		else {
