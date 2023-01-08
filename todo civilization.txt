@@ -12,17 +12,12 @@ square shaped? maybe circle? or rounded square(mixture)
 -Add general bad event/good event sound(s)
 maybe specific ones? (etc. burning sound effect for FIRE! event) might not work for things like OH NO(virus) event
 -Different sounds for different buttons(End Year button might have a different sound than Market button)
--simple, relaxing quiet music in background of gameplay for a more relaxing, and at times, more frustrating time
 -louder, maybe epic music for title screen and achievements?
--Jeopardy-like music for market
--market buying noise, maybe lower tone for purchase noise the more that purchase will negatively 
-affect the player's virtue 
 
 ******GAMEPLAY******
--black market+market
 -more achievements
 -secret achievements?
 -improve mountain generation?
 -might be cool to have more buildings that have unique shapes so that using land efficiently is harder
--rotatable buildings? Might be hard to code
+-rotatable buildings? Might be hard to code (already tried, didn't work so well)
 
