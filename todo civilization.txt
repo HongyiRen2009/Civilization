@@ -20,4 +20,4 @@ maybe specific ones? (etc. burning sound effect for FIRE! event) might not work 
 -improve mountain generation?
 -might be cool to have more buildings that have unique shapes so that using land efficiently is harder
 -rotatable buildings? Might be hard to code (already tried, didn't work so well)
-
+-bad event: insula collapse(lose insula, -20% population, +10 resources[wreckage])
