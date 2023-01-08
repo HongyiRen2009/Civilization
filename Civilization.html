@@ -1,7 +1,5 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devhellopement</title>
-<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 </head>
 <div class="flex-grid" id="stats" style.display:none;>
 	<button class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
@@ -15,7 +13,7 @@
 	<button class = "next_turn" onclick = "savescreen(true)">SAVE</button>
 	<button class = "info" onclick = "achievementscreen(false)">Achievements</button>
 	<button class = "info" onclick = "info()">Building Info</button>
-	<button class = "info" onclick = "marketscreen()">Market</button>
+	<button id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
 	
 	
 
@@ -45,31 +43,31 @@
 		<h1>Save Slot 1:</h1>
 		<p class= "savedes1"> Empty Slot</p>
 		<button id = "1" class = "save_button" onclick = "savegame(1)">Save Game</button>
-		<button id = "clear1" class = "clear_button" onclick = "clearsave(1)">Clear Save</button>
+		<button id = "clear1" class = "clear_button" onclick = "confirmclear(1)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid2">
 		<h1>Save Slot 2:</h1>
 		<p class= "savedes2"> Empty Slot</p>
 		<button id = "2" class = "save_button" onclick = "savegame(2)">Save Game</button>
-		<button id = "clear2" class = "clear_button" onclick = "clearsave(2)">Clear Save</button>
+		<button id = "clear2" class = "clear_button" onclick = "confirmclear(2)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid3">
 		<h1>Save Slot 3:</h1>
 		<p class= "savedes3"> Empty Slot</p>
 		<button id = "3" class = "save_button" onclick = "savegame(3)">Save Game</button>
-		<button id = "clear3" class = "clear_button" onclick = "clearsave(3)">Clear Save</button>
+		<button id = "clear3" class = "clear_button" onclick = "confirmclear(3)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid4">
 		<h1>Save Slot 4:</h1>
 		<p class= "savedes3"> Empty Slot</p>
 		<button id = "4" class = "save_button" onclick = "savegame(4)">Save Game</button>
-		<button id = "clear4" class = "clear_button" onclick = "clearsave(4)">Clear Save</button>
+		<button id = "clear4" class = "clear_button" onclick = "confirmclear(4)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid5">
 		<h1>Save Slot 5:</h1>
 		<p class= "savedes5"> Empty Slot</p>
 		<button id = "5" class = "save_button" onclick = "savegame(5)">Save Game</button>
-		<button id = "clear5" class = "clear_button" onclick = "clearsave(5)">Clear Save</button>
+		<button id = "clear5" class = "clear_button" onclick = "confirmclear(5)">Clear Save</button>
 	 </div>
  </div>
  <div class = "achievement-unlocked" id = "unlocked">
@@ -110,18 +108,26 @@
 	
 	<div id = "description" class = "dis">undefined</div>
 </div>
-<div style = "display: none; align-items: center; flex-direction: column; position: absolute; bottom: 80%; width: 100%;" id = market-flex>
+<div style = "display: none; align-items: center; flex-direction: column; position: absolute; width: 100%; transform: translate(0%, -65%)" id = market-flex>
+<div style = "display: flex; width: 90%; gap: 30%;">
+<p style = "font-weight: bold;" id = "mresource">Resources: </p>
 <h1 class = "title_screen">Market</h1>
-<div class = "market-ui"></div>
 
+<p style = "font-weight: bold;" id = "mreputation">Reputation: </p>
+</div>
+<div class = "market-ui" id = "market"></div>
+<h1 id = 'status' class="status">PURCHASE SUCCESSFUL</h1>
 <h1 class = "title_screen">Black Market</h1>
-<div class = "market-ui"></div>
+<div class = "market-ui" id  = "black-market"></div>
+<br></br>
+<br></br>
+<br></br>
 </div>
 <style>
 .market-ui{
 	display: flex;
 	align-items: center;
-	width: 80%;
+	gap: 10%;
 	border: 3px solid #000000;
   border-radius: 6px;
 }
@@ -130,7 +136,17 @@
 	to   { opacity: 0; }
 
 }
-
+@keyframes flash{
+	50%{border: 3px solid yellow;}
+}
+.status{
+	color: green;
+	font-size: 20px;
+	position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%)
+}
 .difficulty-flex{
 
 display: none;
@@ -178,7 +194,7 @@ border: 3px solid #000000;
 	
 }
 .achievement-container{
-background-color: #e9edaf;
+background-color: #bfb965;
 border: 3px solid #000000;
   border-radius: 6px;
 }
@@ -196,7 +212,7 @@ border: 3px solid #000000;
 	width: 180px;
 	margin: auto;
 	display:grid;
-	background-color: #e9edaf;
+	background-color: #966F33;
 	grid-template-rows: 100px 62.5px 62.5px 62.5px 62.5px 150px 50px;
 	
   text-align: center;
@@ -208,6 +224,8 @@ border: 3px solid #000000;
 	display: none;
 	position: absolute;
 	bottom: 5px; 
+	background-color: #000000;
+	opacity: 0.4;
 	
 	
 }
@@ -217,6 +235,18 @@ border: 3px solid #000000;
 	flex-direction: column;
 	border: 3px solid #000000;
   border-radius: 6px;
+}
+.item{
+	background-color: #966F33;
+	display: grid;
+	width: 230px;
+	grid-template-rows: 50px 100px 100px 50px 50px;
+	border: 3px solid #000000;
+  border-radius: 6px;
+}
+.item > *{
+	text-align: center;
+	margin: auto;
 }
 .color-r{
 	color: #ff0000;
@@ -284,6 +314,8 @@ margin: auto;
 .select-choice{
 	transition-duration: 0.1s;
 	background-color: #f0e87a;
+	border: 3px solid #000000;
+	border-radius: 3px;
 }
 .select-choice:hover:enabled{
 		background-color: #8c6c0b;
@@ -320,7 +352,7 @@ margin: auto;
 	border-radius: 6px;
 	transition-duration: 0.1s;
 	background-color: #f0e87a;
-	
+	z-index: 1;
 }
 .back_button:hover{
 	background-color: #8c6c0b;
@@ -333,7 +365,11 @@ margin: auto;
 	background-color: #f0e87a;
 	
 }
-.info:hover{
+.next_turn:disabled{
+	background-color: #8d8d8d;
+}
+
+.info:hover:enabled{
 	background-color: #8c6c0b;
 }
 .info{
@@ -344,7 +380,7 @@ margin: auto;
 	background-color: #f0e87a;
 	
 }
-.next_turn:hover{
+.next_turn:hover:enabled{
 	background-color: #8c6c0b;
 }
 .start-box{
@@ -405,10 +441,9 @@ body{
 position: absolute;
 top:93%;
 	height: 50px;
-	border-style: solid;
-	border-radius: 6px;
+	
   display: none;
-  gap: 1px;
+  gap: 3px;
   flex-wrap: nowrap;
   
 }
@@ -428,6 +463,7 @@ top:93%;
 	border-radius: 6px;
 	display: none;
 	justify-content: center;
+	z-index: 2;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -436,7 +472,6 @@ top:93%;
 }
 </style>
 <script>
-const click = new Audio('./sounds/click.mp3');
 const canvas = document.querySelector("canvas")
 canvas.height = screen.height-225
 canvas.width = screen.width
@@ -467,11 +502,19 @@ let modifiers = {
 	resources:0,
 	military:0
 }
+const tempmodifiers = {
+	pop:0,
+	food: 0,
+	resources:0,
+	military:0
+}
+const marketitems = []
 
 let punishamount = 0
 let allowed = true;
 let military = 0;
 let currentpop = 2;
+const click = new Audio('click.mp3');
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
@@ -479,19 +522,453 @@ let unemployed = 2;
 let difficulty = 0;
 let first_turn = true;
 let luck = 0
-let lockdown = false;
-let lockdowntimer = 0;
+let reputation = 0
 let save_slot = null;
 let difficultymultiplier = 0
 const choicesdisabled = []
 const buildingamounts = []
+const unlocked = []
+
 savewidths = document.getElementsByClassName("save-grid")
-debugger
+const temporaryeffects = []
+const m = {
+	marketselections: [
+	{
+		price:10,
+		pricemod: 1,
+		title: "Mercenaries",
+		description: "Hire mercenaries to fight for you. Gain ",
+		image: "⚔",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.description = `Hire mercenaries to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			temporaryeffects.push({increase: this.amountincrease,effect(){military+=this.increase},duration:10,endeffect(){}})
+		}
+	},
+	{
+		price:5,
+		pricemod: 1.5,
+		title: "Supply wagons",
+		description: "Hire mercenaries to fight for you.  ",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.description = `Buy supply wagon deliveries. <br>+${this.amountincrease} food for 15 turns`
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			temporaryeffects.push({increase: this.amountincrease,effect(){food+=this.increase},duration:15,endeffect(){}})
+		}
+	},
+	{
+		price:5,
+		pricemod: 1,
+		title: "Slaves",
+		description: "Hire mercenaries to fight for you.  ",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.description = `Buy slaves from neighboring tribes. <br>+${this.amountincrease} population`
+		},
+		purchaseeffect(){
+			debugger
+			resources-=Math.floor(this.price*this.pricemod)
+			currentpop+= this.amountincrease
+		}
+	},
+	{
+		price:5,
+		pricemod: 1,
+		title: "Export Slaves",
+		description: "Hire mercenaries to fight for you.  ",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "population",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>population){
+				this.allowed = false
+			}
+			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.description = `Sell slaves to neighboring tribes. <br>+${this.price} resources`
+		},
+		purchaseeffect(){
+			resources+=Math.floor(this.price*this.pricemod)
+			currentpop-= this.amountincrease
+		}
+	},
+	{
+		price:10,
+		pricemod: 1,
+		title: "Arms agreement",
+		description: "Hire mercenaries to fight for you. Gain ",
+		image: "⚔",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.description = `Agree to support their tribes militarily. <br>+${this.price} resources but lose ${this.amountincrease} military for 10 turns.`
+		},
+		purchaseeffect(){
+			resources+=Math.floor(this.price*this.pricemod)
+			temporaryeffects.push({increase: this.amountincrease,effect(){military-=this.increase},duration:10,endeffect(){}})
+		}
+	},
+	{
+		price:5,
+		pricemod: 0.75,
+		title: "Stolen food",
+		description: "Hire mercenaries to fight for you.  ",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.description = `Purchase stolen food deliveries. <br>+${this.amountincrease} food for 15 turns`
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			temporaryeffects.push({increase: this.amountincrease,effect(){food+=this.increase},duration:15,endeffect(){}})
+		}
+	},
+	{
+		price:10,
+		pricemod: 0.5,
+		title: "Crime group",
+		description: "Hire mercenaries to fight for you. Gain ",
+		image: "⚔",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.description = `Arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			temporaryeffects.push({increase: this.amountincrease,effect(){military+=this.increase},duration:10,endeffect(){}})
+		}
+	},
+	{
+		price:5,
+		pricemod: 0.5,
+		title: "Kidnapping",
+		description: "Hire mercenaries to fight for you.  ",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
+		},
+		purchaseeffect(){
+			debugger
+			resources-=Math.floor(this.price*this.pricemod)
+			currentpop+= this.amountincrease
+		}
+	},
+	{
+		price:10,
+		pricemod: 1.8,
+		title: "Assassination",
+		description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			m.assissin +=2
+		}
+	},
+	{
+		price:10,
+		pricemod: 1,
+		title: "Dark Magic",
+		description: "Hire a dark magic artist to preform some rituals.<br> Increases luck",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			luck +=2
+		}
+	},
+	{
+		price:5,
+		pricemod: 1,
+		title: "Infiltrate",
+		description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kindom",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			m.spy +=1
+			reputation -= getRandomInt(3,6)
+		}
+	},
+	{
+		price:5,
+		pricemod: 1.5,
+		title: "Fake News",
+		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			m.rebel +=1
+			reputation -= getRandomInt(3,6)
+		}
+	},
+	{
+		price:25,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Medium Farm",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[7].unlocked = true
+			unlocked[7]=true
+		}
+	
+	},
+	{
+	price:25,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct an Medium Mine",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[13].unlocked = true
+			unlocked[13]=true
+		}
+	},
+	{
+		price:50,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct an Insula",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(25,50-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[3].unlocked = true
+			unlocked[3]=true
+		}
+	},
+	{
+		price:100,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Large Farm",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(100,100-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[8].unlocked = true
+			unlocked[8]=true
+		}
+	},
+	{
+		price:130,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Temple",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(65,130-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[9].unlocked = true
+			unlocked[9]=true
+		}
+	},
+	{
+		price:50,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Large Mine",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(25,50-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[14].unlocked = true
+			unlocked[14]=true
+		}
+	},
+	{
+		price:300,
+		pricemod: 1,
+		title: "Blueprints",
+		description: "Get the instructions on how to construct a Mega Temple",
+		image: "🍞",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.price = Math.max(250,50-Math.floor((reputation/10)*10))
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			p.pieceROM[15].unlocked = true
+			unlocked[15]=true
+		}
+	},
+	],
+	assissin: 0,
+	spy: 0,
+	rebel: 0
+}
 for (const el of savewidths){
 el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${150*(screen.height/900)}px ${50*(screen.height/900)}px`
 }
 function marketscreen(){
-	
+	document.body.style.overflow = "scroll"
+	document.getElementById("status").hidden = true
+		document.getElementById("mresource").innerHTML = 'Resources: ' + resources
+	document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("market-flex").style.display = 'flex'
 	document.getElementById("back_button").hidden = false
@@ -500,6 +977,104 @@ function marketscreen(){
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
+	const ele = document.getElementsByClassName("item")
+	if (istutorial&&tutorialindex==4){
+		continuetutorial(tutorial.length-1)
+		tutorialindex+=1
+	}
+	for (let j=ele.length-1;j>=0;j--){
+		ele[j].remove();
+	}
+	i=0
+	for (const el of marketitems){
+		
+		const flex = document.createElement("div")
+		flex.className = "item"
+		if (el == "failed"){
+			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
+		}
+		else if (el.stock>0){
+		el.choosetext()
+		const title = document.createElement("h1")
+		title.innerHTML = el.title
+		const des = document.createElement("p")
+		const im = document.createElement("h1")
+		const instock = document.createElement("p")
+		instock.innerHTML = "in stock: "+el.stock
+		im.innerHTML = el.image
+		des.innerHTML = el.description
+		const buy = document.createElement("button")
+		buy.innerHTML = "Trade"
+		buy.className = "save_button"
+		buy.style.gridRow = "5"
+		if (i<4){
+			buy.id = "m"
+		}
+		else{
+			buy.id = "bm"
+		}
+		if (!el.allowed){
+			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			buy.disabled = true
+		}
+		else{
+			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+
+		}
+		buy.onclick = function(){
+			const status = document.getElementById("status")
+			const index = i
+			status.style.animation = "none"
+			console.log(buy.id)
+			if (getRandomInt(0,100-(buy.id = "bm" ? 30:0)+reputation)>5&&el.title!="blueprints"){
+			status.style.color = "green"
+			status.innerHTML = "<h1>TRADE SUCCESSFUL</h1>"
+			el.purchaseeffect();
+			el.stock-=1;
+			if (buy.id=="m"){
+			reputation+=getRandomInt(0,5)
+			}
+			else
+			{
+				reputation-=getRandomInt(0,5)
+			}
+			document.getElementById("mresource").innerHTML = "Resources: " + resources
+			document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
+			if (el.stock<=0){
+			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
+			}
+			else if (!el.allowed){
+				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			buy.disabled = true
+			}
+			}
+			else{
+				status.style.color = "red"
+				status.innerHTML = "<h1>TRADE FAILED</h1>"
+				flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
+				marketitems[index]="failed"
+			}
+			status.style.animation = "done 2s linear 0s 1 normal forwards"
+			status.hidden = false
+		}
+		flex.appendChild(title)
+		flex.appendChild(im)
+		flex.appendChild(des)
+		flex.appendChild(instock)
+		flex.appendChild(buy)
+		
+		}
+		else{
+			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
+		}
+		if(i<4){
+				document.getElementById("market").appendChild(flex)
+		}
+		else{
+			document.getElementById("black-market").appendChild(flex)
+		}
+		i++
+	}
 }
 function info(){
 	document.body.style.overflow = "scroll"
@@ -530,7 +1105,12 @@ ispainting = false
 		title.style.textAlign = 'center'
 		grid.appendChild(title)
 		const des = document.createElement("p")
+		if (building.unlocked){
 		des.innerHTML = building.description
+		}
+		else{
+			des.innerHTML = "???"
+		}
 		des.style.textAlign = 'center'
 		des.className = 'infotext'
 		grid.appendChild(des)
@@ -605,10 +1185,28 @@ function difficultyscreen(){
 	document.getElementById("title_start").innerHTML = 'Select Difficulty'
 	document.getElementById("start-flex").style.display = "none"
 }
-function clearsave(index){
-
+function confirmclear(index){
 	confirmation[2].choosetext(index)
 	displaypopup(2,confirmation)
+}
+function clearsave(index){
+	localStorage.removeItem('grid'+index)
+	localStorage.removeItem('river'+index)
+	localStorage.removeItem('hill'+index)
+	localStorage.removeItem('stats'+index)
+	localStorage.removeItem('modifiers'+index)
+	localStorage.removeItem('population'+index)
+	localStorage.removeItem('temp'+index)
+	localStorage.removeItem('slot'+index)
+	localStorage.removeItem('difficulty'+index)
+	localStorage.removeItem('resources'+index)
+	localStorage.removeItem('military'+index)
+	localStorage.removeItem('multiply'+index)
+	localStorage.removeItem('luck'+index)
+	localStorage.removeItem('amounts'+index)
+	localStorage.removeItem('unlocked'+index)
+	localStorage.removeItem('marketmod'+index)
+
 }
 function menu(){
 ispainting = false
@@ -742,12 +1340,14 @@ function save(bindex){
 	localStorage.setItem('population'+bindex, currentpop.toString());
 	localStorage.setItem('military'+bindex, military.toString());
 	localStorage.setItem('resources'+bindex, resources.toString());
-	localStorage.setItem('lockdown'+bindex, JSON.stringify(lockdown));
-	localStorage.setItem('lockdowntimer'+bindex, JSON.stringify(lockdowntimer));
+	localStorage.setItem('temp'+bindex, JSON.stringify(temporaryeffects));
 	localStorage.setItem('difficulty'+bindex, JSON.stringify(difficulty));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('multiply'+bindex, JSON.stringify(difficultymultiplier));
 	localStorage.setItem('amounts'+bindex, JSON.stringify(buildingamounts));
+	localStorage.setItem('unlocked'+bindex, JSON.stringify(unlocked));
+	localStorage.setItem('luck'+bindex, JSON.stringify(luck));
+	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel]));
 
 	document.getElementById("save-flex").style.display = "none"
 	start()
@@ -759,19 +1359,22 @@ function load(bindex){
 	grid.length=0
 	hillgrid.length=0
 
-	localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
-	localriver = JSON.parse(localStorage.getItem('river'+bindex));
-	localhill = JSON.parse(localStorage.getItem('hill'+bindex));
-	resources = JSON.parse(localStorage.getItem('resources'+bindex));
-	localstats = JSON.parse(localStorage.getItem('stats'+bindex));
-	localmod = JSON.parse(localStorage.getItem('modifiers'+bindex));
-	currentpop = JSON.parse(localStorage.getItem('population'+bindex));
-	lockdown = JSON.parse(localStorage.getItem('lockdown'+bindex));
-	lockdowntimer = JSON.parse(localStorage.getItem('lockdowntimer'+bindex));
-	save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
-	difficulty = JSON.parse(localStorage.getItem('difficulty'+bindex));
-	difficultymultiplier = JSON.parse(localStorage.getItem('multiply'+bindex));
-	localbuildingamounts = JSON.parse(localStorage.getItem('amounts'+bindex));
+	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
+	const localriver = JSON.parse(localStorage.getItem('river'+bindex));
+	const localhill = JSON.parse(localStorage.getItem('hill'+bindex));
+	const resources = JSON.parse(localStorage.getItem('resources'+bindex));
+	const localstats = JSON.parse(localStorage.getItem('stats'+bindex));
+	const localmod = JSON.parse(localStorage.getItem('modifiers'+bindex));
+	const currentpop = JSON.parse(localStorage.getItem('population'+bindex));
+	const temporaryeffects = JSON.parse(localStorage.getItem('temp'+bindex));
+	const save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
+	const difficulty = JSON.parse(localStorage.getItem('difficulty'+bindex));
+	const difficultymultiplier = JSON.parse(localStorage.getItem('multiply'+bindex));
+	const localbuildingamounts = JSON.parse(localStorage.getItem('amounts'+bindex));
+	const localunlocked = JSON.parse(localStorage.getItem('unlocked'+bindex));
+	luck = JSON.parse(localStorage.getItem('luck'+bindex));
+	const localmarketmod = JSON.parse(localStorage.getItem('marketmod'+bindex));
+	m.assissin = localmarketmod[0]
 	if (localstats.length>0){
 		first_turn=false
 	}
@@ -786,6 +1389,9 @@ function load(bindex){
 	}
 	for (i=0;i!=localbuildingamounts.length;i++){
 	buildingamounts.push(localbuildingamounts[i])
+	}
+	for (i=0;i!=localunlocked.length;i++){
+	p.pieceROM[i].unlocked = localunlocked[i]
 	}
 	modifiers.food = localmod.food
 	modifiers.resource = localmod.resources
@@ -803,6 +1409,7 @@ function newgame(difficult){
 
 	buildingamounts.length = 0
 	punishamount = 0
+	
 	for (i=0;i<p.pieceROM.length;i++){
 	buildingamounts.push(0);
 }	
@@ -834,6 +1441,8 @@ function newgame(difficult){
 	for (i=0;i<getRandomInt(1,3);i++){
 	generateriver(Math.round(widthmax/2)+getRandomInt(-10,10), 0, getRandomInt(-5,5))
 	}
+	selectmarketitems()
+
 generatehill()
 generatehill()
 generatehill()
@@ -1054,8 +1663,33 @@ const achievements = [
 		}
 		
 	},
-	
+	{
+		acquired: false,
+		title: "Novice ruler",
+		description: "Beat the game in Copper difficulty",
+		requires(){
+		return false
+		}
 		
+	},
+	{
+		acquired: false,
+		title: "The King of Kings",
+		description: "Beat the game in Iron difficulty",
+		requires(){
+		return false
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "The Chosen One",
+		description: "Beat the game in Diamond difficulty",
+		requires(){
+		return false
+		}
+		
+	},
 	
 ]
 const acquired = new Array(achievements.length).fill(false);
@@ -1078,9 +1712,9 @@ const p = {
 		letter: "T",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0}],
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			p.population=1
 			resources-=1
 		},
@@ -1095,9 +1729,9 @@ const p = {
 		letter: "H",
 		description: "A medium unit of housing that houses 4 people. Requires 3 resources to construct",
 		piecepositions:[{x:0,y:0}],
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			p.population=4
 			resources-=3
 		},
@@ -1111,9 +1745,9 @@ const p = {
 		letter: "D",
 		description: "Two conjoined houses. Houses 8 people and requires 5 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			p.population=8
 			resources-=5
 		},
@@ -1126,16 +1760,16 @@ const p = {
 	{
 		name: "Insula",
 		letter: "I",
-		description: "A high density primitive apartment that houses 40 people. Requires 20 resources to construct",
+		description: "A high density primitive apartment that houses 40 people. Requires 10 resources to construct",
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		unlocked: false,
 		near: "building",
 		effect(){
-			click.play();
 			p.population=40
-			resources-=20
+			resources-=10
 		},
 		requires(){
-			return resources >= 20 && difficulty>4
+			return resources >= 10 && difficulty>4
 		}
 	},
 	
@@ -1144,9 +1778,9 @@ const p = {
 		letter: "R",
 		description: "A road that connects one place from the village to another. Requires 0.25 resources to construct",
 		piecepositions:[{x:0,y:0}],
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			resources -=0.25
 		},
 		requires(){
@@ -1159,9 +1793,9 @@ const p = {
 		letter: "TF",
 		piecepositions: [{x:1,y:0},{x:0,y:0}],
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			p.food=2
 			resources-=2
 			
@@ -1175,9 +1809,9 @@ const p = {
 		letter: "F",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		description: "A small farm that produces 5 food. Requires 2 resources to construct and 1 person operating it",
+		unlocked: true,
 		near: "building",
 		effect(){
-			click.play();
 			p.food=5
 			resources-=3
 			unemployed-=1
@@ -1190,10 +1824,10 @@ const p = {
 		name: "Medium Farm",
 		letter: "MF",
 		description: "A medium farm that produces 20 food. Requires 10 resources to construct and 3 people operating it",
+		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		effect(){
-			click.play();
 			p.food=20
 			resources-=10
 			unemployed-=3
@@ -1205,30 +1839,29 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 30 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
-
+		description: "A large farm that produces 40 food. Requires 15 resources to construct, 5 people operating it and must be nearby a river for irrigation",
+		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river",
 		effect(){
-			click.play();
-			p.food=30
-			resources-=20
+			p.food=40
+			resources-=15
 			unemployed-=5
 		},
 		requires(){
-			return resources >=40 && unemployed>=10
+			return resources >=15 && unemployed>=5
 		}
 	},
 	{
 		name: "Temple",
 		letter: "T",
 		description: "A temple to pray to RNGesus (increases luck). Requires 40 resources to construct and 10 people operating it",
-
+		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1}],
 		near: "building",
 		effect(){
-			click.play();
-			luck+=1
+			luck+=2
+			reputation+=5
 			resources-=40
 			unemployed-=10
 		},
@@ -1240,11 +1873,10 @@ const p = {
 		name: "Military Base",
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
-
+		unlocked: true,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		effect(){
-			click.play();
 			p.military=10
 			resources-=6
 			unemployed-=3
@@ -1259,11 +1891,10 @@ const p = {
 		name: "Bridge",
 		letter: "B",
 		description: "A brige to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
-
+		unlocked: true,
 		piecepositions: [{x:0,y:0}],
 		near: "building",
 		effect(){
-			click.play();
 			resources-=3
 		},
 		requires(){
@@ -1275,11 +1906,11 @@ const p = {
 		name: "Small Mine",
 		letter: "SM",
 		description: "A small mine to extract resources from a hill. Collects 3 resources per year. Must be on a hill and requires 3 resources and 1 person operating it",
-
+		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "hill",
 		effect(){
-			click.play();
+			
 			p.resources=3
 			resources-=3
 			unemployed-=1
@@ -1293,9 +1924,9 @@ const p = {
 		letter: "MM",
 		description: "A medium mine to extract resources from a hill. Collects 12 resources per year. Must be on a hill and requires 12 resources and 3 people operating it",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		unlocked: false,
 		near: "hill",
 		effect(){
-			click.play();
 			p.resources=14
 			resources-=12
 			unemployed-=3
@@ -1307,20 +1938,35 @@ const p = {
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 30 resources per year. Must be on a hill and requires 25 resources and 8 people operating it",
+		description: "A large mine to extract resources from a hill. Collects 40 resources per year. Must be on a hill and requires 20 resources and 8 people operating it",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		unlocked: false,
 		near: "hill",
 		effect(){
-			click.play();
-			p.resources=30
-			resources-=25
+			p.resources=40
+			resources-=20
 			unemployed-=8
 		},
 		requires(){
-			return resources >=25 && unemployed>=8
+			return resources >=20 && unemployed>=8
 		}
 	},
-
+	{
+		name: "Mega Temple",
+		letter: "MT",
+		description: "A mega temple to directly contact god. Build one to beat the game. Requires 100 resources and 20 people praying",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1},{x:-1,y:1},{x:2,y:1},{x:2,y:0},{x:2,y:-1},{x:2,y:-2},{x:1,y:-2},{x:0,y:-2},{x:-1,y:-2}],
+		unlocked: false,
+		near: "building",
+		effect(){
+			displaypopup(popups.length-2)
+			resources-=100
+			unemployed-=20
+		},
+		requires(){
+			return resources >=100 && unemployed>=20
+		}
+	},
 ],
 food:0,
 population:0,
@@ -1463,9 +2109,32 @@ const tutorial = [
 	
 	]
 	},
+	{
+		
+		title: "<strong class = 'color-g'>Market</strong>",
+	size: "30px",
+	
+	
+	description: 'This is the market, where you can buy and sell items for resources. Being a benevolent ruler increases your <strong class = "color-g">reputation</strong>, which lowers prices in the market.',
+	choices: [
+	{
+		text: "okay",
+		effect(){
+			
+			
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+		},
+	},
+	
+	]
+	}
 	
 	
 ]
+for (const un of p.pieceROM){
+	unlocked.push(un.unlocked)
+}
 const confirmation = [
 	{
 		title: "<strong class = 'color-r'>Confirm</strong>",
@@ -1541,19 +2210,7 @@ const confirmation = [
 		effect(){
 			index = confirmation[2].index
 
-			localStorage.removeItem('grid'+index)
-			localStorage.removeItem('river'+index)
-			localStorage.removeItem('hill'+index)
-			localStorage.removeItem('stats'+index)
-			localStorage.removeItem('modifiers'+index)
-			localStorage.removeItem('population'+index)
-			localStorage.removeItem('lockdown'+index)
-			localStorage.removeItem('lockdowntimer'+index)
-			localStorage.removeItem('slot'+index)
-			localStorage.removeItem('difficulty'+index)
-			localStorage.removeItem('resources'+index)
-			localStorage.removeItem('military'+index)
-			localStorage.removeItem('multiply'+index)
+			clearsave(index)
 			savescreen()
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
@@ -1620,7 +2277,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack((difficulty+getRandomInt(-10,5))*3)
+			attack(((difficulty+getRandomInt(-10,5))*3-(getRandomInt(m.spy,3) ? 1:0))*difficultymultiplier)
 		},
 	},
 	{
@@ -1645,6 +2302,7 @@ const popups = [
 				displaypopup(4, information)
 			}
 			else {
+				reputation-=getRandomInt(1,2)
 				removebuildings()
 				displayUI()
 				displaypopup(5, information)
@@ -1674,6 +2332,7 @@ const popups = [
 			
 			currentpop -=Math.floor(currentpop/3)
 			punishamount+=1
+			reputation-=getRandomInt(3,6)
 			if (punishamount>=5&&!achievements[24].acquired)
 			{
 				displayachievement(24)
@@ -1747,8 +2406,9 @@ const popups = [
 	{
 		text: "Lockdown",
 		effect(){
-			
-			lockdown = true
+			modifiers.food-=0.3
+			modifiers.resources-=0.3
+			temporaryeffects.push({duration: 5, endeffect(){displaypopup(11,information); modifiers.resources+=0.3;modifiers.food+=0.3}})
 			displayUI()
 			displaypopup(8, information)
 
@@ -1810,6 +2470,7 @@ const popups = [
 		text: "give",
 		effect(){
 			if (achievements[22].acquired==false){displayachievement(22)}
+			reputation+=getRandomInt(3,6)
 			if (getRandomInt(0,2)==0){
 				displaypopup(16,information)
 				modifiers.military+=0.4
@@ -1881,6 +2542,7 @@ const popups = [
 		text: "sacrifice",
 		effect(){
 			luck +=1
+			reputation-=getRandomInt(2,4)
 			resources -=Math.floor(resources/3)
 			displaypopup(26, information)
 			displayUI()
@@ -1953,28 +2615,28 @@ const popups = [
 			{
 				type: "food",
 				des: "<strong class = 'color-g'>An agriculture expert</strong>",
-				chance: 2
+				chance: 6
 				
 			},
 			{
 				type: "military",
 				des: "<strong class = 'color-g'>A famous general</strong>",
-				chance: 1,
+				chance: 5,
 			},
 			{
 				type: 'resource',
 				des: "<strong class = 'color-g'>An experienced engineer</strong>",
-				chance: 3
+				chance: 6
 			},
 			{
 				type: 'resource',
 				des: '<strong class = "color-r">A newbie miner</strong>',
-				chance: 4
+				chance: 8
 			},
 			{
 				type: 'military',
 				des: '<strong class = "color-r">A deserted soldier</strong>',
-				chance: 5
+				chance: 9
 			},
 			]
 			random = getRandomInt(0,4)
@@ -1988,7 +2650,7 @@ const popups = [
 		text: "Yes",
 		effect(){
 			
-			if (getRandomInt(1,choice[random].chance)==0){
+			if (getRandomInt(3,choice[random].chance)<=5){
 				information[13].choosetext(choice[random].type)
 				displaypopup(13, information)
 				switch(choice[random].type){
@@ -2048,6 +2710,7 @@ const popups = [
 		effect(){
 			information[19].choosetext(Math.round(currentpop*1.5))
 			currentpop+=Math.round(currentpop*1.5)
+			reputation+=getRandomInt(6,10)
 			displaypopup(19, information)
 			displayUI()
 
@@ -2059,7 +2722,7 @@ const popups = [
 			
 			displaypopup(20, information)
 				
-			
+			reputation-=getRandomInt(3,6)
 			
 			displayUI()
 			
@@ -2092,7 +2755,8 @@ const popups = [
 	{
 		text: "Accept",
 		effect(){
-		resources-=Math.ceil(resources/2)
+		resources-=Math.ceil(resources/3)
+		reputation+=getRandomInt(2,4)
 		switch(random){
 			case 0:
 			modifiers.military +=0.5
@@ -2172,6 +2836,7 @@ const popups = [
 		downside: 0,
 		text: "Rateddians",
 		effect(){
+			
 		this.upside.trade()
 		this.downside.trade()
 		information[27].choosetext(this.upside.info,this.downside.info)
@@ -2216,6 +2881,55 @@ const popups = [
 		]
 	},
 	{
+		title: "<strong class = 'color-g'>You Win</strong>",
+	size: "30px",
+	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, you sacrfice all your resources to him, granting you the powers of a god. As you express your final goodbyes, you ascend to the heavens, leaving the mortal realm.",
+	
+	choices: [
+	{
+		text: "Keep Playing",
+		effect(){
+			switch(difficultymultiplier){
+				case 1:
+					displayachievement(achievements.length-3)
+					break
+				case 1.5:
+				displayachievement(achievements.length-2)
+					break
+				case 2:
+				displayachievement(achievements.length-1)
+					break
+			}
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+
+
+		}
+	}, {
+		text: "Main menu",
+		effect(){
+			switch(difficultymultiplier){
+				case 1:
+					displayachievement(achievements.length-3)
+					break
+				case 1.5:
+				displayachievement(achievements.length-2)
+					break
+				case 2:
+				displayachievement(achievements.length-1)
+					break
+			}
+			menu()
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+
+		}
+		
+	}
+		]
+	},
+	
+	{
 		title: "<strong class = 'color-r'>Game Over</strong>",
 	size: "30px",
 	description: `A mysterious trader scrolls into our village. He presents an offer: if we give him resources, he'll make weapons for us in return. Do we accept his offer?`,
@@ -2237,19 +2951,7 @@ const popups = [
 		text: "Main Menu",
 		effect(){
 			if (save_slot != null){
-			localStorage.removeItem('grid'+save_slot)
-			localStorage.removeItem('river'+save_slot)
-			localStorage.removeItem('hill'+save_slot)
-			localStorage.removeItem('stats'+save_slot)
-			localStorage.removeItem('modifiers'+save_slot)
-			localStorage.removeItem('population'+save_slot)
-			localStorage.removeItem('lockdown'+save_slot)
-			localStorage.removeItem('lockdowntimer'+save_slot)
-			localStorage.removeItem('slot'+save_slot)
-			localStorage.removeItem('difficulty'+save_slot)
-			localStorage.removeItem('resources'+save_slot)
-			localStorage.removeItem('military'+save_slot)
-			localStorage.removeItem('multiply'+save_slot)
+			clearsave(save_slot)
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
@@ -2627,17 +3329,17 @@ const information = [
 		title: "<strong class = 'color-g'>Deal!</strong>",
 	size: "30px",
 	
-	description: "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -50% resources, +50% military",
+	description: "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -33% resources, +50% military",
 	choosetext: function(which){
 		switch(which){
 			case 0:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -50% resources, +50% military"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -33% resources, +50% military"
 			break
 			case 1:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. -50% resources, +50% food production"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. -33% resources, +50% food production"
 			break
 			case 2:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. -50% resources, +50% resource production"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. -33% resources, +50% resource production"
 			break
 		}
 	},
@@ -2774,7 +3476,7 @@ ispainting = false
 		
 		const title = document.getElementById("title")
 		const des = document.getElementById("description")
-	debugger
+	
 	
 	
 	for (i=0;i<list[index].choices.length;i++){
@@ -2843,7 +3545,7 @@ function generatehill(){
 function generateriver(xpos,ypos, curve, times = 0){
 	let x = xpos
 	let rivertimes = times
-	debugger
+	
 	for (let y = ypos;y!=heightmax;y++){
 		if (getRandomInt(0+curve,7) > 5){
 			rivergrid[y].push(x*20)
@@ -2872,7 +3574,7 @@ function attack(power){
 	
 	if (enemy_power>military){
 		
-		
+		reputation-=getRandomInt(1,3)
 		removebuildings()
 		displaypopup(0, information)
 		
@@ -2903,7 +3605,7 @@ function removebuildings(){
 }
 function isallowed(){
 localallowed = false
-for (i=0;i!=piece.length;i++){
+for (i=0,len=piece.length;i!=len;i++){
 		
 		if((position.x/20)+piece[i].x < 0 || (position.x/20)+piece[i].x > widthmax-1 || (position.y/20)+piece[i].y < 0||(position.y/20)+piece[i].y > heightmax-1){
 			return false
@@ -3047,7 +3749,7 @@ for (i=0;i!=rivergrid.length;i++){
 function start(){
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width
-	document.getElementById("popup_block_buttons").style.height = screen.height+100
+	document.getElementById("popup_block_buttons").style.height = screen.height+200
 	const ele = document.getElementsByClassName("select-choice")
 	for (i=ele.length-1;i>=0;i--){
 		ele[i].remove();
@@ -3106,13 +3808,13 @@ function turnpopup(){
 		return
 	}
 	if (difficulty>5*difficultymultiplier){
-	if ((military<(difficulty-2)*3 && getRandomInt(1,3)==1) || getRandomInt(0,7)==0){
+	if ((military<(difficulty-2)*3 && getRandomInt(1,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
 
 		displaypopup(0)
 		return
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop))) == 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop))) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return
@@ -3142,30 +3844,74 @@ function turnpopup(){
 	
 	}
 	
-	if (lockdown) {
-		lockdowntimer+=1
-		if (lockdowntimer ==5){
-			lockdown==false
-			displaypopup(11,information)
-			return
-		}
-		}
+	
 
 
 	
 }
-function next_turn(){
+function enable(){
+	document.getElementById("turn").innerHTML = "End Year"
+	document.getElementById("turn").disabled = false
+	document.getElementById("popup_block_buttons").style.display = "none"
+	
+
+	
 	turnpopup()
 	
 
-	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
-	resources+=resourcesgained
-	difficulty+=Math.round((1+Math.floor(difficulty/20))*Math.min(1.5,difficultymultiplier))
+	
 	displayUI()
 	if (tutorialindex == 3){
 		tutorialindex+=1
 		continuetutorial(tutorialindex)
 	}
+}
+function selectmarketitems(){
+	
+	marketitems.length = 0
+	const blueprintsitems = []
+	
+	for (len = m.marketselections.length, i = len-7;i<len-2;i++){
+		if (m.marketselections[i].stock>0){
+			blueprintsitems.push(m.marketselections[i])
+		}
+	}
+	if (blueprintsitems.length==0){
+		blueprintsitems.push(m.marketselections[7])
+	}
+	
+	marketitems.push(m.marketselections[getRandomInt(0,2)],m.marketselections[getRandomInt(3,4)],blueprintsitems[getRandomInt(0,blueprintsitems.length-1)],m.marketselections[m.marketselections.length-1],m.marketselections[getRandomInt(5,7)],m.marketselections[getRandomInt(8,11)])
+}
+function next_turn(){
+	document.getElementById("turn").innerHTML = "please wait"
+	document.getElementById("turn").disabled = true
+	document.getElementById("popup_block_buttons").style.display = "block"
+	
+	
+	
+	for(i=temporaryeffects.length-1;i>-1;i--){
+		if (temporaryeffects[i].duration==0){
+			temporaryeffects.endeffect()
+			temporaryeffects[i].splice(i,1)
+		}
+		temporaryeffects[i].duration-=1
+	}
+	
+	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
+	resources+=resourcesgained
+	difficulty+=Math.round((1+Math.floor(difficulty/20)))
+	if (difficulty<3){
+			document.getElementById("mbutton").disabled=true
+	}
+	else{
+		document.getElementById("mbutton").disabled=false
+		for (const p of m.marketselections){
+		p.price +=Math.max(getRandomInt(-3,3)+p.stock-4+Math.floor(difficulty/10),5)
+		if(p.stock<10&&p.title!="blueprint"){p.stock+=1}
+	}
+}
+	setTimeout(enable,1000)
+	
 }
 function select(index){
 	disabling = false
@@ -3193,7 +3939,7 @@ function cancel(){
 document.onmousedown = function(event){
 	
 	if (ispainting && allowed&&position.y<canvas.height){
-	
+		click.play()
 		p.population = 0
 		p.military = 0
 		p.resources = 0
@@ -3273,6 +4019,7 @@ function displayUI(){
 				el.disabled = false
 			}
 		}
+		
 		for (i=0;i<gridstats.length;i++){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
@@ -3289,23 +4036,28 @@ function displayUI(){
 			}
 			
 		}
-		if (lockdown){
-			resourcesgained -= Math.floor(resourcesgained/2)
-			food -= Math.floor(food/2)
-			
+		
+		for (const ef of temporaryeffects){
+			ef.effect()
 		}
-		food += Math.floor(food*modifiers.food)
-		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
-		military += Math.floor(military*modifiers.military)
+		food += Math.floor(food*modifiers.food)+tempmodifiers.food
+		resourcesgained += Math.floor(resourcesgained*modifiers.resources)+tempmodifiers.resources
+		military += Math.floor(military*modifiers.military)+tempmodifiers.military
 		
 		i = 0
 		
 		for (const el of ele){
-			if (!p.pieceROM[i].requires()){
+			
+			el.style.animation = "none"
+			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
 			el.disabled = true;
 			
 			}
-			else{el.disabled = false}
+			else{el.disabled = false;
+			if (buildingamounts[i]<1){
+				el.style.animation = "flash 2s step-start infinite"
+			}
+			}
 			i++
 			
 		}
@@ -3327,7 +4079,7 @@ function displayUI(){
 		document.getElementById("resources").innerHTML = "Resources: " + resources
 }
 function displayachievement(which){
-	debugger
+	
 	achievements[which].acquired = true
 	acquired[which] = true
 	localStorage.setItem("achievements", JSON.stringify(acquired))
