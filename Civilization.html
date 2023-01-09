@@ -520,7 +520,7 @@ let currentpop = 2;
 const click = new Audio('sounds/click.mp3');
 const build_music = new Audio('music/Build_music.wav');
 const market_music = new Audio('music/Market_music.wav');
-const menu_music = new Audio('music/Menu_music.wav');
+const menu_music = new Audio('music/Menu_song.wav');
 const kaching = new Audio('sounds/Purchase.wav');
 market_music.loop = true
 build_music.loop = true
@@ -3808,7 +3808,7 @@ for (i=0;i!=rivergrid.length;i++){
 	ctx.stroke()
 }
 function start(){
-	build_music.play()
+	menu_music.play()
 	market_music.pause()
 	menu_music.pause()
 	disableinfo=istutorial
