@@ -12,7 +12,7 @@ square shaped? maybe circle? or rounded square(mixture)
 -Add general bad event/good event sound(s)
 maybe specific ones? (etc. burning sound effect for FIRE! event) might not work for things like OH NO(virus) event
 -Different sounds for different buttons(End Year button might have a different sound than Market button)
--louder, maybe epic music for title screen and achievements?
+-IMPLEMENT finished menu_song song to menu screen
 
 ******GAMEPLAY******
 -more achievements
