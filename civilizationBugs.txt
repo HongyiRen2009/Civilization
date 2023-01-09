@@ -2,7 +2,5 @@
 -market background is weird/off
 -ingame music doesn't play
 -market glitches:
-failed trades never go away and make page messed up
-sometimes trade successful or trade failed messgae will not go away until you exit market instad of fading away
 
 
