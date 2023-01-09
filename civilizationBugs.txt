@@ -1,0 +1,6 @@
+-lockdown has been lifted message can play in a different game if player loses right after a lockdown and restarts
+-when player places some buildings they randomly dissapear(mostly small mines)-likely due to some attack bug
+-when tutorial ends, building info, achievements, and market are all locked and maybe other buildings
+until you reload the page
+-can't scroll to the top of the market screen
+-game freezes for no reason on choose difficulty
