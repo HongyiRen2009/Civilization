@@ -2,3 +2,13 @@
 -market image spacings are wierd/off
 -market background is weird/off
 -ingame music doesn't play
+-you can end year with a popup active... you can ingnore bad events
+-market glitches:
+failed trades never go away and make page messed up
+sometimes when loading a save file, market will never display trades for either market
+sometimes trade successful or trade failed messgae will not go away until you exit market instad of fading away
+-when loading a save file after reloading page:
+your population is reset at 2
+your resources are reset at 8
+almost half of your building randomly vanish for the first few turns of a loaded save file
+
