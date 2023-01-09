@@ -1,6 +1,5 @@
 -when player places some buildings they randomly dissapear(mostly small mines)-likely due to some attack bug
 -can't scroll to the top of the market screen
--game freezes for no reason on choose difficulty
 -market image spacings are wierd/off
 -market background is weird/off
 -ingame music doesn't play
