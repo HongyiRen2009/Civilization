@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
 <title>Civilization</title>
 <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon' />
@@ -22,16 +23,27 @@
 
 		
 </div>
+<div style = "display: none; align-items: center; flex-direction: column; position: absolute; width: 100%; " id = market-flex>
+	<div style = "display: flex; width: 90%; gap: 30%;">
+	<p style = "font-weight: bold;" id = "mresource">Resources: </p>
+	<h1 class = "title_screen">Market</h1>
+	
+	<p style = "font-weight: bold;" id = "mreputation">Reputation: </p>
+	</div>
+	<div class = "market-ui" id = "market"></div>
+	<h1 id = 'status' class="status">PURCHASE SUCCESSFUL</h1>
+	<h1 class = "title_screen">Black Market</h1>
+	<div class = "market-ui" id  = "black-market"></div>
+	<br></br>
+	<br></br>
+	<br></br>
+	</div>
 <h1 class = "title_screen" id = "title_start">Civilization</h1>
 <div id ="info-flex" class = 'info-flex'></div>
 <div id ="achievement-flex" class =  'achievement-flex'>
 <h1 style = "text-align:center">Achievements:</h1>
 </div>
-<canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
 
-<div class="select-grid" id="select-grid" hidden = true>
-<button class = 'cancel' onclick = "cancel()">Cancel</button>
-</div>
 
 
 <div class = "start-box" id = "start-flex">
@@ -104,34 +116,24 @@
  </div>
 
  <button class = "back_button" id = "back_button" hidden>Back</button>
+ <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
+
+<div class="select-grid" id="select-grid" hidden = true>
+<button class = 'cancel' onclick = "cancel()">Cancel</button>
+</div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
 	<div id = "title" class = "title">undefined</div><br></br>
 	
 	<div id = "description" class = "dis">undefined</div>
 </div>
-<div style = "display: none; align-items: center; flex-direction: column; position: absolute; width: 100%; transform: translate(0%, -65%)" id = market-flex>
-<div style = "display: flex; width: 90%; gap: 30%;">
-<p style = "font-weight: bold;" id = "mresource">Resources: </p>
-<h1 class = "title_screen">Market</h1>
 
-<p style = "font-weight: bold;" id = "mreputation">Reputation: </p>
-</div>
-<div class = "market-ui" id = "market"></div>
-<h1 id = 'status' class="status">PURCHASE SUCCESSFUL</h1>
-<h1 class = "title_screen">Black Market</h1>
-<div class = "market-ui" id  = "black-market"></div>
-<br></br>
-<br></br>
-<br></br>
-</div>
 <style>
 .market-ui{
 	display: flex;
 	align-items: center;
 	gap: 10%;
-	border: 3px solid #000000;
-  border-radius: 6px;
+
 }
 @keyframes done{
 	from    { opacity: 1; }
@@ -345,10 +347,9 @@ margin: auto;
 	background-color: #8c6c0b;
 }
 .back_button{
-	
 	position: fixed;
-	top: 95%;
   left: 50%;
+  top:95%;
   transform: translate(-50%, -95%);
 	font-size: 30px;
 	border-style: solid;
@@ -520,7 +521,7 @@ let currentpop = 2;
 const click = new Audio('sounds/click.mp3');
 const build_music = new Audio('music/Build_music.wav');
 const market_music = new Audio('music/Market_music.wav');
-const menu_music = new Audio('music/Menu_song.wav');
+const menu_music = new Audio('music/Menu_music.wav');
 const kaching = new Audio('sounds/Purchase.wav');
 market_music.loop = true
 build_music.loop = true
@@ -1025,7 +1026,6 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
 		}
 		else if (el.stock>0){
-			debugger
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
@@ -1258,7 +1258,7 @@ function clearsave(index){
 
 }
 function menu(){
-	build_music.play()
+	build_music.pause()
 	market_music.pause()
 ispainting = false
 document.getElementById("achievement-flex").style.display = 'none'
@@ -1467,7 +1467,7 @@ function newgame(difficult){
 	gridstats.length=0
 	grid.length=0
 	hillgrid.length=0
-
+	tempmodifiers.length=0
 	buildingamounts.length = 0
 	punishamount = 0
 	
@@ -3577,27 +3577,28 @@ ispainting = false
 
 function generatehill(){
 	
-	let y = getRandomInt(1,heightmax-1)
+	let y = getRandomInt(1,heightmax-2)
 	let height = getRandomInt(5,15)
-	y=Math.min(heightmax+y+height,Math.max(1,y-height))
+	y=Math.min(heightmax-height-1,y)
 	let x= getRandomInt(8,widthmax-7)
 	let width = getRandomInt(3,7)
 	let maxx = x+width
 	let minx = x-width
-	for (i = y; i !=y+height;i++){
-		for (let j = minx; j!=maxx;j++){
-			if (!rivergrid[i].includes((minx+j)*20)){
-				hillgrid[i].push((minx+j)*20)
+	
+	for (i = y; i <y+height;i++){
+		for (let j = minx; j<maxx;j++){
+
+				hillgrid[i].push((minx+maxx-j)*20)
 				if (i==y && getRandomInt(0,1)==0){
-					hillgrid[i-1].push((minx+j)*20)
+					hillgrid[i-1].push((minx+maxx-j)*20)
 				}
 				else if (i==y+height-1 && getRandomInt(0,1)==0){
-					hillgrid[i+1].push((minx+j)*20)
+					hillgrid[i+1].push((minx+maxx-j)*20)
 				}
+			
 			}
-			}
-			maxx+=getRandomInt(-1,((maxx==widthmax) ? 0:1))
-		minx+=getRandomInt(((minx==0) ? 0:-1),1)
+			maxx+=getRandomInt(-2,((maxx>=widthmax)-1 ? 0:2))
+		minx+=getRandomInt(((minx==1) ? 0:-2),2)
 		
 	}
 		
@@ -3810,7 +3811,7 @@ for (i=0;i!=rivergrid.length;i++){
 function start(){
 	build_music.play()
 	market_music.pause()
-	build_music.pause()
+	menu_music.pause()
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width
 	document.getElementById("popup_block_buttons").style.height = screen.height+200
@@ -4074,11 +4075,10 @@ function displayUI(){
 		resourcesgained = 0
 		unemployed = currentpop
 		const ele = document.getElementsByClassName("select-choice")
+		
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
-				if (!el.id == "mbutton"||difficulty>3){
-				el.disabled = true
-				}
+				el.disabled=true
 			}
 		}
 		else {
@@ -4086,7 +4086,9 @@ function displayUI(){
 				el.disabled = false
 			}
 		}
-		
+		if (difficulty<3){
+			document.getElementById("mbutton").disabled=true
+		}
 		for (i=0;i<gridstats.length;i++){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
