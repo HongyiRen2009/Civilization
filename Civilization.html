@@ -146,7 +146,7 @@
 .status{
 	color: green;
 	font-size: 20px;
-	position: absolute;
+	position: fixed;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -30%)
@@ -227,7 +227,7 @@ border: 3px solid #000000;
 .popup_block_buttons{
 	display: none;
 	position: absolute;
-	bottom: 5px; 
+	top: 5px; 
 	background-color: #000000;
 	opacity: 0.4;
 	
@@ -540,6 +540,7 @@ const buildingamounts = []
 const unlocked = []
 savewidths = document.getElementsByClassName("save-grid")
 const temporaryeffects = []
+
 const m = {
 	marketselections: [
 	{
@@ -615,6 +616,7 @@ const m = {
 	{
 		price:5,
 		pricemod: 1,
+		trueprice:5,
 		title: "Export Slaves",
 		description: "Hire mercenaries to fight for you.  ",
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
@@ -624,38 +626,44 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
-			if (this.amountincrease<currentpop){
+			
+			this.amountincrease= getRandomInt(3,5)*Math.floor(difficulty/10)
+			if (this.price<currentpop){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
 			this.description = `Sell slaves to neighboring tribes. <br>+${this.price} resources`
 		},
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
 			currentpop-= this.amountincrease
+			
 		}
 	},
 	{
 		price:10,
 		pricemod: 1,
+		trueprice:10,
 		title: "Arms agreement",
 		description: "Hire mercenaries to fight for you. Gain ",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		whichthing: "military",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
-			if (this.price*this.pricemod>resources){
+			
+			
+			if (this.price*this.pricemod>military){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.amountincrease=Math.floor((difficulty*2)*Math.random()*2)+5
 			this.description = `Agree to support their tribes militarily. <br>+${this.price} resources but lose ${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
-			resources+=Math.floor(this.price*this.pricemod)
+			resources+=Math.floor(this.price)
 			temporaryeffects.push({increase: this.amountincrease,effect(){military-=this.increase},duration:10,endeffect(){}})
+			
 		}
 	},
 	{
@@ -803,7 +811,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Fake News",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketScroll.png' width='50' height='50'></img>",
+		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -997,7 +1005,7 @@ el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/
 function marketscreen(){
 	build_music.pause()
 	market_music.play()
-	document.body.style.overflow = "scroll"
+	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + resources
 	document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
@@ -1017,8 +1025,19 @@ function marketscreen(){
 	for (let j=ele.length-1;j>=0;j--){
 		ele[j].remove();
 	}
+	
+	const marketitemsindex = []
+	for (i=0,len=marketitems.length;i<len;i++){
+		if (marketitems == "failed"){
+			marketitemsindex.push("failed")
+		}
+		else{
+		marketitemsindex.push(m.marketselections[marketitems[i]])
+	}
+	}
 	i=0
-	for (const el of marketitems){
+	debugger
+	for (const el of marketitemsindex){
 		
 		const flex = document.createElement("div")
 		flex.className = "item"
@@ -1046,12 +1065,21 @@ function marketscreen(){
 			buy.id = "bm"+i
 		}
 		if (!el.allowed){
+			if (el.whichthing==resources){
 			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			}
+			else{
+				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+			}
 			buy.disabled = true
 		}
 		else{
+			if (el.whichthing==resources){
 			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
-
+			}
+			else{
+				buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+			}
 		}
 		buy.onclick = function(){
 			kaching.play()
@@ -1073,20 +1101,23 @@ function marketscreen(){
 				reputation+=getRandomInt(0,5)
 			}
 			debugger
-			for (let j =0,len=marketitems.length;j<len;j++){
-				marketitems[j].choosetext()
-				if (!marketitems[j].allowed&&marketitems[j].stock>0){
+			for (let j =0,len=marketitemsindex.length;j<len;j++){
+				if (!marketitems[i] == "failed"&&marketitemsindex[i].stock>0){
+				marketitemsindex[j].choosetext()
+				if (!marketitemsindex[j].allowed&&marketitemsindex[j].stock>0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitems[j].price*marketitems[j].pricemod)} ${marketitems[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
 				}
 				else{
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = false
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitems[j].price*marketitems[j].pricemod)} ${marketitems[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
 
+				}
 				}
 			}
 			document.getElementById("mresource").innerHTML = "Resources: " + resources
 			document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
+			instock.innerHTML = "in stock: "+el.stock
 			if (el.stock<=0){
 			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
 			}
@@ -1125,7 +1156,7 @@ function marketscreen(){
 	}
 }
 function info(){
-	document.body.style.overflow = "scroll"
+	document.body.style.overflowY = "scroll"
 ispainting = false
 	const ele = document.getElementsByClassName("infotext")
 	for (let j=ele.length-1;j>=0;j--){
@@ -1178,7 +1209,7 @@ ispainting = false
 	else{
 	document.getElementById("back_button").onclick = function(){start()}
 	}
-	document.body.style.overflow = "scroll"
+	document.body.style.overflowY = "scroll"
 	document.getElementById("achievement-flex").style.display = 'flex'
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("back_button").hidden = false
@@ -1412,18 +1443,18 @@ function load(bindex){
 	grid.length=0
 	hillgrid.length=0
 	marketitems.length=0
-
+	
 	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
+	resources = JSON.parse(localStorage.getItem('resources'+bindex));
+	currentpop = JSON.parse(localStorage.getItem('population'+bindex));
 	const localriver = JSON.parse(localStorage.getItem('river'+bindex));
 	const localhill = JSON.parse(localStorage.getItem('hill'+bindex));
-	const resources = JSON.parse(localStorage.getItem('resources'+bindex));
 	const localstats = JSON.parse(localStorage.getItem('stats'+bindex));
 	const localmod = JSON.parse(localStorage.getItem('modifiers'+bindex));
-	const currentpop = JSON.parse(localStorage.getItem('population'+bindex));
-	const temporaryeffects = JSON.parse(localStorage.getItem('temp'+bindex));
-	const save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
-	const difficulty = JSON.parse(localStorage.getItem('difficulty'+bindex));
-	const difficultymultiplier = JSON.parse(localStorage.getItem('multiply'+bindex));
+	const localtemporaryeffects = JSON.parse(localStorage.getItem('temp'+bindex));
+	save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
+	difficulty = JSON.parse(localStorage.getItem('difficulty'+bindex));
+	difficultymultiplier = JSON.parse(localStorage.getItem('multiply'+bindex));
 	const localbuildingamounts = JSON.parse(localStorage.getItem('amounts'+bindex));
 	const localunlocked = JSON.parse(localStorage.getItem('unlocked'+bindex));
 	const localmarketitems = JSON.parse(localStorage.getItem('marketitems'+bindex));
@@ -1438,6 +1469,9 @@ function load(bindex){
 	}
 	for (i=0;i!=localgrid.length;i++){
 	grid.push(localgrid[i])
+	}
+	for (i=0;i!=localtemporaryeffects.length;i++){
+	temporaryeffects.push(localtemporaryeffects[i])
 	}
 	for (i=0;i!=localmarketitems.length;i++){
 	marketitems.push(localmarketitems[i])
@@ -1573,7 +1607,7 @@ const achievements = [
 	},
 	{
 		acquired: false,
-		title: "This is safe",
+		title: "Urbanization",
 		description: "build your first Insula",
 		requires(){
 			return buildingamounts[3] > 0
@@ -3813,8 +3847,8 @@ function start(){
 	market_music.pause()
 	menu_music.pause()
 	disableinfo=istutorial
-	document.getElementById("popup_block_buttons").style.width = screen.width
-	document.getElementById("popup_block_buttons").style.height = screen.height+200
+	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
+	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
 	const ele = document.getElementsByClassName("select-choice")
 	for (i=ele.length-1;i>=0;i--){
 		ele[i].remove();
@@ -3938,14 +3972,14 @@ function selectmarketitems(){
 	
 	for (len = m.marketselections.length, i = len-7;i<len-2;i++){
 		if (m.marketselections[i].stock>0){
-			blueprintsitems.push(m.marketselections[i])
+			blueprintsitems.push(i)
 		}
 	}
 	if (blueprintsitems.length==0){
-		blueprintsitems.push(m.marketselections[7])
+		blueprintsitems.push(7)
 	}
 	
-	marketitems.push(m.marketselections[getRandomInt(0,2)],m.marketselections[getRandomInt(3,4)],blueprintsitems[getRandomInt(0,1)],m.marketselections[m.marketselections.length-1],m.marketselections[getRandomInt(5,7)],m.marketselections[getRandomInt(8,11)], getRandomInt(1,2)==1 ? m.marketselections[getRandomInt(8,11)]:m.marketselections[m.marketselections.length-1])
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[getRandomInt(0,1)],m.marketselections.length-1,getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)])
 }
 function next_turn(){
 	document.getElementById("turn").innerHTML = "please wait"
@@ -3974,6 +4008,7 @@ function next_turn(){
 		p.price +=Math.min(getRandomInt(-3,3)+p.stock-4+Math.floor(difficulty/20),5)
 		p.price = Math.max(p.price,3)
 		if(p.stock<10&&p.title!="blueprint"){p.stock+=1}
+		selectmarketitems()
 	}
 }
 	setTimeout(enable,700)
