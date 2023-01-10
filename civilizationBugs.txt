@@ -2,5 +2,6 @@
 -market background is weird/off
 -ingame music doesn't play
 -market glitches:
+you can get into negative money and military power by buying stuff
 
 
