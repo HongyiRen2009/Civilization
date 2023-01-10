@@ -20,5 +20,11 @@ maybe specific ones? (etc. burning sound effect for FIRE! event) might not work 
 -improve mountain generation?
 -might be cool to have more buildings that have unique shapes so that using land efficiently is harder
 -rotatable buildings? Might be hard to code (already tried, didn't work so well)
--bad event: insula collapse(lose insula, -20% population, +10 resources[wreckage])
--another post-endgame option- let the world burn- lets you keep playing, but gives you infinite power
+-bad event: disaster!(lose insula, -20% population, +10 resources[wreckage])
+-building: aqueduct(costs tons of resources(100-150), but acts as a river tile and allows you to place large farms around it (6x1 size?) doesn't need to be placed next to a river
+******LORE/REALISM******
+RARE bad event: plague!(aqueduct is made of lead, causes lead poisoning, loose some population, but never can happen again, although from then on, using aqueducts causes people to have a higher chance to revolt
+-another post-endgame option: let the world burn- lets you keep playing, but gives you infinite power
+-probably base city developing off of rome, many interesting events and disasters can occur
+-change "temples" to churches? Maybe have a seperate building called church, and could have conflict events between the two religions, but churches don't give you extra luck
+-maybe instead of building the mega temple to win, you have to build all major landmarks of rome to win?
