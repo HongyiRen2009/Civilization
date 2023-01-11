@@ -198,7 +198,7 @@ border: 3px solid #000000;
 	
 }
 .achievement-container{
-background-color: #bfb965;
+background-color: #e9edaf;
 border: 3px solid #000000;
   border-radius: 6px;
 }
@@ -563,8 +563,8 @@ const m = {
 	{
 		price:5,
 		pricemod: 1.5,
-		title: "Supply wagon",
-		description: "Purchase food from friendly tribes.",
+		title: "Supply wagons",
+		description: "Hire mercenaries to fight for you.  ",
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -576,7 +576,7 @@ const m = {
 				this.allowed = false
 			}
 			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
-			this.description = `Request food from friendly neighboring tribes. <br>+${this.amountincrease} food for 15 turns`
+			this.description = `Request supply wagon deliveries. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -651,7 +651,7 @@ const m = {
 				this.allowed = false
 			}
 			
-			this.description = `Support your neighboring tribes’ military. <br>+${this.price*this.pricemod} resources but lose ${this.amountincrease} military for 10 turns.`
+			this.description = `Agree to support their tribes militarily. <br>+${this.price*this.pricemod} resources but lose ${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
@@ -663,7 +663,7 @@ const m = {
 	{
 		price:5,
 		pricemod: 0.75,
-		title: "Stolen food",
+		title: "Hijack",
 		description: "Hire mercenaries to fight for you.  ",
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -676,7 +676,7 @@ const m = {
 				this.allowed = false
 			}
 			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
-			this.description = `Send out groups of people to hijack food transports. <br>+${this.amountincrease} food for 15 turns`
+			this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -700,7 +700,7 @@ const m = {
 				this.allowed = false
 			}
 			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
-			this.description = `Hire and arm crime groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+			this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -736,7 +736,7 @@ const m = {
 		price:10,
 		pricemod: 1.8,
 		title: "Assassination",
-		description: "Hire a spy to spread conspiracies in your enemy’s kingdom.<br>Reduce the chance of being attacked",
+		description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -760,7 +760,7 @@ const m = {
 		pricemod: 1,
 		title: "Dark Magic",
 		description: "Hire a sorceress to preform dark rituals.<br> Increases luck",
-		image: "<img src = 'images/marketCloak.png' width='50' height='80'></img>",
+		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -783,7 +783,7 @@ const m = {
 		pricemod: 1,
 		title: "Infiltrate",
 		description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kingdom",
-		image: "<img src = 'images/marketCloak.png' width='50' height='80'></img>",
+		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -806,8 +806,8 @@ const m = {
 		price:5,
 		pricemod: 1.5,
 		title: "Propoganda",
-		description: "Hire a sham philosopher to spread fake news about you. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='80' height='50'></img>",
+		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
+		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -829,7 +829,7 @@ const m = {
 	{
 	price:25,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct a Medium Mine",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -853,7 +853,7 @@ const m = {
 	{
 		price:25,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct a Medium Farm",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -879,7 +879,7 @@ const m = {
 	{
 		price:50,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct an Insula",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -903,7 +903,7 @@ const m = {
 	{
 		price:100,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct a Large Farm",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -927,7 +927,7 @@ const m = {
 	{
 		price:50,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct a Large Mine",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -951,7 +951,7 @@ const m = {
 	{
 		price:130,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct a Temple",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -976,7 +976,7 @@ const m = {
 	{
 		price:2000,
 		pricemod: 1,
-		title: "Blueprints:",
+		title: "Blueprints",
 		description: "Get the instructions on how to construct the Mega Temple",
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -1420,8 +1420,13 @@ function save(bindex){
 	for (i=ele.length-1;i>=0;i--){
 		ele[i].remove();
 	}
+	const blueprintsitems = []
 	
+	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
+			blueprintsitems.push(m.marketselections[i].stock)
 
+	}
+	
 	save_slot = bindex
 	localStorage.setItem('grid'+bindex, JSON.stringify(grid));
 	localStorage.setItem('river'+bindex, JSON.stringify(rivergrid));
@@ -1431,7 +1436,7 @@ function save(bindex){
 	localStorage.setItem('population'+bindex, currentpop.toString());
 	localStorage.setItem('military'+bindex, military.toString());
 	localStorage.setItem('resources'+bindex, resources.toString());
-	localStorage.setItem('reputation'+bindex, resources.toString());
+	localStorage.setItem('reputation'+bindex, reputation.toString());
 	localStorage.setItem('temp'+bindex, JSON.stringify(temporaryeffects));
 	localStorage.setItem('difficulty'+bindex, JSON.stringify(difficulty));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
@@ -1441,6 +1446,7 @@ function save(bindex){
 	localStorage.setItem('luck'+bindex, JSON.stringify(luck));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
+	localStorage.setItem('bluestocks'+bindex, JSON.stringify(blueprintsitems));
 
 	document.getElementById("save-flex").style.display = "none"
 	start()
@@ -1468,12 +1474,20 @@ function load(bindex){
 	const localbuildingamounts = JSON.parse(localStorage.getItem('amounts'+bindex));
 	const localunlocked = JSON.parse(localStorage.getItem('unlocked'+bindex));
 	const localmarketitems = JSON.parse(localStorage.getItem('marketitems'+bindex));
+	const localbluestocks = JSON.parse(localStorage.getItem('bluestocks'+bindex));
 	luck = JSON.parse(localStorage.getItem('luck'+bindex));
 	const localmarketmod = JSON.parse(localStorage.getItem('marketmod'+bindex));
 	m.assissin = localmarketmod[0]
 	m.spy = localmarketmod[1]
 	m.rebel = localmarketmod[2]
-	
+	let j = 0
+	debugger
+	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
+			m.marketselections[i].stock=localbluestocks[j]
+					j++
+
+
+	}
 	if (localstats.length>0){
 		first_turn=false
 	}
@@ -1504,6 +1518,7 @@ function load(bindex){
 	for (i=0;i!=localstats.length;i++){
 	gridstats.push(localstats[i])
 	}
+	
 	start()
 }
 function newgame(difficult){
@@ -3979,7 +3994,7 @@ function selectmarketitems(){
 	marketitems.length = 0
 	const blueprintsitems = []
 	
-	for (len = m.marketselections.length, i = len-7;i<len-2;i++){
+	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
 		if (m.marketselections[i].stock>0){
 			blueprintsitems.push(i)
 		}
