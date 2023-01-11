@@ -506,12 +506,6 @@ let modifiers = {
 	resources:0,
 	military:0
 }
-const tempmodifiers = {
-	pop:0,
-	food: 0,
-	resources:0,
-	military:0
-}
 const marketitems = []
 
 let punishamount = 0
@@ -519,9 +513,8 @@ let allowed = true;
 let military = 0;
 let currentpop = 2;
 const click = new Audio('sounds/click.mp3');
-const build_music = new Audio('music/Menu_song.wav');
+const build_music = new Audio('music/Menu_music.wav');
 const market_music = new Audio('music/Market_music.wav');
-const menu_music = new Audio('music/Menu_music.wav');
 const kaching = new Audio('sounds/Purchase.wav');
 market_music.loop = true
 build_music.loop = true
@@ -563,7 +556,8 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			temporaryeffects.push({increase: this.amountincrease,effect(){military+=this.increase},duration:10,endeffect(){}})
+			const increase = this.amountincrease
+			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
 		}
 	},
 	{
@@ -586,7 +580,8 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			temporaryeffects.push({increase: this.amountincrease,effect(){food+=this.increase},duration:15,endeffect(){}})
+			const increase = this.amountincrease
+			temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
 		}
 	},
 	{
@@ -615,8 +610,7 @@ const m = {
 	},
 	{
 		price:5,
-		pricemod: 1,
-		trueprice:5,
+		pricemod: 2,
 		title: "Export Slaves",
 		description: "Hire mercenaries to fight for you.  ",
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
@@ -627,11 +621,11 @@ const m = {
 		choosetext(){
 			this.allowed = true
 			
-			this.amountincrease= getRandomInt(3,5)*Math.floor(difficulty/10)
-			if (this.price<currentpop){
+			this.amountincrease= getRandomInt(3,5)+getRandomInt(3,5)*Math.floor(difficulty/10)
+			if (this.amountincrease>currentpop){
 				this.allowed = false
 			}
-			this.description = `Sell slaves to neighboring tribes. <br>+${this.price} resources`
+			this.description = `Sell slaves to neighboring tribes. <br>+${this.price*this.pricemod} resources`
 		},
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
@@ -641,8 +635,7 @@ const m = {
 	},
 	{
 		price:10,
-		pricemod: 1,
-		trueprice:10,
+		pricemod: 2,
 		title: "Arms agreement",
 		description: "Hire mercenaries to fight for you. Gain ",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
@@ -653,16 +646,17 @@ const m = {
 		choosetext(){
 			this.allowed = true
 			
-			
-			if (this.price*this.pricemod>military){
+			this.amountincrease=Math.floor((difficulty*2)*Math.random()*2)+5
+			if (this.amountincrease>military){
 				this.allowed = false
 			}
-			this.amountincrease=Math.floor((difficulty*2)*Math.random()*2)+5
-			this.description = `Agree to support their tribes militarily. <br>+${this.price} resources but lose ${this.amountincrease} military for 10 turns.`
+			
+			this.description = `Agree to support their tribes militarily. <br>+${this.price*this.pricemod} resources but lose ${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
-			resources+=Math.floor(this.price)
-			temporaryeffects.push({increase: this.amountincrease,effect(){military-=this.increase},duration:10,endeffect(){}})
+			resources+=Math.floor(this.price*this.pricemod)
+			const increase = this.amountincrease*-1
+			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
 			
 		}
 	},
@@ -686,7 +680,8 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			temporaryeffects.push({increase: this.amountincrease,effect(){food+=this.increase},duration:15,endeffect(){}})
+			const increase = this.amountincrease
+			temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
 		}
 	},
 	{
@@ -709,7 +704,8 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			temporaryeffects.push({increase: this.amountincrease,effect(){military+=this.increase},duration:10,endeffect(){}})
+			const increase = this.amountincrease
+			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
 		}
 	},
 	{
@@ -841,11 +837,12 @@ const m = {
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
+						this.price = Math.max(15,25-(reputation*3))
+
 			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -865,10 +862,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(15,25-(reputation*3))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(15,25-Math.floor((reputation/10)*5))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -890,10 +888,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(25,50-(reputation*3))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(25,50-Math.floor((reputation/10)*10))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -913,10 +912,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(100,100-(reputation*5))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(100,100-Math.floor((reputation/10)*10))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -936,10 +936,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(25,50-(reputation*3))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(25,50-Math.floor((reputation/10)*10))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -959,10 +960,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(65,130-(reputation*5))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(65,130-Math.floor((reputation/10)*10))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -972,7 +974,7 @@ const m = {
 	},
 	
 	{
-		price:300,
+		price:2000,
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get the instructions on how to construct a Mega Temple",
@@ -983,10 +985,11 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
+						this.price = Math.max(1700,2000-(reputation*5))
+
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.price = Math.max(250,50-Math.floor((reputation/10)*10))
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -1045,6 +1048,10 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
 		}
 		else if (el.stock>0){
+		if (i<4){
+			el.price-= Math.round(el.price*(reputation/5))
+			el.price = Math.max(el.price, 3)
+		}
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
@@ -1065,7 +1072,7 @@ function marketscreen(){
 			buy.id = "bm"+i
 		}
 		if (!el.allowed){
-			if (el.whichthing==resources){
+			if (el.whichthing=="resources"){
 			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
 			}
 			else{
@@ -1074,7 +1081,7 @@ function marketscreen(){
 			buy.disabled = true
 		}
 		else{
-			if (el.whichthing==resources){
+			if (el.whichthing=="resources"){
 			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
 			}
 			else{
@@ -1094,11 +1101,11 @@ function marketscreen(){
 			el.stock-=1;
 			
 			if (buy.id.includes("b")){
-			reputation-=getRandomInt(0,5)
+			reputation-=getRandomInt(3,8)
 			}
 			else
 			{
-				reputation+=getRandomInt(0,5)
+				reputation+=getRandomInt(0,3)
 			}
 			debugger
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
@@ -1279,6 +1286,7 @@ function clearsave(index){
 	localStorage.removeItem('slot'+index)
 	localStorage.removeItem('difficulty'+index)
 	localStorage.removeItem('resources'+index)
+	localStorage.removeItem('reputation'+index)
 	localStorage.removeItem('military'+index)
 	localStorage.removeItem('multiply'+index)
 	localStorage.removeItem('luck'+index)
@@ -1423,6 +1431,7 @@ function save(bindex){
 	localStorage.setItem('population'+bindex, currentpop.toString());
 	localStorage.setItem('military'+bindex, military.toString());
 	localStorage.setItem('resources'+bindex, resources.toString());
+	localStorage.setItem('reputation'+bindex, resources.toString());
 	localStorage.setItem('temp'+bindex, JSON.stringify(temporaryeffects));
 	localStorage.setItem('difficulty'+bindex, JSON.stringify(difficulty));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
@@ -1447,6 +1456,7 @@ function load(bindex){
 	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
 	resources = JSON.parse(localStorage.getItem('resources'+bindex));
 	currentpop = JSON.parse(localStorage.getItem('population'+bindex));
+	reputation = JSON.parse(localStorage.getItem('reputation'+bindex));
 	const localriver = JSON.parse(localStorage.getItem('river'+bindex));
 	const localhill = JSON.parse(localStorage.getItem('hill'+bindex));
 	const localstats = JSON.parse(localStorage.getItem('stats'+bindex));
@@ -1489,7 +1499,7 @@ function load(bindex){
 	p.pieceROM[i].unlocked = localunlocked[i]
 	}
 	modifiers.food = localmod.food
-	modifiers.resource = localmod.resources
+	modifiers.resources = localmod.resources
 	modifiers.military = localmod.military
 	for (i=0;i!=localstats.length;i++){
 	gridstats.push(localstats[i])
@@ -1501,7 +1511,7 @@ function newgame(difficult){
 	gridstats.length=0
 	grid.length=0
 	hillgrid.length=0
-	tempmodifiers.length=0
+	temporaryeffects.length=0
 	buildingamounts.length = 0
 	punishamount = 0
 	
@@ -1600,7 +1610,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "Two for the price of two",
-	description: "build your first Domus",
+	description: "build your first Duplex",
 	requires(){
 		return buildingamounts[2] > 0
 		}
@@ -1836,7 +1846,7 @@ const p = {
 		}
 	},
 	{
-		name: "Domus",
+		name: "Duplex",
 		letter: "D",
 		description: "Two conjoined houses. Houses 8 people and requires 5 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
@@ -1903,7 +1913,7 @@ const p = {
 		name: "Small Farm",
 		letter: "F",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
-		description: "A small farm that produces 5 food. Requires 2 resources to construct and 1 person operating it",
+		description: "A small farm that produces 5 food. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
 		effect(){
@@ -1918,29 +1928,29 @@ const p = {
 	{
 		name: "Medium Farm",
 		letter: "MF",
-		description: "A medium farm that produces 20 food. Requires 10 resources to construct and 3 people operating it",
+		description: "A medium farm that produces 20 food. Requires 15 resources to construct and 3 people operating it",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		effect(){
 			p.food=20
-			resources-=10
+			resources-=15
 			unemployed-=3
 		},
 		requires(){
-			return resources >=20 && unemployed>=6
+			return resources >=15 && unemployed>=3
 		}
 	},
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 40 food. Requires 15 resources to construct, 5 people operating it and must be nearby a river for irrigation",
+		description: "A large farm that produces 40 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river",
 		effect(){
 			p.food=40
-			resources-=15
+			resources-=20
 			unemployed-=5
 		},
 		requires(){
@@ -2022,12 +2032,12 @@ const p = {
 		unlocked: false,
 		near: "hill",
 		effect(){
-			p.resources=14
-			resources-=12
-			unemployed-=3
+			p.resources=12
+			resources-=15
+			unemployed-=4
 		},
 		requires(){
-			return resources >=12 && unemployed>=3&&difficulty>4
+			return resources >=15 && unemployed>=4&&difficulty>4
 		}
 	},
 	{
@@ -2049,17 +2059,17 @@ const p = {
 	{
 		name: "Mega Temple",
 		letter: "MT",
-		description: "A mega temple to directly contact god. Build one to beat the game. Requires 100 resources and 20 people praying",
+		description: "A mega temple to directly contact god. Build one to beat the game. Requires 2000 resources and 100 people praying",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1},{x:-1,y:1},{x:2,y:1},{x:2,y:0},{x:2,y:-1},{x:2,y:-2},{x:1,y:-2},{x:0,y:-2},{x:-1,y:-2}],
 		unlocked: false,
 		near: "building",
 		effect(){
 			displaypopup(popups.length-2)
-			resources-=100
-			unemployed-=20
+			resources-=2000
+			unemployed-=100
 		},
 		requires(){
-			return resources >=100 && unemployed>=20
+			return resources >=2000 && unemployed>=100
 		}
 	},
 ],
@@ -2493,7 +2503,7 @@ const popups = [
 		]
 	},
 	{
-	title: "<strong class = 'color-dg'>Plauge?</strong>",
+	title: "<strong class = 'color-dg'>Plague?</strong>",
 	size: "30px",
 	description: "A faraway traveler stumbles into your village. He claims that a deadly plague wiped out his village and is spreading to yours. Should we lockdown or not",
 	choosetext(){},
@@ -2503,7 +2513,7 @@ const popups = [
 		effect(){
 			modifiers.food-=0.3
 			modifiers.resources-=0.3
-			temporaryeffects.push({duration: 5, endeffect(){displaypopup(11,information); modifiers.resources+=0.3;modifiers.food+=0.3}})
+			temporaryeffects.push({type: "percent", resources:-0.3,military:0,food:-0.3,duration:10})
 			displayUI()
 			displaypopup(8, information)
 
@@ -2550,7 +2560,7 @@ const popups = [
 	{
 		title: "<strong class = 'color-g'>Folklore?</strong>",
 	size: "25px",
-	description: "A man wearing a silly green hat and a bow strung on his back arrives to your village. He claims that he is Robin Hood and he steals from the rich and gives to the poor. He askes us for some resources and in exchange for a prize. Do we trust him?",
+	description: "A man wearing a silly green hat and a bow strung on his back arrives to your village. He claims that he is Robin Hood steals from the rich and gives to the poor. He askes us for some resources and in exchange we will recieve a great prize. Do we trust him?",
 	choosetext(){},
 	choices: [
 	{
@@ -2583,7 +2593,7 @@ const popups = [
 		]
 	},
 	{
-		title: "<strong class = 'color-r'>Fire!</strong>",
+		title: "<strong class = 'color-r'>Fire</strong>",
 	size: "25px",
 	description: "A wildfire burnt down a large portion of your village, should we rebuild the burnt buildings?",
 	choosetext(){},
@@ -2612,13 +2622,13 @@ const popups = [
 	{
 	title: "<strong class = 'color-r'>Bad Omen</strong>",
 	size: "25px",
-	description: "Bad Omen",
+	description: "A wildfire burnt down a large portion of your village, should we rebuild the burnt buildings?",
 	choosetext(){
 	choices = [
 		"Local sightings reported that a rooster layed an egg",
 		"Villagers reported the moon turning red",
 		"A random street dweller saw a cow with two heads",
-		"A local priest reported their tree leaves turning blue",
+		"A local priest reported their tree leaves turning green",
 		
 	]
 	random = choices[getRandomInt(0,choices.length-1)]
@@ -2688,7 +2698,7 @@ const popups = [
 		},
 	choices: [
 	{
-		text: "okay",
+		text: "close",
 		effect(){
 			
 			displayUI()
@@ -2720,17 +2730,17 @@ const popups = [
 			},
 			{
 				type: 'resource',
-				des: "<strong class = 'color-g'>An inteliigent engineer</strong>",
+				des: "<strong class = 'color-g'>An experienced engineer</strong>",
 				chance: 6
 			},
 			{
 				type: 'resource',
-				des: '<strong class = "color-r">An experienced miner</strong>',
+				des: '<strong class = "color-r">A newbie miner</strong>',
 				chance: 8
 			},
 			{
 				type: 'military',
-				des: '<strong class = "color-r">A veteran soldier</strong>',
+				des: '<strong class = "color-r">A deserted soldier</strong>',
 				chance: 9
 			},
 			]
@@ -2885,7 +2895,7 @@ const popups = [
 	{
 		title: "<strong class = 'color-g'>Trade Route</strong>",
 	size: "30px",
-	description: "Our scout reports that opportunities for new trade routes have arisen with The Rateddians, Seymina, and the Menloms ",
+	description: "Our scout reports that opportunities for new trade routes have arisen. The Rateddians request. Thersialymoa. Menloms ",
 	
 	choosetext(){ 
 		const upsides = [
@@ -3207,7 +3217,7 @@ const information = [
 		]
 	},
 	{
-	title: "<strong class = 'color-r'>Oh No</strong>",
+	title: "<strong class = 'color-r'>Oh No!</strong>",
 	size: "30px",
 	description: "The plague arrived and decimated your people. -50% population",
 	choosetext(){},
@@ -3906,8 +3916,8 @@ function turnpopup(){
 		displaypopup(popups.length-1)
 		return
 	}
-	if (difficulty>5*difficultymultiplier){
-	if ((military<(difficulty-2)*3 && getRandomInt(1,3+m.assissin)==1) || getRandomInt(0,7)==0){
+	if (difficulty>3*difficultymultiplier){
+	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
 
 		displaypopup(0)
@@ -3989,25 +3999,27 @@ function next_turn(){
 	
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
-		if (temporaryeffects[i].duration==0){
-			temporaryeffects.endeffect()
-			temporaryeffects[i].splice(i,1)
+		if (temporaryeffects[i].duration<=0){
+			temporaryeffects.splice(i,1)
 		}
+		else{
 		temporaryeffects[i].duration-=1
+		}
 	}
 	
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
-	if (difficulty<3){
+	if (difficulty<3*difficultymultiplier){
 			document.getElementById("mbutton").disabled=true
 	}
 	else{
 		document.getElementById("mbutton").disabled=false
 		for (const p of m.marketselections){
-		p.price +=Math.min(getRandomInt(-3,3)+p.stock-4+Math.floor(difficulty/20),5)
-		p.price = Math.max(p.price,3)
-		if(p.stock<10&&p.title!="blueprint"){p.stock+=1}
+		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
+		p.price = Math.min(Math.max(p.price,Math.floor(difficulty/2)),difficulty*2)
+		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
+		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
 	}
 }
@@ -4141,13 +4153,23 @@ function displayUI(){
 			
 		}
 		
-		for (const ef of temporaryeffects){
-			ef.effect()
-		}
-		food += Math.floor(food*modifiers.food)+tempmodifiers.food
-		resourcesgained += Math.floor(resourcesgained*modifiers.resources)+tempmodifiers.resources
-		military += Math.floor(military*modifiers.military)+tempmodifiers.military
 		
+		food += Math.floor(food*modifiers.food)
+		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
+		military += Math.floor(military*modifiers.military)
+		for (const ef of temporaryeffects){
+			if (ef.type =="add"){
+				food += ef.food
+				resourcesgained += ef.resources
+				military += ef.military
+				population += ef.population
+			}
+			else{
+				food += Math.floor(food*ef.food)
+		resourcesgained += Math.floor(resourcesgained*ef.resources)
+		military += Math.floor(military*ef.military)
+			}
+		}
 		i = 0
 		
 		for (const el of ele){
