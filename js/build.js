@@ -119,7 +119,7 @@ const p = {
 		letter: "MF",
 		description: "A medium farm that produces 20 food. Requires 15 resources to construct and 3 people operating it",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:-1,y:0},{x:0,y:-1}],
 		near: "building",
 		effect(){
 			p.food=20
@@ -133,12 +133,12 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 40 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
+		description: "A large farm that produces 50 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:-1},{x:-1,y:0},{x:-1,y:1}],
 		near: "river",
 		effect(){
-			p.food=40
+			p.food=50
 			resources-=20
 			unemployed-=5
 		},
@@ -168,7 +168,7 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
 		near: "building",
 		effect(){
 			p.military=10
