@@ -22,7 +22,16 @@ maybe specific ones? (etc. burning sound effect for FIRE! event) might not work 
 -rotatable buildings? Might be hard to code (already tried, didn't work so well)
 -bad event: disaster!(lose insula, -20% population, +10 resources[wreckage])
 -building: aqueduct(costs tons of resources(100-150), but acts as a river tile and allows you to place large farms around it (6x1 size?) doesn't need to be placed next to a river
--change military base to still have 5 spaces, but be in the shape of a 4-pointed star
+INTELLIGENCE:
+-instead of resources to get blueprints from market, have a tech screen that allows you to advance your technology and upgrade temples, mines and other buildings
+-gain intelligence by trading(only normal market gives you very small amounts of intelligence), but trading due to events gives you a lot of intelligence
+-could have events based in intelligence:
+  -philosopher asks for resources in return for intelligence
+  -if you fail a trade you loose intelligence points, in the market or event trades
+-MAIN SOURCE OF INTELLIGENCE:
+-building: workshop(costs little resources(10-20) but needs a lot of people operating it(5-10))
+-small, medium, and large versions of workshop
+-produces intelligence each year depending on size
 ******LORE/REALISM******
 RARE bad event: plague!(aqueduct is made of lead, causes lead poisoning, loose some population, but never can happen again, although from then on, using aqueducts causes people to have a higher chance to revolt
 -another post-endgame option: let the world burn- lets you keep playing, but gives you infinite power
