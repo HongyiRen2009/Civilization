@@ -1,5 +1,5 @@
 const p = {
-	pieceROM: [
+	pieceROM: [[
 	
 	{
 		name: "Tent",
@@ -245,7 +245,8 @@ const p = {
 			return resources >=20 && unemployed>=8
 		}
 	},
-	{
+], [
+{
 		name: "Mega Temple",
 		letter: "MT",
 		description: "A mega temple to directly contact god. Build one to beat the game. Requires 2000 resources and 100 people praying",
@@ -260,8 +261,8 @@ const p = {
 		requires(){
 			return resources >=2000 && unemployed>=100
 		}
-	},
-],
+	}
+]],
 food:0,
 population:0,
 military:0,
@@ -269,8 +270,10 @@ resources:0,
 river: false,
 hill : false
 }
-for (const un of p.pieceROM){
-	unlocked.push(un.unlocked)
+for (i=0;i<p.pieceROM.length;i++){
+	for (const un of p.pieceROM[i]){
+		unlocked.push(un.unlocked)
+	}
 }
 function removebuildings(){
 	currentpop -= Math.floor(currentpop/3);
@@ -335,10 +338,10 @@ for (i=0,len=piece.length;i!=len;i++){
 			
 		}
 		if (!localallowed) return false
-		if (p.pieceROM[p_index].near != "building"){localallowed = false}
+		if (p.pieceROM[select_grid_row][p_index].near != "building"){localallowed = false}
 			for (i=0;i!=piece.length;i++){
 			
-			if (p.pieceROM[p_index].near ==  "river"){
+			if (p.pieceROM[select_grid_row][p_index].near ==  "river"){
 				if (rivergrid[(position.y/20)+piece[i].y].includes(20+position.x+piece[i].x*20)){
 					localallowed = true
 					break
@@ -350,7 +353,7 @@ for (i=0,len=piece.length;i!=len;i++){
 				}
 
 			}
-			if (p.pieceROM[p_index].near == "hill"){
+			if (p.pieceROM[select_grid_row][p_index].near == "hill"){
 			if (hillgrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
 				localallowed = true
 				break
@@ -441,7 +444,7 @@ document.onmousedown = function(event){
 		p.food = 0
 		oldpop = unemployed
 		gridposition = []
-		p.pieceROM[p_index].effect()
+		p.pieceROM[select_grid_row][p_index].effect()
 		
 		for (i=0;i!=piece.length;i++){
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
@@ -472,12 +475,12 @@ document.onmousedown = function(event){
 		})
 		first_turn = false
 		allowed = false
-		if (!p.pieceROM[p_index].requires()){
+		if (!p.pieceROM[select_grid_row][p_index].requires()){
 			piece = []
 			ispainting = false
 			allowed = false
 		}
-		buildingamounts[p_index] +=1
+		buildingamounts[select_grid_row][p_index] +=1
 		
 		displayUI()
 		if (tutorialindex==1||tutorialindex==2){

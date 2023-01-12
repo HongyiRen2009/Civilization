@@ -115,28 +115,36 @@ function next_turn(){
 	setTimeout(enable,700)
 	
 }
+
+// for selecting buildings
 function select(index){
 	disabling = false
 		piece = []
 	p.river = false
-	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
-	piece.push(p.pieceROM[index].piecepositions[i])
+	for (i=0;i!=p.pieceROM[selection_grid_row][index].piecepositions.length;i++){
+	piece.push(p.pieceROM[selection_grid_row][index].piecepositions[i])
 	
 	}
-	if (p.pieceROM[index].name == "Bridge"){
+	if (p.pieceROM[selection_grid_row][index].name == "Bridge"){
 		p.river = true
 	}
 	
 	
-	letter = p.pieceROM[index].letter
+	letter = p.pieceROM[selection_grid_row][index].letter
 	p_index = index
 	ispainting = true
 	
 }
+
 function cancel(){
 	piece = []
 	ispainting = false
 	render()
+}
+function moveRows(n) {
+	selection_grid_row = selection_grid_row + n
+	renderBuildingSelectionRows()
+	cancel()
 }
 
 //document.onkeydown = function(event){
@@ -148,6 +156,39 @@ function cancel(){
 		//break
 	//}
 //}
+function renderBuildingSelectionRows(){
+	const grid = document.getElementById("select-grid")
+	const upArrow = document.getElementById("buildingSelectionUp")
+
+	// deleting old row
+	while (grid.children.length > 1) {
+		if (grid.lastChild.className != "cancel") {
+			grid.removeChild(grid.lastChild)
+		}
+	}
+
+
+
+	if (selection_grid_row == grid.children.length + 1) {
+		selection_grid_row = 0
+	}
+
+	// creating new row
+	for (i=0;i!=p.pieceROM[selection_grid_row].length;i++){
+		const button = document.createElement("button")
+		
+		button.id = i
+		button.className = "select-choice"
+		let text = document.createTextNode(p.pieceROM[selection_grid_row][i].name)
+		button.appendChild(text)
+		
+		button.onclick = function(){select(button.id)}
+		grid.appendChild(button)
+	}
+	
+	grid.appendChild(upArrow)
+	displayUI()
+}
 function displayUI(){
 	
 		population = 0
@@ -209,7 +250,7 @@ function displayUI(){
 		for (const el of ele){
 			
 			el.style.animation = "none"
-			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
+			if (!p.pieceROM[selection_grid_row][i].requires()||!p.pieceROM[selection_grid_row][i].unlocked){
 			el.disabled = true;
 			
 			}

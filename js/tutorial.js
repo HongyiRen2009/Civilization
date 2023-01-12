@@ -5,7 +5,9 @@ const tutorial = [
 	size: "30px",
 	
 	
+
 	description: 'This is a game about civilization building, where you, as the ruler, must manage your food and resources to build the empire of your dreams!',
+
 	choices: [
 	{
 		text: "okay",
@@ -26,7 +28,9 @@ const tutorial = [
 	size: "30px",
 	
 	
+
 	description: 'To get started, place down a small mine. The small mine will produce resources, but must be at least partially on a hill. You can do this by clicking the "Small Mine" button and moving your mouse to the desired location. Afterwards, click again to place it.',
+
 	choices: [
 	{
 		text: "okay",

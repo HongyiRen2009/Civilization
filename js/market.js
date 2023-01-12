@@ -310,7 +310,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[13].unlocked = true
+			p.pieceROM[0][13].unlocked = true
 			unlocked[13]=true
 		}
 	},
@@ -334,7 +334,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[7].unlocked = true
+			p.pieceROM[0][7].unlocked = true
 			unlocked[7]=true
 		}
 	
@@ -360,7 +360,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[3].unlocked = true
+			p.pieceROM[0][3].unlocked = true
 			unlocked[3]=true
 		}
 	},
@@ -384,7 +384,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[8].unlocked = true
+			p.pieceROM[0][8].unlocked = true
 			unlocked[8]=true
 		}
 	},
@@ -408,7 +408,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[14].unlocked = true
+			p.pieceROM[0][14].unlocked = true
 			unlocked[14]=true
 		}
 	},
@@ -432,7 +432,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[9].unlocked = true
+			p.pieceROM[0][9].unlocked = true
 			unlocked[9]=true
 		}
 	},
@@ -457,7 +457,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[15].unlocked = true
+			p.pieceROM[1][0].unlocked = true
 			unlocked[15]=true
 		}
 	},
@@ -644,25 +644,27 @@ ispainting = false
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
 	
-	for (const building of p.pieceROM){
-		const grid = document.createElement("div")
-		grid.className = "info-grid"
-		const title = document.createElement("h1")
-		title.className = "infotext"
-		title.innerHTML = building.name
-		title.style.textAlign = 'center'
-		grid.appendChild(title)
-		const des = document.createElement("p")
-		if (building.unlocked){
-		des.innerHTML = building.description
+	for (let k = 0; k < p.pieceROM.length; k++) {
+		for (const building of p.pieceROM[k]){
+			const grid = document.createElement("div")
+			grid.className = "info-grid"
+			const title = document.createElement("h1")
+			title.className = "infotext"
+			title.innerHTML = building.name
+			title.style.textAlign = 'center'
+			grid.appendChild(title)
+			const des = document.createElement("p")
+			if (building.unlocked){
+			des.innerHTML = building.description
+			}
+			else{
+				des.innerHTML = "???"
+			}
+			des.style.textAlign = 'center'
+			des.className = 'infotext'
+			grid.appendChild(des)
+			document.getElementById("info-flex").appendChild(grid)
 		}
-		else{
-			des.innerHTML = "???"
-		}
-		des.style.textAlign = 'center'
-		des.className = 'infotext'
-		grid.appendChild(des)
-		document.getElementById("info-flex").appendChild(grid)
 	}
 }
 function achievementscreen(ismenu){
