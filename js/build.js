@@ -487,3 +487,40 @@ document.onmousedown = function(event){
 	}
 	
 }
+function rotate(){
+	difference +=0.5
+	let x = []
+	let y = []
+	for (i=0;i!=piece.length;i++){
+		x.push(piece[i].x)
+		y.push(piece[i].y)
+		
+	}
+	let max = Math.max(...x)
+	let min = Math.min(...x)
+	let miny = Math.min(...y)
+	let maxy = Math.max(...y)
+	midpoint = {x:(min+max)/2,y:(miny+maxy)/2}
+	
+	
+	for(i=0;i<piece.length;i++){
+		piece[i].x-=midpoint.x
+		piece[i].y-=midpoint.y
+
+		oldy = piece[i].y
+		piece[i].y = piece[i].x*-1
+		piece[i].x = oldy
+		piece[i].x+=midpoint.x
+		piece[i].y+=midpoint.y
+		piece[i].x = Math.floor(piece[i].x)
+		piece[i].y = Math.floor(piece[i].y)
+		if (Math.floor(difference) == 1){
+			piece[i].x +=1
+			piece[i].y +=1
+		}
+	}
+			if (Math.floor(difference) == 1){
+				difference = 0
+			}
+
+}
