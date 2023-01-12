@@ -176,7 +176,7 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:-1,y:-1},{x:0,y:0},{x:-1,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		tab: "military",
 		effect(){
