@@ -1,3 +1,63 @@
+const canvas = document.querySelector("canvas")
+canvas.height = screen.height-225
+canvas.width = screen.width
+const ctx = canvas.getContext("2d")
+const heightmax = Math.round((screen.height-225)/20)
+const widthmax = Math.round((screen.width)/20)
+const rivergrid = [] 
+
+const grid = []
+
+const hillgrid = [] 
+
+
+const gridstats = []
+
+let ispainting = false
+let position = {}
+let letter = ""
+let piece = []
+let population = 0
+let food = 0
+let resources = 8
+let resourcesgained = 0
+let p_index = 0
+let removeindex = [];
+let modifiers = {
+	food: 0,
+	resources:0,
+	military:0
+}
+const marketitems = []
+
+let punishamount = 0
+let allowed = true;
+let military = 0;
+let currentpop = 2;
+const click = new Audio('sounds/click.mp3');
+const build_music = new Audio('music/Menu_music.wav');
+const market_music = new Audio('music/Market_music.wav');
+const kaching = new Audio('sounds/Purchase.wav');
+market_music.loop = true
+build_music.loop = true
+let istutorial = false;
+let tutorialindex = 0;
+let disableinfo = false
+let unemployed = 2;
+let difficulty = 0;
+let first_turn = true;
+let luck = 0
+let reputation = 0
+let save_slot = null;
+let difficultymultiplier = 0
+const choicesdisabled = []
+const buildingamounts = []
+const unlocked = []
+savewidths = document.getElementsByClassName("save-grid")
+const temporaryeffects = []
+for (const el of savewidths){
+el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${150*(screen.height/900)}px ${50*(screen.height/900)}px`
+}
 function difficultyscreen(){
 
 		const ele = document.getElementsByClassName("new_button")
@@ -318,4 +378,53 @@ generatehill()
 generatehill()
 generatehill()
 displaypopup(3, confirmation)
+}
+function getRandomInt(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+
+function start(){
+	build_music.play()
+	market_music.pause()
+	disableinfo=istutorial
+	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
+	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
+	const ele = document.getElementsByClassName("select-choice")
+	for (i=ele.length-1;i>=0;i--){
+		ele[i].remove();
+	}
+	for (i=0;i!=p.pieceROM.length;i++){
+	
+	const grid = document.getElementById("select-grid")
+	const button = document.createElement("button")
+	
+	button.id = i
+	button.className = "select-choice"
+	let text = document.createTextNode(p.pieceROM[i].name)
+	button.appendChild(text)
+	
+	button.onclick = function(){select(button.id)}
+	grid.appendChild(button)
+}
+document.body.style.overflow = "hidden"
+document.getElementById("difficulty-flex").style.display = 'none'
+document.getElementById("info-flex").style.display = 'none'
+document.getElementById("achievement-flex").style.display = 'none'
+document.getElementById("back_button").hidden = true
+document.getElementById("title_start").hidden = true
+document.getElementById("stats").style.display = "flex"
+document.getElementById("start-flex").style.display = "none"
+document.getElementById("market-flex").style.display = "none"
+document.getElementById("save-flex").style.display = "none"
+document.getElementById("select-grid").style.display = "flex"
+
+displayUI()
+render()
+
+if (istutorial&&tutorialindex==0){
+continuetutorial(0)
+}
 }
