@@ -115,6 +115,7 @@ function next_turn(){
 	setTimeout(enable,700)
 	
 }
+
 // for selecting buildings
 function select(index){
 	disabling = false
