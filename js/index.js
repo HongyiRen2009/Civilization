@@ -228,7 +228,6 @@ function load(bindex){
 	m.assissin = localmarketmod[0]
 	m.spy = localmarketmod[1]
 	m.rebel = localmarketmod[2]
-	select_grid_row = 0
 	let j = 0
 	debugger
 	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
@@ -259,9 +258,7 @@ function load(bindex){
 	buildingamounts.push(localbuildingamounts[i])
 	}
 	for (i=0;i!=localunlocked.length;i++){
-		for (j = 0; j<localunlocked[i].length; j++) {
-			p.pieceROM[j][i].unlocked = localunlocked[i]
-		}
+	p.pieceROM[i].unlocked = localunlocked[i]
 	}
 	modifiers.food = localmod.food
 	modifiers.resources = localmod.resources
@@ -280,12 +277,9 @@ function newgame(difficult){
 	temporaryeffects.length=0
 	buildingamounts.length = 0
 	punishamount = 0
-	select_grid_row = 0
 	
 	for (i=0;i<p.pieceROM.length;i++){
-		for (j=0; j<p.pieceROM[i].length;j++) {
 	buildingamounts.push(0);
-		}
 }	
 	modifiers = {
 	food: 1.5-difficult,
@@ -338,11 +332,6 @@ function start(){
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
 	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
-	const ele = document.getElementsByClassName("select-choice")
-	for (i=ele.length-1;i>=0;i--){
-		ele[i].remove();
-	}
-	renderBuildingSelectionRows()
 	
 document.body.style.overflow = "hidden"
 document.getElementById("difficulty-flex").style.display = 'none'
