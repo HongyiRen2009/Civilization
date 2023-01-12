@@ -509,10 +509,7 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
 		}
 		else if (el.stock>0){
-		if (i<4){
-			el.price-= Math.round(el.price*(reputation/5))
-			el.price = Math.max(el.price, 3)
-		}
+		
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
