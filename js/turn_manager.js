@@ -110,6 +110,9 @@ function next_turn(){
 		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
+		for (i=0;i<2;i++){
+		m.marketselections[i].price+=Math.floor(reputation/5)
+		}
 	}
 }
 	setTimeout(enable,700)
