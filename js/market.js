@@ -586,7 +586,7 @@ function marketscreen(){
 			document.getElementById("mresource").innerHTML = "Resources: " + resources
 			document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 			instock.innerHTML = "in stock: "+el.stock
-			el.onclick()
+			el.choosetext()
 			if (el.stock<=0){
 			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
 			}
