@@ -115,36 +115,28 @@ function next_turn(){
 	setTimeout(enable,700)
 	
 }
-
-// for selecting buildings
 function select(index){
 	disabling = false
 		piece = []
 	p.river = false
-	for (i=0;i!=p.pieceROM[selection_grid_row][index].piecepositions.length;i++){
-	piece.push(p.pieceROM[selection_grid_row][index].piecepositions[i])
+	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
+	piece.push(p.pieceROM[index].piecepositions[i])
 	
 	}
-	if (p.pieceROM[selection_grid_row][index].name == "Bridge"){
+	if (p.pieceROM[index].name == "Bridge"){
 		p.river = true
 	}
 	
 	
-	letter = p.pieceROM[selection_grid_row][index].letter
+	letter = p.pieceROM[index].letter
 	p_index = index
 	ispainting = true
 	
 }
-
 function cancel(){
 	piece = []
 	ispainting = false
 	render()
-}
-function moveRows(n) {
-	selection_grid_row = selection_grid_row + n
-	renderBuildingSelectionRows()
-	cancel()
 }
 
 //document.onkeydown = function(event){
@@ -156,38 +148,35 @@ function moveRows(n) {
 		//break
 	//}
 //}
-function renderBuildingSelectionRows(){
-	const grid = document.getElementById("select-grid")
-	const upArrow = document.getElementById("buildingSelectionUp")
-
-	// deleting old row
-	while (grid.children.length > 1) {
-		if (grid.lastChild.className != "cancel") {
-			grid.removeChild(grid.lastChild)
-		}
+function displaytab(){
+	const selectcontainer = document.getElementById("select-grid")
+	const ele = document.getElementsByClassName("select-choice")
+	for (i=ele.length-1;i>-1;i--){
+		
+		ele[i].remove()
 	}
-
-
-
-	if (selection_grid_row == grid.children.length + 1) {
-		selection_grid_row = 0
-	}
-
-	// creating new row
-	for (i=0;i!=p.pieceROM[selection_grid_row].length;i++){
+	for (i=0,len=p.pieceROM.length;i<len;i++){
+		debugger
+		if (p.pieceROM[i].tab ==tab){
 		const button = document.createElement("button")
-		
-		button.id = i
+		button.style.animation = "none"
+		button.innerHTML = p.pieceROM[i].name
 		button.className = "select-choice"
-		let text = document.createTextNode(p.pieceROM[selection_grid_row][i].name)
-		button.appendChild(text)
-		
+		button.id = i
 		button.onclick = function(){select(button.id)}
-		grid.appendChild(button)
+			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
+			button.disabled = true;
+			
+			}
+			else{button.disabled = false;
+			if (buildingamounts[i]<1){
+				button.style.animation = "flash 2s step-start infinite"
+			}
+			}
+		selectcontainer.appendChild(button)
+		}
+		
 	}
-	
-	grid.appendChild(upArrow)
-	displayUI()
 }
 function displayUI(){
 	
@@ -196,7 +185,6 @@ function displayUI(){
 		military = 0
 		resourcesgained = 0
 		unemployed = currentpop
-		const ele = document.getElementsByClassName("select-choice")
 		
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
@@ -227,7 +215,7 @@ function displayUI(){
 			}
 			
 		}
-		
+		displaytab()
 		
 		food += Math.floor(food*modifiers.food)
 		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
@@ -247,21 +235,7 @@ function displayUI(){
 		}
 		i = 0
 		
-		for (const el of ele){
-			
-			el.style.animation = "none"
-			if (!p.pieceROM[selection_grid_row][i].requires()||!p.pieceROM[selection_grid_row][i].unlocked){
-			el.disabled = true;
-			
-			}
-			else{el.disabled = false;
-			if (buildingamounts[i]<1){
-				el.style.animation = "flash 2s step-start infinite"
-			}
-			}
-			i++
-			
-		}
+		
 		
 		
 		military+=unemployed
