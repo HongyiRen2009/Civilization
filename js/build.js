@@ -207,6 +207,22 @@ const p = {
 		
 	},
 	{
+		name: "Canal",
+		letter: "C",
+		description: "A canal to extend a river to irrigate farms",
+		unlocked: false,
+		piecepositions: [{x:0,y:0}],
+		near: "building",
+		tab: "misc",
+		effect(){
+			resources-=2
+		},
+		requires(){
+			return resources >= 3&&difficulty>4
+		}
+		
+	},
+	{
 		name: "Small Mine",
 		letter: "SM",
 		description: "A small mine to extract resources from a hill. Collects 3 resources per year. Must be on a hill and requires 3 resources and 1 person operating it",
