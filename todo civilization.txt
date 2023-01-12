@@ -15,6 +15,7 @@ maybe specific ones? (etc. burning sound effect for FIRE! event) might not work 
 -IMPLEMENT finished menu_song song to menu screen
 
 ******GAMEPLAY******
+-instead of having pull-up menus for buildings have one button that toggles between all modes, have multiple buttons that open a menu that has all of the buildings of that type, makes looking for buildings easier(also once done, maybe make an indicator that there is a building in that menu that can be built(little red tag))
 -more achievements
 -secret achievements?
 -improve mountain generation?
