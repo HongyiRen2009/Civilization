@@ -120,7 +120,9 @@
  <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
 
 <div class="select-grid" id="select-grid" hidden = true>
+<button class = 'cancel' onclick = "switchtab()">🡅</button>
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
+
 </div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
@@ -141,7 +143,7 @@ const grid = []
 
 const hillgrid = [] 
 
-
+const tabs = ["house","food","military","resources","misc"]
 const gridstats = []
 
 let ispainting = false
@@ -160,7 +162,7 @@ let modifiers = {
 	military:0
 }
 const marketitems = []
-
+let tab = "house"
 let punishamount = 0
 let allowed = true;
 let military = 0;
