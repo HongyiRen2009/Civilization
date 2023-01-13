@@ -1,11 +1,12 @@
 const p = {
-	pieceROM: [[
+	pieceROM: [
 	
 	{
 		name: "Tent",
 		letter: "T",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0}],
+		tab: "house",
 		unlocked: true,
 		near: "building",
 		effect(){
@@ -29,7 +30,7 @@ const p = {
 			p.population=4
 			resources-=3
 		},
-		
+		tab: "house",
 		requires(){
 			return resources >=3 && difficulty>3
 		}
@@ -45,7 +46,7 @@ const p = {
 			p.population=8
 			resources-=5
 		},
-		
+		tab: "house",
 		requires(){
 			return resources >=6 && difficulty>3
 		}
@@ -58,6 +59,7 @@ const p = {
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "building",
+		tab: "house",
 		effect(){
 			p.population=40
 			resources-=10
@@ -74,6 +76,7 @@ const p = {
 		piecepositions:[{x:0,y:0}],
 		unlocked: true,
 		near: "building",
+		tab: "misc",
 		effect(){
 			resources -=0.25
 		},
@@ -89,6 +92,7 @@ const p = {
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		unlocked: true,
 		near: "building",
+		tab: "food",
 		effect(){
 			p.food=2
 			resources-=2
@@ -105,6 +109,7 @@ const p = {
 		description: "A small farm that produces 5 food. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
+		tab: "food",
 		effect(){
 			p.food=5
 			resources-=3
@@ -121,6 +126,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:-1,y:0},{x:0,y:-1}],
 		near: "building",
+		tab: "food",
 		effect(){
 			p.food=20
 			resources-=15
@@ -135,8 +141,9 @@ const p = {
 		letter: "LF",
 		description: "A large farm that produces 50 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:-1},{x:-1,y:0},{x:-1,y:1}],
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:-1,y:0},{x:1,y:1},{x:0,y:1},{x:-1,y:1},{x:1,y:2},{x:0,y:2},{x:-1,y:2}],
 		near: "river",
+		tab: "food",
 		effect(){
 			p.food=50
 			resources-=20
@@ -153,6 +160,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1}],
 		near: "building",
+		tab: "misc",
 		effect(){
 			luck+=2
 			reputation+=5
@@ -168,8 +176,9 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
+		piecepositions: [{x:-1,y:-1},{x:0,y:0},{x:-1,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
+		tab: "military",
 		effect(){
 			p.military=10
 			resources-=6
@@ -188,6 +197,7 @@ const p = {
 		unlocked: true,
 		piecepositions: [{x:0,y:0}],
 		near: "building",
+		tab: "misc",
 		effect(){
 			resources-=3
 		},
@@ -203,6 +213,7 @@ const p = {
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "hill",
+		tab: "resources",
 		effect(){
 			
 			p.resources=3
@@ -220,6 +231,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "hill",
+		tab: "resources",
 		effect(){
 			p.resources=12
 			resources-=15
@@ -236,6 +248,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		unlocked: false,
 		near: "hill",
+		tab: "resources",
 		effect(){
 			p.resources=40
 			resources-=20
@@ -245,14 +258,14 @@ const p = {
 			return resources >=20 && unemployed>=8
 		}
 	},
-], [
-{
+	{
 		name: "Mega Temple",
 		letter: "MT",
 		description: "A mega temple to directly contact god. Build one to beat the game. Requires 2000 resources and 100 people praying",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1},{x:-1,y:1},{x:2,y:1},{x:2,y:0},{x:2,y:-1},{x:2,y:-2},{x:1,y:-2},{x:0,y:-2},{x:-1,y:-2}],
 		unlocked: false,
 		near: "building",
+		tab: "misc",
 		effect(){
 			displaypopup(popups.length-2)
 			resources-=2000
@@ -261,8 +274,8 @@ const p = {
 		requires(){
 			return resources >=2000 && unemployed>=100
 		}
-	}
-]],
+	},
+],
 food:0,
 population:0,
 military:0,
@@ -270,10 +283,14 @@ resources:0,
 river: false,
 hill : false
 }
-for (i=0;i<p.pieceROM.length;i++){
-	for (const un of p.pieceROM[i]){
-		unlocked.push(un.unlocked)
-	}
+for (const un of p.pieceROM){
+	unlocked.push(un.unlocked)
+}
+function switchtab(){
+	let futuretab = tabs.indexOf(tab)+1
+	if (futuretab>tabs.length-1){futuretab=0}
+	tab = tabs[futuretab]
+	displaytab()
 }
 function removebuildings(){
 	currentpop -= Math.floor(currentpop/3);
@@ -338,10 +355,10 @@ for (i=0,len=piece.length;i!=len;i++){
 			
 		}
 		if (!localallowed) return false
-		if (p.pieceROM[select_grid_row][p_index].near != "building"){localallowed = false}
+		if (p.pieceROM[p_index].near != "building"){localallowed = false}
 			for (i=0;i!=piece.length;i++){
 			
-			if (p.pieceROM[select_grid_row][p_index].near ==  "river"){
+			if (p.pieceROM[p_index].near ==  "river"){
 				if (rivergrid[(position.y/20)+piece[i].y].includes(20+position.x+piece[i].x*20)){
 					localallowed = true
 					break
@@ -353,7 +370,7 @@ for (i=0,len=piece.length;i!=len;i++){
 				}
 
 			}
-			if (p.pieceROM[select_grid_row][p_index].near == "hill"){
+			if (p.pieceROM[p_index].near == "hill"){
 			if (hillgrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
 				localallowed = true
 				break
@@ -444,7 +461,7 @@ document.onmousedown = function(event){
 		p.food = 0
 		oldpop = unemployed
 		gridposition = []
-		p.pieceROM[select_grid_row][p_index].effect()
+		p.pieceROM[p_index].effect()
 		
 		for (i=0;i!=piece.length;i++){
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
@@ -475,12 +492,12 @@ document.onmousedown = function(event){
 		})
 		first_turn = false
 		allowed = false
-		if (!p.pieceROM[select_grid_row][p_index].requires()){
+		if (!p.pieceROM[p_index].requires()){
 			piece = []
 			ispainting = false
 			allowed = false
 		}
-		buildingamounts[select_grid_row][p_index] +=1
+		buildingamounts[p_index] +=1
 		
 		displayUI()
 		if (tutorialindex==1||tutorialindex==2){
