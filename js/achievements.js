@@ -35,7 +35,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "First Shelter",
-	description: "build your first Tent",
+	description: "build your first Canopy",
 	requires(){
 		return buildingamounts[0] > 0
 		}
@@ -43,7 +43,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "it's settling time",
-	description: "build your first House",
+	description: "build your first hut",
 	requires(){
 		return buildingamounts[1] > 0
 		}
@@ -51,7 +51,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "Two for the price of two",
-	description: "build your first Duplex",
+	description: "build your first townhouse",
 	requires(){
 		return buildingamounts[2] > 0
 		}
@@ -59,7 +59,7 @@ const achievements = [
 	{
 		acquired: false,
 		title: "Urbanization",
-		description: "build your first Insula",
+		description: "build your first insula",
 		requires(){
 			return buildingamounts[3] > 0
 		}
