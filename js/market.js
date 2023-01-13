@@ -467,6 +467,7 @@ const m = {
 	rebel: 0
 }
 function marketscreen(){
+	ispainting = false
 	build_music.pause()
 	market_music.play()
 	document.body.style.overflowY = "scroll"
