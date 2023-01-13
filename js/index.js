@@ -273,6 +273,8 @@ function load(bindex){
 	start()
 }
 function newgame(difficult){
+
+	newEconomy()
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0

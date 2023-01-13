@@ -85,6 +85,7 @@ function next_turn(){
 	document.getElementById("turn").disabled = true
 	document.getElementById("popup_block_buttons").style.display = "block"
 	
+	simulateEcoStep()
 	
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
@@ -158,7 +159,6 @@ function moveRows(n) {
 //}
 function renderBuildingSelectionRows(){
 	const grid = document.getElementById("select-grid")
-	const upArrow = document.getElementById("buildingSelectionUp")
 
 	// deleting old row
 	while (grid.children.length > 1) {
@@ -186,7 +186,6 @@ function renderBuildingSelectionRows(){
 		grid.appendChild(button)
 	}
 	
-	grid.appendChild(upArrow)
 	displayUI()
 }
 function displayUI(){

@@ -1,4 +1,4 @@
-let m = {
+const m = {
 	marketselections: [
 	{
 		price:10,
@@ -16,7 +16,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.amountincrease = Math.floor((difficulty*2)*2)+5
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `Hire mercenaries to fight for you. <br>+${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
@@ -41,7 +43,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `Request supply wagon deliveries. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
@@ -66,7 +70,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `Buy slaves from neighboring tribes. <br>+${this.amountincrease} population`
 		},
 		purchaseeffect(){
@@ -89,7 +95,9 @@ let m = {
 		choosetext(){
 			this.allowed = true
 			
-			this.amountincrease= getRandomInt(3,5)+getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.amountincrease= 3+5*Math.floor(difficulty/10)
+			this.price = getValue(this)[1]
+			this.amountincrease = getValue(this)[0]
 			if (this.amountincrease>currentpop){
 				this.allowed = false
 			}
@@ -115,7 +123,9 @@ let m = {
 		choosetext(){
 			this.allowed = true
 			
-			this.amountincrease=Math.floor((difficulty*2)*Math.random()*2)+5
+			this.amountincrease=Math.floor((difficulty*2)*2)+5
+			this.price = getValue(this)[1]
+			this.amountincrease = getValue(this)[0]
 			if (this.amountincrease>military){
 				this.allowed = false
 			}
@@ -145,7 +155,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
@@ -170,7 +182,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
+			this.amountincrease = Math.floor((difficulty*2)*2)+5
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
@@ -195,7 +209,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
+			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
 		},
 		purchaseeffect(){
@@ -220,7 +236,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.amountincrease = 4*Math.floor(difficulty/10)
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			
 		},
 		purchaseeffect(){
@@ -244,7 +262,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.amountincrease = 4*Math.floor(difficulty/10)
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			
 		},
 		purchaseeffect(){
@@ -268,7 +288,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.amountincrease = 4*Math.floor(difficulty/10)
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			
 		},
 		purchaseeffect(){
@@ -293,7 +315,9 @@ let m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
+			this.amountincrease = 4*Math.floor(difficulty/10)
+			this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 			
 		},
 		purchaseeffect(){
@@ -315,6 +339,8 @@ let m = {
 		allowed: true,
 		choosetext(){
 						this.price = Math.max(15,25-(reputation*3))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			this.allowed = true
 			if (this.price*this.pricemod>resources){
@@ -341,6 +367,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(15,25-(reputation*3))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -368,6 +396,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(25,50-(reputation*3))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -393,6 +423,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(100,100-(reputation*5))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -418,6 +450,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(25,50-(reputation*3))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -443,6 +477,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(65,130-(reputation*5))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -469,6 +505,8 @@ let m = {
 		choosetext(){
 			this.allowed = true
 						this.price = Math.max(1700,2000-(reputation*5))
+						this.price = getValue(this)[0]
+			this.amountincrease = getValue(this)[1]
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -479,7 +517,7 @@ let m = {
 			p.pieceROM[1][0].unlocked = true
 			unlocked[15]=true
 		}
-	},
+	}
 	],
 	assissin: 0,
 	spy: 0,
@@ -515,7 +553,7 @@ function marketscreen(){
 			marketitemsindex.push("failed")
 		}
 		else{
-		marketitemsindex.push(m.marketselections[marketitems[i]])
+		marketitemsindex.push(marketitems[i])
 	}
 	}
 	i=0
@@ -744,5 +782,5 @@ function selectmarketitems(){
 		blueprintsitems.push(7)
 	}
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[getRandomInt(0,1)],m.marketselections.length-1,getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)])
+	marketitems.push(generateDeal(),generateDeal(),generateDeal(),generateDeal(),generateDeal(true),generateDeal(true),generateDeal(true))
 }
