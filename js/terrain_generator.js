@@ -1,11 +1,11 @@
 
-function generatehill(){
+function generatehill(xpos,ypos){
 	
-	let y = getRandomInt(1,heightmax-2)
-	let height = getRandomInt(5,15)
-	y=Math.min(heightmax-height-1,y)
-	let x= getRandomInt(8,widthmax-7)
-	let width = getRandomInt(3,7)
+	let y = ypos
+	let height = getRandomInt(0,4)==0 ? getRandomInt(20,50):getRandomInt(5,10)
+	
+	let x= xpos
+	let width = getRandomInt(0,4)==0 ? getRandomInt(20,50):getRandomInt(5,10)
 	let maxx = x+width
 	let minx = x-width
 	
@@ -31,17 +31,18 @@ function generatehill(){
 function generateriver(xpos,ypos, curve, times = 0){
 	let x = xpos
 	let rivertimes = times
-	
-	for (let y = ypos;y!=heightmax;y++){
-		if (getRandomInt(0+curve,7) > 5){
+	let rivercurve = curve
+	let rand = 0
+	for (let y = ypos;y<500;y++){
+		if (getRandomInt(0+rivercurve,7) > 5){
 			rivergrid[y].push(x*20)
 			x+=1
-			if (getRandomInt(0,5)==0&&rivertimes<3){generateriver(x,y,-5,rivertimes)}
+			if (getRandomInt(0,100)==0&&rivertimes<7){rand =getRandomInt(-2,-5); generateriver(x,y,rand,rivertimes);rivercurve=rand*-1}
 		}
-		else if (getRandomInt(3,10-curve) > 5){
+		else if (getRandomInt(3,10-rivercurve) > 5){
 			rivergrid[y].push(x*20)
 			x-=1
-			if (getRandomInt(0,5)==0&&rivertimes<3){generateriver(x,y,5,rivertimes)}
+			if (getRandomInt(0,100)==0&&rivertimes<7){rand =getRandomInt(2,5); generateriver(x,y,rand,rivertimes);rivercurve=rand*-1}
 		}
 		if (rivergrid[y].includes(x*20)&&y!=ypos){return}
 		rivergrid[y].push(x*20)
