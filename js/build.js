@@ -2,8 +2,8 @@ const p = {
 	pieceROM: [
 	
 	{
-		name: "Tent",
-		letter: "T",
+		name: "Canopy",
+		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0}],
 		tab: "house",
@@ -20,7 +20,7 @@ const p = {
 
 	},
 	{
-		name: "House",
+		name: "Hut",
 		letter: "H",
 		description: "A medium unit of housing that houses 4 people. Requires 3 resources to construct",
 		piecepositions:[{x:0,y:0}],
@@ -36,9 +36,9 @@ const p = {
 		}
 	},
 	{
-		name: "Duplex",
-		letter: "D",
-		description: "Two conjoined houses. Houses 8 people and requires 5 resources to construct",
+		name: "Townhouse",
+		letter: "TH",
+		description: "A house for many people. Houses 8 people and requires 5 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
 		unlocked: true,
 		near: "building",
@@ -91,7 +91,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0}],
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		unlocked: true,
-		near: "building",
+		near: "!hill",
 		tab: "food",
 		effect(){
 			p.food=2
@@ -108,7 +108,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		description: "A small farm that produces 5 food. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
-		near: "building",
+		near: "!hill",
 		tab: "food",
 		effect(){
 			p.food=5
@@ -124,8 +124,8 @@ const p = {
 		letter: "MF",
 		description: "A medium farm that produces 20 food. Requires 15 resources to construct and 3 people operating it",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:-1,y:0},{x:0,y:-1}],
-		near: "building",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		near: "!hill",
 		tab: "food",
 		effect(){
 			p.food=20
@@ -139,13 +139,13 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 50 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
+		description: "A large farm that produces 40 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:-1,y:0},{x:1,y:1},{x:0,y:1},{x:-1,y:1},{x:1,y:2},{x:0,y:2},{x:-1,y:2}],
-		near: "river",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		near: "river !hill",
 		tab: "food",
 		effect(){
-			p.food=50
+			p.food=40
 			resources-=20
 			unemployed-=5
 		},
@@ -176,7 +176,7 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:-1,y:-1},{x:0,y:0},{x:-1,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "building",
 		tab: "military",
 		effect(){
@@ -312,19 +312,22 @@ function isallowed(){
 localallowed = false
 for (i=0,len=piece.length;i!=len;i++){
 		
-		if((position.x/20)+piece[i].x < 0 || (position.x/20)+piece[i].x > widthmax-1 || (position.y/20)+piece[i].y < 0||(position.y/20)+piece[i].y > heightmax-1){
-			return false
-			
-		}
 		
-		else if (p.river &&!rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
+		
+		if (p.river &&!rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
 			return false
 		}
 		else if (grid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20) ||(!p.river&& (rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)))){
 			return false
 			
 		}
-	
+		if (p.pieceROM[p_index].near.includes("!hill")){
+			if (hillgrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
+				return false
+				
+
+			}
+		}
 		
 			
 			
@@ -355,10 +358,10 @@ for (i=0,len=piece.length;i!=len;i++){
 			
 		}
 		if (!localallowed) return false
-		if (p.pieceROM[p_index].near != "building"){localallowed = false}
+		if (p.pieceROM[p_index].near != "building"&&!p.pieceROM[p_index].near.includes("!hill")){localallowed = false}
 			for (i=0;i!=piece.length;i++){
 			
-			if (p.pieceROM[p_index].near ==  "river"){
+			if (p.pieceROM[p_index].near.includes("river")){
 				if (rivergrid[(position.y/20)+piece[i].y].includes(20+position.x+piece[i].x*20)){
 					localallowed = true
 					break
@@ -385,7 +388,7 @@ for (i=0,len=piece.length;i!=len;i++){
 document.onmousemove = function(event){
 		allowed = false
 if (ispainting){
-	position = {x:(Math.ceil((event.clientX)/20)-1)*20,y:(Math.floor(event.clientY/20)-3)*20}
+	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.floor(event.clientY/20)-3+scrollY)*20}
 
 ctx.beginPath();
 
@@ -397,15 +400,15 @@ render()
 		
 		for (i=0;i!=piece.length;i++){
 			
-			ctx.fillText(letter,position.x-(letter.length*4)+10+piece[i].x*20,position.y+10+piece[i].y*20);
+				ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
-						ctx.fillRect(position.x+piece[i].x*20,position.y+piece[i].y*20,20,20)
+						ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 
 			}
 			else{		
 			
-			ctx.rect(position.x+piece[i].x*20,position.y+piece[i].y*20,20,20)
+			ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 }
 		}
 ctx.stroke();
@@ -426,24 +429,26 @@ function render(){
 	ctx.strokeStyle = "rgb(0,0,0)"
 					ctx.fillStyle = "rgb(51, 166, 59)"
 	ctx.fillRect(0,0, screen.width,screen.height)
-	for (i=0;i!=hillgrid.length;i++){
-		for (let j = 0; j!=hillgrid[i].length;j++){
+	
+	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
+		for (let j = 0; j<hillgrid[i].length;j++){
+			
 			ctx.fillStyle = "rgb(103, 104, 107)"
-			ctx.fillRect(hillgrid[i][j],i*20,20,20)
+			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
 			ctx.fillStyle = "rgb(0,0,0)"
 		}
 	}		
-for (i=0;i!=rivergrid.length;i++){
+	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j!=rivergrid[i].length;j++){
 			ctx.fillStyle = "rgb(3,172,252)"
-			ctx.fillRect(rivergrid[i][j],i*20,20,20)
+			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
 			ctx.fillStyle = "rgb(0,0,0)"
 		}
 	}
-	for(i=0;i!=gridstats.length;i++){
+	for(len = gridstats.length,i=0;i!=len;i++){
 		for (let j = 0;j!=gridstats[i].positions.length;j++){
-				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-gridstats[i].letter.length*4,gridstats[i].positions[j].y+10);
-				ctx.rect(gridstats[i].positions[j].x,gridstats[i].positions[j].y,20,20)
+				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
+				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
 		}
 	}
 	ctx.stroke()
@@ -453,7 +458,7 @@ for (i=0;i!=rivergrid.length;i++){
 }
 document.onmousedown = function(event){
 	
-	if (ispainting && allowed&&position.y<canvas.height){
+	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
 		click.play()
 		p.population = 0
 		p.military = 0
@@ -465,7 +470,7 @@ document.onmousedown = function(event){
 		
 		for (i=0;i!=piece.length;i++){
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
-		grid[(position.y/20+piece[i].y)].push(position.x+piece[i].x*20)
+		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		
 		
 		}
@@ -506,6 +511,33 @@ document.onmousedown = function(event){
 		}
 	}
 	
+}
+document.onkeydown = function(event){
+	
+	switch(event.key){
+		
+		case "w":
+			if (scrollY>0&&scrollY-spawnY>-1*max.up){
+			move(0,-1)
+			}
+			break
+		case "s":
+			if (scrollY<499-heightmax&&scrollY-spawnY<max.down){
+			move(0,1)
+			}
+			break
+		case "a":
+			if (scrollX>0&&scrollX-spawnX>-1*max.left){
+			move(-1,0)
+			}
+			break
+		case "d":
+			if (scrollX<499&&scrollX-spawnX<max.right){
+			move(1,0)
+			}
+			break
+	}
+
 }
 function rotate(){
 	difference +=0.5
