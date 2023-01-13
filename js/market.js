@@ -140,193 +140,6 @@ const m = {
 		}
 	},
 	{
-		price:5,
-		pricemod: 0.75,
-		title: "Hijack",
-		description: "Hire mercenaries to fight for you.  ",
-		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "food",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
-		}
-	},
-	{
-		price:10,
-		pricemod: 0.5,
-		title: "Crime group",
-		description: "Hire mercenaries to fight for you. Gain ",
-		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "military",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = Math.floor((difficulty*2)*2)+5
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
-		}
-	},
-	{
-		price:5,
-		pricemod: 0.5,
-		title: "Kidnapping",
-		description: "Hire mercenaries to fight for you.  ",
-		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "population",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
-		},
-		purchaseeffect(){
-			debugger
-			resources-=Math.floor(this.price*this.pricemod)
-			currentpop+= this.amountincrease
-		}
-	},
-	{
-		price:10,
-		pricemod: 1.8,
-		title: "Assassination",
-		description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
-		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "special",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = 4*Math.floor(difficulty/10)
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			m.assissin +=2
-		}
-	},
-	{
-		price:10,
-		pricemod: 1,
-		title: "Dark Magic",
-		description: "Hire a sorceress to preform dark rituals.<br> Increases luck",
-		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "special",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = 4*Math.floor(difficulty/10)
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			luck +=2
-		}
-	},
-	{
-		price:5,
-		pricemod: 1,
-		title: "Infiltrate",
-		description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kingdom",
-		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "military",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = 4*Math.floor(difficulty/10)
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			m.spy +=1
-			reputation -= getRandomInt(3,6)
-		}
-	},
-	{
-		price:5,
-		pricemod: 1.5,
-		title: "Propoganda",
-		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='50' height='75'></img>",
-		amountincrease: 0,
-		stock:1,
-		recieve: "special",
-		payment: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-			this.amountincrease = 4*Math.floor(difficulty/10)
-			this.price = getValue(this)[0]
-			this.amountincrease = getValue(this)[1]
-			
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			m.rebel +=1
-			reputation -= getRandomInt(3,6)
-		}
-	},
-	{
 	price:25,
 		pricemod: 1,
 		title: "Blueprints",
@@ -518,6 +331,195 @@ const m = {
 			unlocked[15]=true
 		}
 	}
+	],
+	blackmarketselections: [
+		{
+			price:5,
+			pricemod: 0.75,
+			title: "Hijack",
+			description: "Hire mercenaries to fight for you.  ",
+			image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "food",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				const increase = this.amountincrease
+				temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
+			}
+		},
+		{
+			price:10,
+			pricemod: 0.5,
+			title: "Crime group",
+			description: "Hire mercenaries to fight for you. Gain ",
+			image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "military",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = Math.floor((difficulty*2)*2)+5
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				const increase = this.amountincrease
+				temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
+			}
+		},
+		{
+			price:5,
+			pricemod: 0.5,
+			title: "Kidnapping",
+			description: "Hire mercenaries to fight for you.  ",
+			image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "population",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = Math.floor((difficulty)*2*(1+reputation/10))+3
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
+			},
+			purchaseeffect(){
+				debugger
+				resources-=Math.floor(this.price*this.pricemod)
+				currentpop+= this.amountincrease
+			}
+		},
+		{
+			price:5,
+			pricemod: 1.5,
+			title: "Propoganda",
+			description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
+			image:"<img src = 'images/marketNews.png' width='50' height='75'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "special",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = 4*Math.floor(difficulty/10)
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				m.rebel +=1
+				reputation -= getRandomInt(3,6)
+			}
+		},
+		{
+			price:10,
+			pricemod: 1,
+			title: "Dark Magic",
+			description: "Hire a sorceress to preform dark rituals.<br> Increases luck",
+			image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "special",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = 4*Math.floor(difficulty/10)
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				luck +=2
+			}
+		},
+		{
+			price:5,
+			pricemod: 1,
+			title: "Infiltrate",
+			description: "Hire a spy to infiltrate your enemy's kingdom.<br> Increased military against that kingdom",
+			image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "military",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = 4*Math.floor(difficulty/10)
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				m.spy +=1
+				reputation -= getRandomInt(3,6)
+			}
+		},
+		{
+			price:10,
+			pricemod: 1.8,
+			title: "Assassination",
+			description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
+			image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
+			amountincrease: 0,
+			stock:1,
+			recieve: "special",
+			payment: "resources",
+			allowed: true,
+			choosetext(){
+				this.allowed = true
+				if (this.price*this.pricemod>resources){
+					this.allowed = false
+				}
+				this.amountincrease = 4*Math.floor(difficulty/10)
+				this.price = getValue(this)[0]
+				this.amountincrease = getValue(this)[1]
+				
+			},
+			purchaseeffect(){
+				resources-=Math.floor(this.price*this.pricemod)
+				m.assissin +=2
+			}
+		},
 	],
 	assissin: 0,
 	spy: 0,
@@ -781,6 +783,19 @@ function selectmarketitems(){
 	if (blueprintsitems.length==0){
 		blueprintsitems.push(7)
 	}
+	let deal = generateDeal()
+	let badindex = []
 	
-	marketitems.push(generateDeal(),generateDeal(),generateDeal(),generateDeal(),generateDeal(true),generateDeal(true),generateDeal(true))
+	for (let i = 0; i < 4; i++) {
+		marketitems.push(deal)
+		badindex.push(deal)
+		deal = generateDeal(false, 30, badindex)
+	}
+	badindex = []
+	for (let i = 0; i < 3; i++) {
+		deal = generateDeal(true, 30, badindex)
+		badindex.push(deal)
+		marketitems.push(deal)
+		
+	}
 }

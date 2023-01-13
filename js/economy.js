@@ -48,7 +48,7 @@ function simulateEcoStep() {
 	ecoSanityCheck()
 	
 }
-function generateDeal(blackmarket = false, specialchance = 30) {
+function generateDeal(blackmarket = false, specialchance = 30, badindex = []) {
 	let rollforspecial = getRandomInt(0, 100)
 	let needs = ""
 	const buymult = 0.5
@@ -81,13 +81,45 @@ function generateDeal(blackmarket = false, specialchance = 30) {
 
 	let listoftrades = []
 	let secondaries = []
-	let out = m.marketselections[getRandomInt(0, m.marketselections.length-1)]
-	for (let i = 0; i != m.marketselections.length; i++) {
-		if (m.marketselections[i].payment == needs) {
-			secondaries.push(m.marketselections[i])
-			if (m.marketselections[i].recieve == gives) {listoftrades.push(m.marketselections[i])}
+	let out = ""
+	let weirdsolution = true
+	if (!blackmarket) {
+		out = m.marketselections[getRandomInt(0, m.marketselections.length-1)]
+		
+		for (let i = 0; i < m.marketselections.length; i++) {
+			weirdsolution = true
+			for (let j = 0; j < badindex.length; j++) {
+				if (m.marketselections[i] == badindex[j]) {
+					weirdsolution = false
+				}
+			}
+			if (weirdsolution) {
+				if (m.marketselections[i].payment == needs) {
+					secondaries.push(m.marketselections[i])
+					if (m.marketselections[i].recieve == gives) {listoftrades.push(m.marketselections[i])}
+				}
+			}
+		}
+	} else {
+		out = m.blackmarketselections[getRandomInt(0, m.blackmarketselections.length-1)]
+		for (let i = 0; i < m.blackmarketselections.length; i++) {
+			weirdsolution = true
+			for (let j = 0; j < badindex.length; j++) {
+				if (m.blackmarketselections[i] == badindex[j]) {
+					weirdsolution = false
+				}
+			}
+			if (weirdsolution) {
+				if (m.blackmarketselections[i].payment == needs) {
+					secondaries.push(m.blackmarketselections[i])
+					if (m.blackmarketselections[i].recieve == gives) {listoftrades.push(m.blackmarketselections[i])}
+				}
+			}
 		}
 	}
+	
+	
+	
 	if (listoftrades.length > 0) {
 		out = listoftrades[getRandomInt(0,listoftrades.length-1)]
 	} else if (secondaries.length > 0) {
@@ -96,22 +128,31 @@ function generateDeal(blackmarket = false, specialchance = 30) {
 
 	if (out.payment == "resources") {
 		resource_extdemand *= buymult
+		resource_ext *= sellmult
 	} else if (out.payment == "population") {
 		population_extdemand *= buymult
+		population_ext *= sellmult
 	} else if (out.payment == "military") {
 		military_extdemand *= buymult
+		military_ext *= sellmult
 	} else if (out.payment == "food") {
 		food_extdemand *= buymult
+		food_ext *= sellmult
 	}
 
-	if (out.recieve == "resources") {
+	if (out.payment == "resources") {
 		resource_extdemand *= sellmult
-	} else if (out.recieve == "population") {
+		resource_ext *= buymult
+	} else if (out.payment == "population") {
 		population_extdemand *= sellmult
-	} else if (out.recieve == "military") {
+		population_ext *= buymult
+	} else if (out.payment == "military") {
 		military_extdemand *= sellmult
-	} else if (out.recieve == "food") {
+		military_ext *= buymult
+		fortification_ext = military_ext
+	} else if (out.payment == "food") {
 		food_extdemand *= sellmult
+		food_ext *= buymult
 	}
 	return out
 }
@@ -121,23 +162,23 @@ function getValue(deal) {
 	let out = []
 	const scaler = 100
 	if (deal.payment == "resources") {
-		out[0] = Math.ceil(deal.price * Math.pow(Math.E, resource_extdemand / scaler))
+		out[0] = Math.ceil(deal.price * (2 / (1 + Math.pow(Math.E, resource_extdemand / scaler))))
 	} else if (deal.payment == "population") {
-		out[0] = Math.ceil(deal.amountincrease * Math.pow(Math.E, population_extdemand / scaler))
+		out[0] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, population_extdemand / scaler))))
 	} else if (deal.payment == "military") {
-		out[0] = Math.ceil(deal.amountincrease * Math.pow(Math.E, military_extdemand / scaler))
+		out[0] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, military_extdemand / scaler))))
 	} else if (deal.payment == "food") {
-		out[0] = Math.ceil(deal.amountincrease * Math.pow(Math.E, food_extdemand / scaler))
+		out[0] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, food_extdemand / scaler))))
 	}
 
 	if (deal.recieve == "resources") {
-		out[1] = Math.ceil(deal.price * Math.pow(Math.E, resource_extdemand / scaler))
+		out[1] = Math.ceil(deal.price * (2 / (1 + Math.pow(Math.E, resource_extdemand / scaler))))
 	} else if (deal.recieve == "population") {
-		out[1] = Math.ceil(deal.amountincrease * Math.pow(Math.E, population_extdemand / scaler))
+		out[1] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, population_extdemand / scaler))))
 	} else if (deal.recieve == "military") {
-		out[1] = Math.ceil(deal.amountincrease * Math.pow(Math.E, military_extdemand / scaler))
+		out[1] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, military_extdemand / scaler))))
 	} else if (deal.recieve == "food") {
-		out[1] = Math.ceil(deal.amountincrease * Math.pow(Math.E, food_extdemand / scaler))
+		out[1] = Math.ceil(deal.amountincrease * (2 / (1 + Math.pow(Math.E, food_extdemand / scaler))))
 	} else {out[1] = deal.amountincrease}
 	return out
 }
