@@ -1,7 +1,6 @@
 -when you select a building to place and then enter the market, the world will display as the bakcground of the market and the game will be interactable
 (should cancel building press to enter market)
--you can get into negative money and military power by buying stuff
--costs for market should test to see if they are possible based on the player's money/population
-every time they by something
+-JUST got a shop offer where i get 6 food in return for 44 resources
+
 
 
