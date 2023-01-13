@@ -330,9 +330,7 @@ const m = {
 			p.pieceROM[1][0].unlocked = true
 			unlocked[15]=true
 		}
-	}
-	],
-	blackmarketselections: [
+	},
 		{
 			price:5,
 			pricemod: 0.75,
@@ -550,17 +548,20 @@ function marketscreen(){
 	}
 	
 	const marketitemsindex = []
+	console.log(marketitems)
 	for (i=0,len=marketitems.length;i<len;i++){
 		if (marketitems == "failed"){
 			marketitemsindex.push("failed")
 		}
 		else{
-		marketitemsindex.push(marketitems[i])
+		marketitemsindex.push(m.marketselections[marketitems[i]])
 	}
 	}
+	console.log(marketitemsindex)
 	i=0
-	debugger
+	
 	for (const el of marketitemsindex){
+		console.log(el)
 		
 		const flex = document.createElement("div")
 		flex.className = "item"
@@ -771,7 +772,7 @@ ispainting = false
 	
 }
 function selectmarketitems(){
-	
+	debugger
 	marketitems.length = 0
 	const blueprintsitems = []
 	
@@ -783,19 +784,7 @@ function selectmarketitems(){
 	if (blueprintsitems.length==0){
 		blueprintsitems.push(7)
 	}
-	let deal = generateDeal()
-	let badindex = []
-	
-	for (let i = 0; i < 4; i++) {
-		marketitems.push(deal)
-		badindex.push(deal)
-		deal = generateDeal(false, 30, badindex)
-	}
-	badindex = []
-	for (let i = 0; i < 3; i++) {
-		deal = generateDeal(true, 30, badindex)
-		badindex.push(deal)
-		marketitems.push(deal)
-		
-	}
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[getRandomInt(0,1)],m.marketselections.length-1,getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)])
+
+
 }
