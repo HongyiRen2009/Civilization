@@ -1,4 +1,4 @@
-const m = {
+let m = {
 	marketselections: [
 	{
 		price:10,
@@ -8,7 +8,8 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "military",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -32,7 +33,8 @@ const m = {
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "food",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -56,7 +58,8 @@ const m = {
 		image: "<img src = 'images/marketPickaxe.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "population",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -80,7 +83,8 @@ const m = {
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "population",
+		recieve: "resources",
+		payment: "population",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -105,7 +109,8 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "military",
+		recieve: "resources",
+		payment: "military",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -132,7 +137,8 @@ const m = {
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "food",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -156,7 +162,8 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "military",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -180,7 +187,8 @@ const m = {
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "population",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -204,7 +212,8 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -227,7 +236,8 @@ const m = {
 		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -250,7 +260,8 @@ const m = {
 		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "military",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -271,10 +282,11 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
+		image:"<img src = 'images/marketNews.png' width='75' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -298,7 +310,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 						this.price = Math.max(15,25-(reputation*3))
@@ -322,7 +335,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -348,7 +362,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -372,7 +387,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -396,7 +412,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -420,7 +437,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -445,7 +463,8 @@ const m = {
 		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
-		whichthing: "resources",
+		recieve: "special",
+		payment: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
@@ -509,10 +528,7 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
 		}
 		else if (el.stock>0){
-		if (i<4){
-			el.price-= Math.round(el.price*(reputation/5))
-			el.price = Math.max(el.price, 3)
-		}
+		
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
@@ -533,20 +549,20 @@ function marketscreen(){
 			buy.id = "bm"+i
 		}
 		if (!el.allowed){
-			if (el.whichthing=="resources"){
-			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			if (el.payment=="resources"){
+			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.payment}</strong>`
 			}
 			else{
-				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.amountincrease)} ${el.payment}</strong>`
 			}
 			buy.disabled = true
 		}
 		else{
-			if (el.whichthing=="resources"){
-			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			if (el.payment=="resources"){
+			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.payment}</strong>`
 			}
 			else{
-				buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.amountincrease)} ${el.payment}</strong>`
 			}
 		}
 		buy.onclick = function(){
@@ -574,11 +590,11 @@ function marketscreen(){
 				marketitemsindex[j].choosetext()
 				if (!marketitemsindex[j].allowed&&marketitemsindex[j].stock>0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].payment}</strong>`
 				}
 				else{
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = false
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].payment}</strong>`
 
 				}
 				}
@@ -591,7 +607,7 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
 			}
 			else if (!el.allowed){
-				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.payment}</strong>`
 			buy.disabled = true
 			}
 			
@@ -605,9 +621,9 @@ function marketscreen(){
 			status.style.animation = "done 2s linear 0s 1 normal forwards"
 			status.hidden = false
 		}
+		flex.appendChild(des)
 		flex.appendChild(title)
 		flex.appendChild(im)
-		flex.appendChild(des)
 		flex.appendChild(instock)
 		flex.appendChild(buy)
 		
