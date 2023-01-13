@@ -123,6 +123,7 @@
 <button class = 'cancel' onclick = "switchtab()">🡅</button>
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
 
+
 </div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
@@ -138,14 +139,22 @@ const ctx = canvas.getContext("2d")
 const heightmax = Math.round((screen.height-225)/20)
 const widthmax = Math.round((screen.width)/20)
 const rivergrid = [] 
-
+const max = {
+	up:10,
+	down:10,
+	left:10,
+	right:10
+}
 const grid = []
 
-const hillgrid = [] 
+const hillgrid = []
 
 const tabs = ["house","food","military","resources","misc"]
 const gridstats = []
-
+let scrollX = 250
+let scrollY = 250
+let spawnX = 0
+let spawnY = 0
 let ispainting = false
 let position = {}
 let letter = ""
@@ -193,8 +202,9 @@ el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/
 }
 
 </script>
-<script src = "js/terrain_generator.js"</script>
-<script></script>
+
+
+<script src = "js/terrain_generator.js"></script>
 <script src = "js/build.js"></script>
 <script src = "js/tutorial.js"></script>
 
