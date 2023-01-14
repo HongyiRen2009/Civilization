@@ -106,8 +106,8 @@ function next_turn(){
 		document.getElementById("mbutton").disabled=false
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
-		m.marketselections[i].price-=Math.floor(reputation/5)
-		p.price = Math.min(Math.max(p.price,Math.floor(difficulty/2)),difficulty*2)
+		p.price-=Math.floor(reputation/5)
+		p.price = Math.min(Math.max(p.price,Math.ceil(difficulty/2)+3),difficulty*2)
 		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
