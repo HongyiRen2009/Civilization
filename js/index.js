@@ -25,6 +25,7 @@ function confirmclear(index){
 }
 function clearsave(index){
 	localStorage.removeItem('grid'+index)
+	localStorage.removeItem('remove'+index)
 	localStorage.removeItem('scrollinfo'+index)
 	localStorage.removeItem('river'+index)
 	localStorage.removeItem('hill'+index)
@@ -212,6 +213,7 @@ function load(bindex){
 	marketitems.length=0
 	
 	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
+	const localremove = JSON.parse(localStorage.getItem('remove'+bindex));
 	const localscrolldata = JSON.parse(localStorage.getItem('scrollinfo'+bindex));
 	resources = JSON.parse(localStorage.getItem('resources'+bindex));
 	currentpop = JSON.parse(localStorage.getItem('population'+bindex));
@@ -254,6 +256,7 @@ function load(bindex){
 	for (i=0;i!=localgrid.length;i++){
 	grid.push(localgrid[i])
 	}
+
 	for (i=0;i!=localtemporaryeffects.length;i++){
 	temporaryeffects.push(localtemporaryeffects[i])
 	}
@@ -285,6 +288,7 @@ function newgame(difficult){
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
+
 	hillgrid.length=0
 	temporaryeffects.length=0
 	buildingamounts.length = 0
@@ -321,15 +325,21 @@ function newgame(difficult){
 	for (i=0;i<500;i++){
 		grid.push([])
 	}
+	
 	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
 	generateriver(getRandomInt(100,300), 0, 0)
 	}
 	selectmarketitems()
-	debugger
-	generatehill(spawnX,spawnY)
+	
+	generateblob(spawnX,spawnY)
+	
 	for (let h=0,rand=getRandomInt(40,60);h<rand;h++){
-		generatehill(getRandomInt(50,450),getRandomInt(50,450))
+		generateblob(getRandomInt(50,450),getRandomInt(50,450), getRandomInt(0,4)==0)
 	}
+	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
+		generateblob(getRandomInt(50,450),getRandomInt(50,450), getRandomInt(0,8)==0, "lake")
+	}
+	
 
 displaypopup(3, confirmation)
 }
