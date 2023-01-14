@@ -433,7 +433,7 @@ render()
 		
 		ctx.strokeStyle="white"
 			ctx.rect(position.x-(scrollX*20),position.y+-scrollY*20,20,20)
-
+		ctx.strokeStyle="black"
 		
 		
 ctx.stroke();
