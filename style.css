@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --game-container-bg-color: #c89c59;
+}
+
 .market-ui {
   display: flex;
   align-items: center;
@@ -16,6 +24,25 @@
     border: 3px solid yellow;
   }
 }
+
+#stats {
+  height: calc(100vh - 495px);
+}
+
+#stats button,
+#stats div {
+  display: flex;
+  align-items: center;
+}
+
+#stats button {
+  border: 0px;
+}
+
+#stats div {
+  flex-grow: 1;
+}
+
 .status {
   color: green;
   font-size: 20px;
@@ -26,12 +53,7 @@
 }
 .difficulty-flex {
   display: none;
-  width: 70%;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  justify-content: space-around;
 }
 .info-flex {
   display: flex;
@@ -65,16 +87,17 @@ strong {
   flex-direction: column;
   gap: 50px;
   flex-wrap: wrap;
+  padding: 5px;
 }
 .achievement-container {
   background-color: #e9edaf;
   border: 3px solid #000000;
   border-radius: 6px;
+  padding: 20px;
 }
 
 .save-flex {
   display: none;
-  width: 70%;
   gap: 15px;
   position: absolute;
   top: 50%;
@@ -83,21 +106,29 @@ strong {
 }
 .save-grid {
   width: 180px;
+  min-height: 300px;
   margin: auto;
   display: grid;
-  background-color: #966f33;
-  grid-template-rows: 100px 62.5px 62.5px 62.5px 62.5px 150px 50px;
+  background-color: var(--game-container-bg-color);
+  padding: 0px 5px 10px 5px;
 
   text-align: center;
   border: 3px solid #000000;
   border-radius: 6px;
 }
-.popup_block_buttons {
+
+.save-grid p {
+  margin: 5px 0;
+}
+
+#popup_block_buttons {
   display: none;
   position: absolute;
-  top: 5px;
+  top: 0px;
   background-color: #000000;
   opacity: 0.4;
+  height: 100vh;
+  width: 100vw;
 }
 .info-grid {
   display: flex;
@@ -107,7 +138,7 @@ strong {
   border-radius: 6px;
 }
 .item {
-  background-color: #966f33;
+  background-color: var(--game-container-bg-color);
   display: grid;
   width: 230px;
   grid-template-rows: 50px 100px 100px 50px 50px;
@@ -131,7 +162,7 @@ strong {
   color: #006300;
 }
 .title_screen {
-  margin: auto;
+  margin: 20px;
   text-align: center;
 
   font-size: 50px;
@@ -234,7 +265,6 @@ strong {
   background-color: #8c6c0b;
 }
 .info {
-  margin-left: auto;
   border-radius: 2px;
 
   transition-duration: 0.1s;
@@ -257,6 +287,8 @@ body {
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
+  margin: 0;
+  min-height: 100vh;
 }
 .pop {
   white-space: nowrap;
@@ -289,7 +321,6 @@ body {
 .flex-grid {
   height: 50px;
   border-style: solid;
-  border-radius: 6px;
   display: none;
   gap: 1px;
   flex-wrap: nowrap;
@@ -313,7 +344,7 @@ body {
 }
 
 .popup {
-  background-color: #966f33;
+  background-color: #c89c59;
   width: 400px;
   height: 300px;
   border-style: solid;
@@ -326,4 +357,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   flex-wrap: nowrap;
+}
+
+button {
+  border-color: black;
+  border-style: solid;
 }
