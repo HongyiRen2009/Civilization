@@ -9,6 +9,7 @@ const p = {
 		tab: "house",
 		unlocked: true,
 		near: "building",
+
 		effect(){
 			p.population=1
 			resources-=1
@@ -91,7 +92,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0}],
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		unlocked: true,
-		near: "!hill",
+		near: "building",
 		tab: "food",
 		effect(){
 			p.food=2
@@ -111,8 +112,8 @@ const p = {
 		near: "building",
 		tab: "food",
 		effect(){
-			
-			p.food=Math.ceil(5*ishill ? 0.5:1)
+			debugger
+			p.food=Math.ceil(5*(p.hill ? 0.5:1))
 			resources-=3
 			unemployed-=1
 		},
@@ -181,10 +182,10 @@ const p = {
 		near: "building",
 		tab: "military",
 		effect(){
-			p.military=10
+			p.military=10*(p.entirehill ? 2:1)
 			resources-=6
 			unemployed-=3
-			p.hill = true
+			
 		},
 		requires(){
 			return resources >= 6 && unemployed>=3
@@ -217,7 +218,7 @@ const p = {
 		tab: "resources",
 		effect(){
 			
-			p.resources=4*ishill ? 1:0.5
+			p.resources=4*(p.hill ? 1:0.5)
 			resources-=3
 			unemployed-=1
 		},
@@ -282,7 +283,8 @@ population:0,
 military:0,
 resources:0,
 river: false,
-hill : false
+hill : false,
+entirehill : false,
 }
 for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
@@ -301,7 +303,6 @@ function removebuildings(){
 			for (let j = 0; j!=gridstats[i].positions.length;j++){
 				const indexx = grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x)
 				grid[gridstats[i].positions[j].y/20].splice(indexx,1)
-				removeindex[gridstats[i].positions[j].y/20].splice(indexx,1)
 			}
 			gridstats.splice(i,1)
 			buildingamounts[i] -= 1
@@ -409,6 +410,7 @@ render()
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
 						ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				
 
 			}
 			else{		
@@ -427,16 +429,15 @@ ctx.beginPath();
 
 render()
 
-	allowed = isallowed()
 	
 	
 		
-		ctx.strokeStyle="white"
-			ctx.rect(position.x-(scrollX*20),position.y+-scrollY*20,20,20)
-		ctx.strokeStyle="black"
+		ctx.fillStyle="white"
+			ctx.fillRect(position.x-(scrollX*20),position.y+-scrollY*20,21,21)
+			ctx.stroke();
+
 		
 		
-ctx.stroke();
 renderclouds()
 }
 }
@@ -481,6 +482,7 @@ function render(){
 			ctx.fillStyle = "rgb(0,0,0)"
 		}
 	}
+	ctx.strokeStyle = "black"
 	for(len = gridstats.length,i=0;i!=len;i++){
 		for (let j = 0;j!=gridstats[i].positions.length;j++){
 				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
@@ -504,7 +506,6 @@ document.onmousedown = function(event){
 		p.food = 0
 		oldpop = unemployed
 		gridposition = []
-		
 		if((Math.floor(position.x-screen.width/2)/20)-spawnX+5>max.right){
 			max.right = (Math.floor(position.x-screen.width/2)/20)-spawnX+5
 		}
@@ -518,20 +519,22 @@ document.onmousedown = function(event){
 			max.up = (Math.floor(position.y-screen.height/2)/20)-spawnY-5
 		}
 		for (i=0;i!=piece.length;i++){
+			debugger
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
-		removeindex[((position.y)/20+piece[i].y)].push(gridstats.length)
 		
 		
-		ishill = true
-		if (p.hill){
-				if (!hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
-					ishill = false
-				}
-			
+		
+		
+		if (!hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
+			p.entirehill = false
 		}
-		else{ishill = false}
-		}
+		if (hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
+			p.hill = true
+		}	
+		
+	}
+	const oldresources = resources
 		p.pieceROM[p_index].effect()
 
 		gridstats.push({
@@ -541,8 +544,8 @@ document.onmousedown = function(event){
 			food:p.food,
 			resources:p.resources,
 			military:p.military,
-			positions:gridposition
-		
+			positions:gridposition,
+			resourcerefund: oldresources-resources
 		})
 		
 		first_turn = false
@@ -560,7 +563,7 @@ document.onmousedown = function(event){
 			tutorialindex+=1
 			continuetutorial(tutorialindex)
 		}
-	
+		
 }
 else if (removing&&grid[position.y/20].includes(position.x)){
 	
@@ -582,7 +585,9 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		grid[el.y/20].splice(indexx,1)
 		breaksound.play()
 	}
+	resources+=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats.splice(buildingindex,1)
+	displayUI()
 }
 }
 
@@ -659,6 +664,8 @@ function select(index){
 	disabling = false
 		piece = []
 	p.river = false
+	p.hill=false
+	p.entirehill=true
 	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
 	piece.push(p.pieceROM[index].piecepositions[i])
 	
@@ -670,6 +677,7 @@ function select(index){
 	
 	letter = p.pieceROM[index].letter
 	p_index = index
+	p.pieceROM[index]
 	ispainting = true
 	
 }
