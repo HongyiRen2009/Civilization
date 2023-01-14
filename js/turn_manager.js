@@ -106,81 +106,20 @@ function next_turn(){
 		document.getElementById("mbutton").disabled=false
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
+		m.marketselections[i].price-=Math.floor(reputation/5)
 		p.price = Math.min(Math.max(p.price,Math.floor(difficulty/2)),difficulty*2)
 		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
 		for (i=0;i<2;i++){
-		m.marketselections[i].price+=Math.floor(reputation/5)
+		
 		}
 	}
 }
 	setTimeout(enable,700)
 	
 }
-function select(index){
-	disabling = false
-		piece = []
-	p.river = false
-	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
-	piece.push(p.pieceROM[index].piecepositions[i])
-	
-	}
-	if (p.pieceROM[index].name == "Bridge"){
-		p.river = true
-	}
-	
-	
-	letter = p.pieceROM[index].letter
-	p_index = index
-	ispainting = true
-	
-}
-function cancel(){
-	piece = []
-	ispainting = false
-	render()
-}
 
-//document.onkeydown = function(event){
-	//switch (event.key){
-	//	case "r":
-		
-		//rotate()
-		//render()
-		//break
-	//}
-//}
-function displaytab(){
-	const selectcontainer = document.getElementById("select-grid")
-	const ele = document.getElementsByClassName("select-choice")
-	for (i=ele.length-1;i>-1;i--){
-		
-		ele[i].remove()
-	}
-	for (i=0,len=p.pieceROM.length;i<len;i++){
-		debugger
-		if (p.pieceROM[i].tab ==tab){
-		const button = document.createElement("button")
-		button.style.animation = "none"
-		button.innerHTML = p.pieceROM[i].name
-		button.className = "select-choice"
-		button.id = i
-		button.onclick = function(){select(button.id)}
-			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
-			button.disabled = true;
-			
-			}
-			else{button.disabled = false;
-			if (buildingamounts[i]<1){
-				button.style.animation = "flash 2s step-start infinite"
-			}
-			}
-		selectcontainer.appendChild(button)
-		}
-		
-	}
-}
 function displayUI(){
 	
 		population = 0
