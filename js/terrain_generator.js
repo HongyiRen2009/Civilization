@@ -1,23 +1,49 @@
 
-function generatehill(xpos,ypos){
+function generateblob(xpos,ypos, large, type = "hill"){
 	
 	let y = ypos
-	let height = getRandomInt(0,4)==0 ? getRandomInt(20,50):getRandomInt(5,10)
-	
 	let x= xpos
-	let width = getRandomInt(0,4)==0 ? getRandomInt(20,50):getRandomInt(5,10)
+	let width=0
+	let height=0
+	if (type=="hill"){
+	height = large ? getRandomInt(20,50):getRandomInt(5,10)
+	
+	
+	width =large ? getRandomInt(20,50):getRandomInt(5,10)
+	}
+	else if (type == "lake"){
+		const size = large ? getRandomInt(20,50):getRandomInt(5,10)
+		width=size+getRandomInt(-10,10)
+		height=size+getRandomInt(-10,10)
+
+	}
 	let maxx = x+width
 	let minx = x-width
 	
 	for (i = y; i <y+height;i++){
 		for (let j = minx; j<maxx;j++){
-
+				if (type=="hill"){
 				hillgrid[i].push((minx+maxx-j)*20)
+				}
+				else if (type=="lake"){
+					rivergrid[i].push((minx+maxx-j)*20)
+				}
 				if (i==y && getRandomInt(0,1)==0){
-					hillgrid[i-1].push((minx+maxx-j)*20)
+					
+					if (type=="hill"){
+						hillgrid[i-1].push((minx+maxx-j)*20)
+						}
+						else if (type=="lake"){
+							rivergrid[i-1].push((minx+maxx-j)*20)
+						}
 				}
 				else if (i==y+height-1 && getRandomInt(0,1)==0){
-					hillgrid[i+1].push((minx+maxx-j)*20)
+					if (type=="hill"){
+						hillgrid[i+1].push((minx+maxx-j)*20)
+						}
+						else if (type=="lake"){
+							rivergrid[i+1].push((minx+maxx-j)*20)
+						}
 				}
 			
 			}

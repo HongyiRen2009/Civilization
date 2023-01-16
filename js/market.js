@@ -310,7 +310,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][13].unlocked = true
+			p.pieceROM[13].unlocked = true
 			unlocked[13]=true
 		}
 	},
@@ -334,7 +334,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][7].unlocked = true
+			p.pieceROM[7].unlocked = true
 			unlocked[7]=true
 		}
 	
@@ -360,7 +360,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][3].unlocked = true
+			p.pieceROM[3].unlocked = true
 			unlocked[3]=true
 		}
 	},
@@ -384,7 +384,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][8].unlocked = true
+			p.pieceROM[8].unlocked = true
 			unlocked[8]=true
 		}
 	},
@@ -408,7 +408,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][14].unlocked = true
+			p.pieceROM[14].unlocked = true
 			unlocked[14]=true
 		}
 	},
@@ -432,7 +432,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0][9].unlocked = true
+			p.pieceROM[9].unlocked = true
 			unlocked[9]=true
 		}
 	},
@@ -457,7 +457,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[1][0].unlocked = true
+			p.pieceROM[0].unlocked = true
 			unlocked[15]=true
 		}
 	},
@@ -515,7 +515,7 @@ function marketscreen(){
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
 		const des = document.createElement("p")
-		const im = document.createElement("h1")
+		const im = document.createElement("p")
 		const instock = document.createElement("p")
 		instock.innerHTML = "in stock: "+el.stock
 		im.innerHTML = el.image
@@ -553,7 +553,7 @@ function marketscreen(){
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
-			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5&&el.title!="blueprints"){
+			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5&&el.title!="Blueprints"){
 			status.style.color = "green"
 			status.innerHTML = "<h1>TRADE SUCCESSFUL</h1>"
 			el.purchaseeffect();
@@ -642,8 +642,7 @@ ispainting = false
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
 	
-	for (let k = 0; k < p.pieceROM.length; k++) {
-		for (const building of p.pieceROM[k]){
+		for (const building of p.pieceROM){
 			const grid = document.createElement("div")
 			grid.className = "info-grid"
 			const title = document.createElement("h1")
@@ -663,7 +662,7 @@ ispainting = false
 			grid.appendChild(des)
 			document.getElementById("info-flex").appendChild(grid)
 		}
-	}
+	
 }
 function achievementscreen(ismenu){
 ispainting = false

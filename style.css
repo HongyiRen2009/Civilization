@@ -321,18 +321,22 @@ body {
 .flex-grid {
   height: 50px;
   border-style: solid;
+  border-radius: 6px;
   display: none;
   gap: 1px;
   flex-wrap: nowrap;
 }
 .select-grid {
+  background-color: #b8942a;
   position: absolute;
   top: 93%;
   height: 50px;
-
+  width: 100%;
   display: none;
-  gap: 3px;
+  gap: 10px;
   flex-wrap: nowrap;
+  border: 3px solid #000000;
+  border-radius: 6px;
 }
 .flex-grid > div {
   margin: 10px;
