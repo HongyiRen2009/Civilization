@@ -745,6 +745,22 @@ const popups = [
 		]
 	},
 	{
+		title: "<strong class = 'color-g'>Information</strong>",
+	size: "25px",
+	description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
+	choosetext(){},
+	choices: [
+	{
+		text:"close",
+		effect(){
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+		
+		}
+	}]
+},
+	
+	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
 	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, he blesses you and your followers with infinite power. As you ascend to the heavens, leaving the mortal realm, you quickly glance back at your thriving city, which would leave its mark on history for ever.",
