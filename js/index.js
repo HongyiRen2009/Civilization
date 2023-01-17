@@ -46,10 +46,56 @@ function clearsave(index){
 	localStorage.removeItem('marketitems'+index)
 
 }
+function info(){
+	document.body.style.overflowY = "scroll"
+ispainting = false
+removing = false
+repairing = false
+	const ele = document.getElementsByClassName("infotext")
+	for (let j=ele.length-1;j>=0;j--){
+		ele[j].remove();
+	}
+	const ele2 = document.getElementsByClassName("info-grid")
+	for (let j=ele2.length-1;j>=0;j--){
+		ele2[j].remove();
+	}
+	document.getElementById("info-flex").style.display = 'flex'
+	document.getElementById("difficulty-flex").style.display = 'none'
+	document.getElementById("back_button").hidden = false
+	document.getElementById("back_button").onclick = function(){start()}
+	document.getElementById("stats").style.display = "none"
+	document.getElementById("select-grid").style.display = "none"
+	ctx.clearRect(0,0,screen.width,screen.height)
+	document.getElementById("save-flex").style.display = "none"
+	
+		for (const building of p.pieceROM){
+			const grid = document.createElement("div")
+			grid.className = "info-grid"
+			const title = document.createElement("h1")
+			title.className = "infotext"
+			title.innerHTML = building.name
+			title.style.textAlign = 'center'
+			grid.appendChild(title)
+			const des = document.createElement("p")
+			if (building.unlocked){
+			des.innerHTML = building.description
+			}
+			else{
+				des.innerHTML = "???"
+			}
+			des.style.textAlign = 'center'
+			des.className = 'infotext'
+			grid.appendChild(des)
+			document.getElementById("info-flex").appendChild(grid)
+		}
+	
+}
 function menu(){
 	build_music.pause()
 	market_music.pause()
-ispainting = false
+	removing=false
+	ispainting = false
+	repairing = false
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("title_start").innerHTML = 'Civilization'
@@ -64,7 +110,9 @@ document.getElementById("title_start").innerHTML = 'Civilization'
 }
 function savescreen(save){
 	
-ispainting = false
+	removing=false
+	ispainting = false
+	repairing = false
 	document.getElementById("back_button").hidden = false
 	const ele = document.getElementsByClassName("save_button")
 		
@@ -197,7 +245,7 @@ function save(bindex){
 	localStorage.setItem('amounts'+bindex, JSON.stringify(buildingamounts));
 	localStorage.setItem('unlocked'+bindex, JSON.stringify(unlocked));
 	localStorage.setItem('luck'+bindex, JSON.stringify(luck));
-	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel]));
+	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 	localStorage.setItem('bluestocks'+bindex, JSON.stringify(blueprintsitems));
 
@@ -235,6 +283,7 @@ function load(bindex){
 	m.assissin = localmarketmod[0]
 	m.spy = localmarketmod[1]
 	m.rebel = localmarketmod[2]
+	m.phase = localmarketmod[3]
 	let j = 0
 	spawnX = localscrolldata[2]
 	spawnY = localscrolldata[3]
@@ -288,7 +337,7 @@ function newgame(difficult){
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
-
+	switchtab()
 	hillgrid.length=0
 	temporaryeffects.length=0
 	buildingamounts.length = 0
@@ -336,9 +385,7 @@ function newgame(difficult){
 	for (let h=0,rand=getRandomInt(40,60);h<rand;h++){
 		generateblob(getRandomInt(50,450),getRandomInt(50,450), getRandomInt(0,4)==0)
 	}
-	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
-		generateblob(getRandomInt(50,450),getRandomInt(50,450), getRandomInt(0,8)==0, "lake")
-	}
+	
 	
 
 displaypopup(3, confirmation)
@@ -354,6 +401,8 @@ function start(){
 	build_music.play()
 	market_music.pause()
 	disableinfo=istutorial
+	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
+	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
 	
 document.body.style.overflow = "hidden"
 document.getElementById("difficulty-flex").style.display = 'none'
