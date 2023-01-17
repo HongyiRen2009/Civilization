@@ -54,6 +54,38 @@ function generateblob(xpos,ypos, large, type = "hill"){
 		
 	
 }
+function generatevillage(xpos,ypos,type){
+	let x = xpos
+	let y = ypos
+	const gridpositions=[]
+	const pieceindexes = [{index:12,change(){x+=1}},{index:12,change(){x+=1}},{index:12,change(){x+=1}}]
+	for (const el of pieceindexes){
+		debugger
+		gridpositions.length=0
+	for(i=0;i<p.pieceROM[el.index].piecepositions.length;i++){
+		gridpositions.push({x:x*20+p.pieceROM[el.index].piecepositions[i].x*20,y:y*20+p.pieceROM[el.index].piecepositions[i].y*20})
+		grid[y+p.pieceROM[el.index].piecepositions[i].y].push(x*20+p.pieceROM[el.index].piecepositions[i].x*20)
+	}
+	const oldresources = resources
+	oldpop = unemployed
+		p.pieceROM[el.index].effect()
+
+		gridstats.push({
+			letter:p.pieceROM[el.index].letter,
+			population:p.population,
+			employmentrequired: oldpop-unemployed,
+			food:p.food,
+			resources:p.resources,
+			military:p.military,
+			positions:gridpositions.slice(0),
+			resourcerefund: oldresources-resources,
+			disabled: true
+		})
+		resources=oldresources
+		unemployed=oldpop
+		el.change()
+	}
+}
 function generateriver(xpos,ypos, curve, times = 0){
 	let x = xpos
 	let rivertimes = times
