@@ -271,7 +271,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='50' height='75'></img>",
+		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -441,8 +441,8 @@ const m = {
 		price:2000,
 		pricemod: 1,
 		title: "Blueprints",
-		description: "Get the instructions on how to construct the Mega Temple",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
+		description: "Get a blueprint scrap on how to construct the Mega Temple",
+		image: "<img src = 'images/broken_scroll1.png' width='60' height='20'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -457,17 +457,42 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[0].unlocked = true
-			unlocked[15]=true
+			megatemple+=1
 		}
 	},
+	{
+		price:0,
+		pricemod: 1,
+		title: "Mysterious Artifact",
+		description: "An ancient artifact of unknown origins.<br><strong class = 'color-r'>Warning! Harboring this artifact may attract a beast of ultimate power.</strong>",
+		image: "<img src = 'images/marketEgg.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+						this.price = resources
+
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			megatemple+=1
+		}
+	}
 	],
 	assissin: 0,
 	spy: 0,
-	rebel: 0
+	rebel: 0,
+	phase:0
 }
 function marketscreen(){
+	removing=false
 	ispainting = false
+	repairing = false
 	build_music.pause()
 	market_music.play()
 	document.body.style.overflowY = "scroll"
@@ -553,7 +578,7 @@ function marketscreen(){
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
-			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5&&el.title!="Blueprints"){
+			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5||el.title=="Blueprints"){
 			status.style.color = "green"
 			status.innerHTML = "<h1>TRADE SUCCESSFUL</h1>"
 			el.purchaseeffect();
@@ -568,9 +593,10 @@ function marketscreen(){
 			}
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
-				if (!marketitems[i] == "failed"&&marketitemsindex[i].stock>0){
+				debugger
+				if (marketitems[j] != "failed"&&marketitemsindex[j].stock>0){
 				marketitemsindex[j].choosetext()
-				if (!marketitemsindex[j].allowed&&marketitemsindex[j].stock>0){
+				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock>0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
 					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
 				}
@@ -622,108 +648,22 @@ function marketscreen(){
 		i++
 	}
 }
-function info(){
-	document.body.style.overflowY = "scroll"
-ispainting = false
-	const ele = document.getElementsByClassName("infotext")
-	for (let j=ele.length-1;j>=0;j--){
-		ele[j].remove();
-	}
-	const ele2 = document.getElementsByClassName("info-grid")
-	for (let j=ele2.length-1;j>=0;j--){
-		ele2[j].remove();
-	}
-	document.getElementById("info-flex").style.display = 'flex'
-	document.getElementById("difficulty-flex").style.display = 'none'
-	document.getElementById("back_button").hidden = false
-	document.getElementById("back_button").onclick = function(){start()}
-	document.getElementById("stats").style.display = "none"
-	document.getElementById("select-grid").style.display = "none"
-	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "none"
-	
-		for (const building of p.pieceROM){
-			const grid = document.createElement("div")
-			grid.className = "info-grid"
-			const title = document.createElement("h1")
-			title.className = "infotext"
-			title.innerHTML = building.name
-			title.style.textAlign = 'center'
-			grid.appendChild(title)
-			const des = document.createElement("p")
-			if (building.unlocked){
-			des.innerHTML = building.description
-			}
-			else{
-				des.innerHTML = "???"
-			}
-			des.style.textAlign = 'center'
-			des.className = 'infotext'
-			grid.appendChild(des)
-			document.getElementById("info-flex").appendChild(grid)
-		}
-	
-}
-function achievementscreen(ismenu){
-ispainting = false
-	const ele = document.getElementsByClassName("achievement-container")
-	for (let j=ele.length-1;j>=0;j--){
-		ele[j].remove();
-	}
-	
-	if(ismenu){
-	document.getElementById("back_button").onclick = function(){menu()}
-	}
-	else{
-	document.getElementById("back_button").onclick = function(){start()}
-	}
-	document.body.style.overflowY = "scroll"
-	document.getElementById("achievement-flex").style.display = 'flex'
-	document.getElementById("difficulty-flex").style.display = 'none'
-	document.getElementById("back_button").hidden = false
-	document.getElementById("title_start").hidden = true
-	document.getElementById("start-flex").style.display = "none"
-	
-	document.getElementById("stats").style.display = "none"
-	document.getElementById("select-grid").style.display = "none"
-	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "none"
-	for (const el of achievements){
-		const flex = document.createElement("flex")
-		
-		const title = document.createElement("h1")
-		const description = document.createElement("p")
-		title.innerHTML = el.title
-		description.innerHTML = el.description
-		flex.className = "achievement-container"
-		flex.appendChild(title)
-		flex.appendChild(description)
-		
-		document.getElementById("achievement-flex").appendChild(flex)
-		if (!el.acquired){
-		
-		flex.style.opacity = "0.7"
-		title.style.opacity = "0.7"
-		description.style.opacity = "0.7"
-		flex.style.backgroundColor = "rgb(69, 62, 62)"
-		}
-	}
-	
-	
-}
+
+
 function selectmarketitems(){
 	
 	marketitems.length = 0
 	const blueprintsitems = []
 	
-	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
+	for (len = m.marketselections.length, i = len-8;i<len-2;i++){
 		if (m.marketselections[i].stock>0){
 			blueprintsitems.push(i)
 		}
 	}
-	if (blueprintsitems.length==0){
+	if (blueprintsitems.length<2){
+		for (i=0;i<blueprintsitems.length;i++)
 		blueprintsitems.push(7)
 	}
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[getRandomInt(0,1)],m.marketselections.length-1,getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)])
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[0],blueprintsitems[1],getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)],m.marketselections.length-1)
 }
