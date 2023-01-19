@@ -484,17 +484,20 @@ function render(){
 	
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j<hillgrid[i].length;j++){
-			
+			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(103, 104, 107)"
 			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
 			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}		
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j!=rivergrid[i].length;j++){
+			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(3,172,252)"
 			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
 			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}
 	
@@ -511,8 +514,8 @@ function render(){
 			ctx.strokeStyle = "rgba(0,0,0,1)"
 		}
 		
-		for (let j = 0;j!=gridstats[i].positions.length;j++){
-			
+		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
+			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
 				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
 				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
 				
