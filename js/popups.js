@@ -307,7 +307,7 @@ const popups = [
 	{
 		text: "close",
 		effect(){
-			modifiers.food-=0.2
+			temporaryeffects.push({type: "percent", resources:0,military:0,food:-0.2,duration:3})
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
