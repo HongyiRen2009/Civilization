@@ -5,6 +5,7 @@ function generateblob(xpos,ypos, large, type = "hill"){
 	let x= xpos
 	let width=0
 	let height=0
+	
 	if (type=="hill"){
 	height = large ? getRandomInt(20,50):getRandomInt(5,10)
 	
@@ -47,8 +48,12 @@ function generateblob(xpos,ypos, large, type = "hill"){
 				}
 			
 			}
-			maxx+=getRandomInt(-2,((maxx>=widthmax)-1 ? 0:2))
-		minx+=getRandomInt(((minx==1) ? 0:-2),2)
+			//if(getRandomInt(0,100)==0){
+			//generatevillage(maxx-3,i,1)
+		//}
+			maxx+=getRandomInt(-2,2)
+		minx+=getRandomInt(-2,2)
+		
 		
 	}
 		
@@ -57,11 +62,33 @@ function generateblob(xpos,ypos, large, type = "hill"){
 function generatevillage(xpos,ypos,type){
 	let x = xpos
 	let y = ypos
+	const pieceindexes = []
+
+	for (i=0,rand=getRandomInt(1,4);i<rand;i++){
+		pieceindexes.push({index:12,change(){
+			x+=1
+			
+	}
+		})
+	}
+	for (i=0;i<10;i++){
+		pieceindexes.push({index:4,change(){x+=1}})
+		if(!hillgrid[y].includes(20*(x+i))){
+			break
+		}
+		if(rivergrid[y].includes(20*(x+i))){
+			return
+		}
+	}
+	for (i=0;i<5;i++){
+		pieceindexes.push({index:6,change(){x+=2;y+=2}})
+	pieceindexes.push({index:1,change(){y-=2}})
+	}
 	const gridpositions=[]
-	const pieceindexes = [{index:12,change(){x+=1}},{index:12,change(){x+=1}},{index:12,change(){x+=1}}]
 	for (const el of pieceindexes){
-		debugger
+		
 		gridpositions.length=0
+		
 	for(i=0;i<p.pieceROM[el.index].piecepositions.length;i++){
 		gridpositions.push({x:x*20+p.pieceROM[el.index].piecepositions[i].x*20,y:y*20+p.pieceROM[el.index].piecepositions[i].y*20})
 		grid[y+p.pieceROM[el.index].piecepositions[i].y].push(x*20+p.pieceROM[el.index].piecepositions[i].x*20)
@@ -77,7 +104,7 @@ function generatevillage(xpos,ypos,type){
 			food:p.food,
 			resources:p.resources,
 			military:p.military,
-			positions:gridpositions.slice(0),
+			positions:[...gridpositions],
 			resourcerefund: oldresources-resources,
 			disabled: true
 		})
