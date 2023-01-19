@@ -380,10 +380,19 @@ function newgame(difficult){
 	}
 	selectmarketitems()
 	
-	generateblob(spawnX,spawnY)
+	let xspawn = 50
+	let yspawn = 50
+	for (let h=0,rand=getRandomInt(50,60);h<rand;h++){
+		
+		generateblob(xspawn,yspawn, getRandomInt(0,30)==0)
 	
-	for (let h=0,rand=getRandomInt(40,60);h<rand;h++){
-		generateblob(getRandomInt(50,450),getRandomInt(50,450), getRandomInt(0,4)==0)
+			xspawn+=50
+		if (xspawn>450){
+			xspawn=50
+			yspawn+=50
+		}
+		
+		
 	}
 	
 	
