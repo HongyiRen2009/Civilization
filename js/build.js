@@ -2,13 +2,14 @@ const p = {
 	pieceROM: [
 	
 	{
-		name: "Tent",
-		letter: "T",
+		name: "Canopy",
+		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0}],
-		tab: "house",
+		tab: "housing",
 		unlocked: true,
 		near: "building",
+
 		effect(){
 			p.population=1
 			resources-=1
@@ -20,7 +21,7 @@ const p = {
 
 	},
 	{
-		name: "House",
+		name: "Hut",
 		letter: "H",
 		description: "A medium unit of housing that houses 4 people. Requires 3 resources to construct",
 		piecepositions:[{x:0,y:0}],
@@ -30,15 +31,15 @@ const p = {
 			p.population=4
 			resources-=3
 		},
-		tab: "house",
+		tab: "housing",
 		requires(){
 			return resources >=3 && difficulty>3
 		}
 	},
 	{
-		name: "Duplex",
-		letter: "D",
-		description: "Two conjoined houses. Houses 8 people and requires 5 resources to construct",
+		name: "Townhouse",
+		letter: "TH",
+		description: "A house for many people. Houses 8 people and requires 5 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
 		unlocked: true,
 		near: "building",
@@ -46,7 +47,7 @@ const p = {
 			p.population=8
 			resources-=5
 		},
-		tab: "house",
+		tab: "housing",
 		requires(){
 			return resources >=6 && difficulty>3
 		}
@@ -59,7 +60,7 @@ const p = {
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "building",
-		tab: "house",
+		tab: "housing",
 		effect(){
 			p.population=40
 			resources-=10
@@ -106,12 +107,13 @@ const p = {
 		name: "Small Farm",
 		letter: "F",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
-		description: "A small farm that produces 5 food. Requires 3 resources to construct and 1 person operating it",
+		description: "A small farm that produces 5 food. Half efficiency if on a hill. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
 		tab: "food",
 		effect(){
-			p.food=5
+			
+			p.food=Math.ceil(5*(p.hill ? 0.5:1))
 			resources-=3
 			unemployed-=1
 		},
@@ -122,10 +124,10 @@ const p = {
 	{
 		name: "Medium Farm",
 		letter: "MF",
-		description: "A medium farm that produces 20 food. Requires 15 resources to construct and 3 people operating it",
+		description: "A medium farm that produces 20 food. Requires 15 resources to construct and 3 people operating it. Cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:-1,y:0},{x:0,y:-1}],
-		near: "building",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		near: "!hill",
 		tab: "food",
 		effect(){
 			p.food=20
@@ -139,13 +141,13 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 50 food. Requires 20 resources to construct, 5 people operating it and must be nearby a river for irrigation",
+		description: "A large farm that produces 40 food. Requires 20 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:-1,y:0},{x:1,y:1},{x:0,y:1},{x:-1,y:1},{x:1,y:2},{x:0,y:2},{x:-1,y:2}],
-		near: "river",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		near: "river !hill",
 		tab: "food",
 		effect(){
-			p.food=50
+			p.food=40
 			resources-=20
 			unemployed-=5
 		},
@@ -176,14 +178,14 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:-1,y:-1},{x:0,y:0},{x:-1,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y-:1},{x:1,y:-1}],
 		near: "building",
 		tab: "military",
 		effect(){
-			p.military=10
+			p.military=10*(p.entirehill ? 2:1)
 			resources-=6
 			unemployed-=3
-			p.hill = true
+			
 		},
 		requires(){
 			return resources >= 6 && unemployed>=3
@@ -209,14 +211,14 @@ const p = {
 	{
 		name: "Small Mine",
 		letter: "SM",
-		description: "A small mine to extract resources from a hill. Collects 3 resources per year. Must be on a hill and requires 3 resources and 1 person operating it",
+		description: "A small mine to extract resources from a hill. Collects 3 resources per year. Half efficiency if not on a hill and requires 3 resources and 1 person operating it",
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
-		near: "hill",
+		near: "building",
 		tab: "resources",
 		effect(){
 			
-			p.resources=3
+			p.resources=4*(p.hill ? 1:0.5)
 			resources-=3
 			unemployed-=1
 		},
@@ -282,23 +284,22 @@ military:0,
 resources:0,
 research:0,
 river: false,
+hill : false
+hill : false,
+entirehill : false,
 }
 for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
 }
-function switchtab(){
-	let futuretab = tabs.indexOf(tab)+1
-	if (futuretab>tabs.length-1){futuretab=0}
-	tab = tabs[futuretab]
-	displaytab()
-}
+
 function removebuildings(){
 	currentpop -= Math.floor(currentpop/3);
 		
 		for(i=gridstats.length-1;i>-1;i--){
 		if (getRandomInt(0,2) == 0){
 			for (let j = 0; j!=gridstats[i].positions.length;j++){
-				grid[gridstats[i].positions[j].y/20].splice(grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x),1)
+				const indexx = grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x)
+				grid[gridstats[i].positions[j].y/20].splice(indexx,1)
 			}
 			gridstats.splice(i,1)
 			buildingamounts[i] -= 1
@@ -312,19 +313,24 @@ function isallowed(){
 localallowed = false
 for (i=0,len=piece.length;i!=len;i++){
 		
-		if((position.x/20)+piece[i].x < 0 || (position.x/20)+piece[i].x > widthmax-1 || (position.y/20)+piece[i].y < 0||(position.y/20)+piece[i].y > heightmax-1){
-			return false
-			
-		}
 		
-		else if (p.river &&!rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
+		if ((position.x/20)-(widthmax/2)+piece[i].x-spawnX>max.right||(position.x/20)-(widthmax/2)+piece[i].x-spawnX<max.left||(position.y/20)-(heightmax/2)+piece[i].y-spawnY>max.down||(position.y/20)-(heightmax/2)+piece[i].y-spawnY<max.up){
+			return false
+		}
+		if (p.river &&!rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
 			return false
 		}
 		else if (grid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20) ||(!p.river&& (rivergrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)))){
 			return false
 			
 		}
-	
+		if (p.pieceROM[p_index].near.includes("!hill")){
+			if (hillgrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
+				return false
+				
+
+			}
+		}
 		
 			
 			
@@ -355,10 +361,10 @@ for (i=0,len=piece.length;i!=len;i++){
 			
 		}
 		if (!localallowed) return false
-		if (p.pieceROM[p_index].near != "building"){localallowed = false}
+		if (p.pieceROM[p_index].near != "building"&&!p.pieceROM[p_index].near.includes("!hill")){localallowed = false}
 			for (i=0;i!=piece.length;i++){
 			
-			if (p.pieceROM[p_index].near ==  "river"){
+			if (p.pieceROM[p_index].near.includes("river")){
 				if (rivergrid[(position.y/20)+piece[i].y].includes(20+position.x+piece[i].x*20)){
 					localallowed = true
 					break
@@ -383,120 +389,215 @@ for (i=0,len=piece.length;i!=len;i++){
 }
 
 document.onmousemove = function(event){
+	
 		allowed = false
 if (ispainting){
-	position = {x:(Math.ceil((event.clientX)/20)-1)*20,y:(Math.floor(event.clientY/20)-3)*20}
+	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.round(event.clientY/20)-3+scrollY)*20}
 
-ctx.beginPath();
+
 
 render()
-
+ctx.beginPath();
 	allowed = isallowed()
 	
 	
 		
 		for (i=0;i!=piece.length;i++){
 			
-			ctx.fillText(letter,position.x-(letter.length*4)+10+piece[i].x*20,position.y+10+piece[i].y*20);
+				ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
-						ctx.fillRect(position.x+piece[i].x*20,position.y+piece[i].y*20,20,20)
+						ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				
 
 			}
 			else{		
+			ctx.strokeStyle = "black"
+			ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 			
-			ctx.rect(position.x+piece[i].x*20,position.y+piece[i].y*20,20,20)
 }
 		}
-ctx.stroke();
+		ctx.stroke();
+
+
 }
+else if (removing||repairing){
+	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.floor(event.clientY/20)-3+scrollY)*20}
+
+
+
+render()
+
+	
+	
+ctx.beginPath();
+		if(removing){
+		ctx.strokeStyle="white"
+		}
+		else{
+			ctx.strokeStyle="#4d4d4d"
+		}
+			ctx.rect(position.x-(scrollX*20),position.y+-scrollY*20,21,21)
+			ctx.stroke();
+ctx.closePath()
+
+		
+
 }
-function disable(){
-	if (disabling == false){
-		disabling = true
+
+}
+function isremoving(){
+	ispainting=false
+	repairing = false
+	if (removing == false){
+		removing = true
 	}
 	else{
-		disabling = false
+		removing = false
 	}
+}
+function isrepairing(){
+	ispainting=false
+	removing = false
+	if (repairing == false){
+		repairing = true
+	}
+	else{
+		repairing = false
+	}
+}
+function renderclouds(){
+	ctx.fillStyle = "#212121"
+	ctx.fillRect(((spawnX-scrollX)*20)+screen.width/2+max.right*20,0,screen.width,screen.height)
+	ctx.fillRect(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,screen.width,screen.height)
+	ctx.fillRect(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,screen.width,screen.height)
+	ctx.fillRect(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,screen.width,screen.height)
+	ctx.fillStyle = "rgba(0,0,0,1)"
+	ctx.stroke()
 }
 function render(){
 	
 	ctx.beginPath()
+	
 	ctx.clearRect(0,0,screen.width,screen.height)
-	ctx.strokeStyle = "rgb(0,0,0)"
+	ctx.strokeStyle = "rgba(0,0,0,1)"
 					ctx.fillStyle = "rgb(51, 166, 59)"
 	ctx.fillRect(0,0, screen.width,screen.height)
-	for (i=0;i!=hillgrid.length;i++){
-		for (let j = 0; j!=hillgrid[i].length;j++){
+	
+	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
+		for (let j = 0; j<hillgrid[i].length;j++){
+			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(103, 104, 107)"
-			ctx.fillRect(hillgrid[i][j],i*20,20,20)
-			ctx.fillStyle = "rgb(0,0,0)"
+			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
+			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}		
-for (i=0;i!=rivergrid.length;i++){
+	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j!=rivergrid[i].length;j++){
+			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(3,172,252)"
-			ctx.fillRect(rivergrid[i][j],i*20,20,20)
-			ctx.fillStyle = "rgb(0,0,0)"
+			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
+			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}
-	for(i=0;i!=gridstats.length;i++){
-		for (let j = 0;j!=gridstats[i].positions.length;j++){
-				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-gridstats[i].letter.length*4,gridstats[i].positions[j].y+10);
-				ctx.rect(gridstats[i].positions[j].x,gridstats[i].positions[j].y,20,20)
+	
+	ctx.closePath()
+
+	
+	for(len = gridstats.length,i=0;i<len;i++){
+		ctx.beginPath()
+		
+		if(gridstats[i].disabled){
+			ctx.strokeStyle = "rgba(0,0,0,0.2)"
 		}
+		else{
+			ctx.strokeStyle = "rgba(0,0,0,1)"
+		}
+		
+		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
+			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
+				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
+				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+				
+				
+				
+		}
+	
+		ctx.closePath()
+		ctx.stroke()
+		ctx.stroke()
+		
 	}
-	ctx.stroke()
+	renderclouds()
+
 	
 	
-	ctx.stroke()
+	
+	
 }
 document.onmousedown = function(event){
 	
-	if (ispainting && allowed&&position.y<canvas.height){
+	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
 		click.play()
 		p.population = 0
 		p.military = 0
 		p.resources = 0
 		p.food = 0
-		oldpop = unemployed
-		gridposition = []
-		p.pieceROM[p_index].effect()
-		
+		const oldpop = unemployed
+		const gridposition = []
+		if((Math.floor(position.x-screen.width/2)/20)-spawnX+5>max.right){
+			max.right = (Math.floor(position.x-screen.width/2)/20)-spawnX+5
+		}
+		if((Math.floor(position.x-screen.width/2)/20)-spawnX-5<max.left){
+			max.left = (Math.floor(position.x-screen.width/2)/20)-spawnX-5
+		}
+		if(Math.floor((position.y-screen.height/2)/20)-spawnY+10>max.down){
+			max.down = (Math.floor(position.y-screen.height/2)/20)-spawnY+10
+		}
+		if(Math.floor((position.y-screen.height/2)/20)-spawnY-5<max.up){
+			max.up = (Math.floor(position.y-screen.height/2)/20)-spawnY-5
+		}
 		for (i=0;i!=piece.length;i++){
+			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
-		grid[(position.y/20+piece[i].y)].push(position.x+piece[i].x*20)
+		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		
 		
+		
+		
+		if (!hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
+			p.entirehill = false
 		}
+		if (hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
+			p.hill = true
+		}	
 		
-		
-		ishill = true
-		if (p.hill){
-			for (i=0;i!=gridposition.length;i++){
-				if (!hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
-					ishill = false
-				}
-			}
-		}
-		else{ishill = false}
+	}
+	const oldresources = resources
+		p.pieceROM[p_index].effect()
+
 		gridstats.push({
 			letter:letter,
 			population:p.population,
 			employmentrequired: oldpop-unemployed,
 			food:p.food,
 			resources:p.resources,
-			military:p.military*(ishill ? 2:1),
-			positions:gridposition
-		
+			military:p.military,
+			positions:gridposition.slice(0),
+			resourcerefund: oldresources-resources,
+			disabled: false
 		})
+		
 		first_turn = false
-		allowed = false
+		
 		if (!p.pieceROM[p_index].requires()){
-			piece = []
+			piece.length = 0
 			ispainting = false
 			allowed = false
 		}
+		
 		buildingamounts[p_index] +=1
 		
 		displayUI()
@@ -504,8 +605,84 @@ document.onmousedown = function(event){
 			tutorialindex+=1
 			continuetutorial(tutorialindex)
 		}
+		
+}
+else if (removing&&grid[position.y/20].includes(position.x)){
+	
+	let found = false
+	let buildingindex = 0
+	for (i=0, len=gridstats.length;i<len;i++){
+		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
+		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
+			buildingindex=i
+			found=true
+			break
+		}
+		}
+		if(found)break
 	}
 	
+	for (const el of gridstats[buildingindex].positions){
+		const indexx = grid[el.y/20].indexOf(el.x)
+		grid[el.y/20].splice(indexx,1)
+		breaksound.play()
+	}
+	resources+=Math.round(gridstats[buildingindex].resourcerefund/2)
+	gridstats.splice(buildingindex,1)
+	displayUI()
+}
+else if (repairing&&grid[position.y/20].includes(position.x)){
+	let found = false
+	let buildingindex = 0
+	for (i=0, len=gridstats.length;i<len;i++){
+		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
+		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
+			buildingindex=i
+			found=true
+			break
+		}
+		}
+		if(found)break
+	}
+	if(gridstats[buildingindex].disabled==true&&resources>=Math.round(gridstats[buildingindex].resourcerefund/2)){
+
+	repairsound.play()
+	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
+	gridstats[buildingindex].disabled=false
+	displayUI()
+	}
+}
+}
+
+document.onkeydown = function(event){
+	
+	switch(event.key){
+		
+		case "w":
+			if (scrollY>0&&scrollY-spawnY>max.up){
+			move(0,-1)
+			}
+			break
+		case "s":
+			if (scrollY<499-heightmax&&scrollY-spawnY<max.down){
+			move(0,1)
+			}
+			break
+		case "a":
+			if (scrollX>0&&scrollX-spawnX>max.left){
+			move(-1,0)
+			}
+			break
+		case "d":
+			if (scrollX<499&&scrollX-spawnX<max.right){
+			move(1,0)
+			}
+			break
+		//case "r":
+		//rotate()
+		//break
+	}
+
 }
 function rotate(){
 	difference +=0.5
@@ -542,5 +719,67 @@ function rotate(){
 			if (Math.floor(difference) == 1){
 				difference = 0
 			}
+	render()
 
+}
+function select(index){
+	removing=false
+	repairing = false
+		piece = []
+	p.river = false
+	p.hill=false
+	p.entirehill=true
+	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
+	piece.push(p.pieceROM[index].piecepositions[i])
+	
+	}
+	if (p.pieceROM[index].name == "Bridge"){
+		p.river = true
+	}
+	
+	
+	letter = p.pieceROM[index].letter
+	p_index = index
+	p.pieceROM[index]
+	ispainting = true
+	
+}
+function cancel(){
+	piece = []
+	removing=false
+	ispainting = false
+	repairing = false
+	render()
+}
+
+
+function displaytab(){
+	const selectcontainer = document.getElementById("select-grid")
+	const ele = document.getElementsByClassName("select-choice")
+	for (i=ele.length-1;i>-1;i--){
+		
+		ele[i].remove()
+	}
+	for (i=0,len=p.pieceROM.length;i<len;i++){
+		
+		if (p.pieceROM[i].tab ==tab){
+		const button = document.createElement("button")
+		button.style.animation = "none"
+		button.innerHTML = p.pieceROM[i].name
+		button.className = "select-choice"
+		button.id = i
+		button.onclick = function(){select(button.id)}
+			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
+			button.disabled = true;
+			
+			}
+			else{button.disabled = false;
+			if (buildingamounts[i]<1){
+				button.style.animation = "flash 2s step-start infinite"
+			}
+			}
+		selectcontainer.appendChild(button)
+		}
+		
+	}
 }

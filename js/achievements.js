@@ -35,7 +35,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "First Shelter",
-	description: "build your first Tent",
+	description: "build your first Canopy",
 	requires(){
 		return buildingamounts[0] > 0
 		}
@@ -43,7 +43,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "it's settling time",
-	description: "build your first House",
+	description: "build your first hut",
 	requires(){
 		return buildingamounts[1] > 0
 		}
@@ -51,7 +51,7 @@ const achievements = [
 	{
 	acquired: false,
 	title: "Two for the price of two",
-	description: "build your first Duplex",
+	description: "build your first townhouse",
 	requires(){
 		return buildingamounts[2] > 0
 		}
@@ -59,7 +59,7 @@ const achievements = [
 	{
 		acquired: false,
 		title: "Urbanization",
-		description: "build your first Insula",
+		description: "build your first insula",
 		requires(){
 			return buildingamounts[3] > 0
 		}
@@ -264,3 +264,53 @@ function displayachievement(which){
 		animationac.offsetHeight; /* trigger reflow */
 		animationac.style.animation = null; 
 }
+
+function achievementscreen(ismenu){
+	ispainting = false
+	repairing=false
+	removing = false
+		const ele = document.getElementsByClassName("achievement-container")
+		for (let j=ele.length-1;j>=0;j--){
+			ele[j].remove();
+		}
+		
+		if(ismenu){
+		document.getElementById("back_button").onclick = function(){menu()}
+		}
+		else{
+		document.getElementById("back_button").onclick = function(){start()}
+		}
+		document.body.style.overflowY = "scroll"
+		document.getElementById("achievement-flex").style.display = 'flex'
+		document.getElementById("difficulty-flex").style.display = 'none'
+		document.getElementById("back_button").hidden = false
+		document.getElementById("title_start").hidden = true
+		document.getElementById("start-flex").style.display = "none"
+		
+		document.getElementById("stats").style.display = "none"
+		document.getElementById("select-grid").style.display = "none"
+		ctx.clearRect(0,0,screen.width,screen.height)
+		document.getElementById("save-flex").style.display = "none"
+		for (const el of achievements){
+			const flex = document.createElement("flex")
+			
+			const title = document.createElement("h1")
+			const description = document.createElement("p")
+			title.innerHTML = el.title
+			description.innerHTML = el.description
+			flex.className = "achievement-container"
+			flex.appendChild(title)
+			flex.appendChild(description)
+			
+			document.getElementById("achievement-flex").appendChild(flex)
+			if (!el.acquired){
+			
+			flex.style.opacity = "0.7"
+			title.style.opacity = "0.7"
+			description.style.opacity = "0.7"
+			flex.style.backgroundColor = "rgb(69, 62, 62)"
+			}
+		}
+		
+		
+	}

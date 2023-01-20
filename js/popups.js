@@ -307,7 +307,7 @@ const popups = [
 	{
 		text: "close",
 		effect(){
-			modifiers.food-=0.2
+			temporaryeffects.push({type: "percent", resources:0,military:0,food:-0.2,duration:3})
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
@@ -744,6 +744,22 @@ const popups = [
 	}
 		]
 	},
+	{
+		title: "<strong class = 'color-g'>Information</strong>",
+	size: "25px",
+	description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
+	choosetext(){},
+	choices: [
+	{
+		text:"close",
+		effect(){
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+		
+		}
+	}]
+},
+	
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",

@@ -25,6 +25,7 @@
 
 		
 </div>
+
 <div style = "display: none; align-items: center; flex-direction: column; position: absolute; width: 100%; " id = market-flex>
 	<div style = "display: flex; width: 90%; gap: 30%;">
 	<p style = "font-weight: bold;" id = "mresource">Resources: </p>
@@ -125,9 +126,15 @@
  <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
 
 <div class="select-grid" id="select-grid" hidden = true>
-<button class = 'cancel' onclick = "switchtab()">🡅</button>
-<button class = 'cancel' onclick = "cancel()">Cancel</button>
 
+<button class = 'cancel' onclick = "cancel()">Cancel</button>
+<button class = 'cancel' onclick = "isremoving()">Remove</button>
+<button class = 'cancel' onclick = "isrepairing()">Repair</button>
+<select id="taboption" onchange="switchtab()" style="background-color:#f0e87a;border-color: black;border-style: solid;border-radius: 4px">
+
+
+
+</select>
 </div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
@@ -135,6 +142,7 @@
 	
 	<div id = "description" class = "dis">undefined</div>
 </div>
+<img src = "images/cloud1.png" style = "display:none" id = "cloudimg"></img>
 <script>
 const canvas = document.querySelector("canvas")
 canvas.height = screen.height-225
@@ -143,24 +151,32 @@ const ctx = canvas.getContext("2d")
 const heightmax = Math.round((screen.height-225)/20)
 const widthmax = Math.round((screen.width)/20)
 const rivergrid = [] 
-
+const max = {
+	up:-40,
+	down:40,
+	left:-40,
+	right:40
+}
 const grid = []
-
-const hillgrid = [] 
-
-const tabs = ["house","food","military","resources","misc"]
+const hillgrid = []
+const tabs = ["housing","food","military","resources","misc"]
 const gridstats = []
-
+let scrollX = 250
+let scrollY = 250
+let spawnX = 0
+let spawnY = 0
 let ispainting = false
+let repairing = false
 let position = {}
 let letter = ""
 let piece = []
 let population = 0
+let difference =0
 let food = 0
 let resources = 8
 let resourcesgained = 0
 let p_index = 0
-let removeindex = [];
+let megatemple = 0
 let modifiers = {
 	food: 0,
 	resources:0,
@@ -176,14 +192,18 @@ const click = new Audio('sounds/click.mp3');
 const build_music = new Audio('music/Menu_music.wav');
 const market_music = new Audio('music/Market_music.wav');
 const kaching = new Audio('sounds/Purchase.wav');
+const breaksound = new Audio('sounds/remove.wav');
+const repairsound = new Audio('sounds/repair.wav');
 market_music.loop = true
 build_music.loop = true
+
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
 let unemployed = 2;
 let difficulty = 0;
 let first_turn = true;
+let removing = false;
 let luck = 0
 let reputation = 0
 let save_slot = null;
@@ -192,15 +212,25 @@ let selection_grid_row = 0
 const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
-savewidths = document.getElementsByClassName("save-grid")
 const temporaryeffects = []
-for (const el of savewidths){
-el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${62.5*(screen.height/900)}px ${150*(screen.height/900)}px ${50*(screen.height/900)}px`
+function switchtab(){
+	tab = document.getElementById("taboption").value
+	displaytab()
+}
+for (i=tabs.length-1;i>=0;i--){
+	const taboption = document.createElement("option")
+	taboption.innerHTML = tabs[i]
+	
+	document.getElementById("taboption").appendChild(taboption)
+	if (i==0){
+		taboption.selected=true
+	}
 }
 
 </script>
+
+
 <script src = "js/terrain_generator.js"></script>
-<script></script>
 <script src = "js/build.js"></script>
 <script src = "js/tutorial.js"></script>
 

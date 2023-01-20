@@ -20,6 +20,9 @@ function turnpopup(){
 		displaypopup(popups.length-1)
 		return
 	}
+	if(reputation>50&&difficulty>50&&getRandomInt(0,5)==0){
+		displaypopup(13)
+	}
 	if (difficulty>3*difficultymultiplier){
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
@@ -42,12 +45,18 @@ function turnpopup(){
 		return
 		}
 		else{
-		randomindex = getRandomInt(8,12)
+		randomindex = getRandomInt(8,10)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
 		return
 
 		}
+	}
+	else if (reputation>30&&getRandomInt(0,2)==0){
+		randomindex = getRandomInt(11,12)
+		popups[randomindex].choosetext()
+		displaypopup(randomindex)
+		return
 	}
 	else if (military>(difficulty+1)*5){
 		displaypopup(2)
@@ -107,81 +116,20 @@ function next_turn(){
 		document.getElementById("mbutton").disabled=false
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
-		p.price = Math.min(Math.max(p.price,Math.floor(difficulty/2)),difficulty*2)
-		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
+		p.price-=Math.floor(reputation/5)
+		p.price = Math.min(Math.max(p.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		if(p.stock<10&&p.title!="Blueprints"&&p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
 		for (i=0;i<2;i++){
-		m.marketselections[i].price+=Math.floor(reputation/5)
+		
 		}
 	}
 }
 	setTimeout(enable,700)
 	
 }
-function select(index){
-	disabling = false
-		piece = []
-	p.river = false
-	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
-	piece.push(p.pieceROM[index].piecepositions[i])
-	
-	}
-	if (p.pieceROM[index].name == "Bridge"){
-		p.river = true
-	}
-	
-	
-	letter = p.pieceROM[index].letter
-	p_index = index
-	ispainting = true
-	
-}
-function cancel(){
-	piece = []
-	ispainting = false
-	render()
-}
 
-//document.onkeydown = function(event){
-	//switch (event.key){
-	//	case "r":
-		
-		//rotate()
-		//render()
-		//break
-	//}
-//}
-function displaytab(){
-	const selectcontainer = document.getElementById("select-grid")
-	const ele = document.getElementsByClassName("select-choice")
-	for (i=ele.length-1;i>-1;i--){
-		
-		ele[i].remove()
-	}
-	for (i=0,len=p.pieceROM.length;i<len;i++){
-		debugger
-		if (p.pieceROM[i].tab ==tab){
-		const button = document.createElement("button")
-		button.style.animation = "none"
-		button.innerHTML = p.pieceROM[i].name
-		button.className = "select-choice"
-		button.id = i
-		button.onclick = function(){select(button.id)}
-			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
-			button.disabled = true;
-			
-			}
-			else{button.disabled = false;
-			if (buildingamounts[i]<1){
-				button.style.animation = "flash 2s step-start infinite"
-			}
-			}
-		selectcontainer.appendChild(button)
-		}
-		
-	}
-}
 function displayUI(){
 	
 		population = 0
@@ -203,7 +151,8 @@ function displayUI(){
 		if (difficulty<3){
 			document.getElementById("mbutton").disabled=true
 		}
-		for (i=0;i<gridstats.length;i++){
+		for (len = gridstats.length,i=0;i<len;i++){
+			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
 			food += gridstats[i].food
@@ -212,12 +161,9 @@ function displayUI(){
 			unemployed -= gridstats[i].employmentrequired
 			}
 			else{
-				for (let j = 0; j!=gridstats[i].positions.length;j++){
-				grid[gridstats[i].positions[j].y/20].splice(grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x),1)
+				gridstats[i].disabled = true
 			}
-			gridstats.splice(i,1)
-			}
-			
+		}
 		}
 		displaytab()
 		

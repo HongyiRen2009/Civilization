@@ -25,6 +25,8 @@ function confirmclear(index){
 }
 function clearsave(index){
 	localStorage.removeItem('grid'+index)
+	localStorage.removeItem('remove'+index)
+	localStorage.removeItem('scrollinfo'+index)
 	localStorage.removeItem('river'+index)
 	localStorage.removeItem('hill'+index)
 	localStorage.removeItem('stats'+index)
@@ -44,10 +46,56 @@ function clearsave(index){
 	localStorage.removeItem('marketitems'+index)
 
 }
+function info(){
+	document.body.style.overflowY = "scroll"
+ispainting = false
+removing = false
+repairing = false
+	const ele = document.getElementsByClassName("infotext")
+	for (let j=ele.length-1;j>=0;j--){
+		ele[j].remove();
+	}
+	const ele2 = document.getElementsByClassName("info-grid")
+	for (let j=ele2.length-1;j>=0;j--){
+		ele2[j].remove();
+	}
+	document.getElementById("info-flex").style.display = 'flex'
+	document.getElementById("difficulty-flex").style.display = 'none'
+	document.getElementById("back_button").hidden = false
+	document.getElementById("back_button").onclick = function(){start()}
+	document.getElementById("stats").style.display = "none"
+	document.getElementById("select-grid").style.display = "none"
+	ctx.clearRect(0,0,screen.width,screen.height)
+	document.getElementById("save-flex").style.display = "none"
+	
+		for (const building of p.pieceROM){
+			const grid = document.createElement("div")
+			grid.className = "info-grid"
+			const title = document.createElement("h1")
+			title.className = "infotext"
+			title.innerHTML = building.name
+			title.style.textAlign = 'center'
+			grid.appendChild(title)
+			const des = document.createElement("p")
+			if (building.unlocked){
+			des.innerHTML = building.description
+			}
+			else{
+				des.innerHTML = "???"
+			}
+			des.style.textAlign = 'center'
+			des.className = 'infotext'
+			grid.appendChild(des)
+			document.getElementById("info-flex").appendChild(grid)
+		}
+	
+}
 function menu(){
 	build_music.pause()
 	market_music.pause()
-ispainting = false
+	removing=false
+	ispainting = false
+	repairing = false
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("title_start").innerHTML = 'Civilization'
@@ -62,8 +110,19 @@ document.getElementById("title_start").innerHTML = 'Civilization'
 }
 function savescreen(save){
 	
-ispainting = false
+	removing=false
+	ispainting = false
+	repairing = false
 	document.getElementById("back_button").hidden = false
+	const ele = document.getElementsByClassName("save_button")
+		
+		i=1
+		for (const el of ele){
+			el.disabled = false
+			el.innerHTML = "Save Game"
+			el.onclick = function(){savegame(el.id)}
+			i++
+		}
 	const ele2 = document.getElementsByClassName("clear_button")
 		i=1
 		for (const el of ele2){
@@ -100,15 +159,7 @@ ispainting = false
 	else{
 		
 		document.getElementById("back_button").onclick = function(){start()}
-		const ele = document.getElementsByClassName("save_button")
 		
-		i=1
-		for (const el of ele){
-			el.disabled = false
-			el.innerHTML = "Save Game"
-			el.onclick = function(){savegame(el.id)}
-			i++
-		}
 	}
 	for (i=1;i<6;i++){
 		const ele = document.getElementsByClassName("savedes"+i)
@@ -176,7 +227,9 @@ function save(bindex){
 	}
 	
 	save_slot = bindex
+	
 	localStorage.setItem('grid'+bindex, JSON.stringify(grid));
+	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
 	localStorage.setItem('river'+bindex, JSON.stringify(rivergrid));
 	localStorage.setItem('hill'+bindex, JSON.stringify(hillgrid));
 	localStorage.setItem('stats'+bindex, JSON.stringify(gridstats));
@@ -192,7 +245,7 @@ function save(bindex){
 	localStorage.setItem('amounts'+bindex, JSON.stringify(buildingamounts));
 	localStorage.setItem('unlocked'+bindex, JSON.stringify(unlocked));
 	localStorage.setItem('luck'+bindex, JSON.stringify(luck));
-	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel]));
+	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 	localStorage.setItem('bluestocks'+bindex, JSON.stringify(blueprintsitems));
 
@@ -208,6 +261,8 @@ function load(bindex){
 	marketitems.length=0
 	
 	const localgrid = JSON.parse(localStorage.getItem('grid'+bindex));
+	const localremove = JSON.parse(localStorage.getItem('remove'+bindex));
+	const localscrolldata = JSON.parse(localStorage.getItem('scrollinfo'+bindex));
 	resources = JSON.parse(localStorage.getItem('resources'+bindex));
 	currentpop = JSON.parse(localStorage.getItem('population'+bindex));
 	reputation = JSON.parse(localStorage.getItem('reputation'+bindex));
@@ -228,8 +283,16 @@ function load(bindex){
 	m.assissin = localmarketmod[0]
 	m.spy = localmarketmod[1]
 	m.rebel = localmarketmod[2]
+	m.phase = localmarketmod[3]
 	let j = 0
-	debugger
+	spawnX = localscrolldata[2]
+	spawnY = localscrolldata[3]
+	scrollX = localscrolldata[0]
+	scrollY = localscrolldata[1]
+	max.up=localscrolldata[4].up
+	max.down=localscrolldata[4].down
+	max.left=localscrolldata[4].left
+	max.right=localscrolldata[4].right
 	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
 			m.marketselections[i].stock=localbluestocks[j]
 					j++
@@ -242,6 +305,7 @@ function load(bindex){
 	for (i=0;i!=localgrid.length;i++){
 	grid.push(localgrid[i])
 	}
+
 	for (i=0;i!=localtemporaryeffects.length;i++){
 	temporaryeffects.push(localtemporaryeffects[i])
 	}
@@ -275,11 +339,15 @@ function newgame(difficult){
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
+	switchtab()
 	hillgrid.length=0
 	temporaryeffects.length=0
 	buildingamounts.length = 0
 	punishamount = 0
-	
+	spawnX=getRandomInt(100,300)
+	spawnY=getRandomInt(100,300)
+	scrollX=spawnX
+	scrollY=spawnY
 	for (i=0;i<p.pieceROM.length;i++){
 	buildingamounts.push(0);
 }	
@@ -299,26 +367,38 @@ function newgame(difficult){
 	hillgrid.length = 0
 	grid.length = 0
 	gridstats.length = 0
-	for (i=0;i!=heightmax;i++){
+	for (i=0;i<500;i++){
 	rivergrid.push([])
 	}
-	for (i=0;i!=heightmax;i++){
+	for (i=0;i<500;i++){
 		hillgrid.push([])
 	}
-	for (i=0;i!=heightmax;i++){
+	for (i=0;i<500;i++){
 		grid.push([])
 	}
-	for (i=0;i<getRandomInt(1,3);i++){
-	generateriver(Math.round(widthmax/2)+getRandomInt(-10,10), 0, getRandomInt(-5,5))
+	
+	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
+	generateriver(getRandomInt(100,300), 0, 0)
 	}
 	selectmarketitems()
+	
+	let xspawn = 50
+	let yspawn = 50
+	for (let h=0,rand=getRandomInt(50,60);h<rand;h++){
+		
+		generateblob(xspawn,yspawn, getRandomInt(0,30)==0)
+	
+			xspawn+=50
+		if (xspawn>450){
+			xspawn=50
+			yspawn+=50
+		}
+		
+		
+	}
+	
+	
 
-generatehill()
-generatehill()
-generatehill()
-generatehill()
-generatehill()
-generatehill()
 displaypopup(3, confirmation)
 }
 function getRandomInt(min, max) {
@@ -354,4 +434,9 @@ render()
 if (istutorial&&tutorialindex==0){
 continuetutorial(0)
 }
+}
+function move(x,y){
+	scrollX+=x
+	scrollY+=y
+	render()
 }
