@@ -18,6 +18,7 @@
 	<button class = "info" onclick = "achievementscreen(false)">Achievements</button>
 	<button class = "info" onclick = "info()">Building Info</button>
 	<button id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
+	<button id = "mbutton" class = "info" onclick = "techtreescreen()">Tech Tree</button>
 	
 	
 
@@ -44,6 +45,10 @@
 <div id ="achievement-flex" class =  'achievement-flex'>
 <h1 style = "text-align:center">Achievements:</h1>
 </div>
+
+<div id ="techtree-flex" class =  'techtree-flex'>
+	<h1 style = "text-align:center">Tech Tree:</h1>
+	</div>
 
 
 
@@ -201,6 +206,8 @@ el.style.gridTemplateRows = `${100*(screen.height/900)}px ${62.5*(screen.height/
 
 <script src = "js/market.js"></script>
 <script src = "js/economy.js"></script>
+
+<script src = "js/techtree.js"></script>
 
 <script src = "js/achievements.js"></script>
 <script src = "js/turn_manager.js"></script>

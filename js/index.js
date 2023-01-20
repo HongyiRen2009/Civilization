@@ -339,6 +339,7 @@ document.body.style.overflow = "hidden"
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
+document.getElementById("techtree-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
 document.getElementById("title_start").hidden = true
 document.getElementById("stats").style.display = "flex"
