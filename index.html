@@ -121,11 +121,15 @@
  <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
 
 <div class="select-grid" id="select-grid" hidden = true>
-<button class = 'cancel' onclick = "switchtab()">🡅</button>
+
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
 <button class = 'cancel' onclick = "isremoving()">Remove</button>
+<button class = 'cancel' onclick = "isrepairing()">Repair</button>
+<select id="taboption" onchange="switchtab()" style="background-color:#f0e87a;border-color: black;border-style: solid;border-radius: 4px">
 
 
+
+</select>
 </div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
@@ -150,13 +154,14 @@ const max = {
 }
 const grid = []
 const hillgrid = []
-const tabs = ["house","food","military","resources","misc"]
+const tabs = ["housing","food","military","resources","misc"]
 const gridstats = []
 let scrollX = 250
 let scrollY = 250
 let spawnX = 0
 let spawnY = 0
 let ispainting = false
+let repairing = false
 let position = {}
 let letter = ""
 let piece = []
@@ -166,7 +171,7 @@ let food = 0
 let resources = 8
 let resourcesgained = 0
 let p_index = 0
-
+let megatemple = 0
 let modifiers = {
 	food: 0,
 	resources:0,
@@ -183,8 +188,10 @@ const build_music = new Audio('music/Menu_music.mp3');
 const market_music = new Audio('music/Market_music.mp3');
 const kaching = new Audio('sounds/Purchase.mp3');
 const breaksound = new Audio('sounds/remove.mp3');
+const repairsound = new Audio('sounds/repair.wav');
 market_music.loop = true
 build_music.loop = true
+
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
@@ -200,6 +207,19 @@ const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
 const temporaryeffects = []
+function switchtab(){
+	tab = document.getElementById("taboption").value
+	displaytab()
+}
+for (i=tabs.length-1;i>=0;i--){
+	const taboption = document.createElement("option")
+	taboption.innerHTML = tabs[i]
+	
+	document.getElementById("taboption").appendChild(taboption)
+	if (i==0){
+		taboption.selected=true
+	}
+}
 
 </script>
 

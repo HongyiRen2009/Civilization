@@ -20,6 +20,9 @@ function turnpopup(){
 		displaypopup(popups.length-1)
 		return
 	}
+	if(reputation>50&&difficulty>50&&getRandomInt(0,5)==0){
+		displaypopup(13)
+	}
 	if (difficulty>3*difficultymultiplier){
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
@@ -42,12 +45,18 @@ function turnpopup(){
 		return
 		}
 		else{
-		randomindex = getRandomInt(8,12)
+		randomindex = getRandomInt(8,10)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
 		return
 
 		}
+	}
+	else if (reputation>30&&getRandomInt(0,2)==0){
+		randomindex = getRandomInt(11,12)
+		popups[randomindex].choosetext()
+		displaypopup(randomindex)
+		return
 	}
 	else if (military>(difficulty+1)*5){
 		displaypopup(2)
@@ -108,7 +117,7 @@ function next_turn(){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
 		p.price-=Math.floor(reputation/5)
 		p.price = Math.min(Math.max(p.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		if(p.stock<10&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
+		if(p.stock<10&&p.title!="Blueprints"&&p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
 		for (i=0;i<2;i++){
@@ -141,7 +150,8 @@ function displayUI(){
 		if (difficulty<3){
 			document.getElementById("mbutton").disabled=true
 		}
-		for (i=0;i<gridstats.length;i++){
+		for (len = gridstats.length,i=0;i<len;i++){
+			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
 			food += gridstats[i].food
@@ -150,12 +160,9 @@ function displayUI(){
 			unemployed -= gridstats[i].employmentrequired
 			}
 			else{
-				for (let j = 0; j!=gridstats[i].positions.length;j++){
-				grid[gridstats[i].positions[j].y/20].splice(grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x),1)
+				gridstats[i].disabled = true
 			}
-			gridstats.splice(i,1)
-			}
-			
+		}
 		}
 		displaytab()
 		

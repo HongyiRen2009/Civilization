@@ -6,7 +6,7 @@ const p = {
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0}],
-		tab: "house",
+		tab: "housing",
 		unlocked: true,
 		near: "building",
 
@@ -31,7 +31,7 @@ const p = {
 			p.population=4
 			resources-=3
 		},
-		tab: "house",
+		tab: "housing",
 		requires(){
 			return resources >=3 && difficulty>3
 		}
@@ -47,7 +47,7 @@ const p = {
 			p.population=8
 			resources-=5
 		},
-		tab: "house",
+		tab: "housing",
 		requires(){
 			return resources >=6 && difficulty>3
 		}
@@ -60,7 +60,7 @@ const p = {
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "building",
-		tab: "house",
+		tab: "housing",
 		effect(){
 			p.population=40
 			resources-=10
@@ -112,7 +112,7 @@ const p = {
 		near: "building",
 		tab: "food",
 		effect(){
-			debugger
+			
 			p.food=Math.ceil(5*(p.hill ? 0.5:1))
 			resources-=3
 			unemployed-=1
@@ -178,7 +178,7 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
 		unlocked: true,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y-:1},{x:1,y:-1}],
 		near: "building",
 		tab: "military",
 		effect(){
@@ -289,12 +289,7 @@ entirehill : false,
 for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
 }
-function switchtab(){
-	let futuretab = tabs.indexOf(tab)+1
-	if (futuretab>tabs.length-1){futuretab=0}
-	tab = tabs[futuretab]
-	displaytab()
-}
+
 function removebuildings(){
 	currentpop -= Math.floor(currentpop/3);
 		
@@ -392,14 +387,15 @@ for (i=0,len=piece.length;i!=len;i++){
 }
 
 document.onmousemove = function(event){
+	
 		allowed = false
 if (ispainting){
-	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.floor(event.clientY/20)-3+scrollY)*20}
+	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.round(event.clientY/20)-3+scrollY)*20}
 
-ctx.beginPath();
+
 
 render()
-
+ctx.beginPath();
 	allowed = isallowed()
 	
 	
@@ -414,40 +410,58 @@ render()
 
 			}
 			else{		
-			
+			ctx.strokeStyle = "black"
 			ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+			
 }
 		}
-		
-ctx.stroke();
-renderclouds()
+		ctx.stroke();
+
+
 }
-else if (removing){
+else if (removing||repairing){
 	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.floor(event.clientY/20)-3+scrollY)*20}
 
-ctx.beginPath();
+
 
 render()
 
 	
 	
-		
-		ctx.fillStyle="white"
-			ctx.fillRect(position.x-(scrollX*20),position.y+-scrollY*20,21,21)
+ctx.beginPath();
+		if(removing){
+		ctx.strokeStyle="white"
+		}
+		else{
+			ctx.strokeStyle="#4d4d4d"
+		}
+			ctx.rect(position.x-(scrollX*20),position.y+-scrollY*20,21,21)
 			ctx.stroke();
+ctx.closePath()
 
 		
-		
-renderclouds()
+
 }
+
 }
 function isremoving(){
 	ispainting=false
+	repairing = false
 	if (removing == false){
 		removing = true
 	}
 	else{
 		removing = false
+	}
+}
+function isrepairing(){
+	ispainting=false
+	removing = false
+	if (repairing == false){
+		repairing = true
+	}
+	else{
+		repairing = false
 	}
 }
 function renderclouds(){
@@ -456,45 +470,70 @@ function renderclouds(){
 	ctx.fillRect(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,screen.width,screen.height)
 	ctx.fillRect(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,screen.width,screen.height)
 	ctx.fillRect(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,screen.width,screen.height)
-	ctx.fillStyle = "rgb(0,0,0)"
+	ctx.fillStyle = "rgba(0,0,0,1)"
 	ctx.stroke()
 }
 function render(){
 	
 	ctx.beginPath()
+	
 	ctx.clearRect(0,0,screen.width,screen.height)
-	ctx.strokeStyle = "rgb(0,0,0)"
+	ctx.strokeStyle = "rgba(0,0,0,1)"
 					ctx.fillStyle = "rgb(51, 166, 59)"
 	ctx.fillRect(0,0, screen.width,screen.height)
 	
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j<hillgrid[i].length;j++){
-			
+			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(103, 104, 107)"
 			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
-			ctx.fillStyle = "rgb(0,0,0)"
+			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}		
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j!=rivergrid[i].length;j++){
+			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
 			ctx.fillStyle = "rgb(3,172,252)"
 			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
-			ctx.fillStyle = "rgb(0,0,0)"
-		}
-	}
-	ctx.strokeStyle = "black"
-	for(len = gridstats.length,i=0;i!=len;i++){
-		for (let j = 0;j!=gridstats[i].positions.length;j++){
-				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
-				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+			ctx.fillStyle = "rgba(0,0,0,1)"
+			}
 		}
 	}
 	
+	ctx.closePath()
+
+	
+	for(len = gridstats.length,i=0;i<len;i++){
+		ctx.beginPath()
+		
+		if(gridstats[i].disabled){
+			ctx.strokeStyle = "rgba(0,0,0,0.2)"
+		}
+		else{
+			ctx.strokeStyle = "rgba(0,0,0,1)"
+		}
+		
+		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
+			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
+				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
+				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+				
+				
+				
+		}
+	
+		ctx.closePath()
+		ctx.stroke()
+		ctx.stroke()
+		
+	}
+	renderclouds()
 
 	
 	
-	renderclouds()
-	ctx.stroke()
+	
+	
 }
 document.onmousedown = function(event){
 	
@@ -504,8 +543,8 @@ document.onmousedown = function(event){
 		p.military = 0
 		p.resources = 0
 		p.food = 0
-		oldpop = unemployed
-		gridposition = []
+		const oldpop = unemployed
+		const gridposition = []
 		if((Math.floor(position.x-screen.width/2)/20)-spawnX+5>max.right){
 			max.right = (Math.floor(position.x-screen.width/2)/20)-spawnX+5
 		}
@@ -519,7 +558,7 @@ document.onmousedown = function(event){
 			max.up = (Math.floor(position.y-screen.height/2)/20)-spawnY-5
 		}
 		for (i=0;i!=piece.length;i++){
-			debugger
+			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		
@@ -544,8 +583,9 @@ document.onmousedown = function(event){
 			food:p.food,
 			resources:p.resources,
 			military:p.military,
-			positions:gridposition,
-			resourcerefund: oldresources-resources
+			positions:gridposition.slice(0),
+			resourcerefund: oldresources-resources,
+			disabled: false
 		})
 		
 		first_turn = false
@@ -588,6 +628,27 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 	resources+=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats.splice(buildingindex,1)
 	displayUI()
+}
+else if (repairing&&grid[position.y/20].includes(position.x)){
+	let found = false
+	let buildingindex = 0
+	for (i=0, len=gridstats.length;i<len;i++){
+		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
+		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
+			buildingindex=i
+			found=true
+			break
+		}
+		}
+		if(found)break
+	}
+	if(gridstats[buildingindex].disabled==true&&resources>=Math.round(gridstats[buildingindex].resourcerefund/2)){
+
+	repairsound.play()
+	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
+	gridstats[buildingindex].disabled=false
+	displayUI()
+	}
 }
 }
 
@@ -661,7 +722,7 @@ function rotate(){
 }
 function select(index){
 	removing=false
-	disabling = false
+	repairing = false
 		piece = []
 	p.river = false
 	p.hill=false
@@ -685,6 +746,7 @@ function cancel(){
 	piece = []
 	removing=false
 	ispainting = false
+	repairing = false
 	render()
 }
 
