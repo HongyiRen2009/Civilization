@@ -208,6 +208,77 @@ function savescreen(save){
 	document.getElementById("save-flex").style.display = "flex"
 	
 }
+function techscreen(){
+	document.getElementById("info-flex").style.display = 'none'
+	document.getElementById("difficulty-flex").style.display = 'none'
+	document.getElementById("tech-tree").style.display = 'grid'
+	document.getElementById("back_button").hidden = false
+	document.getElementById("back_button").onclick = function(){start()}
+	document.getElementById("stats").style.display = "none"
+	document.getElementById("select-grid").style.display = "none"
+	ctx.clearRect(0,0,screen.width,screen.height)
+	document.getElementById("save-flex").style.display = "none"
+	const categories = ["military", "food","mining", "transportation"]
+	const techgrid = document.getElementById("tech-tree")
+	const linecontainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+	linecontainer.setAttribute("height", screen.height);
+	linecontainer.setAttribute("width", screen.width);
+	const techelements = []
+
+	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
+	techgrid.style.gridTemplateRows = "100px " +(screen.height/tech.length+1+"px ").repeat(tech.length)
+	linecontainer.setAttribute("class","techline");
+	document.body.appendChild(linecontainer)
+	for (i=0,len=categories.length;i<len;i++){
+		const title = document.createElement("h1")
+		title.innerHTML=categories[i]
+		title.style.gridColumn=i+1
+		title.style.gridRow=1
+		techgrid.appendChild(title)
+	}
+	for (i=0,len=tech.length;i<len;i++){
+		debugger
+		for (let j=0,leng=tech[i].length;j<leng;j++){
+			const techoption = document.createElement("button")
+			techoption.style.gridRow=i+2
+			techoption.style.gridColumn=categories.indexOf(tech[i][j].category)+1
+			techgrid.appendChild(techoption)
+			for (const el of tech[i][j].requires){
+				let techelement = null
+				debugger
+				for (const teposition of techelements){
+					if (el[0]==teposition.techposition[0]&&el[1]==teposition.techposition[1]){
+						techelement=teposition
+					}
+				}
+				
+				const techline = document.createElementNS('http://www.w3.org/2000/svg','line');
+				const thisposition = techoption.getBoundingClientRect()
+				const thatposition = techelement.element.getBoundingClientRect()
+				techline.setAttribute('x1',thisposition.x+15);
+				techline.setAttribute('y1',thisposition.y+15);
+				techline.setAttribute('x2',thatposition.x+15);
+				techline.setAttribute('y2',thatposition.y+15);
+				techline.style.stroke = "black"
+				techline.style.strokeWidth = "2"
+				linecontainer.append(techline);
+			}
+			
+			
+			
+			techelements.push({element: techoption, techposition: [i,j]})
+
+		}
+	}
+	
+}
+function getPos(el) {
+    // yay readability
+    for (var lx=0, ly=0;
+         el != null;
+         lx += el.offsetLeft, ly += el.offsetTop);
+    return {x: lx,y: ly};
+}
 function savegame(bindex){
 
 	confirmation[0].choosetext(bindex)
@@ -421,6 +492,7 @@ function start(){
 	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
 	
 document.body.style.overflow = "hidden"
+document.getElementById("tech-tree").style.display = 'none'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
