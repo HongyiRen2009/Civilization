@@ -113,24 +113,35 @@ function generatevillage(xpos,ypos,type){
 		el.change()
 	}
 }
-function generateriver(xpos,ypos, curve, times = 0){
+function generateriver(xpos,ypos, curve, times = 0, width=2){
 	let x = xpos
 	let rivertimes = times
 	let rivercurve = curve
 	let rand = 0
-	for (let y = ypos;y<500;y++){
-		if (getRandomInt(0+rivercurve,7) > 5){
-			rivergrid[y].push(x*20)
-			x+=1
-			if (getRandomInt(0,100)==0&&rivertimes<7){rand =getRandomInt(-2,-5); generateriver(x,y,rand,rivertimes);rivercurve=rand*-1}
+	let oldx=xpos
+	for (let y = ypos;y<getRandomInt(300,500);y++){
+		oldx = x
+		debugger
+		x=(Math.sin(0.3*y)+1.1*Math.sin(0.2*y-10)/2+1.2*Math.sin(0.1*y-15)/2)+x+(y*rivercurve)/100
+		if (x-oldx>1){
+			while(x-oldx>1){
+				x-=0.1
+			}
+			
 		}
-		else if (getRandomInt(3,10-rivercurve) > 5){
-			rivergrid[y].push(x*20)
-			x-=1
-			if (getRandomInt(0,100)==0&&rivertimes<7){rand =getRandomInt(2,5); generateriver(x,y,rand,rivertimes);rivercurve=rand*-1}
+		else if (x-oldx<-1){
+			while(x-oldx<-1){
+				x+=0.1
+			}
+
 		}
-		if (rivergrid[y].includes(x*20)&&y!=ypos){return}
-		rivergrid[y].push(x*20)
+		if(rivertimes<5&&getRandomInt(0,100)==0){
+			generateriver(x,y,rivercurve*-1,rivertimes,Math.max(2,width-1))
+		}
+		if (rivergrid[y].includes(Math.floor(x)*20)&&y!=ypos){return}
+		for(let k=0;k<width;k++){
+		rivergrid[y].push(Math.floor(x+k)*20)
+		}
 		
 	}
 }
