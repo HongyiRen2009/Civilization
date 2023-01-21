@@ -20,6 +20,9 @@ function turnpopup(){
 		displaypopup(popups.length-1)
 		return
 	}
+	
+	switch(m.phase){
+	case 0 :
 	if(reputation>50&&difficulty>50&&getRandomInt(0,5)==0){
 		displaypopup(13)
 	}
@@ -65,7 +68,17 @@ function turnpopup(){
 	
 	
 	}
-	
+	break
+	case 2:
+	if(getRandomInt(0,4)==0){
+		displaypopup(14)
+	}
+	break
+	case 3:
+	if (getRandomInt(0,2)==0){
+		displaypopup(15)
+	}
+	}
 	
 
 
