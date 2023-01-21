@@ -746,19 +746,53 @@ const popups = [
 	},
 	{
 		title: "<strong class = 'color-g'>Information</strong>",
-	size: "25px",
-	description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
-	choosetext(){},
-	choices: [
+		size: "25px",
+		description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
+		choosetext(){},
+		choices: [
+		{
+			text:"close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			
+			}
+		}]
+	},
+		{
+			title: "<strong class = 'color-r'>BEAST!</strong>",
+		size: "25px",
+		description: "A distant roar echos across the mountains, followed by thunderous flaps. An ancient creature has awoken, perpare your village and your army<br><strong class = 'color-r'>they won't last long.</strong>",
+		choosetext(){},
+		choices: [
+		{
+			text:"fight!",
+			effect(){
+				m.phase+=1
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				start()
+			
+			}
+		}]
+	},
 	{
-		text:"close",
-		effect(){
-			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
-		
-		}
-	}]
-},
+			title: "<strong class = 'color-r'>Eruption!</strong>",
+		size: "25px",
+		description: "Deafing sounds shockwave across your village. Piles of ash and lava pour down the hills, annihilating everything in its way, while debris launched into the air squash housing like cockroaches.",
+		choosetext(){},
+		choices: [
+		{
+			text:"close",
+			effect(){
+				m.phase+=1
+				removebuildings(true)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			
+			}
+		}]
+	},
 	
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
