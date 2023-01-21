@@ -290,19 +290,28 @@ for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
 }
 
-function removebuildings(){
+function removebuildings(onhill=false){
 	currentpop -= Math.floor(currentpop/3);
-		
+	remove = onhill
 		for(i=gridstats.length-1;i>-1;i--){
 		if (getRandomInt(0,2) == 0){
+		if(onhill){
+			remove = false
+		}
 			for (let j = 0; j!=gridstats[i].positions.length;j++){
+				if(!onhill||hillgrid[gridstats[i].positions[j].y/20].includes(gridstats[i].positions[j].x)){
+					remove=true
+				}
 				const indexx = grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x)
 				grid[gridstats[i].positions[j].y/20].splice(indexx,1)
 			}
+			if(remove){
+			buildingamounts[gridstats[i].index]-=1
 			gridstats.splice(i,1)
-			buildingamounts[i] -= 1
+		
 		}
 		
+		}
 		}
 		render()
 		displayUI()
@@ -577,6 +586,7 @@ document.onmousedown = function(event){
 		p.pieceROM[p_index].effect()
 
 		gridstats.push({
+			index:p_index,
 			letter:letter,
 			population:p.population,
 			employmentrequired: oldpop-unemployed,
@@ -626,6 +636,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		breaksound.play()
 	}
 	resources+=Math.round(gridstats[buildingindex].resourcerefund/2)
+	buildingamounts[gridstats[buildingindex].index]-=1
 	gridstats.splice(buildingindex,1)
 	displayUI()
 }
@@ -647,6 +658,7 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 	repairsound.play()
 	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats[buildingindex].disabled=false
+	
 	displayUI()
 	}
 }
