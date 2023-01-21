@@ -210,6 +210,7 @@ function savescreen(save){
 }
 function techscreen(){
 	document.getElementById("info-flex").style.display = 'none'
+	
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("tech-tree").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
@@ -220,15 +221,16 @@ function techscreen(){
 	document.getElementById("save-flex").style.display = "none"
 	const categories = ["military", "food","mining", "transportation"]
 	const techgrid = document.getElementById("tech-tree")
-	const linecontainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+	const linecontainer = document.getElementById('techlinecontainer')
+	linecontainer.style.display= "block"
+	linecontainer.innerHTML=""
+	techgrid.innerHTML=""
 	linecontainer.setAttribute("height", screen.height);
 	linecontainer.setAttribute("width", screen.width);
 	const techelements = []
 
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
 	techgrid.style.gridTemplateRows = "100px " +(screen.height/tech.length+1+"px ").repeat(tech.length)
-	linecontainer.setAttribute("class","techline");
-	document.body.appendChild(linecontainer)
 	for (i=0,len=categories.length;i<len;i++){
 		const title = document.createElement("h1")
 		title.innerHTML=categories[i]
@@ -497,6 +499,7 @@ document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
+document.getElementById("techlinecontainer").style.display = "none"
 document.getElementById("title_start").hidden = true
 document.getElementById("stats").style.display = "flex"
 document.getElementById("start-flex").style.display = "none"
