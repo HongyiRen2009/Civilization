@@ -376,15 +376,15 @@ function newgame(difficult){
 	}
 	
 	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
-	generateriver(getRandomInt(100,300), 0, 0)
+	generateriver(h*40, 0, 0,0,getRandomInt(2,5))
 	}
 	selectmarketitems()
-	
+	generateblob(spawnX,spawnY,false)
 	let xspawn = 50
 	let yspawn = 50
-	for (let h=0,rand=getRandomInt(50,60);h<rand;h++){
+	for (let h=0,rand=getRandomInt(60,80);h<rand;h++){
 		
-		generateblob(xspawn,yspawn, getRandomInt(0,30)==0)
+		generateblob(xspawn+getRandomInt(-30,30),yspawn+getRandomInt(-30,30), getRandomInt(0,30)==0)
 	
 			xspawn+=50
 		if (xspawn>450){
@@ -407,7 +407,14 @@ function getRandomInt(min, max) {
 
 
 function start(){
+	if(m.phase<2){
+	boss_music.pause()
 	build_music.play()
+	}
+	else{
+	build_music.pause()
+	boss_music.play()	
+	}
 	market_music.pause()
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
@@ -436,4 +443,10 @@ function move(x,y){
 	scrollX+=x
 	scrollY+=y
 	render()
+}
+function removemax(){
+	max.up=-1000000000
+	max.left=-1000000000
+	max.right=10000
+	max.down=100000000
 }
