@@ -271,7 +271,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='75' height='50'></img>",
+		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
