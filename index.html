@@ -18,6 +18,7 @@
 	<button class = "info" onclick = "achievementscreen(false)">Achievements</button>
 	<button class = "info" onclick = "info()">Building Info</button>
 	<button id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
+	<button id = "mbutton" class = "info" onclick = "techscreen()">Tech</button>
 	
 	
 
@@ -121,7 +122,6 @@
  <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
 
 <div class="select-grid" id="select-grid" hidden = true>
-
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
 <button class = 'cancel' onclick = "isremoving()">Remove</button>
 <button class = 'cancel' onclick = "isrepairing()">Repair</button>
@@ -131,6 +131,9 @@
 
 </select>
 </div>
+
+<div id = "tech-tree"></div>
+
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
 	<div id = "title" class = "title">undefined</div><br></br>
@@ -138,6 +141,7 @@
 	<div id = "description" class = "dis">undefined</div>
 </div>
 <img src = "images/cloud1.png" style = "display:none" id = "cloudimg"></img>
+<svg id = "techlinecontainer", class="techline"></svg>
 <script>
 const canvas = document.querySelector("canvas")
 canvas.height = screen.height-225
@@ -233,6 +237,7 @@ for (i=tabs.length-1;i>=0;i--){
 
 <script src = "js/achievements.js"></script>
 <script src = "js/turn_manager.js"></script>
+<script src = "js/tech.js"></script>
 <script src = "js/index.js"></script>
 
 <script src = "js/popups.js"></script>
