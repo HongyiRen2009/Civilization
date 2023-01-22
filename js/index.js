@@ -290,6 +290,12 @@ function techscreen(){
 			
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost)
+			for (const el of tech[techindex[0]][techindex[1]].requires){
+				if (tech[el[0]][el[1]].acquired==false){
+					reserachbutton.disabled=true
+					break
+				}
+			}
 			reserachbutton.onclick = function(){
 				
 				const success = document.createElement("h1")
@@ -304,28 +310,7 @@ function techscreen(){
 				tech[techindex[0]][techindex[1]].effect()
 				
 				tech[techindex[0]][techindex[1]].acquired = true
-				for (i=1,len=tech.length;i<len;i++){
-		
-					for (let j=0,leng=tech[i].length;j<leng;j++){
-						let techallowed = true
-						const currenttechoption = document.getElementById(JSON.stringify([i,j]))
-					for (const re of tech[i][j].requires){
-						if (tech[re[0]][re[1]].acquired==false){
-							techallowed=false
-							
-						}
-					}
-					if (techallowed){
-						currenttechoption.disabled=false
-						currenttechoption.addEventListener("mouseover", function(){
-							currenttechoption.classList.add("hover")
-						})
-						currenttechoption.addEventListener("mouseout", function(){
-							currenttechoption.classList.remove("hover")
-						})
-					}
-					}
-				}
+				el.style.backgroundColor = "#bfb965"
 			}
 			else{
 				success.innerHTML = "<strong class = 'color-r'>Research Failed</strong>"
@@ -356,6 +341,12 @@ function techscreen(){
 			techoption.addEventListener("mouseout", function(){
 				techoption.classList.remove("hover")
 			})
+			if (tech[i][j].acquired){
+				techoption.style.backgroundColor = "#bfb965"
+			}
+			else{
+				techoption.style.backgroundColor = "#545232"
+			}
 			techgrid.appendChild(techoption)
 			for (const el of tech[i][j].requires){
 				let techelement = null
@@ -367,12 +358,7 @@ function techscreen(){
 				}
 				
 				const techline = document.createElementNS('http://www.w3.org/2000/svg','line');
-				if (!tech[i][j].acquired){
-					techoption.disabled=true
-				}
-				else{
-					techoption.disabled=false
-				}
+				
 				const thisposition = techoption.getBoundingClientRect()
 				const thatposition = techelement.element.getBoundingClientRect()
 				techline.setAttribute('x1',thisposition.x+15);
