@@ -210,7 +210,7 @@ function savescreen(save){
 }
 function techscreen(){
 	document.getElementById("info-flex").style.display = 'none'
-	
+	document.body.overflowY="scroll"
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("tech-tree").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
@@ -228,9 +228,21 @@ function techscreen(){
 	linecontainer.setAttribute("height", screen.height);
 	linecontainer.setAttribute("width", screen.width);
 	const techelements = []
-
+	const descriptioncontainer = document.createElement("div")
+	const destitle = document.createElement("h1")
+	destitle.style.gridRow="1"
+	destitle.style.gridColumn="1/ span 3"
+	const des = document.createElement("p")
+	des.style.gridRow="2"
+	des.style.gridColumn="1/ span 3"
+	descriptioncontainer.className='techcontainer'
+	descriptioncontainer.style.gridColumn = `1/ span ${categories.length}`
+	descriptioncontainer.appendChild(destitle)
+	descriptioncontainer.appendChild(des)
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
-	techgrid.style.gridTemplateRows = "100px " +(screen.height/tech.length+1+"px ").repeat(tech.length)
+	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length) + "200px"
+	techgrid.appendChild(descriptioncontainer)
+	
 	for (i=0,len=categories.length;i<len;i++){
 		const title = document.createElement("h1")
 		title.innerHTML=categories[i]
@@ -238,12 +250,37 @@ function techscreen(){
 		title.style.gridRow=1
 		techgrid.appendChild(title)
 	}
+	techgrid.addEventListener("click", function(event){
+		const techoptions = document.getElementsByClassName("techbutton")
+		destitle.innerHTML=""
+		des.innerHTML=""
+		for (const el of techoptions){
+			if (el.classList.contains("hover")){
+			el.style.border = "3px solid yellow"
+			const techindex = JSON.parse(el.id)
+			destitle.innerHTML=tech[techindex[0]][techindex[1]].name
+			des.innerHTML=tech[techindex[0]][techindex[1]].description
+			}
+			else{
+				el.style.border = "3px solid black"
+			}
+		}
+	})
 	for (i=0,len=tech.length;i<len;i++){
 		debugger
 		for (let j=0,leng=tech[i].length;j<leng;j++){
 			const techoption = document.createElement("button")
 			techoption.style.gridRow=i+2
 			techoption.style.gridColumn=categories.indexOf(tech[i][j].category)+1
+			techoption.className = "techbutton"
+			techoption.id = JSON.stringify([i,j])
+			
+			techoption.addEventListener("mouseover", function(){
+				techoption.classList.add("hover")
+			})
+			techoption.addEventListener("mouseout", function(){
+				techoption.classList.remove("hover")
+			})
 			techgrid.appendChild(techoption)
 			for (const el of tech[i][j].requires){
 				let techelement = null
