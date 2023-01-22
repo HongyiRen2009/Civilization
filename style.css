@@ -17,6 +17,7 @@
 	}
 	to {
 	  opacity: 0;
+	  
 	}
   }
   @keyframes flash {
@@ -40,9 +41,8 @@
 	background-color: #bfb965;
 	margin: auto;
 }
-#tech-tree > button:hover{
-	border: 3px solid yellow;
-	
+#tech-tree > button:disabled{
+	background-color:#545232;
 }
 #tech-tree > h1{
 	text-align: center;
@@ -67,11 +67,12 @@
   
   .status {
 	color: green;
-	font-size: 20px;
+	font-size: 60px;
 	position: fixed;
 	top: 30%;
 	left: 50%;
 	transform: translate(-50%, -30%);
+	z-index: 3;
   }
   .difficulty-flex {
 	display: none;
@@ -362,6 +363,32 @@
 	flex-wrap: nowrap;
 	border: 3px solid #000000;
 	border-radius: 6px;
+  }
+  .techbutton{
+	border-radius: 4px;
+  }
+  .techcontainer{
+	display: grid;
+	grid-template-columns: 30% 30% 30%;
+	grid-template-rows: 100px 100px;
+	border: 3px solid #000000;
+  }
+  .techcontainer > *{
+	text-align: center;
+  }
+  .techcontainer > button{
+	width: 100px;
+	margin: auto;
+
+	height: 40px;
+	border-style: solid;
+	border-radius: 6px;
+	transition-duration: 0.1s;
+	background-color: #f0e87a;
+	font-weight: bold;
+  }
+  .techcontainer > button:hover:enabled{
+	background-color: #8c6c0b;
   }
   .flex-grid > div {
 	margin: 10px;
