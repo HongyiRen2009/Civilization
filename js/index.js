@@ -230,19 +230,37 @@ function techscreen(){
 	const techelements = []
 	const descriptioncontainer = document.createElement("div")
 	const destitle = document.createElement("h1")
+	const cost = document.createElement("p")
+	const reserachbutton = document.createElement("button")
 	destitle.style.gridRow="1"
 	destitle.style.gridColumn="1/ span 3"
+	cost.style.gridRow="1"
+	cost.style.gridColumn="3"
+	cost.style.fontSize = "20px"
+	
 	const des = document.createElement("p")
 	des.style.gridRow="2"
+	reserachbutton.style.gridColumn="3"
+	reserachbutton.style.gridRow="2"
+	reserachbutton.style.maxWidth="100px"
+	reserachbutton.style.maxHeight="40px"
+	reserachbutton.hidden=true
 	des.style.gridColumn="1/ span 3"
 	descriptioncontainer.className='techcontainer'
 	descriptioncontainer.style.gridColumn = `1/ span ${categories.length}`
 	descriptioncontainer.appendChild(destitle)
 	descriptioncontainer.appendChild(des)
+	descriptioncontainer.appendChild(cost)
+	descriptioncontainer.appendChild(reserachbutton)
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
-	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length) + "200px"
+	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length)
 	techgrid.appendChild(descriptioncontainer)
-	
+	descriptioncontainer.addEventListener("mouseover", function(){
+		descriptioncontainer.classList.add("hover")
+	})
+	descriptioncontainer.addEventListener("mouseout", function(){
+		descriptioncontainer.classList.remove("hover")
+	})
 	for (i=0,len=categories.length;i<len;i++){
 		const title = document.createElement("h1")
 		title.innerHTML=categories[i]
@@ -251,23 +269,80 @@ function techscreen(){
 		techgrid.appendChild(title)
 	}
 	techgrid.addEventListener("click", function(event){
+		if (!descriptioncontainer.classList.contains("hover")){
 		const techoptions = document.getElementsByClassName("techbutton")
 		destitle.innerHTML=""
 		des.innerHTML=""
+		cost.innerHTML=""
+		reserachbutton.hidden=true
+		reserachbutton.innerHTML=""
 		for (const el of techoptions){
+			
 			if (el.classList.contains("hover")){
+			
 			el.style.border = "3px solid yellow"
 			const techindex = JSON.parse(el.id)
+			reserachbutton.hidden=false
 			destitle.innerHTML=tech[techindex[0]][techindex[1]].name
 			des.innerHTML=tech[techindex[0]][techindex[1]].description
+			
+			reserachbutton.innerHTML="Research"
+			
+			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
+			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost)
+			reserachbutton.onclick = function(){
+				
+				const success = document.createElement("h1")
+				success.className = "status"
+				success.style.animation = 'none';
+				success.offsetHeight; /* trigger reflow */
+				success.style.animation = null; 
+			document.body.appendChild(success)
+			if (getRandomInt(0,100)>=5){
+			success.innerHTML = "<strong class = 'color-g'>Research Successful</strong>"
+				research_points-=tech[techindex[0]][techindex[1]].cost
+				tech[techindex[0]][techindex[1]].effect()
+				
+				tech[techindex[0]][techindex[1]].acquired = true
+				for (i=1,len=tech.length;i<len;i++){
+		
+					for (let j=0,leng=tech[i].length;j<leng;j++){
+						let techallowed = true
+						const currenttechoption = document.getElementById(JSON.stringify([i,j]))
+					for (const re of tech[i][j].requires){
+						if (tech[re[0]][re[1]].acquired==false){
+							techallowed=false
+							
+						}
+					}
+					if (techallowed){
+						currenttechoption.disabled=false
+						currenttechoption.addEventListener("mouseover", function(){
+							currenttechoption.classList.add("hover")
+						})
+						currenttechoption.addEventListener("mouseout", function(){
+							currenttechoption.classList.remove("hover")
+						})
+					}
+					}
+				}
+			}
+			else{
+				success.innerHTML = "<strong class = 'color-r'>Research Failed</strong>"
+				research_points-=tech[techindex[0]][techindex[1]].cost
+			}
+			success.style.animation = "done 2s linear 0s 1 normal forwards"
+			setTimeout(function(){success.remove()},2000)
+			}
 			}
 			else{
 				el.style.border = "3px solid black"
 			}
 		}
+	}
 	})
 	for (i=0,len=tech.length;i<len;i++){
-		debugger
+		
 		for (let j=0,leng=tech[i].length;j<leng;j++){
 			const techoption = document.createElement("button")
 			techoption.style.gridRow=i+2
@@ -284,7 +359,7 @@ function techscreen(){
 			techgrid.appendChild(techoption)
 			for (const el of tech[i][j].requires){
 				let techelement = null
-				debugger
+				
 				for (const teposition of techelements){
 					if (el[0]==teposition.techposition[0]&&el[1]==teposition.techposition[1]){
 						techelement=teposition
@@ -292,6 +367,12 @@ function techscreen(){
 				}
 				
 				const techline = document.createElementNS('http://www.w3.org/2000/svg','line');
+				if (!tech[i][j].acquired){
+					techoption.disabled=true
+				}
+				else{
+					techoption.disabled=false
+				}
 				const thisposition = techoption.getBoundingClientRect()
 				const thatposition = techelement.element.getBoundingClientRect()
 				techline.setAttribute('x1',thisposition.x+15);
@@ -309,6 +390,7 @@ function techscreen(){
 
 		}
 	}
+	
 	
 }
 function getPos(el) {
