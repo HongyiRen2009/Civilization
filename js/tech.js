@@ -7,28 +7,36 @@ const tech = [
             description:"test",
             requires:[],
             category:"military",
-            acquired: false
+            acquired: false,
+            cost:0,
+            effect(){}
         },
         {
             name:"test",
             description:"test",
             requires:[],
             category:"food",
-            acquired: false
+            cost:0,
+            acquired: false,
+            effect(){}
         },
         {
             name:"test",
             description:"test",
             requires:[],
             category:"resources",
-            acquired: false
+            cost:0,
+            acquired: false,
+            effect(){}
         },
         {
             name:"test",
             description:"test",
             requires:[],
             category:"transportation",
-            acquired: false
+            cost:0,
+            acquired: false,
+            effect(){}
         }
       
     ],
@@ -37,15 +45,19 @@ const tech = [
             name:"test",
             description:"test",
             requires:[[0,0],[0,1]],
+            cost:0,
             category:"military",
-            acquired: false
+            acquired: false,
+            effect(){}
         },
         {
             name:"test",
             description:"test",
             requires:[[0,3],[0,2]],
+            cost:0,
             category:"resources",
-            acquired: false
+            acquired: false,
+            effect(){}
         }
     ],
     [
@@ -53,10 +65,11 @@ const tech = [
             name:"test",
             description:"test",
             requires:[[1,0],[1,1]],
+            cost:0,
             category:"military",
-            acquired: false
+            acquired: false,
+            effect(){}
         }
     ],
-    []
     
 ]
