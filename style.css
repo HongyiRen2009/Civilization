@@ -38,12 +38,10 @@
 	width: 30px;
 	height: 30px;
 	border: 3px solid #000000;
-	background-color: #bfb965;
+	
 	margin: auto;
 }
-#tech-tree > button:disabled{
-	background-color:#545232;
-}
+
 #tech-tree > h1{
 	text-align: center;
 }
@@ -390,6 +388,7 @@
   .techcontainer > button:hover:enabled{
 	background-color: #8c6c0b;
   }
+
   .flex-grid > div {
 	margin: 10px;
 	text-align: center;
@@ -418,4 +417,7 @@
   button {
 	border-color: black;
 	border-style: solid;
+  }
+  button:disabled{
+	background-color: #9c9c95;
   }
