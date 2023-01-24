@@ -62,6 +62,7 @@ function generateblob(xpos,ypos, large, type = "hill"){
 function generatevillage(xpos,ypos,type){
 	let x = xpos
 	let y = ypos
+	
 	const pieceindexes = []
 
 	for (i=0,rand=getRandomInt(1,4);i<rand;i++){
@@ -119,10 +120,12 @@ function generateriver(xpos,ypos, curve, times = 0, width=2){
 	let rivercurve = curve
 	let rand = 0
 	let oldx=xpos
+	const bseed = getRandomInt(-10,10)
+	const aseed = (Math.random()*2)-1
 	for (let y = ypos;y<getRandomInt(300,500);y++){
 		oldx = x
 		debugger
-		x=(Math.sin(0.3*y)+1.1*Math.sin(0.2*y-10)/2+1.2*Math.sin(0.1*y-15)/2)+x+(y*rivercurve)/100
+		x=(Math.sin(0.5*aseed*y)+1.1*Math.sin(0.4*aseed*y-10)/3+1.2*Math.sin(0.3*aseed*y-bseed)/4)+x+(y*rivercurve)/100
 		if (x-oldx>1){
 			while(x-oldx>1){
 				x-=0.1
