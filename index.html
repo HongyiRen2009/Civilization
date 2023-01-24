@@ -6,19 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <div class="flex-grid" id="stats" style.display:none;>
-	<button class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
-	<div id = "pop" class = "pop">Population: 0/0</div>
+	<button title="make sure to save!" class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
+	<div title="how many total population you have out of your total housing. If the second number is red it means you do not have enough homes to house all of your citizens."id = "pop" class = "pop">Population: 0/0</div>
 
-	<div id = "food">Food: 0</div>
-	<div id = "power">Military: 0</div>
-		<div id = "unemployed" class = "pop">Unemployed People: 0</div>
-		<div id = "resources" class = "pop">Resources: 10</div>
-	<button class = "next_turn" id = "turn" onclick = "next_turn()">End Year</button>
-	<button class = "next_turn" onclick = "savescreen(true)">SAVE</button>
-	<button class = "info" onclick = "achievementscreen(false)">Achievements</button>
-	<button class = "info" onclick = "info()">Building Info</button>
-	<button id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
-	<button id = "mbutton" class = "info" onclick = "techscreen()">Tech</button>
+	<div title="how much food you currently have, if red you do not have enough to feed everyone." id = "food">Food: 0</div>
+	<div title="how much military power you have." id = "power">Military: 0</div>
+		<div title="how many people are not currently occupied." id = "unemployed" class = "pop">Unemployed People: 0</div>
+		<div title="how many total resources you have." id = "resources" class = "pop">Resources: 10</div>
+	<button title="click to end your turn!" class = "next_turn" id = "turn" onclick = "next_turn()">End Year</button>
+		<button title="click to enter the market!" id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
+	<button title="click to enter the save menu!" class = "next_turn" onclick = "savescreen(true)">SAVE</button>
+	<button title="click to view your achievements!" class = "info" onclick = "achievementscreen(false)">Achievements</button>
+	<button title="click to see what your buildings do!" class = "info" onclick = "info()">Building Info</button>
+	<button title="click to view and unlock things in the tech tree!" id = "mbutton" class = "info" onclick = "techscreen()">Tech</button>
 	
 	
 
@@ -158,7 +158,7 @@ const max = {
 }
 const grid = []
 const hillgrid = []
-const tabs = ["housing","food","military","resources","misc"]
+const tabs = ["housing","farms","military","mines","misc"]
 const gridstats = []
 let scrollX = 250
 let scrollY = 250
@@ -241,19 +241,3 @@ for (i=tabs.length-1;i>=0;i--){
 <script src = "js/index.js"></script>
 
 <script src = "js/popups.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
