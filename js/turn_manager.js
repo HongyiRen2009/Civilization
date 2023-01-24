@@ -26,7 +26,7 @@ function turnpopup(){
 	if(reputation>50&&difficulty>50&&getRandomInt(0,5)==0){
 		displaypopup(13)
 	}
-	if (difficulty>3*difficultymultiplier){
+	if (difficulty>20){
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
 
@@ -121,7 +121,7 @@ function next_turn(){
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
-	if (difficulty<3*difficultymultiplier){
+	if (difficulty<20){
 			document.getElementById("mbutton").disabled=true
 	}
 	else{
