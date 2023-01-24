@@ -219,14 +219,13 @@ function techscreen(){
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
-	const categories = ["military", "food","mining", "transportation"]
+	const categories = ["I", "II","III", "IV", "V"]
 	const techgrid = document.getElementById("tech-tree")
 	const linecontainer = document.getElementById('techlinecontainer')
 	linecontainer.style.display= "block"
 	linecontainer.innerHTML=""
 	techgrid.innerHTML=""
-	linecontainer.setAttribute("height", screen.height);
-	linecontainer.setAttribute("width", screen.width);
+	
 	const techelements = []
 	const descriptioncontainer = document.createElement("div")
 	const destitle = document.createElement("h1")
@@ -254,6 +253,8 @@ function techscreen(){
 	descriptioncontainer.appendChild(reserachbutton)
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
 	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length)
+	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
+	linecontainer.setAttribute("width", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.width});
 	techgrid.appendChild(descriptioncontainer)
 	descriptioncontainer.addEventListener("mouseover", function(){
 		descriptioncontainer.classList.add("hover")
@@ -361,6 +362,7 @@ function techscreen(){
 				
 				const thisposition = techoption.getBoundingClientRect()
 				const thatposition = techelement.element.getBoundingClientRect()
+				
 				techline.setAttribute('x1',thisposition.x+15);
 				techline.setAttribute('y1',thisposition.y+15);
 				techline.setAttribute('x2',thatposition.x+15);
@@ -530,7 +532,7 @@ function newgame(difficult){
 	modifiers = {
 	food: 1.5-difficult,
 	resources: 1.5-difficult,
-	military: 1
+	military: 0
 	}
 	first_turn=true
 	save_slot=null
@@ -553,8 +555,8 @@ function newgame(difficult){
 		grid.push([])
 	}
 	
-	for (let h=0,rand=getRandomInt(5,10);h<rand;h++){
-	generateriver(h*40, 0, 0,0,getRandomInt(2,5))
+	for (let h=0,rand=getRandomInt(8,10);h<rand;h++){
+	generateriver((450/rand)*h, 0, 0,0,getRandomInt(2,5))
 	}
 	selectmarketitems()
 	generateblob(spawnX,spawnY,false)
