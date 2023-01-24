@@ -93,7 +93,7 @@ const p = {
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		unlocked: true,
 		near: "building",
-		tab: "food",
+		tab: "farms",
 		effect(){
 			p.food=2
 			resources-=2
@@ -110,7 +110,7 @@ const p = {
 		description: "A small farm that produces 5 food. Half efficiency if on a hill. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
-		tab: "food",
+		tab: "farms",
 		effect(){
 			
 			p.food=Math.ceil(5*(p.hill ? 0.5:1))
@@ -128,7 +128,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "!hill",
-		tab: "food",
+		tab: "farms",
 		effect(){
 			p.food=20
 			resources-=15
@@ -145,7 +145,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river !hill",
-		tab: "food",
+		tab: "farms",
 		effect(){
 			p.food=40
 			resources-=20
@@ -215,7 +215,7 @@ const p = {
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "building",
-		tab: "resources",
+		tab: "mines",
 		effect(){
 			
 			p.resources=4*(p.hill ? 1:0.5)
@@ -233,7 +233,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "hill",
-		tab: "resources",
+		tab: "mines",
 		effect(){
 			p.resources=12
 			resources-=15
@@ -250,7 +250,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		unlocked: false,
 		near: "hill",
-		tab: "resources",
+		tab: "mines",
 		effect(){
 			p.resources=40
 			resources-=20
