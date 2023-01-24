@@ -1376,6 +1376,60 @@ const information = [
 		},
 			]
 	},
+	{
+		title: "<strong class = 'color-g'>Tribal Age</strong>",
+		size: "30px",
+		description: `The beginning of civilization. Your people are unwaveringly loyal and most tribes haven't noticed you yet.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Pre-Democracy</strong>",
+		size: "30px",
+		description: `Your expansion has been noticed by other tribes and they opened a communal market (on the top right corner). Be careful though, because your people will now start rebellions if your housing is too low, and enemies can now attack you.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Post-Democracy</strong>",
+		size: "30px",
+		description: `Tribes are growing stronger and more sophisticated. If they attack, they will level your village to the ground.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
 ]
 
 
