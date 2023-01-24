@@ -193,6 +193,45 @@ const p = {
 		
 	},
 	{
+		name: "Barracks",
+		letter: "BR",
+		description: "A building to store weapons and train soldiers, increasing your military strength by 70. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill.",
+		unlocked: true,
+		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
+		near: "building",
+		tab: "military",
+		effect(){
+			p.military=70
+			resources-=20
+			unemployed-=10
+			
+		},
+		requires(){
+			return resources >= 20 && unemployed>=10
+		}
+		
+	},
+	{
+		name: "Fortress",
+		letter: "FT",
+		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 40 resources to construct and 20 people operating it.",
+		unlocked: true,
+		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1},{x:2,y:0}],
+		near: "building",
+		tab: "military",
+		effect(){
+			drain += 1
+			p.military = 150
+			resources-=40
+			unemployed-=8
+			
+		},
+		requires(){
+			return resources >= 40 && unemployed>=8
+		}
+		
+	},
+	{
 		name: "Bridge",
 		letter: "B",
 		description: "A brige to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
