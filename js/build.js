@@ -220,7 +220,6 @@ const p = {
 		near: "building",
 		tab: "military",
 		effect(){
-			drain += 1
 			p.military = 150
 			resources-=40
 			unemployed-=8
