@@ -116,6 +116,15 @@
 	border-radius: 6px;
 	padding: 20px;
   }
+  .achievement-image-div {
+	float: right;
+	display: inline-block;
+  }
+
+  .achievement-image {
+	width: 50%;
+	float: right;
+  }
   
   .save-flex {
 	display: none;
