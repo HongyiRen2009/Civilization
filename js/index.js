@@ -219,7 +219,7 @@ function techscreen(){
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
-	const categories = ["I", "II","III", "IV", "V"]
+	const categories = ["Virtue", "Farming","Housing", "Mining","Intelligence","Military","Military II"]
 	const techgrid = document.getElementById("tech-tree")
 	const linecontainer = document.getElementById('techlinecontainer')
 	linecontainer.style.display= "block"
