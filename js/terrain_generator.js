@@ -121,11 +121,11 @@ function generateriver(xpos,ypos, curve, times = 0, width=2){
 	let rand = 0
 	let oldx=xpos
 	const bseed = getRandomInt(-10,10)
-	const aseed = (Math.random()*2)-1
+	const aseed = (Math.random()*4)-2
 	for (let y = ypos;y<getRandomInt(300,500);y++){
 		oldx = x
 		debugger
-		x=(Math.sin(0.5*aseed*y)+1.1*Math.sin(0.4*aseed*y-10)/3+1.2*Math.sin(0.3*aseed*y-bseed)/4)+x+(y*rivercurve)/100
+		x=(0.5*Math.sin(0.5*aseed*y)+1.1*Math.sin(0.4*aseed*y-10)/3+1.2*Math.sin(0.3*aseed*y-bseed)/4)+x+(y*rivercurve)/100
 		if (x-oldx>1){
 			while(x-oldx>1){
 				x-=0.1
