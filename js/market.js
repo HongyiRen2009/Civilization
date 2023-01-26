@@ -271,7 +271,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='50' height='50'></img>",
+		image:"<img src = 'images/marketNews.png' width='50' height='30'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -442,7 +442,7 @@ const m = {
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get a blueprint scrap on how to construct the Mega Temple",
-		image: "<img src = 'images/broken_scroll1.png' width='60' height='20'></img>",
+		image: "<img src = 'images/scrap1.png' width='50' height='30'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -480,14 +480,18 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			megatemple+=1
+			m.phase+=1
+			m.bhealth= (10000+difficulty*3)*difficultymultiplier
+			m.totalbhealth=m.bhealth
 		}
 	}
 	],
 	assissin: 0,
 	spy: 0,
 	rebel: 0,
-	phase:0
+	phase:0,
+	bhealth:0,
+	totalbhealth:0,
 }
 function marketscreen(){
 	removing=false
@@ -594,7 +598,7 @@ function marketscreen(){
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
 				debugger
-				if (marketitems[j] != "failed"&&marketitemsindex[j].stock>0){
+				if (document.getElementById(j<4 ? "m"+j:"bm"+j)!=null&&marketitemsindex[j].stock>0){
 				marketitemsindex[j].choosetext()
 				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock>0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
