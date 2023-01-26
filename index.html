@@ -132,6 +132,10 @@
 </select>
 </div>
 
+<div id = "boss_health_container" class = "bhealth" style = "display: none;border: 3px solid black;height: 25px;position: absolute;top: 90%;left: 50%;transform: translate(-50%, -90%);">
+<div id = "boss_health" class = "bhealth" style = "background-color: red;"></div>
+<p id = "boss_health_text"style = "text-align:center; position: relative; bottom: 35px; color: white; z-index: 2;">Boss: 1000/1100</p>
+</div>
 <div id = "tech-tree"></div>
 
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
@@ -202,6 +206,8 @@ let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
 let unemployed = 2;
+let xp = 0
+let totalxp = 100
 let difficulty = 0;
 let first_turn = true;
 let removing = false;
