@@ -51,7 +51,7 @@ const tech = [
         },
 		{
             name:"Efficient space usage",
-            description:"All houses have 50% increased capacity",
+            description:"All houses have 40% increased capacity",
             requires:[[0,1],[0,0], [0,2]],
             cost:0,
             category:"Housing",
@@ -71,7 +71,7 @@ const tech = [
         },
 		{
             name:"Social care",
-            description:"-50% chance of rebellions and +30% total intelligence production",
+            description:"-40% chance of rebellions and +30% total intelligence production",
             requires:[[1,1]],
             cost:0,
             category:"Intelligence",
@@ -176,7 +176,7 @@ const tech = [
         },
 		{
             name:"Cement",
-            description:"All roads and bridges now only cost 0.25 resources",
+            description:"All roads and bridges now cost 75% less resources",
             requires:[[2,1]],
             cost:0,
             category:"Intelligence",
@@ -185,7 +185,7 @@ const tech = [
         },
 		{
             name:"Efficient farms",
-            description:"All farms now produce 50% more resources",
+            description:"All farms now produce 40% more resources",
             requires:[[3,1],[4,2]],
             cost:0,
             category:"Farming",
@@ -203,17 +203,26 @@ const tech = [
         },
 		{
             name:"Diplomacy",
-            description:"WHen negotiating with an enemy, gain a 60% chance that the enemy will create a peace treaty with you, decreasing chance of attacks by 40% for the next 5 years",
+            description:"When negotiating with an enemy, gain a 60% chance that the enemy will create a peace treaty with you, decreasing chance of attacks by 40% for the next 5 years",
             requires:[[4,1]],
             cost:0,
             category:"Virtue",
             acquired: false,
             effect(){}
+        },
+	{
+            name:"Exploration",
+            description:"Unlock infinitely more terrain to explore using WASD",
+            requires:[[4,4]],
+            cost:0,
+            category:"Housing",
+            acquired: false,
+            effect(){}
         }
 	],
 	[ // ROW 7
-		{
-            name:"Rain wanted a special name for this i forgor",
+	{
+            name:"MEGA",
             description:"Unlock a blueprint scrap for the Mega Temple",
             requires:[[5,1]],
             cost:0,
@@ -221,12 +230,21 @@ const tech = [
             acquired: false,
             effect(){}
         },
-		{
-            name:"Exploration",
-            description:"Unlock infinitely more terrain to explore using WASD",
-            requires:[[5,4],[5,2],[3,1],[5,0]],
+	{
+            name:"Exploration II",
+            description:"The world border is invisible, revealing more terrain for scouting</br>roads now cost 0.05 resources instead",
+            requires:[[5,4]],
             cost:0,
-            category:"Housing",
+            category:"Intelligence",
+            acquired: false,
+            effect(){}
+        },
+	{
+	    name:"Hunting grounds",
+            description:"Unlock the ability to create hunting grounds that produce food",
+            requires:[[4,3]],
+            cost:0,
+            category:"Military II",
             acquired: false,
             effect(){}
         }
