@@ -8,7 +8,7 @@ const tech = [
             requires:[],
             cost:0,
             category:"Farming",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -17,7 +17,7 @@ const tech = [
             requires:[],
             cost:0,
             category:"Housing",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -26,7 +26,7 @@ const tech = [
             requires:[],
             cost:0,
             category:"Mining",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
     ],	
@@ -37,7 +37,7 @@ const tech = [
             requires:[[0,0]],
             cost:0,
             category:"Virtue",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -46,7 +46,7 @@ const tech = [
             requires:[[0,2]],
             cost:0,
             category:"Intelligence",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -55,7 +55,7 @@ const tech = [
             requires:[[0,1],[0,0], [0,2]],
             cost:0,
             category:"Housing",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 	],
@@ -66,7 +66,7 @@ const tech = [
             requires:[[0,2],[1,2]],
             cost:0,
             category:"Mining",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -75,7 +75,7 @@ const tech = [
             requires:[[1,1]],
             cost:0,
             category:"Intelligence",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -84,7 +84,7 @@ const tech = [
             requires:[[1,1]],
             cost:0,
             category:"Military",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 	],
@@ -95,7 +95,7 @@ const tech = [
             requires:[[0,0], [1,0], [1,2]],
             cost:0,
             category:"Farming",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -104,7 +104,7 @@ const tech = [
             requires:[[1,2]],
             cost:0,
             category:"Housing",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -113,7 +113,7 @@ const tech = [
             requires:[[2,2]],
             cost:0,
             category:"Military",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -122,7 +122,7 @@ const tech = [
             requires:[[2,2]],
             cost:0,
             category:"Military II",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 	],	
@@ -133,7 +133,7 @@ const tech = [
             requires:[[0,2],[2,1]],
             cost:0,
             category:"Mining",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -142,7 +142,7 @@ const tech = [
             requires:[[3,0],[1,0]],
             cost:0,
             category:"Virtue",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -151,7 +151,7 @@ const tech = [
             requires:[[3,0]],
             cost:0,
             category:"Farming",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -160,7 +160,7 @@ const tech = [
             requires:[[3,3]],
             cost:0,
             category:"Military II",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 	],
@@ -171,7 +171,7 @@ const tech = [
             requires:[[4,0]],
             cost:0,
             category:"Mining",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -180,7 +180,7 @@ const tech = [
             requires:[[2,1]],
             cost:0,
             category:"Intelligence",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -189,7 +189,7 @@ const tech = [
             requires:[[3,1],[4,2]],
             cost:0,
             category:"Farming",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -198,7 +198,7 @@ const tech = [
             requires:[[3,2]],
             cost:0,
             category:"Military",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 		{
@@ -207,7 +207,7 @@ const tech = [
             requires:[[4,1]],
             cost:0,
             category:"Virtue",
-            acquired: false,
+            unlocked: false,
             effect(){}
         },
 	{
@@ -216,18 +216,18 @@ const tech = [
             requires:[[4,4]],
             cost:0,
             category:"Housing",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 	],
 	[ // ROW 7
 	{
-            name:"MEGA",
+            name:"The Ultimate Megastructure",
             description:"Unlock a blueprint scrap for the Mega Temple",
             requires:[[5,1]],
             cost:0,
             category:"Intelligence",
-            acquired: false,
+            unlocked: false,
             effect(){}
         }
 
