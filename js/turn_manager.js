@@ -23,9 +23,6 @@ function turnpopup(){
 	
 	switch(m.phase){
 	case 0 :
-	if(reputation>50&&difficulty>50&&getRandomInt(0,5)==0){
-		displaypopup(13)
-	}
 	if (difficulty>20){
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
@@ -69,17 +66,36 @@ function turnpopup(){
 	
 	}
 	break
-	case 2:
+	case 1:
 	if(getRandomInt(0,4)==0){
-		displaypopup(14)
+		displaypopup(13)
+	}
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
+		popups[1].choosetext()
+		displaypopup(1)
+		return
+
+
 	}
 	break
-	case 3:
-	if (getRandomInt(0,2)==0){
-		displaypopup(15)
+	case 2:
+	switch(getRandomInt(0,3)){
+	case 0:
+		displaypopup(14)
+	break
+	case 1:
+	displaypopup(15)
+	break
+	default:
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
+		popups[1].choosetext()
+		displaypopup(1)
+		return
+
+
 	}
 	}
-	
+	}
 
 
 	
@@ -149,7 +165,10 @@ function displayUI(){
 		military = 0
 		resourcesgained = 0
 		unemployed = currentpop
-		
+		if (m.phase>0){
+			document.getElementById("boss_health").style.width = 100*(m.bhealth/m.totalbhealth)+"%"
+			document.getElementById("boss_health_text").innerHTML = "boss: " + m.bhealth + "/" + m.totalbhealth
+		}
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
 				el.disabled=true
@@ -196,15 +215,20 @@ function displayUI(){
 			}
 		}
 		i = 0
-		
+		if (xp>=totalxp){
+			research_points+=1
+			xp-=totalxp
+			totalxp+=10+Math.floor(totalxp/10)
+			
+		}
 		
 		
 		
 		military+=unemployed
 		for (i=0;i<achievements.length;i++){
-			if (achievements[i].requires()&&achievements[i].acquired==false){
+			if (achievements[i].requires()&&!achievements[i].acquired){
 			
-			displayachievement(i)			
+			displayachievement(i)
 				
 			}
 			
