@@ -265,6 +265,9 @@ const acquired = new Array(achievements.length).fill(false);
 if (localStorage.getItem("achievements") !=null){
 list = JSON.parse(localStorage.getItem("achievements"))
 for (i=0;i < achievements.length;i++){
+	if (i>list.length-1){
+	list.push(false)
+}
 achievements[i].acquired = list[i]
 acquired[i] = list[i]
 }
