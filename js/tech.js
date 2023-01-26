@@ -229,25 +229,8 @@ const tech = [
             category:"Intelligence",
             acquired: false,
             effect(){}
-        },
-	{
-            name:"Exploration II",
-            description:"The world border is invisible, revealing more terrain for scouting</br>roads now cost 0.05 resources instead",
-            requires:[[5,4]],
-            cost:0,
-            category:"Intelligence",
-            acquired: false,
-            effect(){}
-        },
-	{
-	    name:"Hunting grounds",
-            description:"Unlock the ability to create hunting grounds that produce food",
-            requires:[[4,3]],
-            cost:0,
-            category:"Military II",
-            acquired: false,
-            effect(){}
         }
+
 	],
 	
     
