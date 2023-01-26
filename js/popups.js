@@ -744,21 +744,6 @@ const popups = [
 	}
 		]
 	},
-	{
-		title: "<strong class = 'color-g'>Information</strong>",
-		size: "25px",
-		description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
-		choosetext(){},
-		choices: [
-		{
-			text:"close",
-			effect(){
-				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
-			
-			}
-		}]
-	},
 		{
 			title: "<strong class = 'color-r'>BEAST!</strong>",
 		size: "25px",
@@ -785,7 +770,7 @@ const popups = [
 		{
 			text:"close",
 			effect(){
-				m.phase+=1
+				
 				removebuildings(true)
 				document.getElementById("popup_block_buttons").style.display = "none"
 				document.getElementById("popup").style.display = "none"
@@ -793,7 +778,54 @@ const popups = [
 			}
 		}]
 	},
-	
+	{
+		title: "<strong class = 'color-r'>Tribute!</strong>",
+		size: "25px",
+		popamount: 0,
+		description: `Our priests interpreted the roars as a demand for a tribute. If we sacrifice ${this.popamount} people, it will leave us alone. What should we do`,
+		choosetext(){
+			this.popamount = Math.floor(currentpop*Math.random()*2)
+			if (currentpop<popamount){
+				choicesdisabled.push(0)
+			}
+		},
+		choices: [
+		{
+			text:"sacrifice",
+			effect(){
+				currentpop-=popamount
+			displaypopup(31, information)	
+			displayUI()
+			
+			}
+		},
+		{
+			text:"refuse",
+			effect(){
+			removebuildings(false)
+			displaypopup(32, information)
+			displayUI()
+			
+			}
+		},
+		{
+			text:"fight",
+			effect(){
+				if (military>=300+difficulty*2){
+			displaypopup(33, information)
+				}
+				else{
+					removebuildings()
+					currentpop-=Math.floor(currentpop/3)
+					displaypopup(34, information)
+				}
+			m.bhealth-=Math.floor(military/3)
+			displayUI()
+			
+			}
+		},
+		]
+	},
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
@@ -1415,7 +1447,79 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Post-Democracy</strong>",
 		size: "30px",
-		description: `Tribes are growing stronger and more sophisticated. If they attack, they will level your village to the ground.`,
+		description: `Tribes are growing stronger and more sophisticated, and they gained the ability to declare war.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Sacrifice</strong>",
+		size: "30px",
+		description: `Several brave souls were sent to the beast. May they rest in peace.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>We would never</strong>",
+		size: "30px",
+		description: `You refused to sacrifice anyone. Moments later, the beast arrived and laid waste to your village.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Victory</strong>",
+		size: "30px",
+		description: `The beast was droven off by our army`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Annihilatation</strong>",
+		size: "30px",
+		description: `You sent your army against the beast, but the only one returning was the beast itself. It swooped in and laid waste to your village.`,
 		
 		
 	
