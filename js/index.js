@@ -60,6 +60,7 @@ repairing = false
 		ele2[j].remove();
 	}
 	document.getElementById("info-flex").style.display = 'flex'
+	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){start()}
@@ -101,6 +102,7 @@ document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("title_start").innerHTML = 'Civilization'
 	document.getElementById("back_button").hidden = true
 	document.getElementById("title_start").hidden = false
+	document.getElementById("boss_health_container").display = "none"
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("start-flex").style.display = "flex"
 	document.body.style.overflow = "hidden"
@@ -206,9 +208,12 @@ function savescreen(save){
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "flex"
-	
+	document.getElementById("boss_health_container").style.display = 'none'
 }
 function techscreen(){
+	ispainting = false
+removing = false
+repairing = false
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
 	document.getElementById("difficulty-flex").style.display = 'none'
@@ -216,6 +221,7 @@ function techscreen(){
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){start()}
 	document.getElementById("stats").style.display = "none"
+	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
@@ -230,13 +236,30 @@ function techscreen(){
 	const descriptioncontainer = document.createElement("div")
 	const destitle = document.createElement("h1")
 	const cost = document.createElement("p")
+	const points = document.createElement("p")
 	const reserachbutton = document.createElement("button")
+	const progress = document.createElement("div")
+	const progresscontainer = document.createElement("div")
+	progress.style.backgroundColor = "green"
+	progress.style.gridRow="2"
+	progress.style.gridColumn="4"
+	progresscontainer.style.gridRow="2"
+	progresscontainer.style.gridColumn="4"	
+	progress.style.height = "25px"
+	progress.style.width = 100*(xp/totalxp)+"%"
+	progresscontainer.style.height = "26px"
+	progresscontainer.style.width = "100%"
+	progresscontainer.style.border = "3px solid black"
+	points.innerHTML="Research Points:<br> " +research_points
 	destitle.style.gridRow="1"
-	destitle.style.gridColumn="1/ span 3"
+	destitle.style.gridColumn="2"	
+	points.style.gridRow="1"
+	points.style.gridColumn="4"
+	points.style.fontSize = "20px"
 	cost.style.gridRow="1"
 	cost.style.gridColumn="3"
 	cost.style.fontSize = "20px"
-	
+	document.body.style.overflowY = "scroll"
 	const des = document.createElement("p")
 	des.style.gridRow="2"
 	reserachbutton.style.gridColumn="3"
@@ -244,13 +267,17 @@ function techscreen(){
 	reserachbutton.style.maxWidth="100px"
 	reserachbutton.style.maxHeight="40px"
 	reserachbutton.hidden=true
-	des.style.gridColumn="1/ span 3"
+	des.style.gridColumn="2"
 	descriptioncontainer.className='techcontainer'
 	descriptioncontainer.style.gridColumn = `1/ span ${categories.length}`
 	descriptioncontainer.appendChild(destitle)
 	descriptioncontainer.appendChild(des)
 	descriptioncontainer.appendChild(cost)
 	descriptioncontainer.appendChild(reserachbutton)
+	descriptioncontainer.appendChild(points)
+	descriptioncontainer.appendChild(progress)
+	descriptioncontainer.appendChild(progresscontainer)
+	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
 	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length)
 	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
@@ -276,7 +303,6 @@ function techscreen(){
 		des.innerHTML=""
 		cost.innerHTML=""
 		reserachbutton.hidden=true
-		reserachbutton.innerHTML=""
 		for (const el of techoptions){
 			
 			if (el.classList.contains("hover")){
@@ -292,7 +318,7 @@ function techscreen(){
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost)
 			for (const el of tech[techindex[0]][techindex[1]].requires){
-				if (tech[el[0]][el[1]].acquired==false){
+				if (tech[el[0]][el[1]].unlocked==false){
 					reserachbutton.disabled=true
 					break
 				}
@@ -310,14 +336,20 @@ function techscreen(){
 				research_points-=tech[techindex[0]][techindex[1]].cost
 				tech[techindex[0]][techindex[1]].effect()
 				
-				tech[techindex[0]][techindex[1]].acquired = true
+				tech[techindex[0]][techindex[1]].unlocked = true
+				destitle.innerHTML=tech[techindex[0]][techindex[1]].name
+			des.innerHTML=tech[techindex[0]][techindex[1]].description
 				el.style.backgroundColor = "#bfb965"
 			}
 			else{
 				success.innerHTML = "<strong class = 'color-r'>Research Failed</strong>"
 				research_points-=tech[techindex[0]][techindex[1]].cost
+				
 			}
+			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
+			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost)
 			success.style.animation = "done 2s linear 0s 1 normal forwards"
+			displayUI()
 			setTimeout(function(){success.remove()},2000)
 			}
 			}
@@ -342,7 +374,7 @@ function techscreen(){
 			techoption.addEventListener("mouseout", function(){
 				techoption.classList.remove("hover")
 			})
-			if (tech[i][j].acquired){
+			if (tech[i][j].unlocked){
 				techoption.style.backgroundColor = "#bfb965"
 			}
 			else{
@@ -602,6 +634,7 @@ function start(){
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
+if (m.phase>0){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
