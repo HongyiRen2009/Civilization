@@ -214,7 +214,7 @@ function techscreen(){
 	ispainting = false
 removing = false
 repairing = false
-	build_music.pause()
+	build_music.pause()	
 	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
@@ -240,18 +240,6 @@ repairing = false
 	const cost = document.createElement("p")
 	const points = document.createElement("p")
 	const reserachbutton = document.createElement("button")
-	const progress = document.createElement("div")
-	const progresscontainer = document.createElement("div")
-	progress.style.backgroundColor = "green"
-	progress.style.gridRow="2"
-	progress.style.gridColumn="4"
-	progresscontainer.style.gridRow="2"
-	progresscontainer.style.gridColumn="4"	
-	progress.style.height = "25px"
-	progress.style.width = 100*(xp/totalxp)+"%"
-	progresscontainer.style.height = "26px"
-	progresscontainer.style.width = "100%"
-	progresscontainer.style.border = "3px solid black"
 	points.innerHTML="Research Points:<br> " +research_points
 	destitle.style.gridRow="1"
 	destitle.style.gridColumn="2"	
@@ -277,8 +265,7 @@ repairing = false
 	descriptioncontainer.appendChild(cost)
 	descriptioncontainer.appendChild(reserachbutton)
 	descriptioncontainer.appendChild(points)
-	descriptioncontainer.appendChild(progress)
-	descriptioncontainer.appendChild(progresscontainer)
+
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
 	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length)
@@ -298,7 +285,7 @@ repairing = false
 		title.style.gridRow=1
 		techgrid.appendChild(title)
 	}
-	techgrid.addEventListener("click", function(event){
+	techgrid.onclick =  function(){
 		if (!descriptioncontainer.classList.contains("hover")){
 		const techoptions = document.getElementsByClassName("techbutton")
 		destitle.innerHTML=""
@@ -306,9 +293,9 @@ repairing = false
 		cost.innerHTML=""
 		reserachbutton.hidden=true
 		for (const el of techoptions){
-			techclick.play()
-			if (el.classList.contains("hover")){
 			
+			if (el.classList.contains("hover")){
+			techclick.play()
 			el.style.border = "3px solid yellow"
 			const techindex = JSON.parse(el.id)
 			reserachbutton.hidden=false
@@ -319,6 +306,7 @@ repairing = false
 			
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost)
+				
 			for (const el of tech[techindex[0]][techindex[1]].requires){
 				if (tech[el[0]][el[1]].unlocked==false){
 					reserachbutton.disabled=true
@@ -360,7 +348,7 @@ repairing = false
 			}
 		}
 	}
-	})
+	}
 	for (i=0,len=tech.length;i<len;i++){
 		
 		for (let j=0,leng=tech[i].length;j<leng;j++){
@@ -621,6 +609,7 @@ function getRandomInt(min, max) {
 
 
 function start(){
+	techmusic.pause()
 	if(m.phase<2){
 	boss_music.pause()
 	build_music.play()
@@ -629,7 +618,6 @@ function start(){
 	build_music.pause()
 	boss_music.play()	
 	}
-	techmusic.pause()
 	market_music.pause()
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
