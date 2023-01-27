@@ -214,6 +214,8 @@ function techscreen(){
 	ispainting = false
 removing = false
 repairing = false
+	build_music.pause()
+	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
 	document.getElementById("difficulty-flex").style.display = 'none'
@@ -304,7 +306,7 @@ repairing = false
 		cost.innerHTML=""
 		reserachbutton.hidden=true
 		for (const el of techoptions){
-			
+			techclick.play()
 			if (el.classList.contains("hover")){
 			
 			el.style.border = "3px solid yellow"
@@ -324,7 +326,7 @@ repairing = false
 				}
 			}
 			reserachbutton.onclick = function(){
-				
+				techbuy.play()
 				const success = document.createElement("h1")
 				success.className = "status"
 				success.style.animation = 'none';
@@ -627,6 +629,7 @@ function start(){
 	build_music.pause()
 	boss_music.play()	
 	}
+	techmusic.pause()
 	market_music.pause()
 	disableinfo=istutorial
 	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
