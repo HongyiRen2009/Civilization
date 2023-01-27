@@ -93,7 +93,7 @@ const achievements = [
 	
 	{
 		acquired: false,
-		title: "What a hoe",
+		title: "Cheap food",
 		description: "build your first Small Farm",
 		imagesrc: "images/achievementHoe.png",
 		requires(){
