@@ -22,7 +22,7 @@ const tech = [
         },
 		{
             name:"Planned mines",
-            description:"All mines produce +50% resources",
+            description:"All mines produce +30% resources",
             requires:[],
             cost:0,
             category:"Mining",
@@ -60,7 +60,7 @@ const tech = [
         },
 		{
             name:"Efficient space usage",
-            description:"All houses have 50% increased capacity",
+            description:"All houses have 30% increased capacity",
             requires:[[0,1],[0,0], [0,2]],
             cost:0,
             category:"Housing",
@@ -80,7 +80,7 @@ const tech = [
         },
 		{
             name:"Social care",
-            description:"-50% chance of rebellions and +30% total intelligence production",
+            description:"-30% chance of rebellions and +30% total intelligence production",
             requires:[[1,1]],
             cost:0,
             category:"Intelligence",
@@ -194,7 +194,7 @@ const tech = [
         },
 		{
             name:"Efficient farms",
-            description:"All farms now produce 50% more resources",
+            description:"All farms now produce 30% more resources",
             requires:[[3,1],[4,2]],
             cost:0,
             category:"Farming",
