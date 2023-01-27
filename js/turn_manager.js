@@ -24,13 +24,27 @@ function turnpopup(){
 	switch(m.phase){
 	case 0 :
 	if (difficulty>20){
+	let totalcitymax = 0
+	debugger
+	if (max.right-p.cityincreases.right-5>totalcitymax){
+		totalcitymax = max.right-p.cityincreases.right-5
+	}
+	if (max.down-p.cityincreases.down-5>totalcitymax){
+		totalcitymax = max.down-p.cityincreases.down-5
+	}
+	if (max.up+p.cityincreases.up-5<totalcitymax){
+		totalcitymax = Math.abs(max.up+p.cityincreases.up+5)
+	}
+	if (max.left+p.cityincreases.left-5<totalcitymax){
+		totalcitymax = Math.abs(max.left+p.cityincreases.left+5)
+	}
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		popups[0].choosetext()
 
 		displaypopup(0)
 		return
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+Math.floor(totalcitymax/10))) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return
@@ -233,6 +247,7 @@ function displayUI(){
 			}
 			
 		}
+		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("pop").innerHTML = "Population: " + currentpop+"/"+(currentpop>population&&difficulty>5*difficultymultiplier ? "<strong class = 'color-r'>"+population+"</strong>":population)
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>"+food+"</strong>": food)
 		document.getElementById("power").innerHTML = "Military: " + military
