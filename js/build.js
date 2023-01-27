@@ -315,7 +315,43 @@ const p = {
 			return resources >=2000 && unemployed>=100
 		}
 	},
+	{
+		name: "Bonfire",
+		letter: "BF",
+		description: "A city center. Requires exponentially more resources the more you build it",
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		unlocked: true,
+		near: "building",
+		tab: "City Centers",
+		amountbought: 0,
+		effect(){
+			resources-=this.amountbought**3
+			this.amountbought+=1
+			if((Math.floor(position.x-screen.width/2)/20)-spawnX>p.cityincreases.right){
+			p.cityincreases.right = (Math.floor(position.x-screen.width/2)/20)-spawnX
+			}
+			if((Math.floor(position.x-screen.width/2)/20)-spawnX<p.cityincreases.left){
+				p.cityincreases.left = (Math.floor(position.x-screen.width/2)/20)-spawnX
+			}
+			if(Math.floor((position.y-screen.height/2)/20)-spawnY>p.cityincreases.down){
+				p.cityincreases.down = (Math.floor(position.y-screen.height/2)/20)-spawnY
+			}
+			if(Math.floor((position.y-screen.height/2)/20)-spawnY<p.cityincreases.up){
+				p.cityincreases.up = (Math.floor(position.y-screen.height/2)/20)-spawnY
+			}
+
+		},
+		requires(){
+			return resources >=this.amountbought**3
+		}
+	},
 ],
+cityincreases:{
+	up:-20,
+	down:20,
+	left:-20,
+	right:20
+},
 food:0,
 population:0,
 military:0,
@@ -332,7 +368,7 @@ function removebuildings(onhill=false){
 	currentpop -= Math.floor(currentpop/3);
 	remove = onhill
 		for(i=gridstats.length-1;i>-1;i--){
-		if (getRandomInt(0,2) == 0){
+		if (getRandomInt(0,3) == 0){
 		if(onhill){
 			remove = false
 		}
@@ -635,7 +671,7 @@ document.onmousedown = function(event){
 			resourcerefund: oldresources-resources,
 			disabled: false
 		})
-		
+		addxp(Math.ceil(Math.floor(oldresources-resources)/2))
 		first_turn = false
 		
 		if (!p.pieceROM[p_index].requires()){
@@ -826,7 +862,7 @@ function displaytab(){
 				button.style.animation = "flash 2s step-start infinite"
 			}
 			}
-		selectcontainer.appendChild(button)
+		selectcontainer.insertBefore(button, document.getElementById("xp_bar_container"))
 		}
 		
 	}
