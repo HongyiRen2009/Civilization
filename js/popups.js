@@ -827,6 +827,36 @@ const popups = [
 		]
 	},
 	{
+			title: "<strong class = 'color-r'>Attacked!</strong>",
+		size: "25px",
+		description: "The beast swoops in for an attack and is about to destroy our village. What should we do?",
+		choosetext(){},
+		choices: [
+		{
+			text:"shoot it",
+			effect(){
+				
+				displaypopup(36, information)
+				m.bhealth-=Math.floor(military/3)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				displayUI()
+			
+			}
+		},
+		{
+			text:"nothing",
+			effect(){
+				
+				removebuildings()
+				displaypopup(35, information)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			
+			}
+		}]
+	},
+	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
 	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, he blesses you and your followers with infinite power. As you ascend to the heavens, leaving the mortal realm, you quickly glance back at your thriving city, which would leave its mark on history for ever.",
@@ -1520,6 +1550,42 @@ const information = [
 		title: "<strong class = 'color-r'>Annihilatation</strong>",
 		size: "30px",
 		description: `You sent your army against the beast, but the only one returning was the beast itself. It swooped in and laid waste to your village.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Fireball!</strong>",
+		size: "30px",
+		description: `the beast swooped in and blasted your village to smitherines.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Drove off</strong>",
+		size: "30px",
+		description: `You blackened the sky with arrows, forcing the beast to retreat as it screams in pain.`,
 		
 		
 	
