@@ -674,8 +674,8 @@ document.onmousedown = function(event){
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
 			disabled: false
-		})
-		addxp(Math.ceil(Math.floor(oldresources-resources)/2))
+		}) 
+		totalxp += (Math.ceil(Math.floor(oldresources-resources)/2))
 		first_turn = false
 		
 		if (!p.pieceROM[p_index].requires()){
