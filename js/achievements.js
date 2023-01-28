@@ -318,7 +318,7 @@ function achievementscreen(ismenu){
 		ctx.clearRect(0,0,screen.width,screen.height)
 		document.getElementById("save-flex").style.display = "none"
 		for (const el of achievements){
-			const flex = document.createElement("flex")
+			const flex = document.createElement("div")
 			
 			const title = document.createElement("h1")
 			const description = document.createElement("p")

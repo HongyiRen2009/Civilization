@@ -216,7 +216,7 @@ strong {
   grid-row: 7;
 }
 .clear_button:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .save_button {
   margin: auto;
@@ -253,7 +253,7 @@ strong {
 }
 
 .new_button:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .select-choice {
   transition-duration: 0.1s;
@@ -262,14 +262,14 @@ strong {
   border-radius: 3px;
 }
 .select-choice:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .cancel {
   transition-duration: 0.1s;
   background-color: #f0e87a;
 }
 .cancel:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .start_button {
   margin: auto;
@@ -280,7 +280,7 @@ strong {
   background-color: #f0e87a;
 }
 .start_button:hover {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .back_button {
   position: fixed;
@@ -295,7 +295,7 @@ strong {
   z-index: 2;
 }
 .back_button:hover {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 
 .next_turn {
@@ -309,7 +309,7 @@ strong {
 }
 
 .info:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .info {
   border-radius: 2px;
@@ -318,7 +318,7 @@ strong {
   background-color: #f0e87a;
 }
 .next_turn:hover:enabled {
-  background-color: #8c6c0b;
+  background-color: var(--game-container-bg-color);
 }
 .start-box {
   display: flex;
@@ -424,7 +424,7 @@ body {
 }
 
 .popup {
-  background-color: #7c5d01;
+  background-color: var(--game-container-bg-color);
   width: 400px;
   height: 300px;
   border-style: solid;
