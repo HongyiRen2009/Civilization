@@ -268,7 +268,7 @@ repairing = false
 
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.9)/categories.length}px `).repeat(categories.length)
-	techgrid.style.gridTemplateRows = "100px " +((screen.height-500)/tech.length+1+"px ").repeat(tech.length)
+	techgrid.style.gridTemplateRows = ((screen.height-500)/tech.length+"px ").repeat(tech.length)+"200px"
 	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
 	linecontainer.setAttribute("width", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.width});
 	techgrid.appendChild(descriptioncontainer)
@@ -278,13 +278,7 @@ repairing = false
 	descriptioncontainer.addEventListener("mouseout", function(){
 		descriptioncontainer.classList.remove("hover")
 	})
-	for (i=0,len=categories.length;i<len;i++){
-		const title = document.createElement("h1")
-		title.innerHTML=categories[i]
-		title.style.gridColumn=i+1
-		title.style.gridRow=1
-		techgrid.appendChild(title)
-	}
+	
 	techgrid.onclick =  function(){
 		if (!descriptioncontainer.classList.contains("hover")){
 		const techoptions = document.getElementsByClassName("techbutton")
@@ -353,7 +347,7 @@ repairing = false
 		
 		for (let j=0,leng=tech[i].length;j<leng;j++){
 			const techoption = document.createElement("button")
-			techoption.style.gridRow=i+2
+			techoption.style.gridRow=i+1
 			techoption.style.gridColumn=categories.indexOf(tech[i][j].category)+1
 			techoption.className = "techbutton"
 			techoption.id = JSON.stringify([i,j])
