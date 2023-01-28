@@ -46,6 +46,7 @@
 	text-align: center;
 }
 .techline{
+	display: none;
 	position: absolute;
 	bottom: 100%;
 	left: 50%;
@@ -65,7 +66,7 @@
   
   .status {
 	color: green;
-	font-size: 60px;
+	font-size: 20px;
 	position: fixed;
 	top: 30%;
 	left: 50%;
@@ -84,7 +85,13 @@
   strong {
 	font-weight: normal;
   }
-  
+.bhealth{
+	display: block;
+	border-radius: 8px;
+
+	width: 80%;
+	height: 20px;
+}
   .achievement-unlocked {
 	display: none;
 	flex-direction: column;
@@ -102,6 +109,17 @@
 	border: 3px solid #000000;
 	border-radius: 6px;
   }
+  .showxp{
+	font-weight: bold;
+	position: absolute;
+	top: 85%;
+	left: 50%;
+	transform: translate(-50%, -85%);
+	width: 20%;
+	animation-fill-mode: forwards;
+	animation-name: done;
+	animation-duration: 2s;
+  }
   .achievement-flex {
 	display: none;
 	width: 100%;
@@ -115,15 +133,6 @@
 	border: 3px solid #000000;
 	border-radius: 6px;
 	padding: 20px;
-  }
-  .achievement-image-div {
-	float: right;
-	display: inline-block;
-  }
-
-  .achievement-image {
-	width: 50%;
-	float: right;
   }
   
   .save-flex {
@@ -236,6 +245,16 @@
 	background-color: #f0e87a;
 	grid-row: 6;
   }
+ .achievement-image-div {	
+	float: right;	
+	display: inline-block;	
+  }	
+
+  .achievement-image {	
+	width: 50%;	
+	float: right;	
+  }	
+
   .new_button:hover:enabled {
 	background-color: #8c6c0b;
   }
@@ -376,7 +395,7 @@
   }
   .techcontainer{
 	display: grid;
-	grid-template-columns: 30% 30% 30%;
+	grid-template-columns: 20% 40% 10% 30%;
 	grid-template-rows: 100px 100px;
 	border: 3px solid #000000;
   }
