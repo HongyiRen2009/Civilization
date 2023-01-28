@@ -25,7 +25,6 @@ function turnpopup(){
 	case 0 :
 	if (difficulty>20){
 	let totalcitymax = 0
-	debugger
 	if (max.right-p.cityincreases.right-5>totalcitymax){
 		totalcitymax = max.right-p.cityincreases.right-5
 	}
@@ -99,6 +98,9 @@ function turnpopup(){
 	break
 	case 1:
 	displaypopup(15)
+	break
+	case 2:
+	displaypopup(16)
 	break
 	default:
 	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
@@ -179,7 +181,7 @@ function displayUI(){
 		military = 0
 		resourcesgained = 0
 		unemployed = currentpop
-		if (m.phase>0){
+		if (m.phase>1){
 			document.getElementById("boss_health").style.width = 100*(m.bhealth/m.totalbhealth)+"%"
 			document.getElementById("boss_health_text").innerHTML = "boss: " + m.bhealth + "/" + m.totalbhealth
 		}
