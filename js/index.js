@@ -625,7 +625,7 @@ function start(){
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
-if (m.phase>0){document.getElementById("boss_health_container").style.display = 'block'}
+if (m.phase>1){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
