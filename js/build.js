@@ -347,10 +347,10 @@ const p = {
 	},
 ],
 cityincreases:{
-	up:-20,
-	down:20,
-	left:-20,
-	right:20
+	up:-30,
+	down:30,
+	left:-30,
+	right:30
 },
 food:0,
 population:0,
@@ -364,6 +364,7 @@ for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
 }
 
+
 function removebuildings(onhill=false){
 	currentpop -= Math.floor(currentpop/3);
 	remove = onhill
@@ -371,15 +372,18 @@ function removebuildings(onhill=false){
 		if (getRandomInt(0,3) == 0){
 		if(onhill){
 			remove = false
-		}
 			for (let j = 0; j!=gridstats[i].positions.length;j++){
-				if(!onhill||hillgrid[gridstats[i].positions[j].y/20].includes(gridstats[i].positions[j].x)){
+				if(hillgrid[gridstats[i].positions[j].y/20].includes(gridstats[i].positions[j].x)){
 					remove=true
 				}
+			}
+		}
+		if (remove){
+			for (let j = 0; j!=gridstats[i].positions.length;j++){
+				
 				const indexx = grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x)
 				grid[gridstats[i].positions[j].y/20].splice(indexx,1)
 			}
-			if(remove){
 			buildingamounts[gridstats[i].index]-=1
 			gridstats.splice(i,1)
 		
