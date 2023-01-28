@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <div class="flex-grid" id="stats" ;>
+    <div class="flex-grid" id="stats">
       <button
         title="make sure to save!"
         class="next_turn"
@@ -223,9 +223,9 @@
     </div>
 
     <button class="back_button" id="back_button" hidden>Back</button>
-    <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
+    <canvas id="canvas" width="1500" height="500"></canvas>
 
-    <div class="select-grid" id="select-grid" hidden="true">
+    <div class="select-grid" id="select-grid" hidden>
       <button class="cancel" onclick="cancel()">Cancel</button>
       <button class="cancel" onclick="isremoving()">Remove</button>
       <button class="cancel" onclick="isrepairing()">Repair</button>
@@ -247,7 +247,6 @@
           border: 2px solid black;
           margin-left: auto;
         "
-        ;
       >
         <div
           id="xp_bar"
@@ -293,7 +292,7 @@
       <div id="description" class="dis">undefined</div>
     </div>
     <img src="images/cloud1.png" style="display: none" id="cloudimg" />
-    <svg id="techlinecontainer" , class="techline"></svg>
+    <svg id="techlinecontainer" class="techline"></svg>
     <script>
       const canvas = document.querySelector("canvas");
       canvas.height = screen.height - 225;
