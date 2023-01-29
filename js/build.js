@@ -11,7 +11,7 @@ const p = {
 		near: "building",
 
 		effect(){
-			p.population=1
+			p.population=Math.floor(1*(1+techstats.eff_space))
 			resources-=1
 		},
 		
@@ -23,50 +23,50 @@ const p = {
 	{
 		name: "Hut",
 		letter: "H",
-		description: "A medium unit of housing that houses 4 people. Requires 3 resources to construct",
+		description: "A medium unit of housing that houses 6 people. Requires 5 resources to construct",
 		piecepositions:[{x:0,y:0}],
 		unlocked: true,
 		near: "building",
 		effect(){
-			p.population=4
-			resources-=3
+			p.population=Math.floor(4*(1+techstats.eff_space))
+			resources-=5+Math.floor(3*techstats.eff_infra)
 		},
 		tab: "housing",
 		requires(){
-			return resources >=3 && difficulty>3
+			return resources >=5-Math.floor(3*techstats.eff_infra) && difficulty>3
 		}
 	},
 	{
 		name: "Townhouse",
 		letter: "TH",
-		description: "A house for many people. Houses 8 people and requires 5 resources to construct",
+		description: "A house for many people. Houses 16 people and requires 10 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
 		unlocked: true,
 		near: "building",
 		effect(){
-			p.population=8
-			resources-=5
+			p.population=Math.floor(8*(1+techstats.eff_space))
+			resources-=10+Math.floor(3*techstats.eff_infra)
 		},
 		tab: "housing",
 		requires(){
-			return resources >=6 && difficulty>3
+			return resources >=10-Math.floor(3*techstats.eff_infra) && difficulty>3
 		}
 	},
 	
 	{
 		name: "Insula",
 		letter: "I",
-		description: "A high density primitive apartment that houses 40 people. Requires 10 resources to construct",
+		description: "A high density primitive apartment that houses 35 people. Requires 15 resources to construct",
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "building",
 		tab: "housing",
 		effect(){
-			p.population=40
-			resources-=10
+			p.population=Math.floor(35*(1+techstats.eff_space))
+			resources-=15+Math.floor(3*techstats.eff_infra)
 		},
 		requires(){
-			return resources >= 10 && difficulty>4
+			return resources >= 15-Math.floor(3*techstats.eff_infra) && difficulty>4
 		}
 	},
 	
@@ -79,10 +79,10 @@ const p = {
 		near: "building",
 		tab: "misc",
 		effect(){
-			resources -=0.25
+			resources -=techstats.cement ? 0.1:0.25
 		},
 		requires(){
-			return resources >= 0.25 &&difficulty>3
+			return resources >= techstats.cement ? 0.1:0.25 &&difficulty>3
 
 		}
 	},
@@ -95,12 +95,12 @@ const p = {
 		near: "building",
 		tab: "farms",
 		effect(){
-			p.food=2
-			resources-=2
+			p.food=Math.floor(2*(1+techstats.eff_farms))
+			resources-=2-Math.floor(2*techstats.simple_farms)
 			
 		},
 		requires(){
-			return resources >= 2 && unemployed >=0
+			return resources >= 2-Math.floor(2*techstats.simple_farms) && unemployed >=0
 		}
 	},
 	{
@@ -113,12 +113,12 @@ const p = {
 		tab: "farms",
 		effect(){
 			
-			p.food=Math.ceil(5*(p.hill ? 0.5:1))
-			resources-=3
+			p.food=Math.ceil(Math.floor(5*(1+techstats.eff_farms))*(p.hill ? 0.5:1))
+			resources-=3+Math.floor(3*techstats.simple_farms)
 			unemployed-=1
 		},
 		requires(){
-			return resources >= 3 && unemployed >=1
+			return resources >= 3-Math.floor(3*techstats.simple_farms) && unemployed >=1
 		}
 	},
 	{
@@ -130,29 +130,29 @@ const p = {
 		near: "!hill",
 		tab: "farms",
 		effect(){
-			p.food=20
-			resources-=15
+			p.food=Math.floor(20*(1+techstats.eff_farms))
+			resources-=15+Math.floor(15*techstats.simple_farms)
 			unemployed-=3
 		},
 		requires(){
-			return resources >=15 && unemployed>=3
+			return resources >=15-Math.floor(15*techstats.simple_farms) && unemployed>=3
 		}
 	},
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 40 food. Requires 20 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
+		description: "A large farm that produces 40 food. Requires 25 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river !hill",
 		tab: "farms",
 		effect(){
-			p.food=40
-			resources-=20
+			p.food=Math.floor(40*(1+techstats.eff_farms))
+			resources-=25+Math.floor(25*techstats.simple_farms)
 			unemployed-=5
 		},
 		requires(){
-			return resources >=15 && unemployed>=5
+			return resources >=25-Math.floor(25*techstats.simple_farms) && unemployed>=5
 		}
 	},
 	{
@@ -164,7 +164,7 @@ const p = {
 		near: "building",
 		tab: "misc",
 		effect(){
-			luck+=2
+			luck+=Math.floor(2*(1+techstats.ded_worship))
 			reputation+=5
 			resources-=40
 			unemployed-=10
@@ -195,13 +195,13 @@ const p = {
 	{
 		name: "Barracks",
 		letter: "BR",
-		description: "A building to store weapons and train soldiers, increasing your military strength by 70. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill.",
+		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill.",
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
 		near: "building",
 		tab: "military",
 		effect(){
-			p.military=70
+			modifiers.military +=0.1
 			resources-=20
 			unemployed-=10
 			
@@ -220,7 +220,7 @@ const p = {
 		near: "building",
 		tab: "military",
 		effect(){
-			p.military = 150
+			p.military = Math.floor(150*(p.entirehill ? 2:1)*(1+techstats.archery))
 			resources-=40
 			unemployed-=8
 			
@@ -239,10 +239,10 @@ const p = {
 		near: "building",
 		tab: "misc",
 		effect(){
-			resources-=3
+			resources-=techstats.cement ? 0.1:3
 		},
 		requires(){
-			return resources >= 3&&difficulty>4
+			return resources >= techstats.cement ? 0.1:3 &&difficulty>4
 		}
 		
 	},
@@ -257,11 +257,11 @@ const p = {
 		effect(){
 			
 			p.resources=4*(p.hill ? 1:0.5)
-			resources-=3
+			resources-=3+Math.floor(techstats.planned_mines*3)
 			unemployed-=1
 		},
 		requires(){
-			return resources >=3 && unemployed>=1
+			return resources >=3+Math.floor(techstats.planned_mines*3) && unemployed>=1
 		}
 	},
 	{
@@ -274,28 +274,28 @@ const p = {
 		tab: "mines",
 		effect(){
 			p.resources=12
-			resources-=15
+			resources-=15+Math.floor(techstats.planned_mines*15)
 			unemployed-=4
 		},
 		requires(){
-			return resources >=15 && unemployed>=4&&difficulty>4
+			return resources >=15+Math.floor(techstats.planned_mines*15) && unemployed>=4&&difficulty>4
 		}
 	},
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 40 resources per year. Must be on a hill and requires 20 resources and 8 people operating it",
+		description: "A large mine to extract resources from a hill. Collects 40 resources per year. Must be on a hill and requires 25 resources and 8 people operating it",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		unlocked: false,
 		near: "hill",
 		tab: "mines",
 		effect(){
 			p.resources=40
-			resources-=20
+			resources-=25+Math.floor(techstats.planned_mines*25)
 			unemployed-=8
 		},
 		requires(){
-			return resources >=20 && unemployed>=8
+			return resources >=25+Math.floor(techstats.planned_mines*25) && unemployed>=8
 		}
 	},
 	{
@@ -674,8 +674,8 @@ document.onmousedown = function(event){
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
 			disabled: false
-		}) 
-		totalxp += (Math.ceil(Math.floor(oldresources-resources)/2))
+		})
+		xp+=Math.ceil(Math.floor(oldresources-resources)/2)*(1+techstats.innovation)
 		first_turn = false
 		
 		if (!p.pieceROM[p_index].requires()){
@@ -743,7 +743,7 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 }
 
 document.onkeydown = function(event){
-	
+	if(techstats.exploration){
 	switch(event.key){
 		
 		case "w":
@@ -770,7 +770,7 @@ document.onkeydown = function(event){
 		//rotate()
 		//break
 	}
-
+	}
 }
 function rotate(){
 	difference +=0.5
