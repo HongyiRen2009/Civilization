@@ -207,7 +207,7 @@ function savescreen(save){
 	document.getElementById("start-flex").style.display = "none"
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "flex"
+	document.getElementById("save-flex").style.display = "grid"
 	document.getElementById("boss_health_container").style.display = 'none'
 }
 function techscreen(){
@@ -226,7 +226,7 @@ repairing = false
 	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "none"
+	document.getElementById("save-flex").style.display = "grid"
 	const categories = ["Virtue", "Farming", "Farming II","Housing", "Mining","Mining II","Intelligence", "Intelligence II","Military","Military II"]
 	const techgrid = document.getElementById("tech-tree")
 	const linecontainer = document.getElementById('techlinecontainer')
@@ -445,7 +445,7 @@ function save(bindex){
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 	localStorage.setItem('bluestocks'+bindex, JSON.stringify(blueprintsitems));
 
-	document.getElementById("save-flex").style.display = "none"
+	document.getElementById("save-flex").style.display = "grid"
 	start()
 }
 function load(bindex){
