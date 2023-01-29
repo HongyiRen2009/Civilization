@@ -104,7 +104,7 @@ document.getElementById("title_start").innerHTML = 'Civilization'
 	document.getElementById("title_start").hidden = false
 	document.getElementById("boss_health_container").display = "none"
 	document.getElementById("stats").style.display = "none"
-	document.getElementById("start-flex").style.display = "flex"
+	document.getElementById("start-flex").style.display = "grid"
 	document.body.style.overflow = "hidden"
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
@@ -226,7 +226,7 @@ repairing = false
 	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "grid"
+	document.getElementById("save-flex").style.display = "none"
 	const categories = ["Virtue", "Farming", "Farming II","Housing", "Mining","Mining II","Intelligence", "Intelligence II","Military","Military II"]
 	const techgrid = document.getElementById("tech-tree")
 	const linecontainer = document.getElementById('techlinecontainer')

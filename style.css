@@ -275,6 +275,8 @@ strong {
   border-radius: 6px;
   transition-duration: 0.1s;
   background-color: #f0e87a;
+  width: 100%;
+  padding: 5px 20px;
 }
 .start_button:hover {
   background-color: var(--game-container-bg-color);
@@ -318,7 +320,7 @@ strong {
   background-color: var(--game-container-bg-color);
 }
 .start-box {
-  display: flex;
+  display: grid;
   flex-direction: column;
   position: absolute;
   gap: 20px;
@@ -328,7 +330,6 @@ strong {
 }
 body {
   background-color: #fff8dc;
-  overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
   margin: 0;
