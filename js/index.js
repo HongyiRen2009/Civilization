@@ -286,8 +286,8 @@ repairing = false
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.8)/categories.length}px `).repeat(categories.length)+"160px"
 	techgrid.style.gridTemplateRows = ((screen.height-500)/tech.length+"px ").repeat(tech.length)+"200px"
-	linecontainer.setAttribute("height", techgrid.getBoundingClientRect().height);
-	linecontainer.setAttribute("width", techgrid.getBoundingClientRect().width);
+	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
+	linecontainer.setAttribute("width", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.width});
 	techgrid.appendChild(descriptioncontainer)
 	descriptioncontainer.addEventListener("mouseover", function(){
 		descriptioncontainer.classList.add("hover")
