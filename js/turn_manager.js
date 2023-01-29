@@ -49,7 +49,7 @@ function turnpopup(){
 	if (difficulty>20){
 	
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
-		debugger
+		
 		popups[0].choosetext()
 
 		displaypopup(0)
@@ -177,7 +177,7 @@ function next_turn(){
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
-	if (difficulty<10){
+	if (difficulty<20){
 		document.getElementById("mbutton").disabled=!techstats.market
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
@@ -215,9 +215,7 @@ function displayUI(){
 				el.disabled = false
 			}
 		}
-		if (difficulty<3){
-			document.getElementById("mbutton").disabled=true
-		}
+		
 		for (len = gridstats.length,i=0;i<len;i++){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
