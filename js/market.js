@@ -291,153 +291,6 @@ const m = {
 		}
 	},
 	{
-	price:25,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Medium Mine",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-						this.price = Math.max(15,25-(reputation*3))
-
-			this.allowed = true
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[13].unlocked = true
-			unlocked[13]=true
-		}
-	},
-	{
-		price:25,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Medium Farm",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-						this.price = Math.max(15,25-(reputation*3))
-
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[7].unlocked = true
-			unlocked[7]=true
-		}
-	
-	},
-	
-	{
-		price:50,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct an Insula",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-						this.price = Math.max(25,50-(reputation*3))
-
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[3].unlocked = true
-			unlocked[3]=true
-		}
-	},
-	{
-		price:100,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Large Farm",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-						this.price = Math.max(100,100-(reputation*5))
-
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[8].unlocked = true
-			unlocked[8]=true
-		}
-	},
-	{
-		price:50,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Large Mine",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-						this.price = Math.max(25,50-(reputation*3))
-
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[14].unlocked = true
-			unlocked[14]=true
-		}
-	},
-	{
-		price:130,
-		pricemod: 1,
-		title: "Blueprints",
-		description: "Get the instructions on how to construct a Temple",
-		image: "<img src = 'images/marketScroll.png' width='50' height='50'></img>",
-		amountincrease: 0,
-		stock:1,
-		whichthing: "resources",
-		allowed: true,
-		choosetext(){
-			this.allowed = true
-						this.price = Math.max(65,130-(reputation*5))
-
-			if (this.price*this.pricemod>resources){
-				this.allowed = false
-			}
-		},
-		purchaseeffect(){
-			resources-=Math.floor(this.price*this.pricemod)
-			p.pieceROM[9].unlocked = true
-			unlocked[9]=true
-		}
-	},
-	
-	{
 		price:2000,
 		pricemod: 1,
 		title: "Blueprints",
@@ -593,7 +446,7 @@ function marketscreen(){
 			}
 			else
 			{
-				reputation+=getRandomInt(0,3)
+				reputation+=getRandomInt(0,3)*(1+techstats.charisma)
 			}
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
@@ -657,17 +510,7 @@ function marketscreen(){
 function selectmarketitems(){
 	
 	marketitems.length = 0
-	const blueprintsitems = []
 	
-	for (len = m.marketselections.length, i = len-8;i<len-2;i++){
-		if (m.marketselections[i].stock>0){
-			blueprintsitems.push(i)
-		}
-	}
-	if (blueprintsitems.length<2){
-		for (i=0;i<blueprintsitems.length;i++)
-		blueprintsitems.push(7)
-	}
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),blueprintsitems[0],blueprintsitems[1],getRandomInt(5,7),getRandomInt(8,11), getRandomInt(1,2)==1 ? getRandomInt(8,11):blueprintsitems[getRandomInt(0,blueprintsitems.length-1)],m.marketselections.length-1)
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,11), getRandomInt(8,11),m.marketselections.length-1)
 }
