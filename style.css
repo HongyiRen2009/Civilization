@@ -19,6 +19,15 @@
     opacity: 0;
   }
 }
+ @keyframes block_done {
+	0% {opacity: 0;}
+	100% {opacity: 0.4;}
+	
+  }
+  @keyframes popup_finish {
+	0% {opacity: 0.4;}
+	100% {opacity: 0;}
+  }
 @keyframes flash {
   50% {
     border: 3px solid yellow;
