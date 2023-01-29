@@ -670,7 +670,7 @@ document.getElementById("start-flex").style.display = "none"
 document.getElementById("market-flex").style.display = "none"
 document.getElementById("save-flex").style.display = "none"
 document.getElementById("select-grid").style.display = "flex"
-
+document.getElementsByTagName('canvas')[0].style.display = 'block'
 displayUI()
 render()
 
