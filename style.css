@@ -444,3 +444,7 @@ button {
 button:disabled {
   background-color: #9c9c95;
 }
+
+canvas {
+  display: none;
+}

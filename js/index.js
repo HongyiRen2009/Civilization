@@ -202,6 +202,8 @@ function savescreen(save){
 				grid.appendChild(des)
 		}
 	}
+
+	document.getElementsByTagName('canvas')[0].style.display = 'none'
 	document.getElementById("title_start").innerHTML = "Select Save"
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("start-flex").style.display = "none"
@@ -218,6 +220,7 @@ repairing = false
 	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
+	document.getElementsByTagName('canvas')[0].style.display = 'block'
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("tech-tree").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
@@ -620,6 +623,7 @@ function start(){
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
 if (m.phase>1){document.getElementById("boss_health_container").style.display = 'block'}
+document.getElementsByTagName('canvas')[0].style.display = 'block'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
