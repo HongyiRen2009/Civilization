@@ -164,7 +164,7 @@ const achievements = [
 		title: "Mining away",
 		description: "build your first Small Mine",
 		requires(){
-		return buildingamounts[12] > 0
+		return buildingamounts[14] > 0
 		}
 	},
 	
@@ -173,7 +173,7 @@ const achievements = [
 		title: "So mean",
 		description: "build your first Medium Mine",
 		requires(){
-		return buildingamounts[13] > 0
+		return buildingamounts[15] > 0
 		}
 	},
 	{
@@ -190,7 +190,7 @@ const achievements = [
 		title: "Industrialization",
 		description: "build your first Large Mine",
 		requires(){
-		return buildingamounts[14] > 0
+		return buildingamounts[16] > 0
 		}
 	},
 	{
