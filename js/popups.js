@@ -128,11 +128,15 @@ const popups = [
 	{
 	title: "<strong class = 'color-r'>Enemy Attack</strong>",
 	size: "30px",
+	power: 0,
 	description: "A neighbouring tribe is attacking you",
 	choosetext(){
 		if (resources<difficulty/2){
 			choicesdisabled.push(1)
-	}
+		}
+		this.power =((difficulty+getRandomInt(-20,10))*3-(getRandomInt(m.spy,3) ? 1:0))*difficultymultiplier
+		this.description = `A neighbouring tribe is attacking you${techstats.scouting ? "":`<br><br>Scouting Estimate: ${this.power}`}`
+	
 	},
 	choices: [
 	{
@@ -334,7 +338,7 @@ const popups = [
 		text: "give",
 		effect(){
 			if (achievements[22].acquired==false){displayachievement(22)}
-			reputation+=getRandomInt(3,6)
+			reputation+=getRandomInt(3,6)*(1+techstats.charisma)
 			if (getRandomInt(0,2)==0){
 				displaypopup(16,information)
 				modifiers.military+=0.4
@@ -574,7 +578,7 @@ const popups = [
 		effect(){
 			information[19].choosetext(Math.round(currentpop*1.5))
 			currentpop+=Math.round(currentpop*1.5)
-			reputation+=getRandomInt(6,10)
+			reputation+=getRandomInt(6,10)*(1+techstats.charisma)
 			displaypopup(19, information)
 			displayUI()
 
@@ -620,7 +624,7 @@ const popups = [
 		text: "Accept",
 		effect(){
 		resources-=Math.ceil(resources/3)
-		reputation+=getRandomInt(2,4)
+		reputation+=getRandomInt(2,4)*(1+techstats.charisma)
 		switch(random){
 			case 0:
 			modifiers.military +=0.5
@@ -1459,7 +1463,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Pre-Democracy</strong>",
 		size: "30px",
-		description: `Your expansion has been noticed by other tribes and they opened a communal market (on the top right corner). Be careful though, because your people will now start rebellions if your housing is too low, and enemies can now attack you.`,
+		description: `Your expansion has been noticed by other tribes, and your people are now knowledgable of life outside your village. Be careful, because other tribes can now attack you and your people can now rebel`,
 		
 		
 	
@@ -1606,6 +1610,7 @@ const information = [
 function displaypopup(index, list = popups){
 ispainting = false
 	document.getElementById("popup_block_buttons").style.display = "block"
+	document.getElementById("popup_block_buttons").style.animation = "none"
 	const ele = document.getElementsByClassName("popup_choice")
 			while(ele[0]){
 				ele[0].parentNode.removeChild(ele[0]);
