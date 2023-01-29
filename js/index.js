@@ -13,6 +13,7 @@ function difficultyscreen(){
 				k+=0.5
 			
 		}
+	document.getElementsByTagName('canvas')[0].style.display = 'none'
 	document.getElementById("difficulty-flex").style.display = 'flex'
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){menu()}
