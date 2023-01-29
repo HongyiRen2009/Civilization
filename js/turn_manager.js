@@ -31,9 +31,6 @@ function turnpopup(){
 			displaypopup(30,information)
 			return false
 	}
-	switch(m.phase){
-	case 0 :
-	if (difficulty>20){
 	let totalcitymax = 0
 	if (max.right-p.cityincreases.right-5>totalcitymax){
 		totalcitymax = max.right-p.cityincreases.right-5
@@ -47,6 +44,10 @@ function turnpopup(){
 	if (max.left+p.cityincreases.left-5<totalcitymax){
 		totalcitymax = Math.abs(max.left+p.cityincreases.left+5)
 	}
+	switch(m.phase){
+	case 0 :
+	if (difficulty>20){
+	
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		debugger
 		popups[0].choosetext()
