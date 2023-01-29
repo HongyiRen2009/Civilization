@@ -3,24 +3,34 @@ function turnpopup(){
 	if (currentpop>population&&istutorial**difficulty==5){
 		tutorialindex+=1
 		continuetutorial(tutorialindex)
-		return
+		return false
 	}
 	if (currentpop<1){
 		popups[popups.length-1].choosetext("pop")
 		displaypopup(popups.length-1)
-		return
+		return false
 	}
 	else if (resources<3 && resourcesgained<1){
 		popups[popups.length-1].choosetext("res")
 		displaypopup(popups.length-1)
-		return
+		return false
 	}
 	else if (food < currentpop/10){
 		popups[popups.length-1].choosetext("food")
 		displaypopup(popups.length-1)
-		return
+		return false
 	}
-	
+	switch (difficulty){
+		case 5:
+			displaypopup(28,information)
+			return false
+		case 20:
+			displaypopup(29,information)
+			return false
+		case 40:
+			displaypopup(30,information)
+			return false
+	}
 	switch(m.phase){
 	case 0 :
 	if (difficulty>20){
@@ -38,15 +48,16 @@ function turnpopup(){
 		totalcitymax = Math.abs(max.left+p.cityincreases.left+5)
 	}
 	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+		debugger
 		popups[0].choosetext()
 
 		displaypopup(0)
-		return
+		return false
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+Math.floor(totalcitymax/10))) <= 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10))) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
-		return
+		return false
 
 
 	}
@@ -55,13 +66,13 @@ function turnpopup(){
 		randomindex = getRandomInt(3,7)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
-		return
+		return false
 		}
 		else{
 		randomindex = getRandomInt(8,10)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
-		return
+		return false
 
 		}
 	}
@@ -69,11 +80,11 @@ function turnpopup(){
 		randomindex = getRandomInt(11,12)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
-		return
+		return false
 	}
 	else if (military>(difficulty+1)*5){
 		displaypopup(2)
-		return
+		return false
 		}
 	
 	
@@ -82,11 +93,12 @@ function turnpopup(){
 	case 1:
 	if(getRandomInt(0,4)==0){
 		displaypopup(13)
+		return false
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
-		return
+		return false
 
 
 	}
@@ -95,35 +107,43 @@ function turnpopup(){
 	switch(getRandomInt(0,3)){
 	case 0:
 		displaypopup(14)
-	break
+		return false
+	
 	case 1:
 	displaypopup(15)
-	break
+	return false
+	
 	case 2:
 	displaypopup(16)
-	break
+	return false
+	
 	default:
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)) <= 0){
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
-		return
+		return false
 
 
 	}
 	}
 	}
-
 
 	
+	return true
 }
 function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
-	document.getElementById("popup_block_buttons").style.display = "none"
+	const turnreturn = turnpopup()
+	debugger
+	document.getElementById("popup_block_buttons").style.animation = "none"
+	if(turnreturn==true){
 	
-
 	
-	turnpopup()
+	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
+	setTimeout(function(){document.getElementById("popup_block_buttons").animation = "none";document.getElementById("popup_block_buttons").style.display = "none"},1000)
+	}
+	
 	
 
 	
@@ -137,8 +157,11 @@ function enable(){
 function next_turn(){
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
-	document.getElementById("popup_block_buttons").style.display = "block"
-	
+	const pbb = document.getElementById("popup_block_buttons")
+	pbb.style.display = "block"
+	pbb.style.animation = 'none';
+	pbb.offsetHeight; /* trigger reflow */
+	pbb.style.animation = "block_done linear 1s 1 normal"; 
 	
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
@@ -153,11 +176,8 @@ function next_turn(){
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
-	if (difficulty<20){
-			document.getElementById("mbutton").disabled=true
-	}
-	else{
-		document.getElementById("mbutton").disabled=false
+	if (difficulty<10){
+		document.getElementById("mbutton").disabled=!techstats.market
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
 		p.price-=Math.floor(reputation/5)
@@ -165,12 +185,11 @@ function next_turn(){
 		if(p.stock<10&&p.title!="Blueprints"&&p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
-		for (i=0;i<2;i++){
 		
-		}
 	}
 }
-	setTimeout(enable,700)
+	
+	setTimeout(enable,1000)
 	
 }
 
