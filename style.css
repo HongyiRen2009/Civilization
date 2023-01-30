@@ -172,7 +172,9 @@ strong {
 
 #popup_block_buttons {
   display: none;
-  position: absolute;
+  /* position: fixed is position relative to the screen, so it will always cover the screen.
+     and we don't have to worry about scrolling and stuff like that */
+  position: fixed;
   top: 0px;
   background-color: #000000;
   opacity: 0.4;
