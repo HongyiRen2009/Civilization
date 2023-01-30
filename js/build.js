@@ -356,7 +356,9 @@ food:0,
 population:0,
 military:0,
 resources:0,
+research:0,
 river: false,
+hill : false
 hill : false,
 entirehill : false,
 }

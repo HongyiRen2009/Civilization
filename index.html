@@ -1,4 +1,266 @@
 <!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="style.css">
+<title>Civilization</title>
+<link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon' />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div class="flex-grid" id="stats" style.display:none;>
+	<button class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
+	<div id = "pop" class = "pop">Population: 0/0</div>
+
+	<div id = "food">Food: 0</div>
+	<div id = "power">Military: 0</div>
+		<div id = "unemployed" class = "pop">Unemployed People: 0</div>
+		<div id = "resources" class = "pop">Resources: 10</div>
+	<button class = "next_turn" id = "turn" onclick = "next_turn()">End Year</button>
+	<button class = "next_turn" onclick = "savescreen(true)">SAVE</button>
+	<button class = "info" onclick = "achievementscreen(false)">Achievements</button>
+	<button class = "info" onclick = "info()">Building Info</button>
+	<button id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
+	<button id = "mbutton" class = "info" onclick = "techtreescreen()">Tech Tree</button>
+	
+	
+
+
+		
+</div>
+
+<div style = "display: none; align-items: center; flex-direction: column; position: absolute; width: 100%; " id = market-flex>
+	<div style = "display: flex; width: 90%; gap: 30%;">
+	<p style = "font-weight: bold;" id = "mresource">Resources: </p>
+	<h1 class = "title_screen">Market</h1>
+	
+	<p style = "font-weight: bold;" id = "mreputation">Reputation: </p>
+	</div>
+	<div class = "market-ui" id = "market"></div>
+	<h1 id = 'status' class="status">PURCHASE SUCCESSFUL</h1>
+	<h1 class = "title_screen">Black Market</h1>
+	<div class = "market-ui" id  = "black-market"></div>
+	<br></br>
+	<br></br>
+	<br></br>
+	</div>
+<h1 class = "title_screen" id = "title_start">Civilization</h1>
+<div id ="info-flex" class = 'info-flex'></div>
+<div id ="achievement-flex" class =  'achievement-flex'>
+<h1 style = "text-align:center">Achievements:</h1>
+</div>
+
+<div id ="techtree-flex" class =  'techtree-flex'>
+	<h1 style = "text-align:center">Tech Tree:</h1>
+	</div>
+
+
+
+<div class = "start-box" id = "start-flex">
+	
+	<button id = "start" class = "start_button" onclick = "difficultyscreen()">New Game</button>
+	<button id = "start" class = "start_button" onclick = "savescreen(false)">Load Game</button>
+	<button id = "start" class = "start_button" onclick = "achievementscreen(true)">Achievements</button>
+</div>
+<div class = "save-flex" id = 'save-flex'>
+	<div class = "save-grid" id = "save-grid1">
+		<h1>Save Slot 1:</h1>
+		<p class= "savedes1"> Empty Slot</p>
+		<button id = "1" class = "save_button" onclick = "savegame(1)">Save Game</button>
+		<button id = "clear1" class = "clear_button" onclick = "confirmclear(1)">Clear Save</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid2">
+		<h1>Save Slot 2:</h1>
+		<p class= "savedes2"> Empty Slot</p>
+		<button id = "2" class = "save_button" onclick = "savegame(2)">Save Game</button>
+		<button id = "clear2" class = "clear_button" onclick = "confirmclear(2)">Clear Save</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid3">
+		<h1>Save Slot 3:</h1>
+		<p class= "savedes3"> Empty Slot</p>
+		<button id = "3" class = "save_button" onclick = "savegame(3)">Save Game</button>
+		<button id = "clear3" class = "clear_button" onclick = "confirmclear(3)">Clear Save</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid4">
+		<h1>Save Slot 4:</h1>
+		<p class= "savedes3"> Empty Slot</p>
+		<button id = "4" class = "save_button" onclick = "savegame(4)">Save Game</button>
+		<button id = "clear4" class = "clear_button" onclick = "confirmclear(4)">Clear Save</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid5">
+		<h1>Save Slot 5:</h1>
+		<p class= "savedes5"> Empty Slot</p>
+		<button id = "5" class = "save_button" onclick = "savegame(5)">Save Game</button>
+		<button id = "clear5" class = "clear_button" onclick = "confirmclear(5)">Clear Save</button>
+	 </div>
+ </div>
+ <div class = "achievement-unlocked" id = "unlocked">
+ <p style = "font-weight:bold; font-size:15px;">Achievement Unlocked:</p>
+ <p id = "achievementname"></p>
+ </div>
+ <div class = "difficulty-flex" id = 'difficulty-flex'>
+ 	<div class = "save-grid" id = "save-grid1">
+		<h1 strong class = 'color-g'>Copper:</h1>
+		<p>Favorable events happen more frequently</p>
+		<p>Rebellions happen less frequently</p>
+		<p>+50% production</p>
+		<p>x0.5 enemy strength</p>
+		<button id = "1" class = "new_button" onclick = "newgame(1)">New Game</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid2">
+		<h1 strong class = 'color-y'>Iron:</h1>
+		<p>Favorable events have same frequency as unfavorable events</p>
+		<p>Rebellions happen at normal frequency</p>
+		<p>Normal production</p>
+		<p>Normal enemy strength</p>
+		<button id = "2" class = "new_button" onclick = "newgame(1.5)">New Game</button>
+	 </div>
+	 <div class = "save-grid" id = "save-grid3">
+		<h1 strong class = 'color-r'>Diamond:</h1>
+		<p>Unfavorable events happen more frequently</p>
+		<p>Rebellions happen more frequently</p>
+		<p>-50% production</p>
+		<p>x1.5 enemy strength</p>
+		<button id = "3" class = "new_button" onclick = "newgame(2)">New Game</button>
+	 </div>
+ </div>
+
+ <button class = "back_button" id = "back_button" hidden>Back</button>
+ <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
+
+<div class="select-grid" id="select-grid" hidden = true>
+
+<button class = 'cancel' onclick = "cancel()">Cancel</button>
+<button class = 'cancel' onclick = "isremoving()">Remove</button>
+<button class = 'cancel' onclick = "isrepairing()">Repair</button>
+<select id="taboption" onchange="switchtab()" style="background-color:#f0e87a;border-color: black;border-style: solid;border-radius: 4px">
+
+
+
+</select>
+</div>
+<div class = "popup_block_buttons" id = "popup_block_buttons"></div>
+<div class = "popup" id = "popup">
+	<div id = "title" class = "title">undefined</div><br></br>
+	
+	<div id = "description" class = "dis">undefined</div>
+</div>
+<img src = "images/cloud1.png" style = "display:none" id = "cloudimg"></img>
+<script>
+const canvas = document.querySelector("canvas")
+canvas.height = screen.height-225
+canvas.width = screen.width
+const ctx = canvas.getContext("2d")
+const heightmax = Math.round((screen.height-225)/20)
+const widthmax = Math.round((screen.width)/20)
+const rivergrid = [] 
+const max = {
+	up:-40,
+	down:40,
+	left:-40,
+	right:40
+}
+const grid = []
+const hillgrid = []
+const tabs = ["housing","food","military","resources","misc"]
+const gridstats = []
+let scrollX = 250
+let scrollY = 250
+let spawnX = 0
+let spawnY = 0
+let ispainting = false
+let repairing = false
+let position = {}
+let letter = ""
+let piece = []
+let population = 0
+let difference =0
+let food = 0
+let resources = 8
+let resourcesgained = 0
+let p_index = 0
+let megatemple = 0
+let modifiers = {
+	food: 0,
+	resources:0,
+	military:0
+}
+const marketitems = []
+let tab = "house"
+let punishamount = 0
+let allowed = true;
+let military = 0;
+let currentpop = 2;
+const click = new Audio('sounds/click.mp3');
+const build_music = new Audio('music/Menu_music.wav');
+const market_music = new Audio('music/Market_music.wav');
+const kaching = new Audio('sounds/Purchase.wav');
+const breaksound = new Audio('sounds/remove.wav');
+const repairsound = new Audio('sounds/repair.wav');
+market_music.loop = true
+build_music.loop = true
+
+let istutorial = false;
+let tutorialindex = 0;
+let disableinfo = false
+let unemployed = 2;
+let difficulty = 0;
+let first_turn = true;
+let removing = false;
+let luck = 0
+let reputation = 0
+let save_slot = null;
+let difficultymultiplier = 0
+let selection_grid_row = 0
+const choicesdisabled = []
+const buildingamounts = []
+const unlocked = []
+const temporaryeffects = []
+function switchtab(){
+	tab = document.getElementById("taboption").value
+	displaytab()
+}
+for (i=tabs.length-1;i>=0;i--){
+	const taboption = document.createElement("option")
+	taboption.innerHTML = tabs[i]
+	
+	document.getElementById("taboption").appendChild(taboption)
+	if (i==0){
+		taboption.selected=true
+	}
+}
+
+</script>
+
+
+<script src = "js/terrain_generator.js"></script>
+<script src = "js/build.js"></script>
+<script src = "js/tutorial.js"></script>
+
+<script src = "js/market.js"></script>
+<script src = "js/economy.js"></script>
+
+<script src = "js/techtree.js"></script>
+
+<script src = "js/achievements.js"></script>
+<script src = "js/turn_manager.js"></script>
+<script src = "js/index.js"></script>
+
+<script src = "js/popups.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
 <html lang="en">
   <head>
     <link rel="stylesheet" href="style.css" />

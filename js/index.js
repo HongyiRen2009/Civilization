@@ -571,6 +571,8 @@ function load(bindex){
 	start()
 }
 function newgame(difficult){
+
+	newEconomy()
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
@@ -663,6 +665,7 @@ if (m.phase>1){document.getElementById("boss_health_container").style.display = 
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
+document.getElementById("techtree-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
 document.getElementById("techlinecontainer").style.display = "none"
 document.getElementById("title_start").hidden = true

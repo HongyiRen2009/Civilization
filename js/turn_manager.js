@@ -158,11 +158,14 @@ function enable(){
 function next_turn(){
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
+	
+
 	const pbb = document.getElementById("popup_block_buttons")
 	pbb.style.display = "block"
 	pbb.style.animation = 'none';
 	pbb.offsetHeight; /* trigger reflow */
 	pbb.style.animation = "block_done linear 1s 1 normal"; 
+  simulateEcoStep()
 	
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
