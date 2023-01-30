@@ -653,8 +653,6 @@ function start(){
 	}
 	market_music.pause()
 	disableinfo=istutorial
-	document.getElementById("popup_block_buttons").style.width = screen.width+"px"
-	document.getElementById("popup_block_buttons").style.height = screen.height+300+"px"
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
