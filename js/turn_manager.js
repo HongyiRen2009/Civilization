@@ -136,7 +136,7 @@ function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
 	const turnreturn = turnpopup()
-	debugger
+	
 	document.getElementById("popup_block_buttons").style.animation = "none"
 	if(turnreturn==true){
 	
@@ -177,8 +177,10 @@ function next_turn(){
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
-	if (difficulty<20){
-		document.getElementById("mbutton").disabled=!techstats.market
+	document.getElementById("mbutton").disabled=!techstats.market
+	
+	if (difficulty>20){
+		
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
 		p.price-=Math.floor(reputation/5)
@@ -207,12 +209,20 @@ function displayUI(){
 		}
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
+				
 				el.disabled=true
+				
 			}
 		}
 		else {
 		for (const el of document.getElementsByClassName("info")){
+			
+				if(el.id !="mbutton"){
 				el.disabled = false
+				}
+				else{
+					el.disabled = !techstats.market
+				}
 			}
 		}
 		
