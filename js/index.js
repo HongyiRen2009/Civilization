@@ -110,7 +110,7 @@ function savescreen(save){
 		for (const el of ele){
 			el.disabled = false
 			el.innerHTML = "Save Game"
-			el.onclick = function(){savegame(el.id)}
+			el.onclick = function(){savegame(el.id.substring(4))}
 			i++
 		}
 	const ele2 = document.getElementsByClassName("clear_button")
@@ -274,7 +274,7 @@ repairing = false
 		years.appendChild(yeardes)
 	}
 	descriptioncontainer.className='techcontainer'
-	descriptioncontainer.style.gridColumn = `1/ span ${categories.length}`
+	descriptioncontainer.style.gridColumn = `1/ span ${categories.length+1}`
 	descriptioncontainer.style.gridRow = tech.length+1
 	descriptioncontainer.appendChild(destitle)
 	descriptioncontainer.appendChild(des)
@@ -285,7 +285,7 @@ repairing = false
 	techgrid.appendChild(years)
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.8)/categories.length}px `).repeat(categories.length)+"160px"
-	techgrid.style.gridTemplateRows = ((screen.height-500)/tech.length+"px ").repeat(tech.length)+"200px"
+	techgrid.style.gridTemplateRows = ((screen.height-400)/tech.length+"px ").repeat(tech.length)+"200px"
 	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
 	linecontainer.setAttribute("width", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.width});
 	techgrid.appendChild(descriptioncontainer)
@@ -474,7 +474,7 @@ function save(bindex){
 	
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
@@ -497,6 +497,8 @@ function load(bindex){
 	resources = JSON.parse(localStorage.getItem('pstats'+bindex)).resources;
 	currentpop = JSON.parse(localStorage.getItem('pstats'+bindex)).currentpop;
 	reputation = JSON.parse(localStorage.getItem('pstats'+bindex)).reputation;
+	xp = JSON.parse(localStorage.getItem('pstats'+bindex)).xp;
+	totalxp = JSON.parse(localStorage.getItem('pstats'+bindex)).totalxp;
 	const localtechstats = []
 	for (const obj in JSON.parse(localStorage.getItem('pstats'+bindex)).techstats){
 		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
@@ -653,6 +655,7 @@ function start(){
 	}
 	market_music.pause()
 	disableinfo=istutorial
+
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
