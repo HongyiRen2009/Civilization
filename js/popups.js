@@ -128,11 +128,15 @@ const popups = [
 	{
 	title: "<strong class = 'color-r'>Enemy Attack</strong>",
 	size: "30px",
+	power: 0,
 	description: "A neighbouring tribe is attacking you",
 	choosetext(){
 		if (resources<difficulty/2){
 			choicesdisabled.push(1)
-	}
+		}
+		this.power =((difficulty+getRandomInt(-20,10))*3-(getRandomInt(m.spy,3) ? 1:0))*difficultymultiplier
+		this.description = `A neighbouring tribe is attacking you${techstats.scouting ? "":`<br><br>Scouting Estimate: ${this.power}`}`
+	
 	},
 	choices: [
 	{
@@ -334,7 +338,7 @@ const popups = [
 		text: "give",
 		effect(){
 			if (achievements[22].acquired==false){displayachievement(22)}
-			reputation+=getRandomInt(3,6)
+			reputation+=getRandomInt(3,6)*(1+techstats.charisma)
 			if (getRandomInt(0,2)==0){
 				displaypopup(16,information)
 				modifiers.military+=0.4
@@ -574,7 +578,7 @@ const popups = [
 		effect(){
 			information[19].choosetext(Math.round(currentpop*1.5))
 			currentpop+=Math.round(currentpop*1.5)
-			reputation+=getRandomInt(6,10)
+			reputation+=getRandomInt(6,10)*(1+techstats.charisma)
 			displaypopup(19, information)
 			displayUI()
 
@@ -620,7 +624,7 @@ const popups = [
 		text: "Accept",
 		effect(){
 		resources-=Math.ceil(resources/3)
-		reputation+=getRandomInt(2,4)
+		reputation+=getRandomInt(2,4)*(1+techstats.charisma)
 		switch(random){
 			case 0:
 			modifiers.military +=0.5
@@ -744,22 +748,118 @@ const popups = [
 	}
 		]
 	},
+		{
+			title: "<strong class = 'color-r'>BEAST!</strong>",
+		size: "25px",
+		description: "A distant roar echos across the mountains, followed by thunderous flaps. An ancient creature has awoken, perpare your village and your army<br><strong class = 'color-r'>they won't last long.</strong>",
+		choosetext(){},
+		choices: [
+		{
+			text:"fight!",
+			effect(){
+				m.phase+=1
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				start()
+			
+			}
+		}]
+	},
 	{
-		title: "<strong class = 'color-g'>Information</strong>",
-	size: "25px",
-	description: "A ragged treasure hunter stumbles into our village. He tells us that exploring in the direction of the rising sun will result in great riches",
-	choosetext(){},
-	choices: [
+			title: "<strong class = 'color-r'>Eruption!</strong>",
+		size: "25px",
+		description: "Deafing sounds shockwave across your village. Piles of ash and lava pour down the hills, annihilating everything in its way, while debris launched into the air squash housing like cockroaches.",
+		choosetext(){},
+		choices: [
+		{
+			text:"close",
+			effect(){
+				
+				removebuildings(true)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			
+			}
+		}]
+	},
 	{
-		text:"close",
-		effect(){
-			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
-		
-		}
-	}]
-},
-	
+		title: "<strong class = 'color-r'>Tribute!</strong>",
+		size: "25px",
+		popamount: 0,
+		description: `Our priests interpreted the roars as a demand for a tribute. If we sacrifice ${this.popamount} people, it will leave us alone. What should we do`,
+		choosetext(){
+			this.popamount = Math.floor(currentpop*Math.random()*2)
+			if (currentpop<popamount){
+				choicesdisabled.push(0)
+			}
+		},
+		choices: [
+		{
+			text:"sacrifice",
+			effect(){
+				currentpop-=popamount
+			displaypopup(31, information)	
+			displayUI()
+			
+			}
+		},
+		{
+			text:"refuse",
+			effect(){
+			removebuildings(false)
+			displaypopup(32, information)
+			displayUI()
+			
+			}
+		},
+		{
+			text:"fight",
+			effect(){
+				if (military>=300+difficulty*2){
+			displaypopup(33, information)
+				}
+				else{
+					removebuildings()
+					currentpop-=Math.floor(currentpop/3)
+					displaypopup(34, information)
+				}
+			m.bhealth-=Math.floor(military/3)
+			displayUI()
+			
+			}
+		},
+		]
+	},
+	{
+			title: "<strong class = 'color-r'>Attacked!</strong>",
+		size: "25px",
+		description: "The beast swoops in for an attack and is about to destroy our village. What should we do?",
+		choosetext(){},
+		choices: [
+		{
+			text:"shoot it",
+			effect(){
+				
+				displaypopup(36, information)
+				m.bhealth-=Math.floor(military/3)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				displayUI()
+			
+			}
+		},
+		{
+			text:"nothing",
+			effect(){
+				
+				removebuildings()
+				displaypopup(35, information)
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			
+			}
+		}]
+	},
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
@@ -1342,12 +1442,175 @@ const information = [
 		},
 			]
 	},
+	{
+		title: "<strong class = 'color-g'>Tribal Age</strong>",
+		size: "30px",
+		description: `The beginning of civilization. Your people are unwaveringly loyal and most tribes haven't noticed you yet.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Pre-Democracy</strong>",
+		size: "30px",
+		description: `Your expansion has been noticed by other tribes, and your people are now knowledgable of life outside your village. Be careful, because other tribes can now attack you and your people can now rebel`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Post-Democracy</strong>",
+		size: "30px",
+		description: `Tribes are growing stronger and more sophisticated, and they gained the ability to declare war.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Sacrifice</strong>",
+		size: "30px",
+		description: `Several brave souls were sent to the beast. May they rest in peace.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>We would never</strong>",
+		size: "30px",
+		description: `You refused to sacrifice anyone. Moments later, the beast arrived and laid waste to your village.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Victory</strong>",
+		size: "30px",
+		description: `The beast was droven off by our army`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Annihilatation</strong>",
+		size: "30px",
+		description: `You sent your army against the beast, but the only one returning was the beast itself. It swooped in and laid waste to your village.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Fireball!</strong>",
+		size: "30px",
+		description: `the beast swooped in and blasted your village to smitherines.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Drove off</strong>",
+		size: "30px",
+		description: `You blackened the sky with arrows, forcing the beast to retreat as it screams in pain.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
 ]
 
 
 function displaypopup(index, list = popups){
 ispainting = false
 	document.getElementById("popup_block_buttons").style.display = "block"
+	document.getElementById("popup_block_buttons").style.animation = "none"
 	const ele = document.getElementsByClassName("popup_choice")
 			while(ele[0]){
 				ele[0].parentNode.removeChild(ele[0]);

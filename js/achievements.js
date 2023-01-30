@@ -3,6 +3,7 @@ const achievements = [
 		acquired: false,
 		title: "Humble Beginnings",
 		description: "build your first building",
+		imagesrc: "images/achievementFirstBuild.png",
 		requires(){
 		return gridstats.length>=1
 		}
@@ -11,6 +12,7 @@ const achievements = [
 	acquired: false,
 		title: "Small Town",
 		description: "build 10 buildings",
+		imagesrc: "images/achievementSmallTown.png",
 		requires(){
 		return gridstats.length>=10
 		}
@@ -19,6 +21,7 @@ const achievements = [
 	acquired: false,
 		title: "Megatropolis",
 		description: "build 50 buildings",
+		imagesrc: "images/achievementMegatropolis.png",
 		requires(){
 		return gridstats.length>=50
 		}
@@ -27,6 +30,7 @@ const achievements = [
 	acquired: false,
 		title: "UN recognized country",
 		description: "build 100 buildings",
+		imagesrc: "images/achievementUNcountry.png",
 		requires(){
 		return gridstats.length>=100
 		}
@@ -36,6 +40,7 @@ const achievements = [
 	acquired: false,
 	title: "First Shelter",
 	description: "build your first Canopy",
+	imagesrc: "images/achievementFirstShelter.png",
 	requires(){
 		return buildingamounts[0] > 0
 		}
@@ -44,6 +49,7 @@ const achievements = [
 	acquired: false,
 	title: "it's settling time",
 	description: "build your first hut",
+	imagesrc: "images/achievementHouse.png",
 	requires(){
 		return buildingamounts[1] > 0
 		}
@@ -52,6 +58,7 @@ const achievements = [
 	acquired: false,
 	title: "Two for the price of two",
 	description: "build your first townhouse",
+	imagesrc: "images/achievementDuplex.png",
 	requires(){
 		return buildingamounts[2] > 0
 		}
@@ -60,6 +67,7 @@ const achievements = [
 		acquired: false,
 		title: "Urbanization",
 		description: "build your first insula",
+		imagesrc: "images/achievementInsula.png",
 		requires(){
 			return buildingamounts[3] > 0
 		}
@@ -68,14 +76,16 @@ const achievements = [
 		acquired: false,
 		title: "Country Road take me home",
 		description: "build your first Road",
+		imagesrc: "images/achievementCountryRoad.png",
 		requires(){
 			return buildingamounts[4] > 0
 		}
 	},
 	{
 		acquired: false,
-		title: "Ant algaculture",
+		title: "Ant agriculture",
 		description: "build your first Tiny Farm",
+		imagesrc: "images/achievementAntFarm.png",
 		requires(){
 		return buildingamounts[5] > 0
 		}
@@ -83,8 +93,9 @@ const achievements = [
 	
 	{
 		acquired: false,
-		title: "What a hoe",
+		title: "Cheap food",
 		description: "build your first Small Farm",
+		imagesrc: "images/achievementHoe.png",
 		requires(){
 		return buildingamounts[6] > 0
 		}
@@ -94,6 +105,7 @@ const achievements = [
 		acquired: false,
 		title: "It's 3/4 farm",
 		description: "build your first Medium Farm",
+		imagesrc: "images/achievement34ths.png",
 		requires(){
 		return buildingamounts[7] > 0
 		}
@@ -103,6 +115,7 @@ const achievements = [
 		acquired: false,
 		title: "Irrigation",
 		description: "build your first Large Farm",
+		imagesrc: "images/achievementIrrigation.png",
 		requires(){
 		return buildingamounts[8] > 0
 		}
@@ -112,6 +125,7 @@ const achievements = [
 		acquired: false,
 		title: "Bless me",
 		description: "build your first Temple",
+		imagesrc: "images/achievementBlessMe.png",
 		requires(){
 		return buildingamounts[9] > 0
 		}
@@ -121,6 +135,7 @@ const achievements = [
 		acquired: false,
 		title: "The Army!?!",
 		description: "build your first Military Base",
+		imagesrc: "images/achievementTheArmy.png",
 		requires(){
 		return buildingamounts[10] > 0
 		}
@@ -138,6 +153,7 @@ const achievements = [
 		acquired: false,
 		title: "London bridge is falling down",
 		description: "build your first Bridge",
+		imagesrc: "images/achievementBridge.png",
 		requires(){
 		return buildingamounts[11] > 0
 		}
@@ -148,7 +164,7 @@ const achievements = [
 		title: "Mining away",
 		description: "build your first Small Mine",
 		requires(){
-		return buildingamounts[12] > 0
+		return buildingamounts[14] > 0
 		}
 	},
 	
@@ -157,13 +173,14 @@ const achievements = [
 		title: "So mean",
 		description: "build your first Medium Mine",
 		requires(){
-		return buildingamounts[13] > 0
+		return buildingamounts[15] > 0
 		}
 	},
 	{
 		acquired: false,
 		title: "Cursed",
 		description: "???",
+		imagesrc: "images/achievementCursed.png",
 		requires(){
 		return luck < 0
 		}
@@ -173,13 +190,14 @@ const achievements = [
 		title: "Industrialization",
 		description: "build your first Large Mine",
 		requires(){
-		return buildingamounts[14] > 0
+		return buildingamounts[16] > 0
 		}
 	},
 	{
 		acquired: false,
 		title: "Efficiency -100",
 		description: "build more than 10 tiny farms while only having less than two small farms",
+		imagesrc: "images/achievementefficiency-100.png",
 		requires(){
 		return buildingamounts[5] > 10 && buildingamounts[6]<2
 		}
@@ -188,6 +206,7 @@ const achievements = [
 		acquired: false,
 		title: "Hero",
 		description: "Give resources to Robin Hood.",
+		imagesrc: "images/achievementHero.png",
 		requires(){
 		return false
 		}
@@ -204,6 +223,7 @@ const achievements = [
 		acquired: false,
 		title: "Dictator",
 		description: "Punish revolutionaries 5 times in one game",
+		imagesrc: "images/achievementDictator.png",
 		requires(){
 		return false
 		}
@@ -213,6 +233,7 @@ const achievements = [
 		acquired: false,
 		title: "Novice ruler",
 		description: "Beat the game in Copper difficulty",
+		imagesrc: "images/achievementCopper.png",
 		requires(){
 		return false
 		}
@@ -222,6 +243,7 @@ const achievements = [
 		acquired: false,
 		title: "The King of Kings",
 		description: "Beat the game in Iron difficulty",
+		imagesrc: "images/achievementIron.png",
 		requires(){
 		return false
 		}
@@ -231,6 +253,7 @@ const achievements = [
 		acquired: false,
 		title: "The Chosen One",
 		description: "Beat the game in Diamond difficulty",
+		imagesrc: "images/achievementDiamond.png",
 		requires(){
 		return false
 		}
@@ -242,6 +265,9 @@ const acquired = new Array(achievements.length).fill(false);
 if (localStorage.getItem("achievements") !=null){
 list = JSON.parse(localStorage.getItem("achievements"))
 for (i=0;i < achievements.length;i++){
+	if (i>list.length-1){
+	list.push(false)
+}
 achievements[i].acquired = list[i]
 acquired[i] = list[i]
 }
@@ -292,15 +318,24 @@ function achievementscreen(ismenu){
 		ctx.clearRect(0,0,screen.width,screen.height)
 		document.getElementById("save-flex").style.display = "none"
 		for (const el of achievements){
-			const flex = document.createElement("flex")
+			const flex = document.createElement("div")
 			
 			const title = document.createElement("h1")
 			const description = document.createElement("p")
+			const imagediv = document.createElement("div")
+			const image = document.createElement("img")
+			imagediv.appendChild(image)
+			imagediv.className = "achievement-image-div"
 			title.innerHTML = el.title
 			description.innerHTML = el.description
+			image.src = el.imagesrc
+			title.style.display = "inline-block"
 			flex.className = "achievement-container"
+			image.className = "achievement-image"
 			flex.appendChild(title)
+			flex.append(imagediv)
 			flex.appendChild(description)
+			
 			
 			document.getElementById("achievement-flex").appendChild(flex)
 			if (!el.acquired){

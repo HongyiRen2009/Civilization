@@ -29,18 +29,12 @@ const tutorial = [
 	
 	
 
-	description: 'To get started, place down a small mine. The small mine will produce resources, but must be at least partially on a hill. You can do this by clicking the "Small Mine" button and moving your mouse to the desired location. Afterwards, click again to place it.',
+	description: 'To get started, place down a small mine. The small mine will produce resources that you can use to build your base. You can do this by clicking the dropdown at the bottom of your screen, selecting "Mines" and then clicking the "Small mine". Then, place the mine where you want to.',
 
 	choices: [
 	{
 		text: "okay",
 		effect(){
-			
-			for (const el of document.getElementsByClassName("select-choice")){
-				if (el.innerHTML!="Small Mine"){
-					el.disabled=true
-				}
-			}
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			
@@ -54,18 +48,12 @@ const tutorial = [
 	size: "30px",
 	
 	
-	description: 'Great! Next, place down a small farm. After your first turn, buildings must be placed ajacent to each other.',
+	description: 'Great! Next, place down a small farm. After your first turn, buildings must be placed adjacent to each other.',
 	choices: [
 	{
 		text: "okay",
 		effect(){
-			
-			
-			for (const el of document.getElementsByClassName("select-choice")){
-				if (el.innerHTML!="Small Farm"){
-					el.disabled=true
-				}
-			}
+	
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			
@@ -79,7 +67,7 @@ const tutorial = [
 	size: "30px",
 	
 	
-	description: 'Perfect! Now click "End year". Keep in mind that you must place down these two buildings first turn to progress',
+	description: 'Perfect! Now click "End year".',
 	choices: [
 	{
 		text: "okay",
@@ -99,7 +87,7 @@ const tutorial = [
 	size: "30px",
 	
 	
-	description: 'Nice! Now you are ready to play this game. To see the resource requirement for each building, click on the "building info" button on the top right corner, which will show the costs and effects of each building. And click on the achievements button to see which have you earned',
+	description: 'Nice! Now you are ready to play this game. Remember that you need balance producing enough food for your people, providing enough housing, and defending your kingdom against attacks. If you are confused about what a certain button does or a number means, you can hover over it for extra information.',
 	choices: [
 	{
 		text: "okay",
