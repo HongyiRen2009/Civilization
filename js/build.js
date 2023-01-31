@@ -41,7 +41,7 @@ const p = {
 		letter: "TH",
 		description: "A house for many people. Houses 16 people and requires 10 resources to construct",
 		piecepositions:[{x:0,y:0},{x:1,y:0}],
-		unlocked: true,
+		unlocked: false,
 		near: "building",
 		effect(){
 			p.population=Math.floor(8*(1+techstats.eff_space))
@@ -176,8 +176,8 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
-		unlocked: true,
+		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
+		unlocked: false,
 		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
 		near: "building",
 		tab: "military",
@@ -196,7 +196,7 @@ const p = {
 		name: "Barracks",
 		letter: "BR",
 		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill.",
-		unlocked: true,
+		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
 		near: "building",
 		tab: "military",
@@ -215,7 +215,7 @@ const p = {
 		name: "Fortress",
 		letter: "FT",
 		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 40 resources to construct and 20 people operating it.",
-		unlocked: true,
+		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1},{x:2,y:0}],
 		near: "building",
 		tab: "military",
