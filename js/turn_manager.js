@@ -277,12 +277,16 @@ function displayUI(){
 			}
 			
 		}
-		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
+		//document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("pop").innerHTML = "Population: " + currentpop+"/"+(currentpop>population&&difficulty>5*difficultymultiplier ? "<strong class = 'color-r'>"+population+"</strong>":population)
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>"+food+"</strong>": food)
 		document.getElementById("power").innerHTML = "Military: " + military
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + unemployed
-		document.getElementById("resources").innerHTML = "Resources: " + resources
+		if (resourcesgained >= 0) {
+			document.getElementById("resources").innerHTML = "Resources: " + resources + " (+" + resourcesgained + ")"
+		} else {
+			document.getElementById("resources").innerHTML = "Resources: " + resources + " (" + resourcesgained + ")"
+		}
 }
 function attack(power){
 	enemy_power = power

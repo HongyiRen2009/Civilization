@@ -644,7 +644,7 @@ function getRandomInt(min, max) {
 
 
 function start(){
-	tech_music.pause()
+	//tech_music.pause()
 	if(m.phase<2){
 	boss_music.pause()
 	build_music.play()
