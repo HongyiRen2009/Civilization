@@ -219,7 +219,7 @@ repairing = false
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
-	const categories = ["Farming", "Farming II","Housing", "Mining","Mining II", "Intelligence", "Intelligence II","Virtue","Virtue II","Military","Military II"]
+	const categories = ["Farming", "Farming II","Housing","Housing II", "Mining","Mining II", "Intelligence", "Intelligence II","Virtue","Virtue II","Military","Military II"]
 	const techgrid = document.getElementById("tech-tree")
 	const linecontainer = document.getElementById('techlinecontainer')
 	linecontainer.style.display= "block"
@@ -644,7 +644,7 @@ function getRandomInt(min, max) {
 
 
 function start(){
-	//tech_music.pause()
+	tech_music.pause()
 	if(m.phase<2){
 	boss_music.pause()
 	build_music.play()
@@ -655,7 +655,7 @@ function start(){
 	}
 	market_music.pause()
 	disableinfo=istutorial
-
+	
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
