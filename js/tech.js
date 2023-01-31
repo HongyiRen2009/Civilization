@@ -153,7 +153,7 @@ const tech = [
             description:"Unlock the blueprints for a larger townhouse",
             requires:[[0,1]],
             cost:1,
-            category:"Housing",
+            category:"Housing II",
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -345,6 +345,7 @@ const tech = [
                 techstats.market=true
             }
         },
+		
 	],
 	[	//ROW 3
 		{
@@ -375,7 +376,7 @@ const tech = [
 		{
             name:"Insulae",
             description:"Unlock the blueprints for a massive housing unit",
-            requires:[[1,3],[1,4]],
+            requires:[[1,3],[1,2]],
             cost:1,
             category:"Housing",
             unlocked: false,
