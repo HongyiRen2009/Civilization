@@ -345,6 +345,42 @@ const p = {
 			return resources >=this.amountbought**3
 		}
 	},
+	{
+		name: "Trade School",
+		letter: "TS",
+		description: "A school for teaching miners and farmers.<br>Increases all production by 10% and requires 50 resources and 15 people to build.",
+		unlocked: false,
+		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:-1},{x:-1,y:1}],
+		near: "building",
+		tab: "misc",
+		effect(){
+			modifiers.food+=0.1
+			modifiers.resources+=0.1
+			resources-=50
+			unemployed-=15
+		},
+		requires(){
+			return resources>=50 && unemployed>=15
+		}
+	},
+	{
+		name: "Workshop",
+		letter: "W",
+		description: "A workshop for practicing and learning. Increases wisdom by 20 but uses up 2 resources each round<br>Requires 20 resources and 5 people to build.",
+		unlocked: false,
+		piecepositions: [{x:0,y:0},{x:-1,y:0},{x:0,y:1}],
+		near: "building",
+		tab: "misc",
+		effect(){
+			p.xp=20
+			p.resources=-2
+			resources-=20
+			unemployed-=5
+		},
+		requires(){
+			return resources>=20 && unemployed>=5
+		}
+	},
 ],
 cityincreases:{
 	up:-30,
@@ -356,6 +392,7 @@ food:0,
 population:0,
 military:0,
 resources:0,
+xp:0,
 river: false,
 hill : false,
 entirehill : false,
@@ -630,6 +667,7 @@ document.onmousedown = function(event){
 		p.military = 0
 		p.resources = 0
 		p.food = 0
+		p.xp=0
 		const oldpop = unemployed
 		const gridposition = []
 		if((Math.floor(position.x-screen.width/2)/20)-spawnX+5>max.right){
@@ -671,6 +709,7 @@ document.onmousedown = function(event){
 			food:p.food,
 			resources:p.resources,
 			military:p.military,
+			xp:0,
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
 			disabled: false
