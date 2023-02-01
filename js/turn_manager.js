@@ -117,7 +117,9 @@ function turnpopup(){
 	case 2:
 	displaypopup(16)
 	return false
-	
+	case 3 :
+	displaypopup(17)
+	return false
 	default:
 	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
 		popups[1].choosetext()
@@ -175,6 +177,7 @@ function next_turn(){
 	}
 	
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
+	xp+=Math.max(0,Math.min(1+Math.ceil(currentpop/5),food-currentpop))*3
 	resources+=resourcesgained
 	
 	xp+=xpgained
@@ -185,8 +188,10 @@ function next_turn(){
 		
 		for (const p of m.marketselections){
 		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
+		p.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? 4-p.stock:p.stock-4)+difficulty/15,5))
 		p.price-=Math.floor(reputation/5)
 		p.price = Math.min(Math.max(p.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		p.amountincrease = Math.min(Math.max(p.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
 		if(p.stock<10&&p.title!="Blueprints"&&p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.max(p.stock,0)
 		selectmarketitems()
@@ -266,7 +271,7 @@ function displayUI(){
 		if (xp>=totalxp){
 			research_points+=1
 			xp-=totalxp
-			totalxp+=10+Math.floor(totalxp/10)
+			totalxp+=10+Math.floor(totalxp/7)
 			
 		}
 		
@@ -281,16 +286,14 @@ function displayUI(){
 			}
 			
 		}
-		//document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
-		document.getElementById("pop").innerHTML = "Population: " + currentpop+"/"+(currentpop>population&&difficulty>5*difficultymultiplier ? "<strong class = 'color-r'>"+population+"</strong>":population)
-		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>"+food+"</strong>": food)
-		document.getElementById("power").innerHTML = "Military: " + military
-		document.getElementById("unemployed").innerHTML = "Unemployed People: " + unemployed
-		if (resourcesgained >= 0) {
-			document.getElementById("resources").innerHTML = "Resources: " + resources + " (+" + resourcesgained + ")"
-		} else {
-			document.getElementById("resources").innerHTML = "Resources: " + resources + " (" + resourcesgained + ")"
-		}
+		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
+		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
+		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>15 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
+		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>"+shorten(food)+"</strong>": shorten(food))
+		document.getElementById("power").innerHTML = "Military: " + shorten(military)
+		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
+document.getElementById("resources").innerHTML = `Resources: ${shorten(resources)} (${(resourcesgained>=0 ? "+":"")}${shorten(resourcesgained)})`
+		
 }
 function attack(power){
 	enemy_power = power
