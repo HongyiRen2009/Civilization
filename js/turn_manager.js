@@ -24,7 +24,7 @@ function turnpopup(){
 		case 5:
 			displaypopup(28,information)
 			return false
-		case 20:
+		case 15:
 			displaypopup(29,information)
 			return false
 		case 40:
@@ -176,6 +176,8 @@ function next_turn(){
 	
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	resources+=resourcesgained
+	
+	xp+=xpgained
 	difficulty+=Math.round((1+Math.floor(difficulty/20)))
 	document.getElementById("mbutton").disabled=!techstats.market
 	
@@ -202,6 +204,7 @@ function displayUI(){
 		food = 0
 		military = 0
 		resourcesgained = 0
+		xpgained = 0
 		unemployed = currentpop
 		if (m.phase>1){
 			document.getElementById("boss_health").style.width = 100*(m.bhealth/m.totalbhealth)+"%"
@@ -232,6 +235,7 @@ function displayUI(){
 			population += gridstats[i].population
 			food += gridstats[i].food
 			military += gridstats[i].military
+			xpgained += gridstats[i].xp
 			resourcesgained += gridstats[i].resources
 			unemployed -= gridstats[i].employmentrequired
 			}
