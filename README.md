@@ -18,6 +18,6 @@ If not blocked, the game can be played at https://Hongyiren2009.github.io/Civili
 Programming Lead and Game Design: Hongyiren2009  
 Programming and Idea Contributions: 0verkil
 
-Art Lead and Idea Contributions: TNTiger17
+Art Lead, Idea Contributions and Audio designer: TNTiger17
 
 Graphic Design Lead and Bugfixer: Bulmenisaurus
