@@ -130,21 +130,24 @@
 
 
 </select>
+<label id = "xp_flex" style = "margin-left:auto; font-weight: bold;">Wisdom:</label>
 <div
         id="xp_bar_container"
         style="
           width: 20%;
           height: 22px;
           border: 2px solid black;
-          margin-left: auto;
+         
         "
       >
         <div
           id="xp_bar"
           style="width: 10%; height: 18px; background-color: #e224ff"
         ></div>
+		<p id = "xp_text"style = "text-align:center; position: relative; bottom: 35px; color: white; z-index: 2;">xp: 0/100</p>
       </div>
 </div>
+
 
 <div id = "boss_health_container" class = "bhealth" style = "display: none;border: 3px solid black;height: 25px;position: absolute;top: 90%;left: 50%;transform: translate(-50%, -90%);">
 <div id = "boss_health" class = "bhealth" style = "background-color: red;"></div>
@@ -224,7 +227,7 @@ let tutorialindex = 0;
 let disableinfo = false
 let unemployed = 2;
 let xp = 0
-let totalxp = 100
+let totalxp = 50
 let difficulty = 0;
 let first_turn = true;
 let removing = false;
