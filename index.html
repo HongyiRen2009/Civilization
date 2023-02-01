@@ -18,7 +18,7 @@
 	<button title="click to enter the save menu!" class = "next_turn" onclick = "savescreen(true)">SAVE</button>
 	<button title="click to view your achievements!" class = "info" onclick = "achievementscreen(false)">Achievements</button>
 	<button title="click to see what your buildings do!" class = "info" onclick = "info()">Building Info</button>
-	<button title="click to view and unlock things in the tech tree!" id = "mbutton" class = "info" onclick = "techscreen()">Tech</button>
+	<button title="click to view and unlock things in the tech tree!" id = "info" class = "info" onclick = "techscreen()">Tech</button>
 	
 	
 
@@ -195,6 +195,7 @@ let currentpop = 2;
 const click = new Audio('sounds/click.mp3');
 const build_music = new Audio('music/Menu_music.mp3');
 const market_music = new Audio('music/Market_music.mp3');
+const tech_music = new Audio('music/tech_music.mp3');
 const boss_music = new Audio('music/Boss_music.mp3');
 const kaching = new Audio('sounds/Purchase.mp3');
 const breaksound = new Audio('sounds/remove.mp3');
