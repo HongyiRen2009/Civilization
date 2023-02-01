@@ -284,7 +284,10 @@ const tech = [
             category:"Intelligence II",
             unlocked: false,
             unlocktwice: false,
-            effect(){}
+            effect(){
+				p.pieceROM[20].unlocked = true
+			unlocked[20]=true
+			}
         },
 		{
             name:"Social care",
@@ -342,7 +345,8 @@ const tech = [
             unlocked: false,
             unlocktwice: false,
             effect(){
-                techstats.market=true
+                p.pieceROM[11].unlocked = true
+			unlocked[11]=true
             }
         },
 		
