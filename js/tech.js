@@ -460,14 +460,28 @@ const tech = [
                     this.description="Temples and altars are 40% more efficient"
                 }
             }
+        },
+		{
+            name:"Trade School",
+            description:"Unlock the blueprints for a Trade School that increases all production by 10%",
+            requires:[[3,1],[3,2],[3,3]],
+            cost:1,
+            category:"Housing II",
+            unlocked: false,
+            unlocktwice: false,
+            effect(){
+                p.pieceROM[19].unlocked = true
+			unlocked[19]=true
+            }
         }
+		
 	],
     [
         //ROW 5
         {
             name:"The Ultimate Megastructure",
             description:"Collect 1 out of 3 blueprint scraps to build the Mega Temple",
-            requires:[[3,0],[2,1],[2,0],[3,4],[4,1],[2,5]],
+            requires:[[3,0],[2,1],[4,1]],
             cost:1,
             category:"Intelligence II",
             unlocked: false,
