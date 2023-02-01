@@ -49,7 +49,7 @@ const p = {
 		},
 		tab: "housing",
 		requires(){
-			return resources >=10-Math.floor(3*techstats.eff_infra) && difficulty>3
+			return resources >=10-Math.floor(3*techstats.eff_infra)
 		}
 	},
 	
@@ -66,7 +66,7 @@ const p = {
 			resources-=15+Math.floor(3*techstats.eff_infra)
 		},
 		requires(){
-			return resources >= 15-Math.floor(3*techstats.eff_infra) && difficulty>4
+			return resources >= 15-Math.floor(3*techstats.eff_infra)
 		}
 	},
 	
@@ -82,7 +82,7 @@ const p = {
 			resources -=techstats.cement ? 0.1:0.25
 		},
 		requires(){
-			return resources >= techstats.cement ? 0.1:0.25 &&difficulty>3
+			return resources >= (techstats.cement ? 0.1:0.25)
 
 		}
 	},
@@ -370,13 +370,13 @@ const p = {
 	{
 		name: "Workshop",
 		letter: "W",
-		description: "A workshop for practicing and learning. Increases wisdom by 20 but uses up 2 resources each round<br>Requires 20 resources and 5 people to build.",
+		description: "A workshop for practicing and learning. Increases wisdom by 50 but uses up 2 resources each round<br>Requires 20 resources and 5 people to build.",
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:-1,y:0},{x:0,y:1}],
 		near: "building",
 		tab: "misc",
 		effect(){
-			p.xp=20
+			p.xp=50
 			p.resources=-2
 			resources-=20
 			unemployed-=5
@@ -718,7 +718,7 @@ document.onmousedown = function(event){
 			resourcerefund: oldresources-resources,
 			disabled: false
 		})
-		xp+=Math.ceil(Math.floor(oldresources-resources)/2)*(1+techstats.innovation)
+		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation))
 		first_turn = false
 		
 		if (!p.pieceROM[p_index].requires()){
@@ -909,7 +909,7 @@ function displaytab(){
 				button.style.animation = "flash 2s step-start infinite"
 			}
 			}
-		selectcontainer.insertBefore(button, document.getElementById("xp_bar_container"))
+		selectcontainer.insertBefore(button, document.getElementById("xp_flex"))
 		}
 		
 	}
