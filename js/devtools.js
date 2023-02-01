@@ -63,47 +63,86 @@ const dev = {
         }
     
     },
-    	popup: function(type) {
-        if (devmode) {
-            if (type == 'attack') {
-				displaypopup(0)
-			} else if (type == 'revolt') {
-				displaypopup(1)
-			} else if (type == 'playerattack') {
-				displaypopup(2)
-			} else if (type == 'plauge') {
-				displaypopup(3)
-			} else if (type == 'drought') {
-				displaypopup(4)
-			} else if (type == 'folklore') {
-				displaypopup(5)
-			} else if (type == 'fire') {
-				displaypopup(6)
-			} else if (type == 'badomen') {
-				displaypopup(7)
-			} else if (type == 'breakthrough') {
-				displaypopup(8)
-			} else if (type == 'traveler') {
-				displaypopup(9)
-			} else if (type == 'refugees') {
-				displaypopup(10)
-			} else if (type == 'tradeoffer') {
-				displaypopup(11)
-			} else if (type == 'traderoute') {
-				displaypopup(12)
-			} else if (type == 'beast') {
-				displaypopup(13)
-			} else if (type == 'eruption') {
-				displaypopup(14)
-			} else if (type == 'tribute') {
-				displaypopup(15)
-			} else if (type == 'beastattack') {
-				displaypopup(16)
-			} else if (type == 'endgame') {
-				displaypopup(17)
-			} else if (type == 'gameover') {
-				displaypopup(18)
-			}
+     popup: function(type) {
+     if (devmode) {
+	switch(type) {
+		case attack:
+			popups[0].choosetext()
+			displaypopup(0)
+			break;
+		case revolt:
+			popups[1].choosetext()
+			displaypopup(1)
+			break;
+		case playerattack:
+			popups[2].choosetext()
+			displaypopup(2)
+			break;
+		case plauge:
+			popups[3].choosetext()
+			displaypopup(3)
+			break;
+		case drought:
+			popups[4].choosetext()
+			displaypopup(4)
+			break;
+		case folklore:
+			popups[5].choosetext()
+			displaypopup(5)
+			break;
+		case fire:
+			popups[6].choosetext()
+			displaypopup(6)
+			break;
+		case badomen:
+			popups[7].choosetext()
+			displaypopup(7)
+			break;
+		case breakthrough:
+			popups[8].choosetext()
+			displaypopup(8)
+			break;
+		case traveler:
+			popups[9].choosetext()
+			displaypopup(9)
+			break;
+		case refugees:
+			popups[10].choosetext()
+			displaypopup(10)
+			break;
+		case tradeoffer:
+			popups[11].choosetext()
+			displaypopup(11)
+			break;
+		case traderoute:
+			popups[12].choosetext()
+			displaypopup(12)
+			break;
+		case beast:
+			popups[13].choosetext()
+			displaypopup(13)
+			break;
+		case eruption:
+			popups[14].choosetext()
+			displaypopup(14)
+			break;
+		case tribute:
+			popups[15].choosetext()
+			displaypopup(15)
+			break;
+		case beastattack:
+			popups[16].choosetext()
+			displaypopup(16)
+			break;
+		case endgame:
+			popups[17].choosetext()
+			displaypopup(17)
+			break;
+		case gameover:
+			popups[18].choosetext()
+			displaypopup(18)
+			break;
+	}
             displayUI()
             return "Done!"
             
