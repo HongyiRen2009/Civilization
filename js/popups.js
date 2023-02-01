@@ -815,15 +815,16 @@ const popups = [
 		{
 			text:"fight",
 			effect(){
-				if (military>=300+difficulty*2){
-			displaypopup(33, information)
+				if (military>=300+difficulty**1.4){
+				displaypopup(33, information)
+				m.bhealth-=Math.floor(military/2)
 				}
 				else{
 					removebuildings()
 					currentpop-=Math.floor(currentpop/3)
 					displaypopup(34, information)
 				}
-			m.bhealth-=Math.floor(military/3)
+			
 			displayUI()
 			
 			}
@@ -831,19 +832,22 @@ const popups = [
 		]
 	},
 	{
-			title: "<strong class = 'color-r'>Attacked!</strong>",
+			title: "<strong class = 'color-r'>Fireball!</strong>",
 		size: "25px",
-		description: "The beast swoops in for an attack and is about to destroy our village. What should we do?",
-		choosetext(){},
+		description: "The beast circles our village with intent to destroy. What should we do?",
+		choosetext(){
+		if(!techstats.archery){
+			choicesdisabled.push(0)
+		}
+		},
 		choices: [
 		{
 			text:"shoot it",
 			effect(){
 				
 				displaypopup(36, information)
-				m.bhealth-=Math.floor(military/3)
-				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				m.bhealth-=Math.floor(military/5)
+				
 				displayUI()
 			
 			}
@@ -854,8 +858,37 @@ const popups = [
 				
 				removebuildings()
 				displaypopup(35, information)
-				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				
+			
+			}
+		}]
+	},
+	{
+			title: "<strong class = 'color-r'>Charge!</strong>",
+		size: "25px",
+		description: "The beast charges at our village blasting fire. What should we do?",
+		choosetext(){
+		if(!techstats.archery){
+			choicesdisabled.push(0)
+		}
+		},
+		choices: [
+		{
+			text:"Fight",
+			effect(){
+				
+				if (military>=500+difficulty**1.4){
+				displaypopup(36, information)
+				m.bhealth-=Math.floor(military/2)
+				}
+				else{
+					removebuildings()
+					currentpop-=Math.floor(currentpop/3)
+					displaypopup(37, information)
+				}
+			
+			displayUI()
+			
 			
 			}
 		}]
@@ -1604,6 +1637,43 @@ const information = [
 		},
 			]
 	},
+	{
+		title: "<strong class = 'color-g'>Success!</strong>",
+		size: "30px",
+		description: `After sending in your army, you hear the dragon screech and it flew off.`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Failure</strong>",
+		size: "30px",
+		description: `After sending in your army, you hear screams as your army gets incinerated`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+			
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	
 ]
 
 
