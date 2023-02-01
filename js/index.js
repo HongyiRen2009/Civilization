@@ -644,7 +644,36 @@ function getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-
+function shorten(number){
+	let numlength = Math.floor((JSON.stringify(Math.floor(number/10)).length)/3)
+	let returnnum = (number/10**(numlength*3))
+	let endsymbol = ""
+	let amountfixed = 2
+	switch (numlength){
+		case 0:
+		break
+		case 1:
+		endsymbol = "k"
+		break
+		case 2:
+		endsymbol = "m"
+		break
+		case 3:
+		endsymbol = "b"
+		break
+		case 4:
+		endsymbol = "t"
+		break
+		
+	}
+	
+	if (number.toString().includes(".")){
+		if(number.toString()[number.length-1]=="0"||number.toString().substr(number.toString().indexOf(".")+1).length<2){
+		amountfixed = 1
+		}
+	}
+	return (returnnum.toString().includes(".") ? returnnum.toFixed(amountfixed):returnnum)+endsymbol
+}
 function start(){
 	tech_music.pause()
 	if(m.phase<2){
