@@ -7,7 +7,7 @@ SUFFER
 
 If not blocked, the game can be played at https://Hongyiren2009.github.io/Civilization/.
 
-**This game is in Beta. Changes are still being made, so don't be surprised if things are broken or don't work how you expect. Feedback is appreciated.**
+**This game is in Beta. Changes are still being made, so don't be surprised if things are broken or don't work how you expect. Feedback is appreciated.**  
 *Feedback can be sent here:* https://forms.gle/XnKJQ7TmCPSVJKA3A
 
 
@@ -15,7 +15,7 @@ If not blocked, the game can be played at https://Hongyiren2009.github.io/Civili
 
 
 ### Credits:
-Programming Lead and Game Design: Hongyiren2009
+Programming Lead and Game Design: Hongyiren2009  
 Programming and Idea Contributions: 0verkil
 
 Art Lead and Idea Contributions: TNTiger17
