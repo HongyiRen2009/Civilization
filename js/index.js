@@ -161,7 +161,7 @@ function savescreen(save){
 			
 			const grid = document.getElementById("save-grid"+i)
 			difficultyname=""
-			debugger
+			
 			switch(localstats.difficultymultiplier){
 				case 1:
 				difficultyname = "copper"
@@ -262,10 +262,10 @@ repairing = false
 		yeardes.style.gridRow = i+1
 		switch(i){
 			case 0:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-20"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-15"
 				break
 			case 1:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 20-40"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 15-40"
 				break
 			case 3:
 				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1><br>years 40-infinity"
@@ -331,13 +331,13 @@ repairing = false
 					}
 					break
 				case 1:
-					if (difficulty<10){
+					if (difficulty<15){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Pre-Diplomacy Age</strong>"
 					}
 				break
 				case 2:
-					if (difficulty<10){
+					if (difficulty<15){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Pre-Diplomacy Age</strong>"
 					}
@@ -379,7 +379,7 @@ repairing = false
 				el.style.backgroundColor = "#bfb965"
 			
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
-			debugger
+			
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(!tech[techindex[0]][techindex[1]].unlocked||tech[techindex[0]][techindex[1]].unlocktwice))	
 			success.style.animation = "done 2s linear 0s 1 normal forwards"
 			displayUI()
@@ -482,7 +482,8 @@ function save(bindex){
 	document.getElementById("save-flex").style.display = "none"
 	start()
 }
-function load(bindex){
+function load(bjitndex){
+	const bindex = bjitndex.substr(4)
 	buildingamounts.length = 0
 	rivergrid.length=0
 	gridstats.length=0
@@ -490,6 +491,7 @@ function load(bindex){
 	hillgrid.length=0
 	marketitems.length=0
 	unlocked.length=0
+	
 	for (const el of JSON.parse(localStorage.getItem('griditems'+bindex)).grid){
 		grid.push(el)
 	}
@@ -655,7 +657,7 @@ function start(){
 	}
 	market_music.pause()
 	disableinfo=istutorial
-	
+
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
