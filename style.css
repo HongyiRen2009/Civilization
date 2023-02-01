@@ -272,6 +272,7 @@ strong {
 }
 .select-choice {
   transition-duration: 0.1s;
+
   background-color: #f0e87a;
   border: 3px solid #000000;
   border-radius: 3px;
@@ -393,6 +394,7 @@ body {
 }
 .select-grid {
   background-color: #b8942a;
+  align-items: center;
   position: absolute;
   top: 93%;
   height: 50px;
@@ -402,6 +404,9 @@ body {
   flex-wrap: nowrap;
   border: 3px solid #000000;
   border-radius: 6px;
+}
+.select-grid > button{
+	height: 100%;
 }
 .techbutton {
   border-radius: 4px;
