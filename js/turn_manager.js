@@ -268,7 +268,7 @@ function displayUI(){
 			}
 		}
 		i = 0
-		if (xp>=totalxp){
+		while (xp>=totalxp){
 			research_points+=1
 			xp-=totalxp
 			totalxp+=10+Math.floor(totalxp/7)

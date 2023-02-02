@@ -17,18 +17,18 @@ const dev = {
         }
     },
 
-    time_warp: function() {
+    time_warp: function(years=100) {
         if (devmode) {
-            difficulty += 100
+            difficulty += years
             return "Done!"
         } else {
             return "Devmode is not enabled. Go to index.html to enable."
         }
     },
 
-    give_resources: function() {
+    give_resources: function(resource=99999999999) {
         if (devmode) {
-        resources += 99999999999
+        resources += resource
         displayUI()
         return "Done!"
         } else {
@@ -36,11 +36,21 @@ const dev = {
         }
     },
 
+    give_xp: function(xpamount=99999999999) {
+        if (devmode) {
+            xp += xpamount
+            displayUI()
+            return "Done!"
+            } else {
+                return "Devmode is not enabled. Go to index.html to enable."
+            }
+    },
+
     enable_all: function() {
         if (devmode) {
             techstats.market = true
-            resources += 99999999999
-            research_points += 99999999999
+            resources = 99999999999
+            research_points = 99999999999
             currentpop = 99999999999
             gridstats.push({
                 disabled: false,

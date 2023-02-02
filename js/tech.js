@@ -27,6 +27,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Farming",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -45,6 +47,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Housing",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -63,6 +67,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Mining",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -81,6 +87,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Military",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -99,6 +107,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Virtue",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -119,6 +129,8 @@ const tech = [
             requires:[[0,0]],
             cost:1,
             category:"Farming",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -132,6 +144,8 @@ const tech = [
             requires:[[0,0]],
             cost:1,
             category:"Farming II",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -154,6 +168,8 @@ const tech = [
             requires:[[0,1]],
             cost:1,
             category:"Housing II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -168,6 +184,8 @@ const tech = [
             requires:[[0,1]],
             cost:1,
             category:"Housing",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -190,6 +208,8 @@ const tech = [
             requires:[[0,2]],
             cost:1,
             category:"Mining",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -211,6 +231,8 @@ const tech = [
             requires:[[0,2]],
             cost:1,
             category:"Mining II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -224,6 +246,8 @@ const tech = [
             requires:[[0,3]],
             cost:1,
             category:"Military",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -237,6 +261,8 @@ const tech = [
             requires:[[0,4]],
             cost:1,
             category:"Virtue",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -250,6 +276,8 @@ const tech = [
             requires:[],
             cost:1,
             category:"Intelligence",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -270,6 +298,8 @@ const tech = [
             requires:[[1,8]],
             cost:1,
             category:"Intelligence",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -282,6 +312,8 @@ const tech = [
             requires:[[1,8]],
             cost:1,
             category:"Intelligence II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -295,6 +327,8 @@ const tech = [
             requires:[[1,7]],
             cost:1,
             category:"Virtue II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -308,6 +342,8 @@ const tech = [
             requires:[[1,6]],
             cost:1,
             category:"Military II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -320,6 +356,8 @@ const tech = [
             requires:[[1,1],[1,3]],
             cost:1,
             category:"Farming II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){}
@@ -330,6 +368,8 @@ const tech = [
             requires:[[1,7]],
             cost:1,
             category:"Virtue",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -342,6 +382,8 @@ const tech = [
             requires:[[1,6]],
             cost:1,
             category:"Military",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -358,6 +400,8 @@ const tech = [
             requires:[[2,0]],
             cost:1,
             category:"Intelligence",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -370,6 +414,8 @@ const tech = [
             requires:[[1,0],[2,4]],
             cost:1,
             category:"Farming",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -383,6 +429,8 @@ const tech = [
             requires:[[1,3],[1,2]],
             cost:1,
             category:"Housing",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -396,6 +444,8 @@ const tech = [
             requires:[[1,5],[1,4],[1,8]],
             cost:1,
             category:"Mining II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -409,6 +459,8 @@ const tech = [
             requires:[[1,6]],
             cost:1,
             category:"Military",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){}
@@ -419,6 +471,8 @@ const tech = [
             requires:[[2,2]],
             cost:1,
             category:"Virtue",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -435,6 +489,8 @@ const tech = [
             requires:[[2,3],[3,4]],
             cost:1,
             category:"Military II",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -453,6 +509,8 @@ const tech = [
             requires:[[2,2],[3,5]],
             cost:1,
             category:"Virtue",
+            tier: 0,
+            maxtier: -1,
             unlocked: false,
             unlocktwice: true,
             effect(){
@@ -471,6 +529,8 @@ const tech = [
             requires:[[3,1],[3,2],[3,3]],
             cost:1,
             category:"Housing II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){
@@ -488,6 +548,8 @@ const tech = [
             requires:[[3,0],[2,1],[4,1]],
             cost:1,
             category:"Intelligence II",
+            tier: 0,
+            maxtier: 1,
             unlocked: false,
             unlocktwice: false,
             effect(){

@@ -230,19 +230,26 @@ repairing = false
 	const descriptioncontainer = document.createElement("div")
 	const destitle = document.createElement("h1")
 	const cost = document.createElement("p")
+	const tier = document.createElement("p")
 	const points = document.createElement("p")
 	const ifyears = document.createElement(("p"))
 	const reserachbutton = document.createElement("button")
 	const years = document.createElement("div")
+	
 	points.innerHTML="Research Points:<br> " +research_points
 	destitle.style.gridRow="1"
 	destitle.style.gridColumn="2"	
 	points.style.gridRow="1"
 	points.style.gridColumn="4"
 	points.style.fontSize = "20px"
+	points.id = "research-points"
 	cost.style.gridRow="1"
 	cost.style.gridColumn="3"
 	cost.style.fontSize = "20px"
+	tier.style.gridRow="1"
+	tier.style.gridColumn="2"
+	tier.style.marginTop="auto"
+	tier.style.fontSize = "20px"
 	document.body.style.overflowY = "scroll"
 	const des = document.createElement("p")
 	des.style.gridRow="2"
@@ -282,6 +289,7 @@ repairing = false
 	descriptioncontainer.appendChild(ifyears)
 	descriptioncontainer.appendChild(reserachbutton)
 	descriptioncontainer.appendChild(points)
+	descriptioncontainer.appendChild(tier)
 	techgrid.appendChild(years)
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.8)/categories.length}px `).repeat(categories.length)+"160px"
@@ -302,6 +310,7 @@ repairing = false
 		destitle.innerHTML=""
 		des.innerHTML=""
 		cost.innerHTML=""
+		tier.innerHTML=""
 		reserachbutton.hidden=true
 		for (const el of techoptions){
 			
@@ -314,11 +323,15 @@ repairing = false
 			des.innerHTML=tech[techindex[0]][techindex[1]].description
 			
 			reserachbutton.innerHTML="Research"
-			
+			if (tech[techindex[0]][techindex[1]].tier < tech[techindex[0]][techindex[1]].maxtier||tech[techindex[0]][techindex[1]].maxtier == -1) {
+				tier.innerHTML= `<strong> Tier: ${tech[techindex[0]][techindex[1]].tier}</strong>`
+			} else {
+				tier.innerHTML= `<strong class= 'color-g'> Tier: ${tech[techindex[0]][techindex[1]].tier} (MAXED OUT)</strong>`
+			}
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
-			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(!tech[techindex[0]][techindex[1]].unlocked||tech[techindex[0]][techindex[1]].unlocktwice))			
+			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(tech[techindex[0]][techindex[1]].maxtier > tech[techindex[0]][techindex[1]].tier||tech[techindex[0]][techindex[1]].maxtier==-1))			
 			for (const el of tech[techindex[0]][techindex[1]].requires){
-				if (tech[el[0]][el[1]].unlocked==false){
+				if (tech[el[0]][el[1]].tier==0){
 					reserachbutton.disabled=true
 					break
 				}
@@ -372,6 +385,14 @@ repairing = false
 			success.innerHTML = "<strong class = 'color-g'>Tech Researched</strong>"
 				research_points-=tech[techindex[0]][techindex[1]].cost
 				tech[techindex[0]][techindex[1]].effect()
+				tech[techindex[0]][techindex[1]].tier++
+				document.getElementById("research-points").innerHTML="Research Points:<br> " +research_points
+				if (tech[techindex[0]][techindex[1]].tier < tech[techindex[0]][techindex[1]].maxtier||tech[techindex[0]][techindex[1]].maxtier == -1) {
+					tier.innerHTML= `<strong> Tier: ${tech[techindex[0]][techindex[1]].tier}</strong>`
+				} else {
+					tier.innerHTML= `<strong class= 'color-g'> Tier: ${tech[techindex[0]][techindex[1]].tier} (MAXED OUT)</strong>`
+				}
+
 				
 				tech[techindex[0]][techindex[1]].unlocked = true
 				destitle.innerHTML=tech[techindex[0]][techindex[1]].name
@@ -380,7 +401,7 @@ repairing = false
 			
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
 			
-			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(!tech[techindex[0]][techindex[1]].unlocked||tech[techindex[0]][techindex[1]].unlocktwice))	
+			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(tech[techindex[0]][techindex[1]].maxtier > tech[techindex[0]][techindex[1]].tier||tech[techindex[0]][techindex[1]].maxtier == -1))	
 			success.style.animation = "done 2s linear 0s 1 normal forwards"
 			displayUI()
 			setTimeout(function(){success.remove()},2000)
