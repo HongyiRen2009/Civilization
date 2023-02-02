@@ -408,6 +408,9 @@ body {
 .select-grid > button{
 	height: 100%;
 }
+.select-grid > select{
+	height: 100%;
+}
 .techbutton {
   border-radius: 4px;
 }
