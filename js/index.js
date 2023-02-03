@@ -497,7 +497,7 @@ function save(bindex){
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
 	localStorage.setItem('pstats'+bindex, JSON.stringify({xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
-	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase]));
+	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 
 	document.getElementById("save-flex").style.display = "none"
@@ -574,6 +574,10 @@ function load(bjitndex){
 	m.spy = localmarketmod[1]
 	m.rebel = localmarketmod[2]
 	m.phase = localmarketmod[3]
+	m.bhealth = localmarketmod[4]
+	m.totalbhealth = localmarketmod[5]
+	m.scout = localmarketmod[6]
+	m.shield = localmarketmod[3]
 	let j = 0
 	spawnX = localscrolldata[2]
 	spawnY = localscrolldata[3]
