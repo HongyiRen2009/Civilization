@@ -131,10 +131,10 @@ const popups = [
 	power: 0,
 	description: "A neighbouring tribe is attacking you",
 	choosetext(){
-		if (resources<difficulty/2){
+		if (resources<(difficulty**1.5)/2){
 			choicesdisabled.push(1)
 		}
-		this.power =((difficulty+getRandomInt(-20,10))*3-(getRandomInt(m.spy,3) ? 1:0))*difficultymultiplier
+		this.power =difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ? "":`<br><br>Scouting Estimate: ${this.power}`}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(((difficulty+getRandomInt(-10,5))*3-(getRandomInt(m.spy,3) ? 1:0))*difficultymultiplier)
+			attack(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5)))
 		},
 	},
 	{
@@ -154,7 +154,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			resources-=Math.floor(resources/2)
+			resources-=Math.floor((difficulty**1.5)/2)
 			displaypopup(12, information)
 
 			displayUI()
@@ -815,7 +815,7 @@ const popups = [
 		{
 			text:"fight",
 			effect(){
-				if (military>=300+difficulty**1.4){
+				if (military>=difficultymultiplier*4*difficulty**1.3){
 				displaypopup(33, information)
 				m.bhealth-=Math.floor(military/2)
 				}
@@ -877,7 +877,7 @@ const popups = [
 			text:"Fight",
 			effect(){
 				
-				if (military>=500+difficulty**1.4){
+				if (military>=difficultymultiplier*5*difficulty**1.4){
 				displaypopup(36, information)
 				m.bhealth-=Math.floor(military/2)
 				}
