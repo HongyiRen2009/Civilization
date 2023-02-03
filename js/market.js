@@ -15,7 +15,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
 			this.description = `Hire mercenaries to fight for you. <br>+${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
@@ -39,7 +38,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
 			this.description = `Request supply wagon deliveries. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
@@ -63,7 +61,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
 			this.description = `Buy slaves from neighboring tribes. <br>+${this.amountincrease} population`
 		},
 		purchaseeffect(){
@@ -85,7 +82,6 @@ const m = {
 		choosetext(){
 			this.allowed = true
 			
-			this.amountincrease= getRandomInt(3,5)+getRandomInt(3,5)*Math.floor(difficulty/10)
 			if (this.amountincrease>currentpop){
 				this.allowed = false
 			}
@@ -110,7 +106,6 @@ const m = {
 		choosetext(){
 			this.allowed = true
 			
-			this.amountincrease=Math.floor((difficulty*2)*Math.random()*2)+5
 			if (this.amountincrease>military){
 				this.allowed = false
 			}
@@ -122,6 +117,74 @@ const m = {
 			const increase = this.amountincrease*-1
 			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
 			
+		}
+	},
+	{
+		price:10,
+		pricemod: 0.5,
+		title: "Foriegn Aid",
+		description: "Supply neighboring tribes with foriegn aid.<br>Increases reputation",
+		image: "<img src = 'images/marketAid.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+			
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			reputation+=getRandomInt(4,9)
+			
+		}
+	},
+	{
+		price:10,
+		pricemod: 0.5,
+		title: "Explorer",
+		description: "Hire explorers to discover new trade routes",
+		image: "<img src = 'images/marketNewa.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			m.scout = true
+		}
+	},
+	{
+		price:10,
+		pricemod: 1,
+		title: "Shield",
+		description: "Hire mercenaries to fight for you. Gain ",
+		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+			if (this.price*this.pricemod>resources){
+				this.allowed = false
+			}
+			this.description = `Buy metal shields for your soldiers. <br>+${this.amountincrease} military but breaks after a battle.`
+		},
+		purchaseeffect(){
+			resources-=Math.floor(this.price*this.pricemod)
+			const increase = this.amountincrease
+			m.shield+=increase
 		}
 	},
 	{
@@ -139,7 +202,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
 			this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
 		},
 		purchaseeffect(){
@@ -163,7 +225,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty*2)*Math.random()*2)+5
 			this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
 		},
 		purchaseeffect(){
@@ -187,7 +248,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = Math.floor((difficulty)*Math.random()*2*(1+reputation/10))+3
 			this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
 		},
 		purchaseeffect(){
@@ -211,7 +271,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
 			
 		},
 		purchaseeffect(){
@@ -234,7 +293,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
 			
 		},
 		purchaseeffect(){
@@ -257,7 +315,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
 			
 		},
 		purchaseeffect(){
@@ -271,7 +328,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketNews.png' width='50' height='30'></img>",
+		image:"<img src = 'images/marketScroll.png' width='50' height='30'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -281,7 +338,6 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.amountincrease = getRandomInt(3,5)*Math.floor(difficulty/10)
 			
 		},
 		purchaseeffect(){
@@ -334,7 +390,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
-			m.bhealth= (10000+difficulty*3)*difficultymultiplier
+			m.bhealth= (500+20*difficulty**1.6)*difficultymultiplier
 			m.totalbhealth=m.bhealth
 		}
 	}
@@ -342,6 +398,8 @@ const m = {
 	assissin: 0,
 	spy: 0,
 	rebel: 0,
+	shield:0,
+	scout:false,
 	phase:0,
 	bhealth:0,
 	totalbhealth:0,
@@ -512,5 +570,5 @@ function selectmarketitems(){
 	marketitems.length = 0
 	
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,11), getRandomInt(8,11),m.marketselections.length-1)
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,14), getRandomInt(8,14),m.marketselections.length-1)
 }
