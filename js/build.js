@@ -5,7 +5,7 @@ const p = {
 		name: "Canopy",
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
-		piecepositions:[{x:0,y:0}],
+		piecepositions:[{x:0,y:0,img:{dx:0,dy:0}}],
 		tab: "housing",
 		unlocked: true,
 		near: "building",
@@ -24,7 +24,7 @@ const p = {
 		name: "Hut",
 		letter: "H",
 		description: "A medium unit of housing that houses 6 people. Requires 5 resources to construct",
-		piecepositions:[{x:0,y:0}],
+		piecepositions:[{x:0,y:0,img:{dx:20,dy:0}}],
 		unlocked: true,
 		near: "building",
 		effect(){
@@ -40,7 +40,7 @@ const p = {
 		name: "Townhouse",
 		letter: "TH",
 		description: "A house for many people. Houses 16 people and requires 10 resources to construct",
-		piecepositions:[{x:0,y:0},{x:1,y:0}],
+		piecepositions:[{x:0,y:0,img:{dx:40,dy:0}},{x:1,y:0,img:{dx:60,dy:0}}],
 		unlocked: false,
 		near: "building",
 		effect(){
@@ -89,7 +89,7 @@ const p = {
 	{
 		name: "Tiny Farm",
 		letter: "TF",
-		piecepositions: [{x:1,y:0},{x:0,y:0}],
+		piecepositions: [{x:1,y:0,img:{dx:20,dy:20}},{x:0,y:0,img:{dx:0,dy:20}}],
 		description: "A very small farm that produces 2 food. Requires 2 resources to construct",
 		unlocked: true,
 		near: "building",
@@ -284,7 +284,7 @@ const p = {
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 40 resources per year. Must be on a hill and requires 25 resources and 8 people operating it",
+		description: "A large mine to extract resources from a hill. Collects 25 resources per year. Must be on a hill and requires 25 resources and 8 people operating it",
 		piecepositions: [
 			{x:1,y:0},{x:0,y:0}, {x:-1, y:0},
 			{x:0,y:1},{x:1,y:1}, {x:-1, y:1},
@@ -294,7 +294,7 @@ const p = {
 		near: "hill",
 		tab: "mines",
 		effect(){
-			p.resources=40
+			p.resources=25
 			resources-=25+Math.floor(techstats.planned_mines*25)
 			unemployed-=8
 		},
@@ -385,6 +385,29 @@ const p = {
 			return resources>=20 && unemployed>=5
 		}
 	},
+	{
+		name: "Fishery",
+		letter: "F",
+		description: "A fishery for fishing. Every years' catch will vary in amount of food. Requires 10 resources and 2 people to build",
+		unlocked: false,
+		piecepositions: [
+												
+						{x:-1,y:1},{x:0,y:1}, {x:1,y:1},
+						{x:1,y:0},
+						{x:-1,y:-1},{x:0,y:-1}, {x:1,y:-1}						
+												],
+		near: "river",
+		tab: "farms",
+		effect(){
+			p.food = 0
+			resources-=10
+			p.fish = true
+			unemployed-=2
+		},
+		requires(){
+			return resources>=10 && unemployed>=2
+		}
+	},
 ],
 cityincreases:{
 	up:-30,
@@ -396,6 +419,7 @@ food:0,
 population:0,
 military:0,
 resources:0,
+fish:false,
 xp:0,
 river: false,
 hill : false,
@@ -516,36 +540,42 @@ for (i=0,len=piece.length;i!=len;i++){
 
 document.onmousemove = function(event){
 	
-		allowed = false
+		
 if (ispainting){
+	
 	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.round(event.clientY/20)-3+scrollY)*20}
-
+	if (position.x!=oldposition.x||position.y!=oldposition.y){
+		allowed = false
+	oldposition.x=position.x
+	oldposition.y=position.y
+	
 
 
 render()
 ctx.beginPath();
+debugger
 	allowed = isallowed()
 	
 	
 		
-		for (i=0;i!=piece.length;i++){
+		for (len = piece.length,i=0;i!=len;i++){
 			
-				ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
-						ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				
 
 			}
 			else{		
 			ctx.strokeStyle = "black"
-			ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
-			
+			ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 }
 		}
 		ctx.stroke();
 
 
+}
 }
 else if (removing||repairing){
 	position = {x:(Math.ceil((event.clientX)/20)-1+scrollX)*20,y:(Math.floor(event.clientY/20)-3+scrollY)*20}
@@ -644,9 +674,8 @@ function render(){
 		
 		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
 			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
-				ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
-				ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
-				
+				ctx.drawImage(document.getElementById("cloudimg"),gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+
 				
 				
 		}
@@ -672,6 +701,7 @@ document.onmousedown = function(event){
 		p.resources = 0
 		p.food = 0
 		p.xp=0
+		p.fish = 0
 		const oldpop = unemployed
 		const gridposition = []
 		if((Math.floor(position.x-screen.width/2)/20)-spawnX+5>max.right){
@@ -688,7 +718,7 @@ document.onmousedown = function(event){
 		}
 		for (i=0;i!=piece.length;i++){
 			
-		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20})
+		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		
 		
@@ -714,6 +744,7 @@ document.onmousedown = function(event){
 			resources:p.resources,
 			military:p.military,
 			xp:0,
+			fish:p.fish,
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
 			disabled: false
