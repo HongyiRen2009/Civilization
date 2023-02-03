@@ -360,7 +360,10 @@ const tech = [
             maxtier: 1,
             unlocked: false,
             unlocktwice: false,
-            effect(){}
+            effect(){
+	    p.pieceROM[21].unlocked = true
+			unlocked[21]=true
+	    }
         },
         {
             name:"Market",
