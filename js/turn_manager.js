@@ -46,9 +46,9 @@ function turnpopup(){
 	}
 	switch(m.phase){
 	case 0 :
-	if (difficulty>20){
+	if (difficulty>15){
 	
-	if ((military<(difficulty-2)*3 && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+	if ((difficultymultiplier*3*(getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5) && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		
 		popups[0].choosetext()
 
@@ -81,6 +81,12 @@ function turnpopup(){
 		randomindex = getRandomInt(11,12)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
+		return false
+	}
+	else if (m.scout&&getRandomInt(0,1)==0){
+		popups[12].choosetext()
+		displaypopup(12)
+		m.scout=false
 		return false
 	}
 	else if (military>(difficulty+1)*5){
@@ -117,7 +123,7 @@ function turnpopup(){
 	case 2:
 	displaypopup(16)
 	return false
-	case 3 :
+	case 3:
 	displaypopup(17)
 	return false
 	default:
@@ -238,7 +244,7 @@ function displayUI(){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
-			food += gridstats[i].food
+			food += gridstats[i].food+(gridstats[i].fish ? getRandomInt(1,8):0)
 			military += gridstats[i].military
 			xpgained += gridstats[i].xp
 			resourcesgained += gridstats[i].resources
@@ -253,7 +259,7 @@ function displayUI(){
 		
 		food += Math.floor(food*modifiers.food)
 		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
-		military += Math.floor(military*modifiers.military)
+		military += Math.floor(military*modifiers.military)+m.shield
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
 				food += ef.food
@@ -297,7 +303,7 @@ document.getElementById("resources").innerHTML = `Resources: ${shorten(resources
 }
 function attack(power){
 	enemy_power = power
-	
+	m.shield = 0
 	if (enemy_power>military){
 		
 		reputation-=getRandomInt(1,3)
@@ -310,6 +316,7 @@ function attack(power){
 	render()
 		return
 	}
+	
 	currentpop+= Math.ceil(currentpop/2)
 	displaypopup(1, information)
 }
