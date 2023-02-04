@@ -155,7 +155,7 @@ function enable(){
 	
 	
 
-	
+	document.getElementById("year_label").innerHTML = "Year: "+difficulty
 	displayUI()
 	if (tutorialindex == 3){
 		tutorialindex+=1
@@ -209,7 +209,7 @@ function next_turn(){
 	
 }
 
-function displayUI(){
+function displayUI(turn=false){
 	
 		population = 0
 		food = 0
@@ -244,7 +244,7 @@ function displayUI(){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
-			food += gridstats[i].food+(gridstats[i].fish ? getRandomInt(1,8):0)
+			food += gridstats[i].food+((gridstats[i].fish&&turn) ? getRandomInt(10,15):0)
 			military += gridstats[i].military
 			xpgained += gridstats[i].xp
 			resourcesgained += gridstats[i].resources
@@ -274,7 +274,7 @@ function displayUI(){
 			}
 		}
 		i = 0
-		while (xp>=totalxp){
+		if (xp>=totalxp){
 			research_points+=1
 			xp-=totalxp
 			totalxp+=10+Math.floor(totalxp/7)
@@ -291,6 +291,13 @@ function displayUI(){
 				
 			}
 			
+		}
+		if(megatemple>=3){
+			p.pieceROM[17].unlocked=true
+			unlocked[17]=true
+		}
+		if(m.phase>0&&m.bhealth<=0){
+			displaypopup(39, information)
 		}
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
