@@ -107,13 +107,13 @@ const p = {
 		name: "Small Farm",
 		letter: "F",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
-		description: "A small farm that produces 5 food. Half efficiency if on a hill. Requires 3 resources to construct and 1 person operating it",
+		description: "A small farm that produces 4 food. Half efficiency if on a hill. Requires 3 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
 		tab: "farms",
 		effect(){
 			
-			p.food=Math.ceil(Math.floor(5*(1+techstats.eff_farms))*(p.hill ? 0.5:1))
+			p.food=Math.ceil(Math.floor(4*(1+techstats.eff_farms))*(p.hill ? 0.5:1))
 			resources-=3+Math.floor(3*techstats.simple_farms)
 			unemployed-=1
 		},
@@ -141,13 +141,13 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 40 food. Requires 25 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
+		description: "A large farm that produces 35 food. Requires 25 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river !hill",
 		tab: "farms",
 		effect(){
-			p.food=Math.floor(40*(1+techstats.eff_farms))
+			p.food=Math.floor(35*(1+techstats.eff_farms))
 			resources-=25+Math.floor(25*techstats.simple_farms)
 			unemployed-=5
 		},
@@ -553,7 +553,7 @@ if (ispainting){
 
 render()
 ctx.beginPath();
-debugger
+
 	allowed = isallowed()
 	
 	
@@ -562,15 +562,27 @@ debugger
 			
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
+				if(document.getElementById('noimage').checked){
+					ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
+				}
+				else{
 				ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				}
+				debugger
 				ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				
 
 			}
 			else{		
 			ctx.strokeStyle = "black"
+			if(document.getElementById("noimage").checked){
+				ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
+				ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+			}
+			else{
 			ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
-}
+			}
+		}
 		}
 		ctx.stroke();
 
@@ -639,52 +651,79 @@ function render(){
 	ctx.strokeStyle = "rgba(0,0,0,1)"
 					ctx.fillStyle = "rgb(51, 166, 59)"
 	ctx.fillRect(0,0, screen.width,screen.height)
-	
+	ctx.fillStyle = "rgb(103, 104, 107)"
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j<hillgrid[i].length;j++){
 			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
-			ctx.fillStyle = "rgb(103, 104, 107)"
+			
 			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
-			ctx.fillStyle = "rgba(0,0,0,1)"
+			
 			}
 		}
-	}		
+	}
+	ctx.fillStyle = "rgba(0,0,0,1)"
+	ctx.fillStyle = "rgb(3,172,252)"	
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0; j!=rivergrid[i].length;j++){
 			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
-			ctx.fillStyle = "rgb(3,172,252)"
+			
 			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
-			ctx.fillStyle = "rgba(0,0,0,1)"
+			
 			}
 		}
 	}
+	ctx.fillStyle = "rgba(0,0,0,1)"
 	
 	ctx.closePath()
 
-	
+	if (document.getElementById("noimage").checked){
+		for(len = gridstats.length,i=0;i<len;i++){
+			ctx.beginPath()
+			
+			if(gridstats[i].disabled){
+				ctx.strokeStyle = "rgba(0,0,0,0.2)"
+			}
+			else{
+				ctx.strokeStyle = "rgba(0,0,0,1)"
+			}
+			
+			for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
+				if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
+					ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
+					ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+					
+					
+					
+			}
+		
+			
+			
+		}
+		ctx.closePath()
+			ctx.stroke()
+			ctx.stroke()
+	}
+	else{
 	for(len = gridstats.length,i=0;i<len;i++){
 		ctx.beginPath()
 		
-		if(gridstats[i].disabled){
-			ctx.strokeStyle = "rgba(0,0,0,0.2)"
-		}
-		else{
-			ctx.strokeStyle = "rgba(0,0,0,1)"
-		}
+		
 		
 		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
-			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
+			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
 				ctx.drawImage(document.getElementById("cloudimg"),gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
-
+			}
 				
 				
 		}
 	
-		ctx.closePath()
-		ctx.stroke()
-		ctx.stroke()
+		
 		
 	}
+	ctx.closePath()
+		ctx.stroke()
+		ctx.stroke()
+}
 	renderclouds()
 
 	
@@ -940,7 +979,7 @@ function displaytab(){
 				button.style.animation = "flash 2s step-start infinite"
 			}
 			}
-		selectcontainer.insertBefore(button, document.getElementById("xp_flex"))
+		selectcontainer.insertBefore(button, document.getElementById("year_label"))
 		}
 		
 	}
