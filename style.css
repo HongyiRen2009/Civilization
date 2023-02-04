@@ -6,11 +6,15 @@
   --game-container-bg-color: #c89c59;
 }
 
+.setting-input{
+  width: 100%;
+}
 .market-ui {
   display: flex;
   align-items: center;
   gap: 10%;
 }
+
 @keyframes done {
   from {
     opacity: 1;
@@ -406,9 +410,6 @@ body {
   border-radius: 6px;
 }
 .select-grid > button{
-	height: 100%;
-}
-.select-grid > select{
 	height: 100%;
 }
 .techbutton {
