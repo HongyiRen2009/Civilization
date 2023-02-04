@@ -20,6 +20,14 @@ function difficultyscreen(){
 	document.getElementById("start-flex").style.display = "none"
 	document.getElementsByTagName('canvas')[0].style.display = 'none'
 }
+function settings(){
+	document.getElementById("settings-flex").style.display = "flex"
+	document.getElementById("back_button").hidden = false
+	document.getElementById("back_button").onclick = function(){menu()}
+	document.getElementById("title_start").innerHTML = 'Settings'
+	document.getElementById("start-flex").style.display = "none"
+	document.getElementsByTagName('canvas')[0].style.display = 'none'
+}
 function confirmclear(index){
 	confirmation[2].choosetext(index)
 	displaypopup(2,confirmation)
@@ -85,6 +93,7 @@ function menu(){
 	repairing = false
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("difficulty-flex").style.display = 'none'
+document.getElementById("settings-flex").style.display = 'none'
 document.getElementById("title_start").innerHTML = 'Civilization'
 	document.getElementById("back_button").hidden = true
 	document.getElementById("title_start").hidden = false
@@ -495,7 +504,7 @@ function save(bindex){
 	
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
@@ -522,6 +531,7 @@ function load(bjitndex){
 	reputation = JSON.parse(localStorage.getItem('pstats'+bindex)).reputation;
 	xp = JSON.parse(localStorage.getItem('pstats'+bindex)).xp;
 	totalxp = JSON.parse(localStorage.getItem('pstats'+bindex)).totalxp;
+	megatemple = JSON.parse(localStorage.getItem('pstats'+bindex)).megatemple;
 	const localtechstats = []
 	for (const obj in JSON.parse(localStorage.getItem('pstats'+bindex)).techstats){
 		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
@@ -650,7 +660,7 @@ function newgame(difficult){
 		
 		generateblob(xspawn+getRandomInt(-30,30),yspawn+getRandomInt(-30,30), getRandomInt(0,30)==0)
 	
-			xspawn+=50
+			xspawn+=45
 		if (xspawn>450){
 			xspawn=50
 			yspawn+=50
