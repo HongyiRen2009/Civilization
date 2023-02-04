@@ -148,7 +148,7 @@ const m = {
 		pricemod: 0.5,
 		title: "Explorer",
 		description: "Hire explorers to discover new trade routes",
-		image: "<img src = 'images/marketNewa.png' width='50' height='50'></img>",
+		image: "<img src = 'images/marketNews.png' width='49' height='31'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -169,7 +169,7 @@ const m = {
 		pricemod: 1,
 		title: "Shield",
 		description: "Hire mercenaries to fight for you. Gain ",
-		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
+		image: "<img src = 'images/marketShield.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -185,6 +185,52 @@ const m = {
 			resources-=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease
 			m.shield+=increase
+		}
+	},
+	{
+		price:10,
+		pricemod: 0.5,
+		title: "Loan",
+		description: "Hire explorers to discover new trade routes",
+		image: "<img src = 'images/marketDollar.png' width='50' height='25'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+			this.amountincrease = resources*2
+			this.price=0
+			
+			this.description=`Acquire a loan for ${this.amountincrease} resources for 20 turns at a 10% intrest`
+		},
+		purchaseeffect(){
+			resources+=this.amountincrease
+			const increase = Math.floor(this.amountincrease/20 + this.amountincrease*0.1)*-1
+			temporaryeffects.push({type: "add", resources:increase,population:0,military:0,food:0,duration:20})
+		}
+	},
+	{
+		price:10,
+		pricemod: 0.5,
+		title: "Loan",
+		description: "Hire explorers to discover new trade routes",
+		image: "<img src = 'images/marketDollar.png' width='50' height='25'></img>",
+		amountincrease: 0,
+		stock:1,
+		whichthing: "resources",
+		allowed: true,
+		choosetext(){
+			this.allowed = true
+			this.amountincrease = resources*2
+			this.price=Math.floor(resources/2)
+			
+			this.description=`Grant a loan for ${this.price} resources for 20 turns at a 10% intrest`
+		},
+		purchaseeffect(){
+			resources+=this.amountincrease
+			const increase = Math.floor(this.price/20 + this.price*0.1)
+			temporaryeffects.push({type: "add", resources:increase,population:0,military:0,food:0,duration:20})
 		}
 	},
 	{
@@ -328,7 +374,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Propoganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
-		image:"<img src = 'images/marketScroll.png' width='50' height='30'></img>",
+		image:"<img src = 'images/marketScroll.png' width='50' height='46'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -441,7 +487,7 @@ function marketscreen(){
 	}
 	}
 	i=0
-	debugger
+	
 	for (const el of marketitemsindex){
 		
 		const flex = document.createElement("div")
@@ -500,11 +546,11 @@ function marketscreen(){
 			el.stock-=1;
 			
 			if (buy.id.includes("b")){
-			reputation-=getRandomInt(3,8)
+			reputation-=getRandomInt(3,5)
 			}
 			else
 			{
-				reputation+=getRandomInt(0,3)*(1+techstats.charisma)
+				reputation+=Math.floor(getRandomInt(0,3)*(1+techstats.charisma))
 			}
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
@@ -570,5 +616,5 @@ function selectmarketitems(){
 	marketitems.length = 0
 	
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,14), getRandomInt(8,14),m.marketselections.length-1)
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,9),getRandomInt(9,15), getRandomInt(9,15),m.marketselections.length-1)
 }
