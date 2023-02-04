@@ -14,7 +14,24 @@
   align-items: center;
   gap: 10%;
 }
-
+input[type="range"]::-webkit-slider-runnable-track {
+	background: #755e2b;
+	height: 0.75rem;
+	border-radius: 5px
+	
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	margin-top: -6px;
+	background-color: #d1a036;
+	height: 1.5rem;
+	width: 1.5rem; 
+	border: 1px solid #d1a036;
+	outline: 3px solid #664e1a;
+	/* outline-offset: 0.125rem; */
+	border-radius: 5px
+}
 @keyframes done {
   from {
     opacity: 1;
