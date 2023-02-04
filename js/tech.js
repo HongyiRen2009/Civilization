@@ -30,7 +30,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.eff_farms+=0.1
@@ -50,7 +50,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.eff_space+=0.1
@@ -70,7 +70,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.mining_tactics+=0.1
@@ -90,7 +90,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     modifiers.military+=0.1
@@ -110,7 +110,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.charisma+=0.1
@@ -132,7 +132,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[7].unlocked = true
 			unlocked[7]=true
@@ -145,15 +145,12 @@ const tech = [
             cost:1,
             category:"Farming II",
             tier: 0,
-            maxtier: -1,
+            maxtier: 4,
             unlocked: false,
-            unlocktwice: true,
             effect(){
                 if (this.unlocked){
                     techstats.simple_farms+=0.1
-                    if (techstats.simple_farms>=0.6){
-                        this.unlocktwice=false
-                    }
+                    
                 }
                 else{
                     techstats.simple_farms+=0.3
@@ -171,7 +168,6 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
             effect(){
                 p.pieceROM[2].unlocked = true
 			unlocked[2]=true
@@ -185,15 +181,12 @@ const tech = [
             cost:1,
             category:"Housing",
             tier: 0,
-            maxtier: -1,
+            maxtier: 4,
             unlocked: false,
-            unlocktwice: true,
             effect(){
                 if (this.unlocked){
                     techstats.eff_infra+=0.1
-                    if (techstats.eff_infra>=0.6){
-                        this.unlocktwice=false
-                    }
+                   
                 }
                 else{
                     techstats.eff_infra+=0.3
@@ -209,15 +202,14 @@ const tech = [
             cost:1,
             category:"Mining",
             tier: 0,
-            maxtier: -1,
+            maxtier: 4,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.planned_mines+=0.1
-                    if (techstats.planned_mines>=0.6){
-                        this.unlocktwice=false
-                    }
+                        
+             
                 }
                 else{
                     techstats.planned_mines+=0.3
@@ -234,7 +226,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[15].unlocked = true
 			unlocked[15]=true
@@ -249,7 +241,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[10].unlocked = true
 			unlocked[10]=true
@@ -257,16 +249,22 @@ const tech = [
         },
 		{
             name:"Diplomacy",
-            description:"When negotiating with an enemy-</br>gain a 40% chance for the enemy to create a peace treaty with you for 5 years</br>during the peace treaty, -40% chance of enemy attacks",
+            description:"Negotiations with other tribes are 30% cheaper",
             requires:[[0,4]],
             cost:1,
             category:"Virtue",
             tier: 0,
-            maxtier: -1,
+            maxtier: 5,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
-                techstats.diplomacy = true
+				if(this.unlocked){
+                techstats.diplomacy +=0.1
+				}
+				else{
+					techstats.diplomacy +=0.3
+					this.description="Negotiations with other tribes are 10% cheaper"
+				}
             }
         },
         
@@ -279,7 +277,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                     techstats.innovation+=0.1
@@ -288,6 +286,20 @@ const tech = [
                     techstats.innovation+=0.3
                     this.description = "All wisdom sources are 10% more effective"
                 }
+            }
+        },
+		 {
+            name:"Market",
+            description:"Unlock the Market",
+            requires:[[0,4]],
+            cost:1,
+            category:"Virtue II",
+            tier: 0,
+            maxtier: 1,
+            unlocked: false,
+            
+            effect(){
+                techstats.market=true
             }
         },
 	],
@@ -301,7 +313,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 techstats.exploration = true
             }
@@ -315,7 +327,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
 				p.pieceROM[20].unlocked = true
 			unlocked[20]=true
@@ -330,7 +342,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 techstats.social_care=true
                 modifiers.resources-=0.1
@@ -345,7 +357,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 techstats.scouting=true
             }
@@ -359,26 +371,13 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
 	    p.pieceROM[21].unlocked = true
 			unlocked[21]=true
 	    }
         },
-        {
-            name:"Market",
-            description:"Unlock the Market",
-            requires:[[1,7]],
-            cost:1,
-            category:"Virtue",
-            tier: 0,
-            maxtier: 1,
-            unlocked: false,
-            unlocktwice: false,
-            effect(){
-                techstats.market=true
-            }
-        },
+       
         {
             name:"Barracks",
             description:"Unlock the Barracks",
@@ -388,7 +387,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[11].unlocked = true
 			unlocked[11]=true
@@ -406,7 +405,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 techstats.cement=true
             }
@@ -414,13 +413,13 @@ const tech = [
 		{
             name:"Large farm",
             description:"Unlock the blueprints for a large farm",
-            requires:[[1,0],[2,4]],
+            requires:[[1,0]],
             cost:1,
             category:"Farming",
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[8].unlocked = true
 			unlocked[8]=true
@@ -429,13 +428,13 @@ const tech = [
 		{
             name:"Insulae",
             description:"Unlock the blueprints for a massive housing unit",
-            requires:[[1,3],[1,2]],
+            requires:[[1,2]],
             cost:1,
             category:"Housing",
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[3].unlocked = true
 			unlocked[3]=true
@@ -444,13 +443,13 @@ const tech = [
 		{
             name:"Large mine",
             description:"Unlock the blueprints for a large mine",
-            requires:[[1,5],[1,4],[1,8]],
+            requires:[[1,5],[1,8]],
             cost:1,
             category:"Mining II",
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[16].unlocked = true
 			unlocked[16]=true
@@ -459,25 +458,28 @@ const tech = [
 		{
             name:"Fortress",
             description:"Unlock the blueprints for a massive building that gives high military power",
-            requires:[[1,6]],
+            requires:[[2,5]],
             cost:1,
             category:"Military",
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
-            effect(){}
+            
+            effect(){
+				p.pieceROM[12].unlocked = true
+			unlocked[12]=true
+			}
         },
 		{
             name:"Temple",
             description:"Unlock the blueprints for a temple that increases your luck at a higher rate",
-            requires:[[2,2]],
+            requires:[[1,7]],
             cost:1,
             category:"Virtue",
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[9].unlocked = true
 			unlocked[9]=true
@@ -495,7 +497,7 @@ const tech = [
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if (this.unlocked){
                 techstats.archery+=0.4
@@ -509,13 +511,13 @@ const tech = [
 		{
             name:"Dedicated worship",
             description:"Temples and altars are 40% more efficient",
-            requires:[[2,2],[3,5]],
+            requires:[[3,5]],
             cost:1,
             category:"Virtue",
             tier: 0,
             maxtier: -1,
             unlocked: false,
-            unlocktwice: true,
+            
             effect(){
                 if(this.unlocked){
                     techstats.ded_worship+=0.4
@@ -535,7 +537,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 p.pieceROM[19].unlocked = true
 			unlocked[19]=true
@@ -554,7 +556,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            unlocktwice: false,
+            
             effect(){
                 megatemple+=1
             }
