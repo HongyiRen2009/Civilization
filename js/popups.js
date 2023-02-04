@@ -131,7 +131,7 @@ const popups = [
 	power: 0,
 	description: "A neighbouring tribe is attacking you",
 	choosetext(){
-		if (resources<(difficulty**1.5)/2){
+		if (resources<((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
 		this.power =difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5))
@@ -154,7 +154,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			resources-=Math.floor((difficulty**1.5)/2)
+			resources-=Math.floor(((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0))
 			displaypopup(12, information)
 
 			displayUI()
@@ -832,7 +832,7 @@ const popups = [
 		]
 	},
 	{
-			title: "<strong class = 'color-r'>Fireball!</strong>",
+			title: "<strong class = 'color-r'>FIreball!</strong>",
 		size: "25px",
 		description: "The beast circles our village with intent to destroy. What should we do?",
 		choosetext(){
@@ -1673,7 +1673,24 @@ const information = [
 		},
 			]
 	},
+	{
+		title: "<strong class = 'color-g'>Victory!</strong>",
+		size: "30px",
+		description: `After a successful military campaign, the beast is now dead. Afterwards, the vender of the dragon egg gives you a blueprint scrap as a token of appreciation`,
+		
+		
 	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				megatemple+=1
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
 ]
 
 
