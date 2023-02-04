@@ -54,6 +54,7 @@
 	<button id = "start" class = "start_button" onclick = "difficultyscreen()">New Game</button>
 	<button id = "start" class = "start_button" onclick = "savescreen(false)">Load Game</button>
 	<button id = "start" class = "start_button" onclick = "achievementscreen(true)">Achievements</button>
+	<button id = "start" class = "start_button" onclick = "settings()">Settings</button>
 </div>
 <div class = "save-flex" id = 'save-flex'>
 	<div class = "save-grid" id = "save-grid1">
@@ -125,11 +126,12 @@
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
 <button class = 'cancel' onclick = "isremoving()">Remove</button>
 <button class = 'cancel' onclick = "isrepairing()">Repair</button>
-<select id="taboption" onchange="switchtab()" style="background-color:#f0e87a;border-color: black;border-style: solid;border-radius: 4px">
+<select id="taboption" onchange="switchtab()" style="background-color:#f0e87a;height:100%;border: 3px solid black;border-radius: 4px">
 
 
 
 </select>
+<p style = "margin:auto; font-weight:bold;" id = "year_label">Year: 0</p>
 <label id = "xp_flex" style = "margin-left:auto; font-weight: bold;">Wisdom:</label>
 <div
         id="xp_bar_container"
@@ -148,7 +150,6 @@
       </div>
 </div>
 
-
 <div id = "boss_health_container" class = "bhealth" style = "display: none;border: 3px solid black;height: 25px;position: absolute;top: 90%;left: 50%;transform: translate(-50%, -90%);">
 <div id = "boss_health" class = "bhealth" style = "background-color: red;"></div>
 <p id = "boss_health_text"style = "text-align:center; position: relative; bottom: 35px; color: white; z-index: 2;">Boss: 1000/1100</p>
@@ -163,9 +164,22 @@
 </div>
 <img src = "images/build1.png" style = "display:none" id = "cloudimg"></img>
 <svg id = "techlinecontainer", class="techline"></svg>
+	<div id = "settings-flex" style="display: none; margin: auto; width: 70%; align-items: center; flex-direction: column;">
+	<h1 style="text-align: center;">Music</h1>
+	<input class="setting-input" type="range" min="1" max="100" value="50">
+	<h1 style="text-align: center;">Sound</h1>
+	<input class = "setting-input" type="range" min="1" max="100" value="50">
+	<form>
+	<input type="checkbox" id = "noimage">
+	<label for="noimage">No images</label><br>
+	</form>
+
+</div>
+	
+
 <script>
 const canvas = document.querySelector("canvas")
-canvas.height = screen.height-225
+canvas.height = screen.height-230
 canvas.width = screen.width
 const ctx = canvas.getContext("2d")
 const heightmax = Math.round((screen.height-225)/20)
@@ -179,9 +193,10 @@ const max = {
 }
 const grid = []
 const hillgrid = []
-const tabs = ["housing","farms","military","mines","misc"]
+const tabs = ["City Centers","housing","farms","military","mines","misc"]
 const gridstats = []
 let scrollX = 250
+const oldposition = {}
 let scrollY = 250
 let spawnX = 0
 let spawnY = 0
@@ -238,7 +253,6 @@ let difficultymultiplier = 0
 const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
-const oldposition = []
 const temporaryeffects = []
 function switchtab(){
 	tab = document.getElementById("taboption").value
