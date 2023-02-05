@@ -53,8 +53,9 @@
 	
 	<button id = "start" class = "start_button" onclick = "difficultyscreen()">New Game</button>
 	<button id = "start" class = "start_button" onclick = "savescreen(false)">Load Game</button>
-	<button id = "start" class = "start_button" onclick = "achievementscreen(true)">Achievements</button>
 	<button id = "start" class = "start_button" onclick = "settings()">Settings</button>
+	<button id = "start" class = "start_button" onclick = "achievementscreen(true)">Achievements</button>
+
 </div>
 <div class = "save-flex" id = 'save-flex'>
 	<div class = "save-grid" id = "save-grid1">
@@ -150,7 +151,7 @@
       </div>
 </div>
 
-<div id = "boss_health_container" class = "bhealth" style = "display: none;border: 3px solid black;height: 25px;position: absolute;top: 90%;left: 50%;transform: translate(-50%, -90%);">
+<div id = "boss_health_container" class = "bhealth" style = "display: none;border: 3px solid black;height: 25px;position: absolute;bottom: 90%;left: 50%;transform: translate(-50%, 90%);">
 <div id = "boss_health" class = "bhealth" style = "background-color: red;"></div>
 <p id = "boss_health_text"style = "text-align:center; position: relative; bottom: 35px; color: white; z-index: 2;">Boss: 1000/1100</p>
 </div>
@@ -164,16 +165,31 @@
 </div>
 <img src = "images/build1.png" style = "display:none" id = "cloudimg"></img>
 <svg id = "techlinecontainer", class="techline"></svg>
-	<div id = "settings-flex" style="display: none; margin: auto; width: 70%; align-items: center; flex-direction: column;">
+	<div id = "settings-flex" style="display: none; margin: auto; width: 70%; align-items: center; flex-direction: column; gap: 30px;">
+	<div style="width: 100%;">
 	<h1 style="text-align: center;">Music</h1>
-	<input class="setting-input" type="range" min="1" max="100" value="50">
+	<input class="setting_slider" id = "music" type="range" min="1" max="100" value="100">
 	<h1 style="text-align: center;">Sound</h1>
-	<input class = "setting-input" type="range" min="1" max="100" value="50">
-	<form>
-	<input type="checkbox" id = "noimage">
-	<label for="noimage">No images</label><br>
-	</form>
-
+	<input class = "setting_slider" id = "sound" type="range" min="1" max="100" value="100">
+	</div>
+	<div style="display: flex; gap: 40px;">
+	<div style="display: flex; align-items: center; flex-direction: column;">
+		<p style="font-weight: bold;">No Images</p>
+	<button class="settings_button" id = "noimage" onclick="change_settings('noimage')">OFF</button>
+	
+	<p style="font-weight: bold;">No Year Fading</p>
+	<button class = "settings_button" onclick="change_settings('nofade')" id = "nofade">OFF</button>
+	
+	</div>
+	<div style="display: flex; align-items: center; flex-direction: column;">
+		<p style="font-weight: bold;">Arrow Keys</p>
+	<button class="settings_button" id = "arrowkeys" onclick="change_settings('arrowkeys')">OFF</button>
+	
+	<p style="font-weight: bold;">No Tutorial</p>
+	<button class = "settings_button" onclick="change_settings('notutorial')" id = "notutorial">OFF</button>
+	
+	</div>
+	</div>
 </div>
 	
 
@@ -195,6 +211,14 @@ const grid = []
 const hillgrid = []
 const tabs = ["City Centers","housing","farms","military","mines","misc"]
 const gridstats = []
+const psettings = {
+	noimage:false,
+	nofade:false,
+	arrowkeys:false,
+	notutorial:0
+}
+
+
 let scrollX = 250
 const oldposition = {}
 let scrollY = 250
@@ -214,6 +238,7 @@ let resourcesgained = 0
 let p_index = 0
 let megatemple = 0
 let modifiers = {
+	population: 0,
 	food: 0,
 	resources:0,
 	military:0
@@ -237,6 +262,7 @@ const tech_music = new Audio("music/tech_music.mp3");
 market_music.loop = true
 build_music.loop = true
 boss_music.loop = true
+tech_music.loop=true
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
@@ -254,6 +280,19 @@ const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
 const temporaryeffects = []
+function change_settings(setting){
+	debugger
+	if(psettings[setting]==true){
+		psettings[setting]=false
+		document.getElementById(setting).style.backgroundColor="rgb(255,0,0)"
+		document.getElementById(setting).innerHTML="OFF"
+	}
+	else{
+		psettings[setting]=true
+		document.getElementById(setting).style.backgroundColor="rgb(0,255,0)"
+		document.getElementById(setting).innerHTML="ON"
+	}
+}
 function switchtab(){
 	tab = document.getElementById("taboption").value
 	displaytab()
@@ -267,7 +306,31 @@ for (i=tabs.length-1;i>=0;i--){
 		taboption.selected=true
 	}
 }
+const ele = document.getElementsByClassName("setting_slider")
 
+for(const el of ele){
+	const min = el.min
+const max = el.max
+const value = el.value
+	el.style.background = `linear-gradient(to right, #755e2b 0%, #755e2b ${(value-min)/(max-min)*100}%, gray ${(value-min)/(max-min)*100}%, gray 100%)`
+
+el.oninput = function() {
+  if (el.id == "music"){
+	build_music.volume=el.value*0.01
+	tech_music.volume=el.value*0.01
+	market_music.volume=el.value*0.01
+	boss_music.volume=el.value*0.01
+  }
+  else if (el.id = "sound")
+  click.volume=el.value*0.01
+  techbuy.volume=el.value*0.01
+  techclick.volume=el.value*0.01
+  kaching.volume=el.value*0.01
+  breaksound.volume=el.value*0.01
+  repairsound.volume=el.value*0.01
+  this.style.background = `linear-gradient(to right, #755e2b 0%, #755e2b ${(this.value-this.min)/(this.max-this.min)*100}%, gray ${(this.value-this.min)/(this.max-this.min)*100}%, gray 100%)`
+};
+}
 
 // enable/disable devtools
 const devmode = true
