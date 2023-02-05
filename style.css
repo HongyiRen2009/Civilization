@@ -5,12 +5,7 @@
 :root {
   --game-container-bg-color: #c89c59;
 }
-.market-ui {
-  display: flex;
-  align-items: center;
-  gap: 10%;
-}
-.setting-input{
+.setting_slider{
   width: 100%;
   -webkit-appearance: none;
   background: transparent;
@@ -18,7 +13,6 @@
   
 }
 input[type="range"]::-webkit-slider-runnable-track {
-	background: #755e2b;
 	height: 0.75rem;
 	border-radius: 5px
 	
@@ -35,6 +29,23 @@ input[type="range"]::-webkit-slider-thumb {
 	/* outline-offset: 0.125rem; */
 	border-radius: 5px
 }
+.settings_button {
+  font-size: 20px;
+  width: 100px;
+  border-style: solid;
+  border-radius: 6px;
+  transition-duration: 0.1s;
+  background-color: rgb(255, 0, 0);
+}
+.settings_button:hover{
+  filter: brightness(80%);
+}
+.market-ui {
+  display: flex;
+  align-items: center;
+  gap: 10%;
+}
+
 @keyframes done {
   from {
     opacity: 1;
@@ -59,10 +70,12 @@ input[type="range"]::-webkit-slider-thumb {
     opacity: 0;
   }
 }
+
 @keyframes flash {
   50% {
     border: 3px solid yellow;
   }
+  
 }
 #tech-tree {
   z-index: 1;
@@ -74,8 +87,8 @@ input[type="range"]::-webkit-slider-thumb {
   border: 3px solid #000000;
 }
 #tech-tree > button {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border: 3px solid #000000;
 
   margin: auto;
@@ -252,7 +265,7 @@ strong {
   border-radius: 6px;
   transition-duration: 0.1s;
   background-color: #f0e87a;
-  grid-row: 7;
+  grid-row: 8;
 }
 .clear_button:hover:enabled {
   background-color: var(--game-container-bg-color);
@@ -265,7 +278,7 @@ strong {
   border-radius: 6px;
   transition-duration: 0.1s;
   background-color: #f0e87a;
-  grid-row: 6;
+  grid-row: 7;
   white-space: nowrap;
 }
 .save_button:hover:enabled {
