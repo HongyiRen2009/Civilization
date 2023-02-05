@@ -24,7 +24,7 @@ function turnpopup(){
 		case 5:
 			displaypopup(28,information)
 			return false
-		case 15:
+		case 10:
 			displaypopup(29,information)
 			return false
 		case 40:
@@ -46,7 +46,7 @@ function turnpopup(){
 	}
 	switch(m.phase){
 	case 0 :
-	if (difficulty>15){
+	if (difficulty>10){
 	
 	if ((difficultymultiplier*3*(getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5) && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		
@@ -99,6 +99,7 @@ function turnpopup(){
 	break
 	case 1:
 	if(getRandomInt(0,4)==0){
+		popups[13].choosetext()
 		displaypopup(13)
 		return false
 	}
@@ -117,13 +118,16 @@ function turnpopup(){
 		return false
 	
 	case 1:
+	popups[15].choosetext()
 	displaypopup(15)
 	return false
 	
 	case 2:
+		popups[15].choosetext()
 	displaypopup(16)
 	return false
 	case 3:
+		popups[15].choosetext()
 	displaypopup(17)
 	return false
 	default:
@@ -146,7 +150,7 @@ function enable(){
 	const turnreturn = turnpopup()
 	
 	document.getElementById("popup_block_buttons").style.animation = "none"
-	if(turnreturn==true){
+	if(turnreturn==true&&!psettings.nofade){
 	
 	
 	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
@@ -170,8 +174,9 @@ function next_turn(){
 	pbb.style.display = "block"
 	pbb.style.animation = 'none';
 	pbb.offsetHeight; /* trigger reflow */
+	if(!psettings.nofade){
 	pbb.style.animation = "block_done linear 1s 1 normal"; 
-	
+	}
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
 		if (temporaryeffects[i].duration<=0){
@@ -181,9 +186,9 @@ function next_turn(){
 		temporaryeffects[i].duration-=1
 		}
 	}
-	
+	xp+=Math.floor(Math.max(0,Math.min(1+Math.ceil(currentpop/5),food-currentpop))**0.5)*10
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
-	xp+=Math.max(0,Math.min(1+Math.ceil(currentpop/5),food-currentpop))*3
+	
 	resources+=resourcesgained
 	
 	xp+=xpgained
@@ -259,6 +264,7 @@ function displayUI(turn=false){
 		
 		food += Math.floor(food*modifiers.food)
 		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
+		population += Math.floor(population*modifiers.population)
 		military += Math.floor(military*modifiers.military)+m.shield
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
@@ -301,7 +307,7 @@ function displayUI(turn=false){
 		}
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
-		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>15 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
+		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>"+shorten(food)+"</strong>": shorten(food))
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
