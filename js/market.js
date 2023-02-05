@@ -222,13 +222,13 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
-			this.amountincrease = resources*2
+	
 			this.price=Math.floor(resources/2)
 			
 			this.description=`Grant a loan for ${this.price} resources for 20 turns at a 10% intrest`
 		},
 		purchaseeffect(){
-			resources+=this.amountincrease
+			resources-=this.price
 			const increase = Math.floor(this.price/20 + this.price*0.1)
 			temporaryeffects.push({type: "add", resources:increase,population:0,military:0,food:0,duration:20})
 		}
@@ -436,7 +436,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
-			m.bhealth= (500+20*difficulty**1.6)*difficultymultiplier
+			m.bhealth= Math.floor((500+20*difficulty**1.6)*difficultymultiplier)
 			m.totalbhealth=m.bhealth
 		}
 	}
@@ -456,12 +456,14 @@ function marketscreen(){
 	repairing = false
 	build_music.pause()
 	market_music.play()
+	boss_music.pause()
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + resources
 	document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("market-flex").style.display = 'flex'
+	document.getElementById("boss_health_container").style.display="none"
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){start()}
 	document.getElementById("stats").style.display = "none"
@@ -555,8 +557,10 @@ function marketscreen(){
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
 				debugger
-				if (document.getElementById(j<4 ? "m"+j:"bm"+j)!=null&&marketitemsindex[j].stock>0){
+				if (document.getElementById(j<4 ? "m"+j:"bm"+j)!=null&&marketitemsindex[j].stock>=0){
+					
 				marketitemsindex[j].choosetext()
+				
 				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock>0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
 					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
@@ -616,5 +620,5 @@ function selectmarketitems(){
 	marketitems.length = 0
 	
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,9),getRandomInt(9,15), getRandomInt(9,15),m.marketselections.length-1)
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,9),getRandomInt(10,15), getRandomInt(10,15),m.marketselections.length-1)
 }
