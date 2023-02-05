@@ -11,7 +11,7 @@ const p = {
 		near: "building",
 
 		effect(){
-			p.population=Math.floor(1*(1+techstats.eff_space))
+			p.population=1
 			resources-=1
 		},
 		
@@ -28,28 +28,28 @@ const p = {
 		unlocked: true,
 		near: "building",
 		effect(){
-			p.population=Math.floor(4*(1+techstats.eff_space))
-			resources-=5+Math.floor(3*techstats.eff_infra)
+			p.population=6
+			resources-=5+Math.ceil(3*techstats.eff_infra)
 		},
 		tab: "housing",
 		requires(){
-			return resources >=5-Math.floor(3*techstats.eff_infra) && difficulty>3
+			return resources >=5-Math.ceil(3*techstats.eff_infra) && difficulty>3
 		}
 	},
 	{
 		name: "Townhouse",
 		letter: "TH",
-		description: "A house for many people. Houses 16 people and requires 10 resources to construct",
+		description: "A house for many people. Houses 20 people and requires 10 resources to construct",
 		piecepositions:[{x:0,y:0,img:{dx:40,dy:0}},{x:1,y:0,img:{dx:60,dy:0}}],
 		unlocked: false,
 		near: "building",
 		effect(){
-			p.population=Math.floor(8*(1+techstats.eff_space))
-			resources-=10+Math.floor(3*techstats.eff_infra)
+			p.population=20
+			resources-=10+Math.ceil(3*techstats.eff_infra)
 		},
 		tab: "housing",
 		requires(){
-			return resources >=10-Math.floor(3*techstats.eff_infra)
+			return resources >=10-Math.ceil(3*techstats.eff_infra)
 		}
 	},
 	
@@ -62,11 +62,11 @@ const p = {
 		near: "building",
 		tab: "housing",
 		effect(){
-			p.population=Math.floor(35*(1+techstats.eff_space))
-			resources-=15+Math.floor(3*techstats.eff_infra)
+			p.population=35
+			resources-=15+Math.ceil(3*techstats.eff_infra)
 		},
 		requires(){
-			return resources >= 15-Math.floor(3*techstats.eff_infra)
+			return resources >= 15-Math.ceil(3*techstats.eff_infra)
 		}
 	},
 	
@@ -95,12 +95,12 @@ const p = {
 		near: "building",
 		tab: "farms",
 		effect(){
-			p.food=Math.floor(2*(1+techstats.eff_farms))
-			resources-=2-Math.floor(2*techstats.simple_farms)
+			p.food=2
+			resources-=2-Math.ceil(2*techstats.simple_farms)
 			
 		},
 		requires(){
-			return resources >= 2-Math.floor(2*techstats.simple_farms) && unemployed >=0
+			return resources >= 2-Math.ceil(2*techstats.simple_farms) && unemployed >=0
 		}
 	},
 	{
@@ -113,12 +113,12 @@ const p = {
 		tab: "farms",
 		effect(){
 			
-			p.food=Math.ceil(Math.floor(4*(1+techstats.eff_farms))*(p.hill ? 0.5:1))
-			resources-=3+Math.floor(3*techstats.simple_farms)
+			p.food=Math.ceil(4*(p.hill ? 0.5:1))
+			resources-=3+Math.ceil(3*techstats.simple_farms)
 			unemployed-=1
 		},
 		requires(){
-			return resources >= 3-Math.floor(3*techstats.simple_farms) && unemployed >=1
+			return resources >= 3-Math.ceil(3*techstats.simple_farms) && unemployed >=1
 		}
 	},
 	{
@@ -130,12 +130,12 @@ const p = {
 		near: "!hill",
 		tab: "farms",
 		effect(){
-			p.food=Math.floor(20*(1+techstats.eff_farms))
-			resources-=15+Math.floor(15*techstats.simple_farms)
+			p.food=20
+			resources-=15+Math.ceil(15*techstats.simple_farms)
 			unemployed-=3
 		},
 		requires(){
-			return resources >=15-Math.floor(15*techstats.simple_farms) && unemployed>=3
+			return resources >=15-Math.ceil(15*techstats.simple_farms) && unemployed>=3
 		}
 	},
 	{
@@ -144,15 +144,15 @@ const p = {
 		description: "A large farm that produces 35 food. Requires 25 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
-		near: "river !hill",
+		near: "river not",
 		tab: "farms",
 		effect(){
-			p.food=Math.floor(35*(1+techstats.eff_farms))
-			resources-=25+Math.floor(25*techstats.simple_farms)
+			p.food=35
+			resources-=25+Math.ceil(25*techstats.simple_farms)
 			unemployed-=5
 		},
 		requires(){
-			return resources >=25-Math.floor(25*techstats.simple_farms) && unemployed>=5
+			return resources >=25-Math.ceil(25*techstats.simple_farms) && unemployed>=5
 		}
 	},
 	{
@@ -164,7 +164,7 @@ const p = {
 		near: "building",
 		tab: "misc",
 		effect(){
-			luck+=Math.floor(2*(1+techstats.ded_worship))
+			luck+=Math.ceil(2*(1+techstats.ded_worship))
 			reputation+=5
 			resources-=40
 			unemployed-=10
@@ -257,11 +257,11 @@ const p = {
 		effect(){
 			
 			p.resources=4*(p.hill ? 1:0.5)
-			resources-=3+Math.floor(techstats.planned_mines*3)
+			resources-=3+Math.ceil(techstats.planned_mines*3)
 			unemployed-=1
 		},
 		requires(){
-			return resources >=3+Math.floor(techstats.planned_mines*3) && unemployed>=1
+			return resources >=3+Math.ceil(techstats.planned_mines*3) && unemployed>=1
 		}
 	},
 	{
@@ -274,11 +274,11 @@ const p = {
 		tab: "mines",
 		effect(){
 			p.resources=12
-			resources-=15+Math.floor(techstats.planned_mines*15)
+			resources-=15+Math.ceil(techstats.planned_mines*15)
 			unemployed-=4
 		},
 		requires(){
-			return resources >=15+Math.floor(techstats.planned_mines*15) && unemployed>=4&&difficulty>4
+			return resources >=15+Math.ceil(techstats.planned_mines*15) && unemployed>=4&&difficulty>4
 		}
 	},
 	{
@@ -295,11 +295,11 @@ const p = {
 		tab: "mines",
 		effect(){
 			p.resources=25
-			resources-=25+Math.floor(techstats.planned_mines*25)
+			resources-=25+Math.ceil(techstats.planned_mines*25)
 			unemployed-=8
 		},
 		requires(){
-			return resources >=25+Math.floor(techstats.planned_mines*25) && unemployed>=8
+			return resources >=25+Math.ceil(techstats.planned_mines*25) && unemployed>=8
 		}
 	},
 	{
@@ -443,14 +443,14 @@ function removebuildings(onhill=false){
 				}
 			}
 		}
+		else{
+			remove=true
+		}
 		if (remove){
-			for (let j = 0; j!=gridstats[i].positions.length;j++){
-				
-				const indexx = grid[gridstats[i].positions[j].y/20].indexOf(gridstats[i].positions[j].x)
-				grid[gridstats[i].positions[j].y/20].splice(indexx,1)
-			}
+			
 			buildingamounts[gridstats[i].index]-=1
-			gridstats.splice(i,1)
+			gridstats[i].disabled=true
+
 		
 		}
 		
@@ -474,7 +474,7 @@ for (i=0,len=piece.length;i!=len;i++){
 			return false
 			
 		}
-		if (p.pieceROM[p_index].near.includes("!hill")){
+		if (p.pieceROM[p_index].near.includes("!hill")||p.pieceROM[p_index].near.includes("not")){
 			if (hillgrid[(position.y/20)+piece[i].y].includes(position.x+piece[i].x*20)){
 				return false
 				
@@ -511,7 +511,7 @@ for (i=0,len=piece.length;i!=len;i++){
 			
 		}
 		if (!localallowed) return false
-		if (p.pieceROM[p_index].near != "building"&&!p.pieceROM[p_index].near.includes("!hill")){localallowed = false}
+		if (p.pieceROM[p_index].near != "building"&&(!p.pieceROM[p_index].near.includes("!hill"))){localallowed = false}
 			for (i=0;i!=piece.length;i++){
 			
 			if (p.pieceROM[p_index].near.includes("river")){
@@ -562,7 +562,7 @@ ctx.beginPath();
 			
 			if (!allowed){
 				ctx.fillStyle = "rgba(255,0,0,0.5)"
-				if(document.getElementById('noimage').checked){
+				if(psettings.noimage){
 					ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 				}
 				else{
@@ -575,7 +575,7 @@ ctx.beginPath();
 			}
 			else{		
 			ctx.strokeStyle = "black"
-			if(document.getElementById("noimage").checked){
+			if(psettings.noimage){
 				ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 				ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 			}
@@ -676,7 +676,7 @@ function render(){
 	
 	ctx.closePath()
 
-	if (document.getElementById("noimage").checked){
+	if (psettings.noimage){
 		for(len = gridstats.length,i=0;i<len;i++){
 			ctx.beginPath()
 			
@@ -691,7 +691,9 @@ function render(){
 				if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
 					ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
 					ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
-					
+					ctx.closePath()
+			ctx.stroke()
+			ctx.stroke()
 					
 					
 			}
@@ -699,9 +701,7 @@ function render(){
 			
 			
 		}
-		ctx.closePath()
-			ctx.stroke()
-			ctx.stroke()
+		
 	}
 	else{
 	for(len = gridstats.length,i=0;i<len;i++){
@@ -712,6 +712,8 @@ function render(){
 		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
 			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
 				ctx.drawImage(document.getElementById("cloudimg"),gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+				ctx.stroke()
+
 			}
 				
 				
@@ -720,9 +722,7 @@ function render(){
 		
 		
 	}
-	ctx.closePath()
-		ctx.stroke()
-		ctx.stroke()
+	
 }
 	renderclouds()
 
@@ -782,13 +782,13 @@ document.onmousedown = function(event){
 			food:p.food,
 			resources:p.resources,
 			military:p.military,
-			xp:0,
+			xp:p.xp,
 			fish:p.fish,
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
 			disabled: false
 		})
-		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation))
+		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation)*2)
 		first_turn = false
 		
 		if (!p.pieceROM[p_index].requires()){
@@ -857,6 +857,35 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 
 document.onkeydown = function(event){
 	if(techstats.exploration){
+		if(psettings.arrowkeys){
+			switch(event.key){
+		
+				case "ArrowUp":
+					if (scrollY>0&&scrollY-spawnY>max.up){
+					move(0,-1)
+					}
+					break
+				case "ArrowDown":
+					if (scrollY<499-heightmax&&scrollY-spawnY<max.down){
+					move(0,1)
+					}
+					break
+				case "ArrowLeft":
+					if (scrollX>0&&scrollX-spawnX>max.left){
+					move(-1,0)
+					}
+					break
+				case "ArrowRight":
+					if (scrollX<499&&scrollX-spawnX<max.right){
+					move(1,0)
+					}
+					break
+				//case "r":
+				//rotate()
+				//break
+			}
+		}
+		else{
 	switch(event.key){
 		
 		case "w":
@@ -883,6 +912,7 @@ document.onkeydown = function(event){
 		//rotate()
 		//break
 	}
+}
 	}
 }
 function rotate(){
