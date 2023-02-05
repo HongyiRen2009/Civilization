@@ -1,9 +1,7 @@
 //tech is a 2d array. The index of the array determines its level on the tree. To add something to requires, get the level of the object, then the index of it in the array. Category determines the column it'll
 //be put on
 const techstats = {
-    eff_farms: 0,
-    eff_space: 0,
-    mining_tactics:0,
+ 
     charisma:0,
     simple_farms:0,
     eff_infra:0,
@@ -23,9 +21,10 @@ const tech = [
     [	//ROW 0
 		{
             name:"Efficient farms",
-            description:"All new farms produce +30% food",
+            description:"All farms produce +30% food",
             requires:[],
             cost:1,
+            image:"images/techfarm.png",
             category:"Farming",
             tier: 0,
             maxtier: -1,
@@ -33,39 +32,41 @@ const tech = [
             
             effect(){
                 if (this.unlocked){
-                    techstats.eff_farms+=0.1
+                    modifiers.food+=0.1
                 }
                 else{
-                    techstats.eff_farms+=0.3
-                    this.description = "All new farms produce +10% food"
+                    modifiers.food+=0.3
+                    this.description = "All farms produce +10% food"
                 }
             }
         },
 		{
             name:"Efficient space usage",
-            description:"New houses have +30% capacity",
+            description:"Houses have +30% capacity",
             requires:[],
             cost:1,
             category:"Housing",
+            image:"images/techhammer.png",
             tier: 0,
             maxtier: -1,
             unlocked: false,
             
             effect(){
                 if (this.unlocked){
-                    techstats.eff_space+=0.1
+                    modifiers.population+=0.1
                 }
                 else{
-                   techstats.eff_space+=0.3
-                    this.description = "New houses have +10% capacity"
+                   modifiers.population+=0.3
+                    this.description = "Houses have +10% capacity"
                 }
             }
         },
 		{
             name:"Mining tactics",
-            description:"New mines produce +30% resources",
+            description:"Mines produce +30% resources",
             requires:[],
             cost:1,
+            image:"images/techpickaxe.png",
             category:"Mining",
             tier: 0,
             maxtier: -1,
@@ -73,11 +74,11 @@ const tech = [
             
             effect(){
                 if (this.unlocked){
-                    techstats.mining_tactics+=0.1
+                    modifiers.resources+=0.1
                 }
                 else{
-                    techstats.mining_tactics+=0.3
-                    this.description = "New mines produce +10% resources"
+                    modifiers.resources+=0.3
+                    this.description = "Mines produce +10% resources"
                 }
             }
         },
@@ -85,6 +86,7 @@ const tech = [
             name:"Swords",
             description:"+20% military",
             requires:[],
+            image:"images/techsword.png",
             cost:1,
             category:"Military",
             tier: 0,
@@ -107,6 +109,7 @@ const tech = [
             requires:[],
             cost:1,
             category:"Virtue",
+            image:"images/techstar.png",
             tier: 0,
             maxtier: -1,
             unlocked: false,
@@ -130,6 +133,7 @@ const tech = [
             cost:1,
             category:"Farming",
             tier: 0,
+            image:"images/techscroll.png",
             maxtier: 1,
             unlocked: false,
             
@@ -144,6 +148,7 @@ const tech = [
             requires:[[0,0]],
             cost:1,
             category:"Farming II",
+            image:"images/techupgrade.png",
             tier: 0,
             maxtier: 4,
             unlocked: false,
@@ -166,6 +171,7 @@ const tech = [
             cost:1,
             category:"Housing II",
             tier: 0,
+            image:"images/techscroll.png",
             maxtier: 1,
             unlocked: false,
             effect(){
@@ -180,6 +186,7 @@ const tech = [
             requires:[[0,1]],
             cost:1,
             category:"Housing",
+            image:"images/techupgrade.png",
             tier: 0,
             maxtier: 4,
             unlocked: false,
@@ -204,7 +211,7 @@ const tech = [
             tier: 0,
             maxtier: 4,
             unlocked: false,
-            
+            image:"images/techupgrade.png",
             effect(){
                 if (this.unlocked){
                     techstats.planned_mines+=0.1
@@ -223,6 +230,7 @@ const tech = [
             requires:[[0,2]],
             cost:1,
             category:"Mining II",
+            image:"images/techscroll.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -238,6 +246,7 @@ const tech = [
             requires:[[0,3]],
             cost:1,
             category:"Military",
+            image:"images/techbase.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -253,6 +262,7 @@ const tech = [
             requires:[[0,4]],
             cost:1,
             category:"Virtue",
+            image:"images/techdiplomacy.png",
             tier: 0,
             maxtier: 5,
             unlocked: false,
@@ -274,6 +284,7 @@ const tech = [
             requires:[],
             cost:1,
             category:"Intelligence",
+            image:"images/techhouse.png",
             tier: 0,
             maxtier: -1,
             unlocked: false,
@@ -294,6 +305,7 @@ const tech = [
             requires:[[0,4]],
             cost:1,
             category:"Virtue II",
+            image:"images/techmarket.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -310,6 +322,7 @@ const tech = [
             requires:[[1,8]],
             cost:1,
             category:"Intelligence",
+            image:"images/techexplore.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -325,6 +338,7 @@ const tech = [
             cost:1,
             category:"Intelligence II",
             tier: 0,
+            image:"images/techhammer.png",
             maxtier: 1,
             unlocked: false,
             
@@ -339,6 +353,7 @@ const tech = [
             requires:[[1,7]],
             cost:1,
             category:"Virtue II",
+            image:"images/techcare.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -354,6 +369,7 @@ const tech = [
             requires:[[1,6]],
             cost:1,
             category:"Military II",
+            image:"images/techspyglass.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -368,6 +384,7 @@ const tech = [
             requires:[[1,1],[1,3]],
             cost:1,
             category:"Farming II",
+            image:"images/techfish.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -384,6 +401,7 @@ const tech = [
             requires:[[1,6]],
             cost:1,
             category:"Military",
+            image:"images/tech2swords.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -405,7 +423,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            
+            image:"images/techroad.png",
             effect(){
                 techstats.cement=true
             }
@@ -414,6 +432,7 @@ const tech = [
             name:"Large farm",
             description:"Unlock the blueprints for a large farm",
             requires:[[1,0]],
+            image:"images/techscroll.png",
             cost:1,
             category:"Farming",
             tier: 0,
@@ -429,6 +448,7 @@ const tech = [
             name:"Insulae",
             description:"Unlock the blueprints for a massive housing unit",
             requires:[[1,2]],
+            image:"images/techscroll.png",
             cost:1,
             category:"Housing",
             tier: 0,
@@ -444,6 +464,7 @@ const tech = [
             name:"Large mine",
             description:"Unlock the blueprints for a large mine",
             requires:[[1,5],[1,8]],
+            image:"images/techscroll.png",
             cost:1,
             category:"Mining II",
             tier: 0,
@@ -459,6 +480,7 @@ const tech = [
             name:"Fortress",
             description:"Unlock the blueprints for a massive building that gives high military power",
             requires:[[2,5]],
+            image:"images/techfort.png",
             cost:1,
             category:"Military",
             tier: 0,
@@ -476,6 +498,7 @@ const tech = [
             requires:[[1,7]],
             cost:1,
             category:"Virtue",
+            image:"images/techscroll.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -494,6 +517,7 @@ const tech = [
             requires:[[2,3],[3,4]],
             cost:1,
             category:"Military II",
+            image:"images/techbow.png",
             tier: 0,
             maxtier: -1,
             unlocked: false,
@@ -515,6 +539,7 @@ const tech = [
             cost:1,
             category:"Virtue",
             tier: 0,
+            image:"images/techhand.png",
             maxtier: -1,
             unlocked: false,
             
@@ -534,6 +559,7 @@ const tech = [
             requires:[[3,1],[3,2],[3,3]],
             cost:1,
             category:"Housing II",
+            image:"images/techbook.png",
             tier: 0,
             maxtier: 1,
             unlocked: false,
@@ -556,7 +582,7 @@ const tech = [
             tier: 0,
             maxtier: 1,
             unlocked: false,
-            
+            image:"images/techmega.png",
             effect(){
                 megatemple+=1
             }
