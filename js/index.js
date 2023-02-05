@@ -119,7 +119,8 @@ function savescreen(save){
 		for (const el of ele){
 			el.disabled = false
 			el.innerHTML = "Save Game"
-			el.onclick = function(){savegame(el.id.substring(4))}
+			el.id =i
+			el.onclick = function(){savegame(el.id)}
 			i++
 		}
 	const ele2 = document.getElementsByClassName("clear_button")
@@ -214,7 +215,8 @@ function techscreen(){
 	ispainting = false
 removing = false
 repairing = false
-	build_music.pause()	
+	build_music.pause()
+	boss_music.pause()
 	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
@@ -278,10 +280,10 @@ repairing = false
 		yeardes.style.gridRow = i+1
 		switch(i){
 			case 0:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-15"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-10"
 				break
 			case 1:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 15-40"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 10-40"
 				break
 			case 3:
 				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1><br>years 40-infinity"
@@ -321,6 +323,7 @@ repairing = false
 		cost.innerHTML=""
 		tier.innerHTML=""
 		reserachbutton.hidden=true
+		let isimage=0
 		for (const el of techoptions){
 			
 			if (el.classList.contains("hover")){
@@ -353,37 +356,41 @@ repairing = false
 					}
 					break
 				case 1:
-					if (difficulty<15){
+					debugger
+					if (difficulty<10){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Pre-Diplomacy Age</strong>"
 					}
 				break
 				case 2:
-					if (difficulty<15){
+					if (difficulty<10){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Pre-Diplomacy Age</strong>"
 					}
 				break
 				case 3:
-					if (difficulty<30){
+					if (difficulty<40){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Post-Diplomacy Age</strong>"
 					}
 				break
 				case 4:
-					if (difficulty<30){
+					if (difficulty<40){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Post-Diplomacy Age</strong>"
 					}
 				break
 				case 5:
-					if (difficulty<30){
+					if (difficulty<40){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Post-Diplomacy Age</strong>"
 					}
 				break
 			}
+			const whichimage = isimage
+
 			reserachbutton.onclick = function(){
+				
 				techbuy.play()
 				const success = document.createElement("h1")
 				success.className = "status"
@@ -407,7 +414,8 @@ repairing = false
 				destitle.innerHTML=tech[techindex[0]][techindex[1]].name
 			des.innerHTML=tech[techindex[0]][techindex[1]].description
 				el.style.backgroundColor = "#bfb965"
-			
+				
+				techelements[whichimage].image.style.filter = "brightness(100%)"
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
 			
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(tech[techindex[0]][techindex[1]].maxtier > tech[techindex[0]][techindex[1]].tier||tech[techindex[0]][techindex[1]].maxtier == -1))	
@@ -415,10 +423,12 @@ repairing = false
 			displayUI()
 			setTimeout(function(){success.remove()},2000)
 			}
+			
 			}
 			else{
 				el.style.border = "3px solid black"
 			}
+			isimage++
 		}
 	}
 	}
@@ -430,7 +440,7 @@ repairing = false
 			techoption.style.gridColumn=categories.indexOf(tech[i][j].category)+1
 			techoption.className = "techbutton"
 			techoption.id = JSON.stringify([i,j])
-			
+			const image = document.createElement("img")
 			techoption.addEventListener("mouseover", function(){
 				techoption.classList.add("hover")
 			})
@@ -441,9 +451,18 @@ repairing = false
 				techoption.style.backgroundColor = "#bfb965"
 			}
 			else{
+				image.style.filter = "brightness(30%)"
 				techoption.style.backgroundColor = "#545232"
 			}
 			techgrid.appendChild(techoption)
+			
+			image.src=tech[i][j].image
+			image.style.position="relative"
+			image.style.right = "7px"
+			image.style.bottom = "2px"
+			image.style.width="30px"
+			image.style.height="30px"
+			techoption.appendChild(image)
 			for (const el of tech[i][j].requires){
 				let techelement = null
 				
@@ -469,7 +488,7 @@ repairing = false
 			
 			
 			
-			techelements.push({element: techoption, techposition: [i,j]})
+			techelements.push({image: image,element: techoption, techposition: [i,j]})
 
 		}
 	}
@@ -488,32 +507,34 @@ function save(bindex){
 	for (i=ele.length-1;i>=0;i--){
 		ele[i].remove();
 	}
-	const blueprintsitems = []
-	
-	for (len = m.marketselections.length, i = len-7;i<len-1;i++){
-			blueprintsitems.push(m.marketselections[i].stock)
-
-	}
 	const localunlocked = []
+
+	
+	
+	const localtier = []
 	for (const un of tech){
 		for (const unn of un){
 			localunlocked.push(unn.unlocked)
+			localtier.push(unn.tier)
 		}
 	}
 	save_slot = bindex
-	
+	const localmarketstats = []
+	for (const item of m.marketselections){
+		localmarketstats.push({price: item.price,amountincrease:item.amountincrease})
+	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
+	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
 	localStorage.setItem('marketitems'+bindex, JSON.stringify(marketitems));
 
 	document.getElementById("save-flex").style.display = "none"
 	start()
 }
-function load(bjitndex){
-	const bindex = bjitndex.substr(4)
+function load(bindex){
 	buildingamounts.length = 0
 	rivergrid.length=0
 	gridstats.length=0
@@ -524,6 +545,11 @@ function load(bjitndex){
 	
 	for (const el of JSON.parse(localStorage.getItem('griditems'+bindex)).grid){
 		grid.push(el)
+	}
+	const localmarketstats = JSON.parse(localStorage.getItem("marketstats"+bindex))
+	for (i=0;i<m.marketselections.length;i++){
+		m.marketselections[i].price=localmarketstats[i].price
+		m.marketselections[i].amountincrease=localmarketstats[i].amountincrease
 	}
 	const localscrolldata = JSON.parse(localStorage.getItem('scrollinfo'+bindex));
 	resources = JSON.parse(localStorage.getItem('pstats'+bindex)).resources;
@@ -549,9 +575,11 @@ function load(bjitndex){
 		for (const unn of un){
 			
 			unn.unlocked = JSON.parse(localStorage.getItem('pstats'+bindex)).localunlocked[i]
+			unn.tier = JSON.parse(localStorage.getItem('pstats'+bindex)).localtier[i]
 			i+=1
 		}
 	}
+	
 	research_points = JSON.parse(localStorage.getItem('pstats'+bindex)).research_points;
 	for (const el of JSON.parse(localStorage.getItem('griditems'+bindex)).rivergrid){
 		rivergrid.push(el)
@@ -572,8 +600,11 @@ function load(bjitndex){
 	for (const el of JSON.parse(localStorage.getItem('pstats'+bindex)).buildingamounts){
 		buildingamounts.push(el)
 	}
+	i=0
 	for (const el of JSON.parse(localStorage.getItem('pstats'+bindex)).unlocked){
 		unlocked.push(el)
+		p.pieceROM[i].unlocked=el
+		i++
 	}
 	for (const el of JSON.parse(localStorage.getItem('marketitems'+bindex))){
 		marketitems.push(el)
@@ -588,6 +619,9 @@ function load(bjitndex){
 	m.totalbhealth = localmarketmod[5]
 	m.scout = localmarketmod[6]
 	m.shield = localmarketmod[3]
+	if(m.phase>0){
+		m.marketselections[m.marketselections.length-1].stock=0
+	}
 	let j = 0
 	spawnX = localscrolldata[2]
 	spawnY = localscrolldata[3]
@@ -602,9 +636,11 @@ function load(bjitndex){
 		first_turn=false
 	}
 	modifiers.food = localmod.food
+	modifiers.population = localmod.population
 	modifiers.resources = localmod.resources
 	modifiers.military = localmod.military
-	
+	displaytab()
+	displayUI()
 	start()
 }
 function newgame(difficult){
@@ -624,6 +660,7 @@ function newgame(difficult){
 	buildingamounts.push(0);
 }	
 	modifiers = {
+	population:0,
 	food: 1.5-difficult,
 	resources: 1.5-difficult,
 	military: 0
@@ -670,8 +707,12 @@ function newgame(difficult){
 	}
 	
 	
-
+if(psettings.notutorial){
+	start()
+}
+else{
 displaypopup(3, confirmation)
+}
 }
 function getRandomInt(min, max) {
 		min = Math.ceil(min);
