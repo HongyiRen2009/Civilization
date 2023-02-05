@@ -135,7 +135,7 @@ const popups = [
 			choicesdisabled.push(1)
 		}
 		this.power =difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5))
-		this.description = `A neighbouring tribe is attacking you${techstats.scouting ? "":`<br><br>Scouting Estimate: ${this.power}`}`
+		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
 	choices: [
@@ -788,10 +788,11 @@ const popups = [
 		popamount: 0,
 		description: `Our priests interpreted the roars as a demand for a tribute. If we sacrifice ${this.popamount} people, it will leave us alone. What should we do`,
 		choosetext(){
-			this.popamount = Math.floor(currentpop*Math.random()*2)
-			if (currentpop<popamount){
+			this.popamount = Math.floor(currentpop*Math.random())
+			if (currentpop<this.popamount){
 				choicesdisabled.push(0)
 			}
+			this.description = `Our priests interpreted the roars as a demand for a tribute. If we sacrifice ${this.popamount} people, it will leave us alone. What should we do`
 		},
 		choices: [
 		{
@@ -836,7 +837,7 @@ const popups = [
 		size: "25px",
 		description: "The beast circles our village with intent to destroy. What should we do?",
 		choosetext(){
-		if(!techstats.archery){
+		if(techstats.archery>0){
 			choicesdisabled.push(0)
 		}
 		},
@@ -868,9 +869,6 @@ const popups = [
 		size: "25px",
 		description: "The beast charges at our village blasting fire. What should we do?",
 		choosetext(){
-		if(!techstats.archery){
-			choicesdisabled.push(0)
-		}
 		},
 		choices: [
 		{
@@ -878,13 +876,13 @@ const popups = [
 			effect(){
 				
 				if (military>=difficultymultiplier*5*difficulty**1.4){
-				displaypopup(36, information)
+				displaypopup(37, information)
 				m.bhealth-=Math.floor(military/2)
 				}
 				else{
 					removebuildings()
 					currentpop-=Math.floor(currentpop/3)
-					displaypopup(37, information)
+					displaypopup(38, information)
 				}
 			
 			displayUI()
