@@ -225,7 +225,7 @@ const m = {
 	
 			this.price=Math.floor(resources/2)
 			
-			this.description=`Grant a loan for ${this.price*2} resources for 20 turns at a 10% intrest`
+			this.description=`Grant a loan for ${this.price/2} resources for 20 turns at a 10% intrest`
 		},
 		purchaseeffect(){
 			resources-=this.price
