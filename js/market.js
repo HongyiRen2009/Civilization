@@ -192,7 +192,7 @@ const m = {
 		pricemod: 0.5,
 		title: "Loan",
 		description: "Hire explorers to discover new trade routes",
-		image: "<img src = 'images/marketDollar.png' width='50' height='25'></img>",
+		image: "<img src = 'images/marketDollar.png' width='70' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -215,7 +215,7 @@ const m = {
 		pricemod: 0.5,
 		title: "Loan",
 		description: "Hire explorers to discover new trade routes",
-		image: "<img src = 'images/marketDollar.png' width='50' height='25'></img>",
+		image: "<img src = 'images/marketDollar.png' width='70' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
 		whichthing: "resources",
@@ -225,7 +225,7 @@ const m = {
 	
 			this.price=Math.floor(resources/2)
 			
-			this.description=`Grant a loan for ${this.price} resources for 20 turns at a 10% intrest`
+			this.description=`Grant a loan for ${this.price*2} resources for 20 turns at a 10% intrest`
 		},
 		purchaseeffect(){
 			resources-=this.price
