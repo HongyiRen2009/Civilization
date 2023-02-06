@@ -176,7 +176,7 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it",
+		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 5 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
 		near: "building",
@@ -184,6 +184,7 @@ const p = {
 		effect(){
 			p.military=10*(p.entirehill ? 2:1)
 			resources-=6
+			p.resources-=5
 			unemployed-=3
 			
 		},
@@ -195,7 +196,7 @@ const p = {
 	{
 		name: "Barracks",
 		letter: "BR",
-		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill.",
+		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
 		near: "building",
@@ -203,6 +204,7 @@ const p = {
 		effect(){
 			modifiers.military +=0.1
 			resources-=20
+			p.resources-=20
 			unemployed-=10
 			
 		},
@@ -214,7 +216,7 @@ const p = {
 	{
 		name: "Fortress",
 		letter: "FT",
-		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 20 people operating it. Double military if on a hill",
+		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 20 people operating it. Double military if on a hill. Requires 35 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1},{x:2,y:0}],
 		near: "building",
@@ -222,6 +224,7 @@ const p = {
 		effect(){
 			p.military = Math.floor(150*(p.entirehill ? 2:1)*(1+techstats.archery))
 			resources-=70
+			p.resources-=35
 			unemployed-=8
 			
 		},
@@ -370,14 +373,14 @@ const p = {
 	{
 		name: "Workshop",
 		letter: "W",
-		description: "A workshop for practicing and learning. Increases wisdom by 50 but uses up 2 resources each round<br>Requires 20 resources and 5 people to build.",
+		description: "A workshop for practicing and learning. Increases wisdom by 50 but uses up 5 resources each round<br>Requires 20 resources and 5 people to build.",
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:-1,y:0},{x:0,y:1}],
 		near: "building",
 		tab: "misc",
 		effect(){
 			p.xp=50
-			p.resources=-2
+			p.resources=-5
 			resources-=20
 			unemployed-=5
 		},
