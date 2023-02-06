@@ -134,7 +134,7 @@ const popups = [
 		if (resources<((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
-		this.power =Math.floor(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8+getRandomInt(-10,5)))
+		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5)))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8+getRandomInt(-10,5)))
+			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))))
 		},
 	},
 	{
@@ -438,7 +438,7 @@ const popups = [
 			this.description = `A scientific breakthrough in ${choice[random].des} unlocked advanced technology. <strong class = 'color-g'>+30% ${choice[random].type} production</strong>`
 			switch(choice[random].type){
 				case 'food':
-				modifiers.military+=0.3
+				modifiers.food+=0.3
 				break
 				case 'resource':
 				modifiers.resources+=0.3
@@ -508,7 +508,7 @@ const popups = [
 		text: "Yes",
 		effect(){
 			
-			if (getRandomInt(3,choice[random].chance)<=5){
+			if (getRandomInt(2,choice[random].chance)<=5){
 				information[13].choosetext(choice[random].type)
 				displaypopup(13, information)
 				switch(choice[random].type){
