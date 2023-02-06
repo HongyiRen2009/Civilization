@@ -155,7 +155,7 @@ const achievements = [
 		description: "build your first Bridge",
 		imagesrc: "images/achievementBridge.png",
 		requires(){
-		return buildingamounts[11] > 0
+		return buildingamounts[13] > 0
 		}
 	},
 	
@@ -176,6 +176,15 @@ const achievements = [
 		return buildingamounts[15] > 0
 		}
 	},
+	
+	{
+		acquired: false,
+		title: "Industrialization",
+		description: "build your first Large Mine",
+		requires(){
+		return buildingamounts[16] > 0
+		}
+	},
 	{
 		acquired: false,
 		title: "Cursed",
@@ -183,14 +192,6 @@ const achievements = [
 		imagesrc: "images/achievementCursed.png",
 		requires(){
 		return luck < 0
-		}
-	},
-	{
-		acquired: false,
-		title: "Industrialization",
-		description: "build your first Large Mine",
-		requires(){
-		return buildingamounts[16] > 0
 		}
 	},
 	{
