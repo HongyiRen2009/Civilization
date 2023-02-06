@@ -38,24 +38,24 @@ function turnpopup(){
 	if (max.down-p.cityincreases.down-5>totalcitymax){
 		totalcitymax = max.down-p.cityincreases.down-5
 	}
-	if (max.up+p.cityincreases.up-5<totalcitymax){
-		totalcitymax = Math.abs(max.up+p.cityincreases.up+5)
+	if (max.up-p.cityincreases.up-5<totalcitymax){
+		totalcitymax = Math.abs(max.up-p.cityincreases.up+5)
 	}
-	if (max.left+p.cityincreases.left-5<totalcitymax){
-		totalcitymax = Math.abs(max.left+p.cityincreases.left+5)
+	if (max.left-p.cityincreases.left-5<totalcitymax){
+		totalcitymax = Math.abs(max.left-p.cityincreases.left+5)
 	}
 	switch(m.phase){
 	case 0 :
 	if (difficulty>10){
-	
-	if ((difficultymultiplier*3*(getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5) && getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+	debugger
+	if ((difficultymultiplier*3*(getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		
 		popups[0].choosetext()
 
 		displaypopup(0)
 		return false
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10))) <= 0){
+	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return false
@@ -83,7 +83,7 @@ function turnpopup(){
 		displaypopup(randomindex)
 		return false
 	}
-	else if (m.scout&&getRandomInt(0,1)==0){
+	else if (m.scout){
 		popups[12].choosetext()
 		displaypopup(12)
 		m.scout=false
@@ -168,6 +168,7 @@ function enable(){
 }
 
 function next_turn(){
+	window.onbeforeunload = function(){return "hi"}
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
 	const pbb = document.getElementById("popup_block_buttons")
@@ -192,7 +193,7 @@ function next_turn(){
 	resources+=resourcesgained
 	
 	xp+=xpgained
-	difficulty+=Math.round((1+Math.floor(difficulty/20)))
+	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
 	
 	if (difficulty>20){
@@ -223,8 +224,12 @@ function displayUI(turn=false){
 		xpgained = 0
 		unemployed = currentpop
 		if (m.phase>1){
-			document.getElementById("boss_health").style.width = 100*(m.bhealth/m.totalbhealth)+"%"
-			document.getElementById("boss_health_text").innerHTML = "boss: " + m.bhealth + "/" + m.totalbhealth
+			document.getElementById("boss_health_container").style.display = "block"
+			document.getElementById("boss_health").style.width = Math.max(0,100*(m.bhealth/m.totalbhealth))+"%"
+			document.getElementById("boss_health_text").innerHTML = "boss: " +Math.max(0, m.bhealth) + "/" + m.totalbhealth
+		}
+		else{
+			document.getElementById("boss_health_container").style.display = "none"
 		}
 		if (disableinfo){
 			for (const el of document.getElementsByClassName("info")){
@@ -261,7 +266,12 @@ function displayUI(turn=false){
 		}
 		}
 		displaytab()
-		
+		while (xp>=totalxp){
+			research_points+=1
+			xp-=totalxp
+			totalxp+=10+Math.floor(totalxp/7)
+			
+		}
 		food += Math.floor(food*modifiers.food)
 		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
 		population += Math.floor(population*modifiers.population)
@@ -271,7 +281,7 @@ function displayUI(turn=false){
 				food += ef.food
 				resourcesgained += ef.resources
 				military += ef.military
-				population += ef.population
+				unemployed +=ef.unemployed
 			}
 			else{
 				food += Math.floor(food*ef.food)
@@ -280,13 +290,8 @@ function displayUI(turn=false){
 			}
 		}
 		i = 0
-		if (xp>=totalxp){
-			research_points+=1
-			xp-=totalxp
-			totalxp+=10+Math.floor(totalxp/7)
-			
-		}
 		
+		unemployed = Math.max(unemployed,0)
 		
 		
 		military+=unemployed
