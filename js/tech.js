@@ -31,7 +31,7 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     modifiers.food+=0.1
                 }
                 else{
@@ -52,7 +52,7 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     modifiers.population+=0.1
                 }
                 else{
@@ -73,7 +73,7 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     modifiers.resources+=0.1
                 }
                 else{
@@ -94,7 +94,7 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     modifiers.military+=0.1
                 }
                 else{
@@ -555,7 +555,7 @@ const tech = [
         },
 		{
             name:"Trade School",
-            description:"Unlock the blueprints for a Trade School that increases all production by 10%",
+            description:"Unlock the blueprints for a Trade School that increases all production by 20%",
             requires:[[3,1],[3,2],[3,3]],
             cost:1,
             category:"Housing II",
