@@ -134,7 +134,7 @@ const popups = [
 		if (resources<((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
-		this.power =difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5))
+		this.power =Math.floor(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8+getRandomInt(-10,5)))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.3+getRandomInt(-10,5)))
+			attack(difficultymultiplier*3*((getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8+getRandomInt(-10,5)))
 		},
 	},
 	{
@@ -171,7 +171,7 @@ const popups = [
 			}
 			else {
 				reputation-=getRandomInt(1,2)
-				removebuildings()
+				removebuildings(3)
 				displayUI()
 				displaypopup(5, information)
 			}
@@ -356,27 +356,17 @@ const popups = [
 		]
 	},
 	{
-		title: "<strong class = 'color-r'>Fire</strong>",
+		title: "<strong class = 'color-r'>Fire!</strong>",
 	size: "25px",
-	description: "A wildfire burnt down a large portion of your village, should we rebuild the burnt buildings?",
+	description: "A wildfire burnt down a portion of your village!",
 	choosetext(){},
 	choices: [
 	{
-		text:"not",
+		text:"close",
 		effect(){
 		displaypopup(24,information)
-		removebuildings()
+		removebuildings(5)
 		
-		}
-	},
-	{
-		text: "rebuild",
-		effect(){
-		
-			information[23].choosetext()
-			displaypopup(23, information)
-			
-
 		}
 	},
 	
@@ -395,7 +385,7 @@ const popups = [
 		
 	]
 	random = choices[getRandomInt(0,choices.length-1)]
-	this.description = `${random}. Our priests notified us and told us it was a bad omen. They ask us to sacrifice our resources to the god above. Should we do it?`
+	this.description = `<strong class = 'color-r'>${random}.</strong> Our priests notified us and told us it was a bad omen. They ask us to sacrifice our resources to the god above. Should we do it?`
 	},
 	choices: [
 	{
@@ -426,7 +416,7 @@ const popups = [
 	title: "<strong class = 'color-g'>Breakthrough</strong>",
 	
 	size: "30px",
-	description: `A scientific breakthrough in unlocked advanced technology. +30% food production`,
+	description: `A scientific breakthrough in unlocked advanced technology. <strong class = 'color-g'>+30% food production</strong>`,
 	
 	choosetext(){
 			choice = [
@@ -445,7 +435,7 @@ const popups = [
 			}
 			]
 			random = getRandomInt(0,2)
-			this.description = `A scientific breakthrough in ${choice[random].des} unlocked advanced technology. +30% ${choice[random].type} production`
+			this.description = `A scientific breakthrough in ${choice[random].des} unlocked advanced technology. <strong class = 'color-g'>+30% ${choice[random].type} production</strong>`
 			switch(choice[random].type){
 				case 'food':
 				modifiers.military+=0.3
@@ -566,18 +556,27 @@ const popups = [
 	},
 	
 	{
-	title: "Refugees",
+	title: "<strong class = 'color-g'>Refugees</strong>",
 	size: "30px",
 	description: `A group of people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Do we let them in or not?`,
 	choosetext(){
-		this.description = `A group of ${Math.round(currentpop*1.5)} people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Do we let them in or not?`
+		this.time=getRandomInt(3,5)
+		this.description = `A group of ${shorten(Math.round(currentpop*1.5))} people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Your advisers predict that it'll take ${this.time} years for them to adapt to our village. Do we let them in or not?`
+		this.choices[0].choosetext(this.time)
 	},
+	time:0,
 	choices: [
 	{
+		time:0,
+		choosetext(amounttime){
+			this.time = amounttime
+		},
 		text: "Let in",
 		effect(){
 			information[19].choosetext(Math.round(currentpop*1.5))
+			temporaryeffects.push({type: "add", resources:0,unemployed:Math.round(currentpop*1.5)*-1,military:0,food:0,duration:this.time})
 			currentpop+=Math.round(currentpop*1.5)
+			
 			reputation+=getRandomInt(6,10)*(1+techstats.charisma)
 			displaypopup(19, information)
 			displayUI()
@@ -833,7 +832,7 @@ const popups = [
 		]
 	},
 	{
-			title: "<strong class = 'color-r'>FIreball!</strong>",
+			title: "<strong class = 'color-r'>Fireball!</strong>",
 		size: "25px",
 		description: "The beast circles our village with intent to destroy. What should we do?",
 		choosetext(){
@@ -999,14 +998,16 @@ const information = [
 	{
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
-	description: "You defeated the enemy and enslaved their people. +50% population",
+	description: "You defeated the enemy and enslaved their soldiers. <strong class = 'color-g'>+33% population</strong>",
 	choices: [
 	{
 		text: "close",
 		effect(){
-			
+			currentpop+=Math.floor(currentpop/3)
+			reputation+=getRandomInt(5,10)
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
+			displayUI()
 		}
 	},
 		]
@@ -1076,7 +1077,7 @@ const information = [
 	{
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
-	description: "You decimated their village and stole their resources. +33% resources",
+	description: "You decimated their village and stole their resources. <strong class = 'color-g'>+33% resources</strong>",
 	choosetext(){},
 	choices: [
 	{
@@ -1093,7 +1094,7 @@ const information = [
 	{
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
-	description: "You decimated their village and enslaved their people. +33% population",
+	description: "You decimated their village and enslaved their people.<strong class = 'color-g'> +33% population</strong>",
 	choosetext(){},
 	choices: [
 	{
@@ -1193,10 +1194,10 @@ const information = [
 	choosetext(resource){
 		console.log(resource)
 		if (resource != "military"){
-		this.description = `The person gave you valuable advice. +33% ${resource} production`
+		this.description = `The person gave you valuable advice.<strong class = 'color-g'> +33% ${resource} production</strong>`
 		}
 		else{
-			this.description = `The person gave you valuable advice. +33% ${resource}`
+			this.description = `The person gave you valuable advice. <strong class = 'color-g'>+33% ${resource}</strong>`
 		}
 
 	},
@@ -1255,7 +1256,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Benevolent Dictator</strong>",
 	size: "30px",
-	description: "He thanked you and walked off, next thing you know, your archer's accuracy improved greatly. +40% military, -40% resources",
+	description: "He thanked you and walked off, next thing you know, your archer's accuracy improved greatly. <strong class = 'color-g'>+40% military</strong>, <strong class = 'color-r'>-40% resources</strong>",
 	
 	choices: [
 	{
@@ -1306,7 +1307,7 @@ const information = [
 	
 	description: "We decided to be nice and let the refugees in. -20% population",
 	choosetext(amount){
-		this.description = `We decided to be nice and let the refugees in. +${amount} population`
+		this.description = `We decided to be nice and let the refugees in. <strong class = 'color-g'>+${shorten(amount)} population</strong>`
 	},
 	choices: [
 	{
@@ -1344,13 +1345,13 @@ const information = [
 	choosetext: function(which){
 		switch(which){
 			case 0:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -33% resources, +50% military"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. <strong class = 'color-g'>-33% resources</strong>,<strong class = 'color-g'> +50% military</strong>"
 			break
 			case 1:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. -33% resources, +50% food production"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. <strong class = 'color-g'>-33% resources</strong>, <strong class = 'color-g'>+50% food production</strong>"
 			break
 			case 2:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. -33% resources, +50% resource production"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. <strong class = 'color-g'>-33% resources</strong>, <strong class = 'color-g'>+50% resource production</strong>"
 			break
 		}
 	},
@@ -1423,7 +1424,7 @@ const information = [
 		title: "<strong class = 'color-r'>I pray to no god</strong>",
 		size: "30px",
 	
-		description: `You decided not to sacrifice anything. Hopefully the gods above spares you`,
+		description: `You decided not to sacrifice anything. <strong class = 'color-r'>Hopefully the gods above spares you</strong>`,
 	
 		choices: [
 		{
@@ -1440,7 +1441,7 @@ const information = [
 		title: "<strong class = 'color-r'>Pray to the RNGesus</strong>",
 		size: "30px",
 	
-		description: `You decided to sacrifice anything 33% of your resources. Hopefully the gods above blesses you. -33% resources`,
+		description: `You decided to sacrifice anything 33% of your resources. Hopefully the gods above blesses you. <strong class = 'color-r'>-33% resources</strong>`,
 	
 		choices: [
 		{
@@ -1458,7 +1459,7 @@ const information = [
 		size: "30px",
 		description: `You decided to sacrifice anything 33% of your resources. Hopefully the gods above blesses you. -33% resources`,
 		choosetext(upside, downside){
-			this.description = `You decided to open up a new trade route. Hopefully great riches are bestowed upon you. +30% ${upside}, -30% ${downside}`
+			this.description = `You decided to open up a new trade route. Hopefully great riches are bestowed upon you. <strong class = 'color-g'>+30% ${upside}</strong>, <strong class = 'color-g'>-30% ${downside}</strong>`
 		},
 		
 	
@@ -1548,7 +1549,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>We would never</strong>",
 		size: "30px",
-		description: `You refused to sacrifice anyone. Moments later, the beast arrived and laid waste to your village.`,
+		description: `You refused to sacrifice anyone. <strong class = 'color-r'>Moments later, the beast arrived and laid waste to your village.</strong>`,
 		
 		
 	
@@ -1685,6 +1686,11 @@ const information = [
 				megatemple+=1
 				document.getElementById("popup_block_buttons").style.display = "none"
 				document.getElementById("popup").style.display = "none"
+				boss_music.pause()
+				build_music.play()
+				m.phase=0
+				displayUI()
+				
 			}
 		},
 			]
