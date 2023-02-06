@@ -128,7 +128,7 @@ const tech = [
 	[	//ROW 1
 		{
             name:"Medium farms",
-            description:"Unlock the blueprints for a larger medium mine",
+            description:"Unlock the blueprints for a larger medium farm",
             requires:[[0,0]],
             cost:1,
             category:"Farming",
