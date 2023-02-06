@@ -39,6 +39,7 @@ function clearsave(index){
 	localStorage.removeItem('slot'+index,);
 	localStorage.removeItem('marketmod'+index);
 	localStorage.removeItem('marketitems'+index);
+	localStorage.removeItem('marketstats'+index);
 }
 function info(){
 	document.body.style.overflowY = "scroll"
@@ -119,7 +120,6 @@ function savescreen(save){
 		for (const el of ele){
 			el.disabled = false
 			el.innerHTML = "Save Game"
-			el.id =i
 			el.onclick = function(){savegame(el.id)}
 			i++
 		}
@@ -202,6 +202,7 @@ function savescreen(save){
 				grid.appendChild(des)
 		}
 	}
+	document.getElementById("title_start").style.display = "block"
 	document.getElementById("title_start").innerHTML = "Select Save"
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("start-flex").style.display = "none"
@@ -413,7 +414,6 @@ repairing = false
 				tech[techindex[0]][techindex[1]].unlocked = true
 				destitle.innerHTML=tech[techindex[0]][techindex[1]].name
 			des.innerHTML=tech[techindex[0]][techindex[1]].description
-				el.style.backgroundColor = "#bfb965"
 				
 				techelements[whichimage].image.style.filter = "brightness(100%)"
 			cost.innerHTML=`<strong class = 'color-${research_points>=tech[techindex[0]][techindex[1]].cost ? "g":"r"}'> Research cost: ${tech[techindex[0]][techindex[1]].cost}</strong>`
@@ -448,21 +448,21 @@ repairing = false
 				techoption.classList.remove("hover")
 			})
 			if (tech[i][j].unlocked){
-				techoption.style.backgroundColor = "#bfb965"
+				image.style.filter = "brightness(100%)"
 			}
 			else{
 				image.style.filter = "brightness(30%)"
-				techoption.style.backgroundColor = "#545232"
 			}
 			techgrid.appendChild(techoption)
 			
 			image.src=tech[i][j].image
 			image.style.position="relative"
-			image.style.right = "7px"
-			image.style.bottom = "2px"
+			image.style.right = "6px"
+			image.style.bottom = "1px"
 			image.style.width="30px"
-			image.style.height="30px"
+			image.style.height="31px"
 			techoption.appendChild(image)
+			
 			for (const el of tech[i][j].requires){
 				let techelement = null
 				
@@ -503,6 +503,7 @@ function savegame(bindex){
 	
 }
 function save(bindex){
+	window.onbeforeunload=null
 	const ele = document.getElementsByClassName("savedes"+bindex)
 	for (i=ele.length-1;i>=0;i--){
 		ele[i].remove();
@@ -521,11 +522,11 @@ function save(bindex){
 	save_slot = bindex
 	const localmarketstats = []
 	for (const item of m.marketselections){
-		localmarketstats.push({price: item.price,amountincrease:item.amountincrease})
+		localmarketstats.push({price: item.price,amountincrease:item.amountincrease,stock:item.stock})
 	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,cityincreases:p.cityincreases, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
@@ -550,6 +551,7 @@ function load(bindex){
 	for (i=0;i<m.marketselections.length;i++){
 		m.marketselections[i].price=localmarketstats[i].price
 		m.marketselections[i].amountincrease=localmarketstats[i].amountincrease
+		m.marketselections[i].stock=localmarketstats[i].stock
 	}
 	const localscrolldata = JSON.parse(localStorage.getItem('scrollinfo'+bindex));
 	resources = JSON.parse(localStorage.getItem('pstats'+bindex)).resources;
@@ -596,6 +598,9 @@ function load(bindex){
 	}
 	save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
 	difficulty = JSON.parse(localStorage.getItem('pstats'+bindex)).difficulty;
+	for (const increa in JSON.parse(localStorage.getItem('pstats'+bindex)).cityincreases){
+		p.cityincreases[increa] = JSON.parse(localStorage.getItem('pstats'+bindex)).cityincreases[increa]
+	}
 	difficultymultiplier = JSON.parse(localStorage.getItem('pstats'+bindex)).difficultymultiplier;
 	for (const el of JSON.parse(localStorage.getItem('pstats'+bindex)).buildingamounts){
 		buildingamounts.push(el)
@@ -644,6 +649,7 @@ function load(bindex){
 	start()
 }
 function newgame(difficult){
+	window.onbeforeunload = function(){return "hi"}
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
@@ -667,7 +673,7 @@ function newgame(difficult){
 	}
 	first_turn=true
 	save_slot=null
-	resources = 8
+	resources = 10
 	difficulty = 0
 	difficultymultiplier=difficult
 	currentpop = 2
@@ -717,38 +723,55 @@ displaypopup(3, confirmation)
 function getRandomInt(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+		return Math.round(Math.random() * (max - min)) + min;
 	}
 
 function shorten(number){
+	
+	if(number.toString().includes("e")){
+		return number
+	}
 	let numlength = Math.floor((JSON.stringify(Math.floor(number/10)).length)/3)
 	let returnnum = (number/10**(numlength*3))
 	let endsymbol = ""
-	let amountfixed = 2
 	switch (numlength){
 		case 0:
 		break
 		case 1:
-		endsymbol = "k"
+		endsymbol = "K"
 		break
 		case 2:
 		endsymbol = "m"
 		break
 		case 3:
-		endsymbol = "b"
+		endsymbol = "B"
 		break
 		case 4:
-		endsymbol = "t"
+		endsymbol = "T"
 		break
+		case 5:
+		endsymbol = "Qa"
+		break
+		case 6:
+		endsymbol = "Qi"
+		break
+		case 7:
+		endsymbol = "Sx"
+		break
+		
+		
 		
 	}
 	
-	if (number.toString().includes(".")){
-		if(number.toString()[number.length-1]=="0"||number.toString().substr(number.toString().indexOf(".")+1).length<2){
-		amountfixed = 1
-		}
+	returnnum=returnnum.toFixed(2)
+	
+	while(returnnum.includes(".")&&returnnum[returnnum.length-1]==="0"){
+		returnnum=returnnum.slice(0,returnnum.length-1)
 	}
-	return (returnnum.toString().includes(".") ? returnnum.toFixed(amountfixed):returnnum)+endsymbol
+	if(returnnum[returnnum.length-1]=="."){
+		returnnum=returnnum.slice(0,returnnum.length-1)
+	}
+	return returnnum+endsymbol
 }
 function start(){
 	tech_music.pause()
