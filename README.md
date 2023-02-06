@@ -11,8 +11,6 @@ If not blocked, the game can be played at https://Hongyiren2009.github.io/Civili
 *Feedback can be sent here:* https://forms.gle/XnKJQ7TmCPSVJKA3A
 
 
-**Please harass the developers.**
-
 
 ### Credits:
 Programming Lead and Game Design: Hongyiren2009  
