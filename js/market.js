@@ -20,7 +20,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
+			temporaryeffects.push({type: "add", resources:0,unemployed:0,military:increase,food:0,duration:10})
 		}
 	},
 	{
@@ -43,7 +43,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
+			temporaryeffects.push({type: "add", resources:0,unemployed:0,military:0,food:increase,duration:10})
 		}
 	},
 	{
@@ -115,7 +115,7 @@ const m = {
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease*-1
-			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
+			temporaryeffects.push({type: "add", resources:0,unemployed:0,military:increase,food:0,duration:10})
 			
 		}
 	},
@@ -207,7 +207,7 @@ const m = {
 		purchaseeffect(){
 			resources+=this.amountincrease
 			const increase = Math.floor(this.amountincrease/20 + this.amountincrease*0.1)*-1
-			temporaryeffects.push({type: "add", resources:increase,population:0,military:0,food:0,duration:20})
+			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:20})
 		}
 	},
 	{
@@ -230,7 +230,7 @@ const m = {
 		purchaseeffect(){
 			resources-=this.price
 			const increase = Math.floor(this.price/20 + this.price*0.1)
-			temporaryeffects.push({type: "add", resources:increase,population:0,military:0,food:0,duration:20})
+			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:20})
 		}
 	},
 	{
@@ -253,7 +253,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:0,food:increase,duration:10})
+			temporaryeffects.push({type: "add", resources:0,unemployed:0,military:0,food:increase,duration:10})
 		}
 	},
 	{
@@ -276,7 +276,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			const increase = this.amountincrease
-			temporaryeffects.push({type: "add", resources:0,population:0,military:increase,food:0,duration:10})
+			temporaryeffects.push({type: "add", resources:0,unemployed:0,military:increase,food:0,duration:10})
 		}
 	},
 	{
@@ -436,7 +436,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
-			m.bhealth= Math.floor((500+20*difficulty**1.6)*difficultymultiplier)
+			m.bhealth= Math.floor((500+20*difficulty**1.9)*difficultymultiplier)
 			m.totalbhealth=m.bhealth
 		}
 	}
@@ -556,12 +556,12 @@ function marketscreen(){
 			}
 			
 			for (let j =0,len=marketitemsindex.length;j<len;j++){
-				debugger
+				
 				if (document.getElementById(j<4 ? "m"+j:"bm"+j)!=null&&marketitemsindex[j].stock>=0){
-					
+				
 				marketitemsindex[j].choosetext()
 				
-				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock>0){
+				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock<=0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
 					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
 				}
