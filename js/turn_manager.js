@@ -47,22 +47,22 @@ function turnpopup(){
 	switch(m.phase){
 	case 0 :
 	if (difficulty>10){
-	debugger
-	if ((difficultymultiplier*3*(getRandomInt(m.spy,3) ? 1:0.5)*difficulty**1.8>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+	
+	if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 		
 		popups[0].choosetext()
 
 		displaypopup(0)
 		return false
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return false
 
 
 	}
-	else if (getRandomInt(0,1) > 0){
+	if (getRandomInt(0,1) > 0){
 		if (getRandomInt(0,15+luck)<5*difficultymultiplier){
 		randomindex = getRandomInt(3,7)
 		popups[randomindex].choosetext()
@@ -77,19 +77,19 @@ function turnpopup(){
 
 		}
 	}
-	else if (reputation>30&&getRandomInt(0,2)==0){
+	if (reputation>30&&getRandomInt(0,2)==0){
 		randomindex = getRandomInt(11,12)
 		popups[randomindex].choosetext()
 		displaypopup(randomindex)
 		return false
 	}
-	else if (m.scout){
+	if (m.scout){
 		popups[12].choosetext()
 		displaypopup(12)
 		m.scout=false
 		return false
 	}
-	else if (military>(difficulty+1)*5){
+	if (military>difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))){
 		displaypopup(2)
 		return false
 		}
@@ -103,7 +103,7 @@ function turnpopup(){
 		displaypopup(13)
 		return false
 	}
-	else if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return false
