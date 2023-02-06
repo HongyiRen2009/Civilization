@@ -73,87 +73,15 @@ const dev = {
         }
     
     },
-     popup: function(type) {
-     if (devmode) {
-	switch(type) {
-		case attack:
-			popups[0].choosetext()
-			displaypopup(0)
-			break;
-		case revolt:
-			popups[1].choosetext()
-			displaypopup(1)
-			break;
-		case playerattack:
-			popups[2].choosetext()
-			displaypopup(2)
-			break;
-		case plauge:
-			popups[3].choosetext()
-			displaypopup(3)
-			break;
-		case drought:
-			popups[4].choosetext()
-			displaypopup(4)
-			break;
-		case folklore:
-			popups[5].choosetext()
-			displaypopup(5)
-			break;
-		case fire:
-			popups[6].choosetext()
-			displaypopup(6)
-			break;
-		case badomen:
-			popups[7].choosetext()
-			displaypopup(7)
-			break;
-		case breakthrough:
-			popups[8].choosetext()
-			displaypopup(8)
-			break;
-		case traveler:
-			popups[9].choosetext()
-			displaypopup(9)
-			break;
-		case refugees:
-			popups[10].choosetext()
-			displaypopup(10)
-			break;
-		case tradeoffer:
-			popups[11].choosetext()
-			displaypopup(11)
-			break;
-		case traderoute:
-			popups[12].choosetext()
-			displaypopup(12)
-			break;
-		case beast:
-			popups[13].choosetext()
-			displaypopup(13)
-			break;
-		case eruption:
-			popups[14].choosetext()
-			displaypopup(14)
-			break;
-		case tribute:
-			popups[15].choosetext()
-			displaypopup(15)
-			break;
-		case beastattack:
-			popups[16].choosetext()
-			displaypopup(16)
-			break;
-		case endgame:
-			popups[17].choosetext()
-			displaypopup(17)
-			break;
-		case gameover:
-			popups[18].choosetext()
-			displaypopup(18)
-			break;
-	}
-            displayUI()
+    	popup: function(type) {
+        if (devmode) {
+            const types = ['attack','revolt','playerattack','plague','drought','folklore','fire','badomen','breakthrough','traveler','refugees','tradeoffer','traderoute','beast','eruption','beastattack','endgame','gameover']
+            const typeindex = types.indexOf(type)
+            if(typeindex==-1){
+                return "Enter a valid popup"
+            }
+            popups[typeindex].choosetext()
+            displaypopup(typeindex)
             return "Done!"
             
         } else {
