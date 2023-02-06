@@ -458,9 +458,9 @@ repairing = false
 			image.src=tech[i][j].image
 			image.style.position="relative"
 			image.style.right = "6px"
-			image.style.bottom = "1px"
+			image.style.bottom = "3px"
 			image.style.width="30px"
-			image.style.height="31px"
+			image.style.height="33px"
 			techoption.appendChild(image)
 			
 			for (const el of tech[i][j].requires){
@@ -644,6 +644,7 @@ function load(bindex){
 	modifiers.population = localmod.population
 	modifiers.resources = localmod.resources
 	modifiers.military = localmod.military
+	document.getElementById("year_label").innerHTML = "Year: "+difficulty
 	displaytab()
 	displayUI()
 	start()
@@ -795,7 +796,7 @@ document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
 document.getElementById("techlinecontainer").style.display = "none"
-document.getElementById("title_start").hidden = true
+document.getElementById("title_start").style.display = "none"
 document.getElementById("stats").style.display = "flex"
 document.getElementById("start-flex").style.display = "none"
 document.getElementById("market-flex").style.display = "none"
