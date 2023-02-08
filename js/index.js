@@ -92,12 +92,13 @@ function menu(){
 	removing=false
 	ispainting = false
 	repairing = false
+	istutorial=false
 document.getElementById("achievement-flex").style.display = 'none'
+document.getElementById("title_start").style.display = 'block'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'
-document.getElementById("title_start").innerHTML = 'Civilization'
+document.getElementById("title_start").innerHTML = 'Dawn of Civilization'
 	document.getElementById("back_button").hidden = true
-	document.getElementById("title_start").hidden = false
 	document.getElementById("boss_health_container").display = "none"
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("start-flex").style.display = "grid"
@@ -173,16 +174,19 @@ function savescreen(save){
 			difficultyname=""
 			
 			switch(localstats.difficultymultiplier){
-				case 1:
+				case 1.2:
 				difficultyname = "copper"
 				break
 				case 1.5:
 				difficultyname="iron"
 				break
-				case 2:
+				case 1.8:
 				difficultyname="diamond"
+				break
+				case 2:
+				difficultyname = "eternity"
 			}
-			const informationlist = ["difficulty: "+ difficultyname,"year: " + localstats.difficulty, "population: " + localstats.currentpop, "resources: " + localstats.resources, "military: " + localstats.military]
+			const informationlist = ["difficulty: "+ difficultyname,"year: " + shorten(localstats.difficulty), "population: " + shorten(localstats.currentpop), "resources: " + shorten(localstats.resources), "military: " + shorten(localstats.military)]
 			for (let j=0;j<5;j++){
 				
 				const des = document.createElement("p")
@@ -674,7 +678,7 @@ function newgame(difficult){
 	}
 	first_turn=true
 	save_slot=null
-	resources = 10
+	resources = 10+(difficult<=2 ? 2:0)
 	difficulty = 0
 	difficultymultiplier=difficult
 	currentpop = 2
