@@ -10,12 +10,18 @@ const m = {
 		stock:1,
 		whichthing: "resources",
 		allowed: true,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease =Math.floor(((difficulty**3)/400))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		},
 		choosetext(){
 			this.allowed = true
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Hire mercenaries to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+			this.description = `Hire mercenaries to fight for you. <br>+${shorten(this.amountincrease)} military for 10 turns.`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -31,6 +37,13 @@ const m = {
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -38,7 +51,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Request supply wagon deliveries. <br>+${this.amountincrease} food for 15 turns`
+			this.description = `Request supply wagon deliveries. <br>+${shorten(this.amountincrease)} food for 15 turns`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -54,6 +67,13 @@ const m = {
 		image: "<img src = 'images/marketPickaxe.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -61,7 +81,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Buy slaves from neighboring tribes. <br>+${this.amountincrease} population`
+			this.description = `Buy slaves from neighboring tribes. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
 			debugger
@@ -77,6 +97,13 @@ const m = {
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "population",
 		allowed: true,
 		choosetext(){
@@ -85,7 +112,7 @@ const m = {
 			if (this.amountincrease>currentpop){
 				this.allowed = false
 			}
-			this.description = `Sell slaves to neighboring tribes. <br>+${this.price*this.pricemod} resources`
+			this.description = `Sell slaves to neighboring tribes. <br>+${shorten(this.price)*this.pricemod} resources`
 		},
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
@@ -101,6 +128,13 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease =Math.floor(((difficulty**3)/600))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "military",
 		allowed: true,
 		choosetext(){
@@ -110,7 +144,7 @@ const m = {
 				this.allowed = false
 			}
 			
-			this.description = `Agree to support their tribes militarily. <br>+${this.price*this.pricemod} resources but lose ${this.amountincrease} military for 10 turns.`
+			this.description = `Agree to support their tribes militarily. <br>+${shorten(this.price)*this.pricemod} resources but lose ${shorten(this.amountincrease)} military for 10 turns.`
 		},
 		purchaseeffect(){
 			resources+=Math.floor(this.price*this.pricemod)
@@ -127,6 +161,13 @@ const m = {
 		image: "<img src = 'images/marketAid.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -151,6 +192,13 @@ const m = {
 		image: "<img src = 'images/marketNews.png' width='49' height='31'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -172,6 +220,11 @@ const m = {
 		image: "<img src = 'images/marketShield.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -179,7 +232,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Buy metal shields for your soldiers. <br>+${this.amountincrease} military but breaks after a battle.`
+			this.description = `Buy metal shields for your soldiers. <br>+${shorten(this.amountincrease)} military but breaks after a battle.`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -195,6 +248,9 @@ const m = {
 		image: "<img src = 'images/marketDollar.png' width='70' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -202,11 +258,11 @@ const m = {
 			this.amountincrease = resources*2
 			this.price=0
 			
-			this.description=`Acquire a loan for ${this.amountincrease} resources for 20 turns at a 10% intrest`
+			this.description=`Acquire a loan for ${shorten(this.amountincrease)} resources for 20 turns at a 30% intrest`
 		},
 		purchaseeffect(){
 			resources+=this.amountincrease
-			const increase = Math.floor(this.amountincrease/20 + this.amountincrease*0.1)*-1
+			const increase = Math.floor(1.3*(this.amountincrease/20))*-1
 			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:20})
 		}
 	},
@@ -218,6 +274,9 @@ const m = {
 		image: "<img src = 'images/marketDollar.png' width='70' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -225,11 +284,11 @@ const m = {
 	
 			this.price=Math.floor(resources/2)
 			
-			this.description=`Grant a loan for ${this.price/2} resources for 20 turns at a 10% intrest`
+			this.description=`Grant a loan for ${shorten(this.price/2)} resources for 20 turns at a 30% intrest`
 		},
 		purchaseeffect(){
 			resources-=this.price
-			const increase = Math.floor(this.price/20 + this.price*0.1)
+			const increase = Math.floor(1.3*(this.amountincrease/20))
 			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:20})
 		}
 	},
@@ -241,6 +300,13 @@ const m = {
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -248,7 +314,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `HIre criminals to hijack supply wagons. <br>+${this.amountincrease} food for 15 turns`
+			this.description = `HIre criminals to hijack supply wagons. <br>+${shorten(this.amountincrease)} food for 15 turns`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -264,6 +330,13 @@ const m = {
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease =Math.floor(((difficulty**3)/400))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -271,7 +344,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Hire and arm criminal groups to fight for you. <br>+${this.amountincrease} military for 10 turns.`
+			this.description = `Hire and arm criminal groups to fight for you. <br>+${shorten(this.amountincrease)} military for 10 turns.`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
@@ -287,6 +360,13 @@ const m = {
 		image: "<img src = 'images/marketChain.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -294,7 +374,7 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Buy kidnapped people from a crime group. <br>+${this.amountincrease} population`
+			this.description = `Buy kidnapped people from a crime grouthis. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
 			debugger
@@ -306,10 +386,17 @@ const m = {
 		price:10,
 		pricemod: 1.8,
 		title: "Assassination",
-		description: "Hire an assassin to kill your enemy king.<br>Reduce the chance of being attacked",
+		description: "Hire an assassin to kill your enemys's generals.<br>Reduce the chance of being attacked",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -332,6 +419,13 @@ const m = {
 		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -354,6 +448,13 @@ const m = {
 		image: "<img src = 'images/marketCloak.png' width='40' height='70'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -377,6 +478,13 @@ const m = {
 		image:"<img src = 'images/marketScroll.png' width='50' height='46'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.price-=Math.floor(reputation/5)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -400,6 +508,9 @@ const m = {
 		image: "<img src = 'images/scrap1.png' width='50' height='30'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -423,6 +534,9 @@ const m = {
 		image: "<img src = 'images/egg.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
+		turnmodify(){
+			
+		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
@@ -459,7 +573,7 @@ function marketscreen(){
 	boss_music.pause()
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
-		document.getElementById("mresource").innerHTML = 'Resources: ' + resources
+		document.getElementById("mresource").innerHTML = 'Resources: ' + shorten(resources)
 	document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("market-flex").style.display = 'flex'
@@ -520,24 +634,24 @@ function marketscreen(){
 		}
 		if (!el.allowed){
 			if (el.whichthing=="resources"){
-			buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			buy.innerHTML = `<strong class = 'color-r'>${shorten(Math.floor(el.price*el.pricemod))} ${el.whichthing}</strong>`
 			}
 			else{
-				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-r'>${shorten(Math.floor(el.amountincrease))} ${el.whichthing}</strong>`
 			}
 			buy.disabled = true
 		}
 		else{
 			if (el.whichthing=="resources"){
-			buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+			buy.innerHTML = `<strong class = 'color-g'>${shorten(Math.floor(el.price*el.pricemod))} ${el.whichthing}</strong>`
 			}
 			else{
-				buy.innerHTML = `<strong class = 'color-g'>${Math.floor(el.amountincrease)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-g'>${shorten(Math.floor(el.amountincrease))} ${el.whichthing}</strong>`
 			}
 		}
 		buy.onclick = function(){
 			kaching.play()
-			
+			debugger
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
@@ -563,16 +677,16 @@ function marketscreen(){
 				
 				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock<=0){
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${shorten(Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod))} ${marketitemsindex[j].whichthing}</strong>`
 				}
 				else{
 					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = false
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod)} ${marketitemsindex[j].whichthing}</strong>`
+					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${shorten(Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod))} ${marketitemsindex[j].whichthing}</strong>`
 
 				}
 				}
 			}
-			document.getElementById("mresource").innerHTML = "Resources: " + resources
+			document.getElementById("mresource").innerHTML = "Resources: " + shorten(resources)
 			document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 			instock.innerHTML = "in stock: "+el.stock
 			el.choosetext()
@@ -580,7 +694,7 @@ function marketscreen(){
 			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
 			}
 			else if (!el.allowed){
-				buy.innerHTML = `<strong class = 'color-r'>${Math.floor(el.price*el.pricemod)} ${el.whichthing}</strong>`
+				buy.innerHTML = `<strong class = 'color-r'>${shorten(Math.floor(el.price*el.pricemod))} ${el.whichthing}</strong>`
 			buy.disabled = true
 			}
 			
