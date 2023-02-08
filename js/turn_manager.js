@@ -55,14 +55,7 @@ function turnpopup(){
 		displaypopup(0)
 		return false
 	}
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
-		popups[1].choosetext()
-		displaypopup(1)
-		return false
-
-
-	}
-	if (getRandomInt(0,1) > 0){
+	if (Math.random() > 0.7){
 		if (getRandomInt(0,15+luck)<5*difficultymultiplier){
 		randomindex = getRandomInt(3,7)
 		popups[randomindex].choosetext()
@@ -77,6 +70,14 @@ function turnpopup(){
 
 		}
 	}
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
+		popups[1].choosetext()
+		displaypopup(1)
+		return false
+
+
+	}
+	
 	if (reputation>30&&getRandomInt(0,2)==0){
 		randomindex = getRandomInt(11,12)
 		popups[randomindex].choosetext()
@@ -199,13 +200,9 @@ function next_turn(){
 	if (difficulty>20){
 		
 		for (const p of m.marketselections){
-		p.price +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? p.stock-4:4-p.stock)+difficulty/15,5))
-		p.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(p.whichthing == "resources" ? 4-p.stock:p.stock-4)+difficulty/15,5))
-		p.price-=Math.floor(reputation/5)
-		p.price = Math.min(Math.max(p.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		p.amountincrease = Math.min(Math.max(p.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
-		if(p.stock<10&&p.title!="Blueprints"&&p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
-		p.stock = Math.max(p.stock,0)
+		p.turnmodify()
+		if(p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
+		p.stock = Math.min(3,Math.max(p.stock,0))
 		selectmarketitems()
 		
 	}
@@ -254,7 +251,10 @@ function displayUI(turn=false){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
 			population += gridstats[i].population
-			food += gridstats[i].food+((gridstats[i].fish&&turn) ? getRandomInt(10,15):0)
+			if(gridstats[i].fish&&turn){
+				gridstats[i].food = getRandomInt(10,15)
+			}
+			food += gridstats[i].food
 			military += gridstats[i].military
 			xpgained += gridstats[i].xp
 			resourcesgained += gridstats[i].resources
@@ -272,10 +272,10 @@ function displayUI(turn=false){
 			totalxp+=10+Math.floor(totalxp/7)
 			
 		}
-		food += Math.floor(food*modifiers.food)
-		resourcesgained += Math.floor(resourcesgained*modifiers.resources)
-		population += Math.floor(population*modifiers.population)
-		military += Math.floor(military*modifiers.military)+m.shield
+		food += Math.ceil(food*modifiers.food)
+		resourcesgained += Math.ceil(resourcesgained*modifiers.resources)
+		population += Math.ceil(population*modifiers.population)
+		military += Math.ceil(military*modifiers.military)+m.shield
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
 				food += ef.food
@@ -284,9 +284,9 @@ function displayUI(turn=false){
 				unemployed +=ef.unemployed
 			}
 			else{
-				food += Math.floor(food*ef.food)
-		resourcesgained += Math.floor(resourcesgained*ef.resources)
-		military += Math.floor(military*ef.military)
+				food += Math.ceil(food*ef.food)
+		resourcesgained += Math.ceil(resourcesgained*ef.resources)
+		military += Math.ceil(military*ef.military)
 			}
 		}
 		i = 0
