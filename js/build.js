@@ -90,12 +90,12 @@ const p = {
 		name: "Tiny Farm",
 		letter: "TF",
 		piecepositions: [{x:1,y:0,img:{dx:20,dy:20}},{x:0,y:0,img:{dx:0,dy:20}}],
-		description: "A very small farm that produces 2 food. Requires 3 resources to construct",
+		description: "A very small farm that produces 1 food. Requires 3 resources to construct",
 		unlocked: true,
 		near: "building",
 		tab: "farms",
 		effect(){
-			p.food=2
+			p.food=1
 			resources-=2-Math.ceil(2*techstats.simple_farms)
 			
 		},
@@ -107,14 +107,14 @@ const p = {
 		name: "Small Farm",
 		letter: "F",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
-		description: "A small farm that produces 4 food. Half efficiency if on a hill. Requires 4 resources to construct and 1 person operating it",
+		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
 		tab: "farms",
 		effect(){
 			
-			p.food=Math.ceil(4*(p.hill ? 0.5:1))
-			resources-=4+Math.ceil(4*techstats.simple_farms)
+			p.food=3
+			resources-=4-Math.ceil(4*techstats.simple_farms)
 			unemployed-=1
 		},
 		requires(){
@@ -124,14 +124,14 @@ const p = {
 	{
 		name: "Medium Farm",
 		letter: "MF",
-		description: "A medium farm that produces 10 food. Requires 6 resources to construct and 3 people operating it. Cannot be on a hill",
+		description: "A medium farm that produces 6 food. Requires 6 resources to construct and 3 people operating it. Cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "!hill",
 		tab: "farms",
 		effect(){
-			p.food=10
-			resources-=6+Math.ceil(6*techstats.simple_farms)
+			p.food=6
+			resources-=6-Math.ceil(6*techstats.simple_farms)
 			unemployed-=3
 		},
 		requires(){
@@ -141,14 +141,14 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 40 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
+		description: "A large farm that produces 30 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river not",
 		tab: "farms",
 		effect(){
-			p.food=40
-			resources-=24+Math.ceil(24*techstats.simple_farms)
+			p.food=30
+			resources-=24-Math.ceil(24*techstats.simple_farms)
 			unemployed-=5
 		},
 		requires(){
@@ -252,42 +252,42 @@ const p = {
 	{
 		name: "Small Mine",
 		letter: "SM",
-		description: "A small mine to extract resources from a hill. Collects 3 resources per year. Half efficiency if not on a hill and requires 4 resources and 1 person operating it",
+		description: "A small mine to extract resources from a hill. Collects 2 resources per year. Requires 4 resources and 1 person operating it",
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "building",
 		tab: "mines",
 		effect(){
 			
-			p.resources=Math.ceil(3*(p.hill ? 1:0.5))
-			resources-=4+Math.ceil(techstats.planned_mines*4)
+			p.resources=2
+			resources-=4-Math.ceil(techstats.planned_mines*4)
 			unemployed-=1
 		},
 		requires(){
-			return resources >=4+Math.ceil(techstats.planned_mines*4) && unemployed>=1
+			return resources >=4-Math.ceil(techstats.planned_mines*4) && unemployed>=1
 		}
 	},
 	{
 		name: "Medium Mine",
 		letter: "MM",
-		description: "A medium mine to extract resources from a hill. Collects 24 resources per year. Must be on a hill and requires 24 resources and 5 people operating it",
+		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be on a hill and requires 24 resources and 5 people operating it",
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		unlocked: false,
 		near: "hill",
 		tab: "mines",
 		effect(){
-			p.resources=24
-			resources-=24+Math.ceil(techstats.planned_mines*24)
+			p.resources=18
+			resources-=24-Math.ceil(techstats.planned_mines*24)
 			unemployed-=5
 		},
 		requires(){
-			return resources >=24+Math.ceil(techstats.planned_mines*15) && unemployed>=5
+			return resources >=24-Math.ceil(techstats.planned_mines*24) && unemployed>=5
 		}
 	},
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 60 resources per year. Must be on entirely on a hill and requires 50 resources and 8 people operating it. Must be entirely on a hill",
+		description: "A large mine to extract resources from a hill. Collects 50 resources per year. Must be on entirely on a hill and requires 50 resources and 8 people operating it. Must be entirely on a hill",
 		piecepositions: [
 			{x:1,y:0},{x:0,y:0}, {x:-1, y:0},
 			{x:0,y:1},{x:1,y:1}, {x:-1, y:1},
@@ -297,12 +297,12 @@ const p = {
 		near: "entire",
 		tab: "mines",
 		effect(){
-			p.resources=40
-			resources-=50+Math.ceil(techstats.planned_mines*50)
+			p.resources=50
+			resources-=50-Math.ceil(techstats.planned_mines*50)
 			unemployed-=8
 		},
 		requires(){
-			return resources >=50+Math.ceil(techstats.planned_mines*50) && unemployed>=8
+			return resources >=50-Math.ceil(techstats.planned_mines*50) && unemployed>=8
 		}
 	},
 	{
@@ -402,7 +402,7 @@ const p = {
 		near: "river",
 		tab: "farms",
 		effect(){
-			p.food = 0
+			p.food = getRandomInt(10,15)
 			resources-=10
 			p.fish = true
 			unemployed-=2
@@ -433,7 +433,7 @@ for (const un of p.pieceROM){
 }
 
 
-function removebuildings(onhill=false, intensity = 4){
+function removebuildings(intensity = 4,onhill=false){
 	remove = onhill
 		for(i=gridstats.length-1;i>-1;i--){
 		if (getRandomInt(0,intensity) == 0){
@@ -546,7 +546,7 @@ for (i=0,len=piece.length;i!=len;i++){
 		return localallowed
 }
 
-document.onmousemove = function(event){
+canvas.onmousemove = function(event){
 	
 		
 if (ispainting){
@@ -739,9 +739,10 @@ function render(){
 	
 	
 }
-document.onmousedown = function(event){
+canvas.onmousedown = function(event){
 	
 	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
+		allowed = false
 		click.play()
 		p.population = 0
 		p.military = 0
@@ -834,7 +835,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		grid[el.y/20].splice(indexx,1)
 		breaksound.play()
 	}
-	resources+=Math.round(gridstats[buildingindex].resourcerefund/2)
+	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
 	buildingamounts[gridstats[buildingindex].index]-=1
 	gridstats.splice(buildingindex,1)
 	displayUI()
