@@ -290,6 +290,8 @@ function displayachievement(which){
 	animationac.style.animation = 'none';
 		animationac.offsetHeight; /* trigger reflow */
 		animationac.style.animation = null; 
+		setTimeout(function(){animationac.style.display="none"},4000)
+
 }
 
 function achievementscreen(ismenu){
