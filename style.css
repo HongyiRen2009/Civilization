@@ -54,6 +54,17 @@ input[type="range"]::-webkit-slider-thumb {
     opacity: 0;
   }
 }
+@keyframes eternity{
+	0%{
+		color: black;
+	}
+	50%{
+		color: purple;
+	}
+	100%{
+		color:black;
+	}
+}
 @keyframes block_done {
   0% {
     opacity: 0;
@@ -197,7 +208,7 @@ strong {
   display: grid;
   background-color: var(--game-container-bg-color);
   padding: 0px 5px 10px 5px;
-  grid-template-rows: 100px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 100px 50px 50px 50px 50px 50px 50px;
   text-align: center;
   border: 3px solid #000000;
   border-radius: 6px;
