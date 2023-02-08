@@ -131,10 +131,10 @@ const popups = [
 	power: 0,
 	description: "A neighbouring tribe is attacking you",
 	choosetext(){
-		if (resources<((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0)){
+		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
-		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5)))
+		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.8)/64)+getRandomInt(-10,5)))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))))
+			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.8)/64)+getRandomInt(-10,5))))
 		},
 	},
 	{
@@ -154,7 +154,8 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			resources-=Math.floor(((difficulty**1.5)/2)-((difficulty**1.5)/2)*(techstats.diplomacy ? 0.3:0))
+			information[12].choosetext((resources*getRandomInt(3,7)*0.1)+((resources/2)*(techstats.diplomacy ? 0.3:0)))
+			resources-=(resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0))
 			displaypopup(12, information)
 
 			displayUI()
@@ -774,7 +775,7 @@ const popups = [
 			text:"close",
 			effect(){
 				
-				removebuildings(true)
+				removebuildings(2,true)
 				document.getElementById("popup_block_buttons").style.display = "none"
 				document.getElementById("popup").style.display = "none"
 			
@@ -806,7 +807,7 @@ const popups = [
 		{
 			text:"refuse",
 			effect(){
-			removebuildings(false)
+			removebuildings(4,false)
 			displaypopup(32, information)
 			displayUI()
 			
@@ -815,12 +816,12 @@ const popups = [
 		{
 			text:"fight",
 			effect(){
-				if (military>=difficultymultiplier*4*difficulty**1.3){
+				if (military>=(getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**2.9)/16)){
 				displaypopup(33, information)
 				m.bhealth-=Math.floor(military/2)
 				}
 				else{
-					removebuildings()
+					removebuildings(3,false)
 					currentpop-=Math.floor(currentpop/3)
 					displaypopup(34, information)
 				}
@@ -856,7 +857,7 @@ const popups = [
 			text:"nothing",
 			effect(){
 				
-				removebuildings()
+				removebuildings(5,false)
 				displaypopup(35, information)
 				
 			
@@ -874,7 +875,7 @@ const popups = [
 			text:"Fight",
 			effect(){
 				
-				if (military>=difficultymultiplier*5*difficulty**1.4){
+				if (military>=(getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**2.9)/16)){
 				displaypopup(37, information)
 				m.bhealth-=Math.floor(military/2)
 				}
@@ -1175,7 +1176,10 @@ const information = [
 	title: "<strong class = 'color-g'>War is not for me</strong>",
 	size: "30px",
 	description: "You negotiated with the enemy. -50% resources",
-	choosetext(){},
+	
+	choosetext(amount){
+		this.description=`You negotiated with the enemy. -${shorten(amount)} resources`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1459,7 +1463,7 @@ const information = [
 		size: "30px",
 		description: `You decided to sacrifice anything 33% of your resources. Hopefully the gods above blesses you. -33% resources`,
 		choosetext(upside, downside){
-			this.description = `You decided to open up a new trade route. Hopefully great riches are bestowed upon you. <strong class = 'color-g'>+30% ${upside}</strong>, <strong class = 'color-g'>-30% ${downside}</strong>`
+			this.description = `You decided to open up a new trade route. Hopefully great riches are bestowed upon you. <strong class = 'color-g'>+30% ${upside}</strong>, <strong class = 'color-r'>-30% ${downside}</strong>`
 		},
 		
 	
