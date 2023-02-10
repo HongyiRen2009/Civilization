@@ -124,18 +124,18 @@ const p = {
 	{
 		name: "Medium Farm",
 		letter: "MF",
-		description: "A medium farm that produces 6 food. Requires 6 resources to construct and 3 people operating it. Cannot be on a hill",
+		description: "A medium farm that produces 12 food. Requires 12 resources to construct and 3 people operating it. Cannot be on a hill",
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "!hill",
 		tab: "farms",
 		effect(){
-			p.food=6
-			resources-=6-Math.ceil(6*techstats.simple_farms)
+			p.food=12
+			resources-=12-Math.ceil(6*techstats.simple_farms)
 			unemployed-=3
 		},
 		requires(){
-			return resources >=6-Math.ceil(6*techstats.simple_farms) && unemployed>=3
+			return resources >=12-Math.ceil(6*techstats.simple_farms) && unemployed>=3
 		}
 	},
 	{
@@ -165,6 +165,7 @@ const p = {
 		tab: "misc",
 		effect(){
 			luck+=Math.ceil(2*(1+techstats.ded_worship))
+			p.xp+=50
 			reputation+=5
 			resources-=40
 			unemployed-=10
@@ -287,7 +288,7 @@ const p = {
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 50 resources per year. Must be on entirely on a hill and requires 50 resources and 8 people operating it. Must be entirely on a hill",
+		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it. Must be entirely on a hill",
 		piecepositions: [
 			{x:1,y:0},{x:0,y:0}, {x:-1, y:0},
 			{x:0,y:1},{x:1,y:1}, {x:-1, y:1},
@@ -297,12 +298,12 @@ const p = {
 		near: "entire",
 		tab: "mines",
 		effect(){
-			p.resources=50
-			resources-=50-Math.ceil(techstats.planned_mines*50)
+			p.resources=70
+			resources-=70-Math.ceil(techstats.planned_mines*70)
 			unemployed-=8
 		},
 		requires(){
-			return resources >=50-Math.ceil(techstats.planned_mines*50) && unemployed>=8
+			return resources >=70-Math.ceil(techstats.planned_mines*70) && unemployed>=8
 		}
 	},
 	{
@@ -865,7 +866,12 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 }
 
 document.onkeydown = function(event){
-	if(techstats.exploration){
+	if(event.key=="Escape"){
+		if(canvas.style.display=="block"){
+					pause_menu()
+				}
+	}
+	if(techstats.exploration&&document.getElementById("popup_block_buttons").style.display!="block"&&canvas.style.display=="block"){
 		if(psettings.arrowkeys){
 			switch(event.key){
 		
@@ -889,6 +895,7 @@ document.onkeydown = function(event){
 					move(1,0)
 					}
 					break
+				
 				//case "r":
 				//rotate()
 				//break
