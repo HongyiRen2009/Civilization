@@ -12,7 +12,7 @@ const m = {
 		allowed: true,
 		turnmodify(){
 			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
-		this.amountincrease =Math.floor(((difficulty**3)/400))
+		this.amountincrease =Math.floor(((difficulty**2.8)/64)*(getRandomInt(8,12)/10))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
 		},
@@ -69,10 +69,10 @@ const m = {
 		stock:1,
 		turnmodify(){
 			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
-		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/25,5))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/4)+3),Math.floor(difficulty*1.5))
 		},
 		whichthing: "resources",
 		allowed: true,
@@ -130,7 +130,7 @@ const m = {
 		stock:1,
 		turnmodify(){
 			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
-		this.amountincrease =Math.floor(((difficulty**3)/600))
+		this.amountincrease =Math.floor(((difficulty**2.9)/64)*(getRandomInt(8,12)/10))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
 		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
@@ -163,10 +163,8 @@ const m = {
 		stock:1,
 		turnmodify(){
 			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
-		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
 		},
 		whichthing: "resources",
 		allowed: true,
@@ -180,7 +178,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			reputation+=getRandomInt(4,9)
+			reputation+=getRandomInt(6,12)
 			
 		}
 	},
@@ -301,11 +299,11 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
-		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/25,5))
+		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/25,5))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
+		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/4)+3),Math.floor(difficulty*1.5))
 		},
 		whichthing: "resources",
 		allowed: true,
@@ -550,7 +548,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
-			m.bhealth= Math.floor((500+20*difficulty**1.9)*difficultymultiplier)
+			m.bhealth= Math.floor((500+60*difficulty**1.9)*difficultymultiplier)
 			m.totalbhealth=m.bhealth
 		}
 	}
@@ -651,7 +649,7 @@ function marketscreen(){
 		}
 		buy.onclick = function(){
 			kaching.play()
-			debugger
+			
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
@@ -675,15 +673,11 @@ function marketscreen(){
 				
 				marketitemsindex[j].choosetext()
 				
-				if (!marketitemsindex[j].allowed||marketitemsindex[j].stock<=0){
-					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = true
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-r'>${shorten(Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod))} ${marketitemsindex[j].whichthing}</strong>`
-				}
-				else{
-					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled = false
-					document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-g'>${shorten(Math.floor(marketitemsindex[j].price*marketitemsindex[j].pricemod))} ${marketitemsindex[j].whichthing}</strong>`
+				
+					document.getElementById(j<4 ? "m"+j:"bm"+j).disabled =(!marketitemsindex[j].allowed||marketitemsindex[j].stock<=0)
+				
+				document.getElementById(j<4 ? "m"+j:"bm"+j).innerHTML = `<strong class = 'color-${(marketitemsindex[j].allowed ? 'g':'r')}'>${shorten((Math.floor(marketitemsindex[j].whichthing === "resources" ? marketitemsindex[j].price*marketitemsindex[j].pricemod:marketitemsindex[j].amountincrease)))} ${marketitemsindex[j].whichthing}</strong>`
 
-				}
 				}
 			}
 			document.getElementById("mresource").innerHTML = "Resources: " + shorten(resources)
@@ -706,7 +700,11 @@ function marketscreen(){
 				marketitems[index]="failed"
 			}
 			status.style.animation = "done 2s linear 0s 1 normal forwards"
+			
+			if(!psettings.nompop){
 			status.hidden = false
+			setTimeout(function(){status.hidden=true},2000)
+			}
 		}
 		flex.appendChild(title)
 		flex.appendChild(im)
