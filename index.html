@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="flex-grid" id="stats" style.display:none;>
-	<button title="make sure to save!" class = "next_turn" onclick = "displaypopup(1,confirmation)">Main Menu</button>
+	<button title="make sure to save!" class = "next_turn" onclick = "pause_menu()">ESC</button>
 	<div title="how many total population you have out of your total housing. If the second number is red it means you do not have enough homes to house all of your citizens."id = "pop" class = "pop">Population: 0/0</div>
 
 	<div title="how much food you currently have, if red you do not have enough to feed everyone." id = "food">Food: 0</div>
@@ -172,6 +172,12 @@
 	
 	<div id = "description" class = "dis">undefined</div>
 </div>
+<div id = "pause_flex" style = "z-index:3;display:none;flex-direction:column;align-items:center; padding:10px; gap:30px; border: 3px solid black; border-radius:4px; background-color:var(--game-container-bg-color); width:30%; position: absolute;bottom: 50%;left: 50%;transform: translate(-50%, 50%);">
+<h1 style = "font-size:30px" >Paused</h1>
+<button class = "pause_button" onclick = "unpause()">Resume</button>
+<button class = "pause_button" onclick = "settings(false)">Settings</button>
+<button class = "pause_button" onclick = "displaypopup(1, confirmation)">Menu</button>
+</div>
 <img src = "images/build1.png" style = "display:none" id = "cloudimg"></img>
 <svg id = "techlinecontainer", class="techline"></svg>
 	<div id = "settings-flex" style="display: none; margin: auto; width: 70%; align-items: center; flex-direction: column; gap: 30px;">
@@ -198,6 +204,14 @@
 	<button class = "settings_button" onclick="change_settings('notutorial')" id = "notutorial">OFF</button>
 	
 	</div>
+	<div style="display: flex; align-items: center; flex-direction: column;">
+		<p style="font-weight: bold;">No Flashing</p>
+	<button class="settings_button" id = "noflash" onclick="change_settings('noflash')">OFF</button>
+	
+	<p style="font-weight: bold;">No Market Popup</p>
+	<button class = "settings_button" onclick="change_settings('nompop')" id = "nompop">OFF</button>
+	
+	</div>
 	</div>
 </div>
 
@@ -220,13 +234,40 @@ const grid = []
 const hillgrid = []
 const tabs = ["City Centers","housing","farms","military","mines","misc"]
 const gridstats = []
+
 const psettings = {
 	noimage:false,
 	nofade:false,
 	arrowkeys:false,
-	notutorial:0
+	notutorial:false,
+	noflash:false,
+	nompop:false
 }
-
+if(localStorage.getItem("settings")==null){
+	localStorage.setItem("settings", JSON.stringify(psettings))
+}
+else{
+	
+	const localsettings = JSON.parse(localStorage.getItem("settings"))
+	const ele = document.getElementsByClassName("settings_button")
+	let el=0
+	for (const se in psettings){
+		if(localsettings[se]==undefined){
+			localsettings[se]=false
+		}
+		psettings[se]=localsettings[se]
+		if(psettings[se]==false){
+		ele[el].style.backgroundColor="rgb(255,0,0)"
+		ele[el].innerHTML="OFF"
+	}
+	else{
+		ele[el].style.backgroundColor="rgb(0,255,0)"
+		ele[el].innerHTML="ON"
+	}
+		el++
+	}
+	
+}
 let scrollX = 250
 const oldposition = {}
 let scrollY = 250
@@ -300,6 +341,7 @@ function change_settings(setting){
 		document.getElementById(setting).style.backgroundColor="rgb(0,255,0)"
 		document.getElementById(setting).innerHTML="ON"
 	}
+	localStorage.setItem("settings", JSON.stringify(psettings))
 }
 function switchtab(){
 	tab = document.getElementById("taboption").value
