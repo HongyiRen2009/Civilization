@@ -45,6 +45,7 @@ const confirmation = [
 			menu()
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
+			document.getElementById("pause_flex").style.display = "none"
 		},
 	},
 	{
@@ -52,7 +53,6 @@ const confirmation = [
 		effect(){
 			
 			
-			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			
 		}
@@ -134,7 +134,7 @@ const popups = [
 		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
-		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.8)/64)+getRandomInt(-10,5)))
+		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/32)*(getRandomInt(8,12)/10)))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.8)/64)+getRandomInt(-10,5))))
+			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/32)*(getRandomInt(8,12)/10))))
 		},
 	},
 	{
@@ -821,7 +821,7 @@ const popups = [
 				m.bhealth-=Math.floor(military/2)
 				}
 				else{
-					removebuildings(3,false)
+					removebuildings(4,false)
 					currentpop-=Math.floor(currentpop/3)
 					displaypopup(34, information)
 				}
@@ -1497,7 +1497,7 @@ const information = [
 			]
 	},
 	{
-		title: "<strong class = 'color-g'>Pre-Democracy</strong>",
+		title: "<strong class = 'color-g'>Pre-Diplomacy</strong>",
 		size: "30px",
 		description: `Your expansion has been noticed by other tribes, and your people are now knowledgable of life outside your village. Be careful, because other tribes can now attack you and your people can now rebel`,
 		
@@ -1515,7 +1515,7 @@ const information = [
 			]
 	},
 	{
-		title: "<strong class = 'color-g'>Post-Democracy</strong>",
+		title: "<strong class = 'color-g'>Post-Diplomacy</strong>",
 		size: "30px",
 		description: `Tribes are growing stronger and more sophisticated, and they gained the ability to declare war.`,
 		
@@ -1643,7 +1643,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Success!</strong>",
 		size: "30px",
-		description: `After sending in your army, you hear the dragon screech and it flew off.`,
+		description: `After sending in your army, you hear the beast screech and it flew off.`,
 		
 		
 	
