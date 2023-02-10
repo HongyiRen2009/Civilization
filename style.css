@@ -9,12 +9,13 @@
   width: 100%;
   -webkit-appearance: none;
   background: transparent;
+  border-radius: 5px;
  cursor: pointer;
   
 }
 input[type="range"]::-webkit-slider-runnable-track {
 	height: 0.75rem;
-	border-radius: 5px
+	
 	
 }
 input[type="range"]::-webkit-slider-thumb {
@@ -115,6 +116,26 @@ input[type="range"]::-webkit-slider-thumb {
   left: 50%;
   transform: translate(-50%, 100%);
 }
+@keyframes pause{
+	from {
+		transform: translate(-50%, -50%);
+	}
+	to{
+		transform: translate(-50%, 50%);
+	}
+}
+.pause_button {
+  margin: auto;
+  font-size: 30px;
+  width: 200px;
+  border-style: solid;
+  border-radius: 6px;
+  transition-duration: 0.1s;
+  background-color: #f0e87a;
+}
+.pause_button:hover:enabled {
+  background-color: var(--game-container-bg-color);
+}
 #stats button,
 #stats div {
   display: flex;
@@ -202,7 +223,7 @@ strong {
   gap: 15px;
 }
 .save-grid {
-  width: 180px;
+  width: 15%;
   max-height: 80%;
   margin: auto;
   display: grid;
@@ -397,7 +418,7 @@ strong {
 }
 body {
   background-color: #fff8dc;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Sans-Serif;
   user-select: none;
   margin: 0;
   min-height: 100vh;
@@ -501,7 +522,7 @@ body {
   border-radius: 6px;
   display: none;
   justify-content: center;
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   top: 50%;
   left: 50%;
