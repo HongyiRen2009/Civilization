@@ -20,12 +20,28 @@ function difficultyscreen(){
 	document.getElementById("start-flex").style.display = "none"
 	document.getElementsByTagName('canvas')[0].style.display = 'none'
 }
-function settings(){
+function pause_menu(){
+	document.getElementById("popup_block_buttons").style.display = "block"
+	pause = document.getElementById("pause_flex")
+	pause.style.display="flex"
+	pause.style.animation = "none"
+	pause.style.animation = "pause 1s"
+}
+function unpause(){
+document.getElementById("popup_block_buttons").style.display = 'none';
+document.getElementById("pause_flex").style.display='none'
+}
+function settings(ifmenu=true){
+	document.getElementById("popup_block_buttons").style.display = 'none';
+	document.getElementById("pause_flex").style.display='none'
 	document.getElementById("settings-flex").style.display = "flex"
 	document.getElementById("back_button").hidden = false
-	document.getElementById("back_button").onclick = function(){menu()}
+	document.getElementById("back_button").onclick = function(){(ifmenu ? menu():start())}
+	document.getElementById("title_start").style.display = 'block'
 	document.getElementById("title_start").innerHTML = 'Settings'
 	document.getElementById("start-flex").style.display = "none"
+		document.getElementById("stats").style.display = "none"
+	document.getElementById("select-grid").style.display = "none"
 	document.getElementsByTagName('canvas')[0].style.display = 'none'
 }
 function confirmclear(index){
@@ -424,7 +440,9 @@ repairing = false
 			
 			reserachbutton.disabled = !(research_points>=tech[techindex[0]][techindex[1]].cost&&(tech[techindex[0]][techindex[1]].maxtier > tech[techindex[0]][techindex[1]].tier||tech[techindex[0]][techindex[1]].maxtier == -1))	
 			success.style.animation = "done 2s linear 0s 1 normal forwards"
+			
 			displayUI()
+			document.getElementById("boss_health_container").style.display = 'none'
 			setTimeout(function(){success.remove()},2000)
 			}
 			
@@ -736,7 +754,7 @@ function shorten(number){
 	if(number.toString().includes("e")){
 		return number
 	}
-	let numlength = Math.floor((JSON.stringify(Math.floor(number/10)).length)/3)
+	let numlength = Math.floor((JSON.stringify(Math.floor(Math.abs(number)/10)).length)/3)
 	let returnnum = (number/10**(numlength*3))
 	let endsymbol = ""
 	switch (numlength){
@@ -796,6 +814,7 @@ document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
 if (m.phase>1){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
+document.getElementById("settings-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
@@ -806,7 +825,7 @@ document.getElementById("start-flex").style.display = "none"
 document.getElementById("market-flex").style.display = "none"
 document.getElementById("save-flex").style.display = "none"
 document.getElementById("select-grid").style.display = "flex"
-document.getElementsByTagName('canvas')[0].style.display = 'block'
+canvas.style.display = 'block'
 displayUI()
 render()
 
