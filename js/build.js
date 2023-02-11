@@ -6,7 +6,7 @@ const p = {
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0,img:{dx:0,dy:0}}],
-		tab: "housing",
+		tab: "Housing",
 		unlocked: true,
 		near: "building",
 
@@ -31,7 +31,7 @@ const p = {
 			p.population=6
 			resources-=5+Math.ceil(3*techstats.eff_infra)
 		},
-		tab: "housing",
+		tab: "Housing",
 		requires(){
 			return resources >=5-Math.ceil(3*techstats.eff_infra) && difficulty>3
 		}
@@ -47,7 +47,7 @@ const p = {
 			p.population=20
 			resources-=10+Math.ceil(3*techstats.eff_infra)
 		},
-		tab: "housing",
+		tab: "Housing",
 		requires(){
 			return resources >=10-Math.ceil(3*techstats.eff_infra)
 		}
@@ -60,7 +60,7 @@ const p = {
 		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
 		unlocked: false,
 		near: "building",
-		tab: "housing",
+		tab: "Housing",
 		effect(){
 			p.population=35
 			resources-=15+Math.ceil(3*techstats.eff_infra)
@@ -77,7 +77,7 @@ const p = {
 		piecepositions:[{x:0,y:0}],
 		unlocked: true,
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			resources -=techstats.cement ? 0.1:0.25
 		},
@@ -93,7 +93,7 @@ const p = {
 		description: "A very small farm that produces 1 food. Requires 3 resources to construct",
 		unlocked: true,
 		near: "building",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			p.food=1
 			resources-=2-Math.ceil(2*techstats.simple_farms)
@@ -110,7 +110,7 @@ const p = {
 		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			
 			p.food=3
@@ -128,7 +128,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
 		near: "!hill",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			p.food=12
 			resources-=12-Math.ceil(6*techstats.simple_farms)
@@ -145,7 +145,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		near: "river not",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			p.food=30
 			resources-=24-Math.ceil(24*techstats.simple_farms)
@@ -162,7 +162,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1}],
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			luck+=Math.ceil(2*(1+techstats.ded_worship))
 			p.xp+=50
@@ -181,7 +181,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
 		near: "building",
-		tab: "military",
+		tab: "Military",
 		effect(){
 			p.military=10*(p.entirehill ? 2:1)
 			resources-=6
@@ -201,7 +201,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
 		near: "building",
-		tab: "military",
+		tab: "Military",
 		effect(){
 			modifiers.military +=0.1
 			resources-=20
@@ -221,7 +221,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1},{x:2,y:0}],
 		near: "building",
-		tab: "military",
+		tab: "Military",
 		effect(){
 			p.military = Math.floor(150*(p.entirehill ? 2:1)*(1+techstats.archery))
 			resources-=70
@@ -237,11 +237,11 @@ const p = {
 	{
 		name: "Bridge",
 		letter: "B",
-		description: "A brige to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
+		description: "A bridge to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
 		unlocked: true,
 		piecepositions: [{x:0,y:0}],
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			resources-=techstats.cement ? 0.1:3
 		},
@@ -257,7 +257,7 @@ const p = {
 		unlocked: true,
 		piecepositions: [{x:0,y:0},{x:0,y:1}],
 		near: "building",
-		tab: "mines",
+		tab: "Mines",
 		effect(){
 			
 			p.resources=2
@@ -275,7 +275,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
 		unlocked: false,
 		near: "hill",
-		tab: "mines",
+		tab: "Mines",
 		effect(){
 			p.resources=18
 			resources-=24-Math.ceil(techstats.planned_mines*24)
@@ -296,7 +296,7 @@ const p = {
 			{x:1,y:-1},{x:0,y:-1}, {x:-1, y:-1}],
 		unlocked: false,
 		near: "entire",
-		tab: "mines",
+		tab: "Mines",
 		effect(){
 			p.resources=70
 			resources-=70-Math.ceil(techstats.planned_mines*70)
@@ -313,7 +313,7 @@ const p = {
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1},{x:-1,y:1},{x:2,y:1},{x:2,y:0},{x:2,y:-1},{x:2,y:-2},{x:1,y:-2},{x:0,y:-2},{x:-1,y:-2}],
 		unlocked: false,
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			displaypopup(popups.length-2)
 			resources-=2000
@@ -360,7 +360,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:-1},{x:-1,y:1}],
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			modifiers.food+=0.2
 			modifiers.resources+=0.2
@@ -378,7 +378,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:0,y:0},{x:-1,y:0},{x:0,y:1}],
 		near: "building",
-		tab: "misc",
+		tab: "Misc",
 		effect(){
 			p.xp=50
 			p.resources=-5
@@ -401,7 +401,7 @@ const p = {
 						{x:-1,y:-1},{x:0,y:-1}, {x:1,y:-1}						
 												],
 		near: "river",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			p.food = getRandomInt(10,15)
 			resources-=10
