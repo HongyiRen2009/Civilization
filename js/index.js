@@ -189,7 +189,6 @@ function savescreen(save){
 				2: "eternity"
 			}[localstats.difficultymultiplier]
 			
-			debugger;
 			ele.innerText=`difficulty: ${difficultyname}\nyear: ${shorten(localstats.difficulty)}\npopulation: ${shorten(localstats.currentpop)}\nresources: ${ shorten(localstats.resources)}\nmilitary: ${shorten(localstats.military)}`
 		}
 	}
@@ -348,7 +347,6 @@ repairing = false
 					}
 					break
 				case 1:
-					debugger
 					if (difficulty<10){
 						reserachbutton.disabled=true
 						des.innerHTML = des.innerHTML + "<br><strong class = 'color-r'>Must be in Pre-Diplomacy Age</strong>"

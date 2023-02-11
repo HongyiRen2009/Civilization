@@ -84,7 +84,6 @@ const m = {
 			this.description = `Buy slaves from neighboring tribes. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
-			debugger
 			resources-=Math.floor(this.price*this.pricemod)
 			currentpop+= this.amountincrease
 		}
@@ -375,7 +374,6 @@ const m = {
 			this.description = `Buy kidnapped people from a crime grouthis. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
-			debugger
 			resources-=Math.floor(this.price*this.pricemod)
 			currentpop+= this.amountincrease
 		}
