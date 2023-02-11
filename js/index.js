@@ -228,7 +228,7 @@ function savescreen(save){
 	document.getElementById("start-flex").style.display = "none"
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
-	document.getElementById("save-flex").style.display = "flex"
+	document.getElementById("save-flex").style.display = "grid"
 	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementsByTagName('canvas')[0].style.display = 'none'
 }
