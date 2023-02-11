@@ -177,9 +177,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 100%;
   flex-wrap: wrap;
 }
-strong {
-  font-weight: normal;
-}
+
 .bhealth {
   display: block;
   border-radius: 8px;
@@ -283,7 +281,13 @@ strong {
   margin: auto;
 }
 .color-r {
-  color: #ff0000;
+  /*
+  * this used to be just #ff0000. Why is this weird color now?
+  * Well, this color is used on a background of #c89c59.
+  * WebAIM recommends a contrast of at least 3 for large text: before this was 1.57, and a pain to read.
+  * Now the contrast is three.
+   */
+  color: #9c1f1f;
 }
 .color-y {
   color: yellow;
