@@ -154,6 +154,8 @@ input[type="range"]::-webkit-slider-thumb {
 .difficulty-flex {
   display: none;
   justify-content: space-around;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
 }
 .info-flex {
   display: flex;
@@ -219,13 +221,12 @@ strong {
   gap: 15px;
 }
 .save-grid {
-  width: 15%;
-  max-height: 80%;
+  width: 180px;
+  height: 100%;
   margin: auto;
   display: grid;
   background-color: var(--game-container-bg-color);
   padding: 0px 5px 10px 5px;
-  grid-template-rows: 100px 50px 50px 50px 50px 50px 50px;
   text-align: center;
   border: 3px solid #000000;
   border-radius: 6px;

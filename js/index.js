@@ -13,7 +13,7 @@ function difficultyscreen(){
 				k+=0.5
 			
 		}
-	document.getElementById("difficulty-flex").style.display = 'flex'
+	document.getElementById("difficulty-flex").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){menu()}
 	document.getElementById("title_start").innerHTML = 'Select Difficulty'
