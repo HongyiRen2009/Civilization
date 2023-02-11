@@ -458,6 +458,7 @@ select {
 body {
   background-color: #fff8dc;
   user-select: none;
+  font-variant-numeric: tabular-nums;
   margin: 0;
   min-height: 100vh;
 }
@@ -576,4 +577,8 @@ button:disabled {
 
 canvas {
   display: none;
+}
+
+strong {
+  white-space: pre;
 }
