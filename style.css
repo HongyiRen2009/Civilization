@@ -132,6 +132,15 @@ input[type="range"]::-webkit-slider-thumb {
 .pause_button:hover:enabled {
   background-color: var(--game-container-bg-color);
 }
+
+#stats {
+  height: 50px;
+  border-bottom-style: solid;
+  display: none;
+  gap: 1px;
+  flex-wrap: nowrap;
+}
+
 #stats button,
 #stats div {
   display: flex;
@@ -140,6 +149,11 @@ input[type="range"]::-webkit-slider-thumb {
 
 #stats div {
   flex-grow: 1;
+}
+
+#stats > div {
+  margin: 10px;
+  text-align: center;
 }
 
 .status {
@@ -450,14 +464,7 @@ body {
   text-align: center;
   grid-row: 0;
 }
-.flex-grid {
-  height: 50px;
-  border-style: solid;
-  border-radius: 6px;
-  display: none;
-  gap: 1px;
-  flex-wrap: nowrap;
-}
+
 .select-grid {
   background-color: #b8942a;
   align-items: center;
@@ -501,10 +508,6 @@ body {
   background-color: #8c6c0b;
 }
 
-.flex-grid > div {
-  margin: 10px;
-  text-align: center;
-}
 .select-grid > div {
   margin: 10px;
   text-align: center;
