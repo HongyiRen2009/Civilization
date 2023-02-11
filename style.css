@@ -448,9 +448,15 @@ input[type="range"]::-webkit-slider-thumb {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+body,
+button,
+select {
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+}
+
 body {
   background-color: #fff8dc;
-  font-family: Arial, Sans-Serif;
   user-select: none;
   margin: 0;
   min-height: 100vh;
