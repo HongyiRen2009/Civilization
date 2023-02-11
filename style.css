@@ -235,18 +235,25 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .save-grid {
   width: 180px;
-  height: 300px;
+  height: max(300px, 100%);
   margin: auto;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background-color: var(--game-container-bg-color);
-  padding: 0px 5px 10px 5px;
+  padding: 0px 10px 10px 10px;
   text-align: center;
   border: 3px solid #000000;
   border-radius: 6px;
 }
 
 .save-grid p {
+  flex-grow: 1;
   margin: 5px 0;
+}
+
+.save-grid button {
+  width: 100%;
+  margin: 3px 0px;
 }
 
 #popup_block_buttons {

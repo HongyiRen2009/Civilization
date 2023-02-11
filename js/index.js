@@ -180,46 +180,17 @@ function savescreen(save){
 	}
 	for (i=1;i<6;i++){
 		const localstats = JSON.parse(localStorage.getItem("pstats"+i))
-		const ele = document.getElementsByClassName("savedes"+i)
-			for (let j=ele.length-1;j>=0;j--){
-				ele[j].remove();
-			}
+		const ele = document.getElementsByClassName("savedes"+i)[0]
 		if (localStorage.getItem('pstats'+i) != null){
+			difficultyname= {
+				1.2: "copper",
+				1.5: "iron",
+				1.8: "diamond",
+				2: "eternity"
+			}[localstats.difficultymultiplier]
 			
-			const grid = document.getElementById("save-grid"+i)
-			difficultyname=""
-			
-			switch(localstats.difficultymultiplier){
-				case 1.2:
-				difficultyname = "copper"
-				break
-				case 1.5:
-				difficultyname="iron"
-				break
-				case 1.8:
-				difficultyname="diamond"
-				break
-				case 2:
-				difficultyname = "eternity"
-			}
-			const informationlist = ["difficulty: "+ difficultyname,"year: " + shorten(localstats.difficulty), "population: " + shorten(localstats.currentpop), "resources: " + shorten(localstats.resources), "military: " + shorten(localstats.military)]
-			for (let j=0;j<5;j++){
-				
-				const des = document.createElement("p")
-				des.innerHTML = informationlist[j]
-				des.className = "savedes"+i
-				
-				grid.appendChild(des)
-			}
-		}
-		else{
-			const grid = document.getElementById("save-grid"+i)
-
-			const des = document.createElement("p")
-				des.innerHTML = "Empty Slot"
-				des.className = "savedes"+i
-				
-				grid.appendChild(des)
+			debugger;
+			ele.innerText=`difficulty: ${difficultyname}\nyear: ${shorten(localstats.difficulty)}\npopulation: ${shorten(localstats.currentpop)}\nresources: ${ shorten(localstats.resources)}\nmilitary: ${shorten(localstats.military)}`
 		}
 	}
 	document.getElementById("title_start").style.display = "block"
