@@ -70,7 +70,7 @@ repairing = false
 	for (let j=ele2.length-1;j>=0;j--){
 		ele2[j].remove();
 	}
-	document.getElementById("info-flex").style.display = 'flex'
+	document.getElementById("info-flex").style.display = 'grid'
 	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("back_button").hidden = false

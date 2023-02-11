@@ -173,9 +173,23 @@ input[type="range"]::-webkit-slider-thumb {
   gap: 15px;
 }
 .info-flex {
-  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: grid;
+  /* Fun fact: I wanted to make this 10px, but that caused the Heimann Grid Illusion. */
+  gap: 5px;
+  padding: 10px;
   width: 100%;
   flex-wrap: wrap;
+}
+
+.info-flex .info-grid {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #000000;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: var(--game-container-bg-color);
+  height: 100%;
 }
 
 .bhealth {
@@ -269,13 +283,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 100vw;
   z-index: 3;
 }
-.info-grid {
-  display: flex;
-  width: 15%;
-  flex-direction: column;
-  border: 3px solid #000000;
-  border-radius: 6px;
-}
+
 .item {
   background-color: var(--game-container-bg-color);
   display: grid;
