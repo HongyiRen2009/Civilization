@@ -11,10 +11,10 @@ const m = {
 		whichthing: "resources",
 		allowed: true,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/5,5))
 		this.amountincrease =Math.floor(((difficulty**2.8)/64)*(getRandomInt(8,12)/10))
 		this.price-=Math.floor(reputation/5)
-		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty)+3),difficulty*2)
 		},
 		choosetext(){
 			this.allowed = true
@@ -38,7 +38,7 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/10,5))
 		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
@@ -84,6 +84,7 @@ const m = {
 			this.description = `Buy slaves from neighboring tribes. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
+			
 			resources-=Math.floor(this.price*this.pricemod)
 			currentpop+= this.amountincrease
 		}
@@ -97,10 +98,10 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/5,5))
 		this.amountincrease +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? 4-this.stock:this.stock-4)+difficulty/15,5))
 		this.price-=Math.floor(reputation/5)
-		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty)+3),difficulty*3)
 		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
 		},
 		whichthing: "population",
@@ -128,10 +129,10 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/5,5))
 		this.amountincrease =Math.floor(((difficulty**2.9)/64)*(getRandomInt(8,12)/10))
 		this.price-=Math.floor(reputation/5)
-		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty)+3),difficulty*2)
 		this.amountincrease = Math.min(Math.max(this.price,Math.ceil(difficulty/3)+3),Math.floor(difficulty*1.5))
 		},
 		whichthing: "military",
@@ -221,6 +222,7 @@ const m = {
 			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
 		this.price-=Math.floor(reputation/5)
 		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
+		this.amountincrease =Math.floor(((difficulty**2.9)/64)*(getRandomInt(8,12)/10))
 		},
 		whichthing: "resources",
 		allowed: true,
@@ -246,14 +248,14 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			
+			this.amountincrease = resources*2
+			this.price=0
 		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
 			this.allowed = true
-			this.amountincrease = resources*2
-			this.price=0
+			
 			
 			this.description=`Acquire a loan for ${shorten(this.amountincrease)} resources for 20 turns at a 30% intrest`
 		},
@@ -272,21 +274,24 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			
+			this.price=Math.floor(resources/2)
 		},
 		whichthing: "resources",
 		allowed: true,
 		choosetext(){
-			this.allowed = true
-	
-			this.price=Math.floor(resources/2)
 			
-			this.description=`Grant a loan for ${shorten(this.price/2)} resources for 20 turns at a 30% intrest`
+			this.allowed = true
+			if(this.price/2>resources){
+				this.allowed=false
+			}
+			
+			
+			this.description=`Grant a loan for ${shorten(this.price/2)} resources for 10 turns at a 30% intrest`
 		},
 		purchaseeffect(){
-			resources-=this.price
-			const increase = Math.floor(1.3*(this.amountincrease/20))
-			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:20})
+			resources-=this.price/2
+			const increase = Math.ceil(1.3*(this.price/20))
+			temporaryeffects.push({type: "add", resources:increase,unemployed:0,military:0,food:0,duration:10})
 		}
 	},
 	{
@@ -371,9 +376,10 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Buy kidnapped people from a crime grouthis. <br>+${shorten(this.amountincrease)} population`
+			this.description = `Buy kidnapped people from a crime groups. <br>+${shorten(this.amountincrease)} population`
 		},
 		purchaseeffect(){
+			
 			resources-=Math.floor(this.price*this.pricemod)
 			currentpop+= this.amountincrease
 		}
@@ -567,6 +573,7 @@ function marketscreen(){
 	build_music.pause()
 	market_music.play()
 	boss_music.pause()
+	canvas.style.display = "none"
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + shorten(resources)
