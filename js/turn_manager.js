@@ -320,7 +320,9 @@ function attack(power){
 	render()
 		return
 	}
+	information[1].choosetext(Math.ceil(currentpop/4))
+	currentpop+= Math.ceil(currentpop/4)
 	
-	currentpop+= Math.ceil(currentpop/2)
 	displaypopup(1, information)
 }
+
