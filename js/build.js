@@ -271,10 +271,10 @@ const p = {
 	{
 		name: "Medium Mine",
 		letter: "MM",
-		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be on a hill and requires 24 resources and 5 people operating it",
+		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be entirely on a hill and requires 24 resources and 5 people operating it",
 		piecepositions: [{x:-1,y:0, img:{dx:22, dy:169}},{x:0,y:0, img:{dx:43, dy:169}},{x:1,y:0, img:{dx:64, dy:169}},{x:-1,y:1, img:{dx:22, dy:190}},{x:0,y:1, img:{dx:43, dy:190}},{x:1,y:1, img:{dx:64, dy:190}}],
 		unlocked: false,
-		near: "hill",
+		near: "eitre",
 		tab: "Mines",
 		effect(){
 			p.resources=18
@@ -565,7 +565,7 @@ ctx.beginPath();
 				else{
 				ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				}
-				debugger
+				
 				ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				
 
