@@ -261,7 +261,7 @@ function displayUI(turn=false){
 		food += Math.ceil(food*modifiers.food)
 		resourcesgained += Math.ceil(resourcesgained*modifiers.resources)
 		population += Math.ceil(population*modifiers.population)
-		military += Math.ceil(military*modifiers.military)+m.shield
+		military += Math.ceil(military*modifiers.military*(m.shield*0.01))
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
 				food += ef.food
