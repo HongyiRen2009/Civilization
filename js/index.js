@@ -615,7 +615,7 @@ function load(bindex){
 	m.bhealth = localmarketmod[4]
 	m.totalbhealth = localmarketmod[5]
 	m.scout = localmarketmod[6]
-	m.shield = localmarketmod[3]
+	m.shield = localmarketmod[7]
 	if(m.phase>0){
 		m.marketselections[m.marketselections.length-1].stock=0
 	}
@@ -643,6 +643,19 @@ function load(bindex){
 }
 function newgame(difficult){
 	window.onbeforeunload = function(){return "hi"}
+	for (const stat in techstats){
+		if (typeof techstats[stat] === "boolean"){
+			techstats[stat]=false
+		}
+		else{
+			techstats[stat]=0
+		}
+	}
+	for (i=0;i<tech.length;i++){
+		for(j=0;j<tech[i].length;j++){
+			tech[i][j].tier =0
+		}
+	}
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
@@ -655,6 +668,7 @@ function newgame(difficult){
 	spawnY=getRandomInt(100,300)
 	scrollX=spawnX
 	scrollY=spawnY
+	difficulty=0
 	for (i=0;i<p.pieceROM.length;i++){
 	buildingamounts.push(0);
 }	
@@ -671,9 +685,19 @@ function newgame(difficult){
 	difficultymultiplier=difficult
 	currentpop = 2
 	unemployed = 2
-	outofrange = 0
+	military=0
+	xp=0
+	totalxp=0
 	rivergrid.length = 0
 	hillgrid.length = 0
+	m.assissin = 0
+	m.spy = 0
+	m.rebel = 0
+	m.phase = 0
+	m.bhealth = 0
+	m.totalbhealth = 0
+	m.scout = false
+	m.shield = 0
 	grid.length = 0
 	gridstats.length = 0
 	for (i=0;i<500;i++){
@@ -708,6 +732,8 @@ function newgame(difficult){
 	
 	
 if(psettings.notutorial){
+	displayUI()
+
 	start()
 }
 else{
