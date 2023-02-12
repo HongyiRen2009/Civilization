@@ -219,10 +219,9 @@ const m = {
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
-			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/15,5))
+			this.price +=Math.round(Math.min(getRandomInt(-3,3)+(this.whichthing == "resources" ? this.stock-4:4-this.stock)+difficulty/10,5))
 		this.price-=Math.floor(reputation/5)
-		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty/2)+3),difficulty*2)
-		this.amountincrease =Math.floor(((difficulty**2.9)/64)*(getRandomInt(8,12)/10))
+		this.price = Math.min(Math.max(this.price,Math.ceil(difficulty)+3),difficulty*2)
 		},
 		whichthing: "resources",
 		allowed: true,
@@ -231,12 +230,11 @@ const m = {
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
 			}
-			this.description = `Buy metal shields for your soldiers. <br>+${shorten(this.amountincrease)} military but breaks after a battle.`
+			this.description = `Buy metal shields for your soldiers. <br>+10% military but breaks after a battle.`
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			const increase = this.amountincrease
-			m.shield+=increase
+			m.shield+=10
 		}
 	},
 	{
