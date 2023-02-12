@@ -134,7 +134,7 @@ const popups = [
 		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
-		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/32)*(getRandomInt(8,12)/10)))
+		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10)))
 		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
@@ -145,7 +145,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/32)*(getRandomInt(8,12)/10))))
+			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10))))
 		},
 	},
 	{
@@ -154,8 +154,9 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
-			information[12].choosetext((resources*getRandomInt(3,7)*0.1)+((resources/2)*(techstats.diplomacy ? 0.3:0)))
-			resources-=(resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0))
+			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0))
+			information[12].choosetext(amountremove)
+			resources-=amountremove
 			displaypopup(12, information)
 
 			displayUI()
@@ -190,7 +191,7 @@ const popups = [
 	size: "30px",
 	description: "The peasants are revolting due to them being unhappy with your rule",
 	choosetext(){
-		if (resources<difficulty/3){
+		if (resources<(difficulty**2.7)/200){
 		choicesdisabled.push(1)
 	}
 	},
@@ -198,8 +199,8 @@ const popups = [
 	{
 		text: "Punish",
 		effect(){
-			
-			currentpop -=Math.floor(currentpop/3)
+			information[3].choosetext(Math.max(currentpop-population,Math.floor(currentpop/8)))
+			currentpop -=Math.max(currentpop-population,Math.floor(currentpop/8))
 			punishamount+=1
 			reputation-=getRandomInt(3,6)
 			if (punishamount>=5&&!achievements[24].acquired)
@@ -213,8 +214,8 @@ const popups = [
 	}, {
 		text: "Bribe",
 		effect(){
-			
-			resources-= Math.floor(resources/3)
+			information[2].choosetext(Math.floor((difficulty**2.7)/200))
+			resources-= Math.floor((difficulty**2.7)/200)
 			
 			displayUI()
 			displaypopup(2, information)
@@ -233,30 +234,23 @@ const popups = [
 		text: "Enslave",
 		effect(){
 			
-			if (difficulty-(getRandomInt(1,5)*5) < military){
-				currentpop +=Math.floor(currentpop/3)
+				information[7].choosetext(difficulty)
+				currentpop +=difficulty
 				displaypopup(7, information)
-			}
-			else {
-				currentpop-= Math.ceil(currentpop/3)
-				displaypopup(0, information)
-			}
+			
+			
 			displayUI()
 
 		}
 	}, {
 		text: "Steal",
 		effect(){
-			if (difficulty-getRandomInt(1,5)*5 < military){
-
-			resources+= Math.ceil(resources/3)
+			information[6].choosetext(Math.floor((difficulty**3)/200))
+			resources+= Math.floor((difficulty**3)/200)
 			displaypopup(6, information)
 
-			}
-			else{
-				currentpop-= Math.floor(currentpop/3)
-				displaypopup(0, information)
-			}
+			
+			
 			displayUI()
 
 			
@@ -291,6 +285,7 @@ const popups = [
 				
 			}
 			else{
+				information[9].choosetext(Math.floor(currentpop/2))
 				currentpop -= Math.floor(currentpop/2)
 				displaypopup(9, information)
 				}
@@ -341,11 +336,14 @@ const popups = [
 			if (achievements[22].acquired==false){displayachievement(22)}
 			reputation+=getRandomInt(3,6)*(1+techstats.charisma)
 			if (getRandomInt(0,2)==0){
-				displaypopup(16,information)
+				
+				information[16].choosetext(Math.floor(resources*0.4))
 				modifiers.military+=0.4
 				resources-=Math.floor(resources*0.4)
+				displaypopup(16,information)
 			}
 			else{
+				information[17].choosetext(Math.floor(resources*0.4))
 				displaypopup(17,information)
 				resources-=Math.floor(resources*0.4)
 			}
@@ -365,9 +363,9 @@ const popups = [
 	{
 		text:"close",
 		effect(){
-		displaypopup(24,information)
 		removebuildings(5)
-		
+		document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
 		}
 	},
 	
@@ -402,6 +400,7 @@ const popups = [
 		effect(){
 			luck +=1
 			reputation-=getRandomInt(2,4)
+			information[26].choosetext(Math.floor(resources/3))
 			resources -=Math.floor(resources/3)
 			displaypopup(26, information)
 			displayUI()
@@ -562,7 +561,7 @@ const popups = [
 	description: `A group of people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Do we let them in or not?`,
 	choosetext(){
 		this.time=getRandomInt(3,5)
-		this.description = `A group of ${shorten(Math.round(currentpop*1.5))} people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Your advisers predict that it'll take ${this.time} years for them to adapt to our village. Do we let them in or not?`
+		this.description = `A group of ${shorten(Math.round(currentpop*0.5))} people stumble into your village. They claim that they are refugees from a distant war and are seeking refuge. Your advisers predict that it'll take ${this.time} years for them to adapt to our village. Do we let them in or not?`
 		this.choices[0].choosetext(this.time)
 	},
 	time:0,
@@ -575,8 +574,8 @@ const popups = [
 		text: "Let in",
 		effect(){
 			information[19].choosetext(Math.round(currentpop*1.5))
-			temporaryeffects.push({type: "add", resources:0,unemployed:Math.round(currentpop*1.5)*-1,military:0,food:0,duration:this.time})
-			currentpop+=Math.round(currentpop*1.5)
+			temporaryeffects.push({type: "add", resources:0,unemployed:Math.round(currentpop*0.25)*-1,military:0,food:0,duration:this.time})
+			currentpop+=Math.round(currentpop*0.5)
 			
 			reputation+=getRandomInt(6,10)*(1+techstats.charisma)
 			displaypopup(19, information)
@@ -623,7 +622,7 @@ const popups = [
 	{
 		text: "Accept",
 		effect(){
-		resources-=Math.ceil(resources/3)
+		
 		reputation+=getRandomInt(2,4)*(1+techstats.charisma)
 		switch(random){
 			case 0:
@@ -635,7 +634,8 @@ const popups = [
 			case 2:
 			modifiers.resources +=0.5
 		}
-		information[21].choosetext(random)
+		information[21].choosetext(random,Math.ceil(resources/3))
+		resources-=Math.ceil(resources/3)
 		displaypopup(21,information)
 		displayUI()
 		}
@@ -798,6 +798,7 @@ const popups = [
 		{
 			text:"sacrifice",
 			effect(){
+			information[31].choosetext(popamount)
 				currentpop-=popamount
 			displaypopup(31, information)	
 			displayUI()
@@ -999,7 +1000,10 @@ const information = [
 	{
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
-	description: "You defeated the enemy and enslaved their soldiers. <strong class = 'color-g'>+33% population</strong>",
+	description: "You defeated the enemy and captured their soldiers. <strong class = 'color-g'>+33% population</strong>",
+	choosetext(amount){
+		this.description=`You defeated the enemy and captured their soldiers. <strong class = 'color-g'>+${amount} population</strong>`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1017,7 +1021,9 @@ const information = [
 		title: "<strong class = 'color-g'>It's better to keep them happy</strong>",
 		size:"25px",
 	description: "You bribed them with your resources. -50% resources",
-	choosetext(){},
+	choosetext(amount){
+		this.description = `You bribed them with your resources. -${amount} resources`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1033,6 +1039,9 @@ const information = [
 		title: "<strong class = 'color-r'>Let them have it</strong>",
 		size: "25px",
 	description: "They didn't deserve better rule anyways. -33% population",
+	choosetext(amount){
+		this.description=`They didn't deserve better rule anyways. -${amount} population`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1079,7 +1088,9 @@ const information = [
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
 	description: "You decimated their village and stole their resources. <strong class = 'color-g'>+33% resources</strong>",
-	choosetext(){},
+	choosetext(amount){
+	this.description=`You decimated their village and stole their resources. <strong class = 'color-g'>+${amount} resources</strong>`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1096,7 +1107,9 @@ const information = [
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
 	description: "You decimated their village and enslaved their people.<strong class = 'color-g'> +33% population</strong>",
-	choosetext(){},
+	choosetext(amount){
+		this.description=`You decimated their village and stole their resources. <strong class = 'color-g'>+${amount} population</strong>`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1109,9 +1122,9 @@ const information = [
 		]
 	},
 	{
-	title: "Safty first",
+	title: "Safety first",
 	size: "30px",
-	description: "Safty is the first priority. -33% resource and food production",
+	description: "Safety is the first priority. -33% resource and food production",
 	choosetext(){},
 	choices: [
 	{
@@ -1128,8 +1141,9 @@ const information = [
 	title: "<strong class = 'color-r'>Oh No!</strong>",
 	size: "30px",
 	description: "The plague arrived and decimated your people. -50% population",
-	choosetext(){},
-	choices: [
+	choosetext(amount){
+		this.description=`The plague arrived and decimated your people. -${amount} population`
+	},	choices: [
 	{
 		text: "close",
 		effect(){
@@ -1261,7 +1275,9 @@ const information = [
 		title: "<strong class = 'color-g'>Benevolent Dictator</strong>",
 	size: "30px",
 	description: "He thanked you and walked off, next thing you know, your archer's accuracy improved greatly. <strong class = 'color-g'>+40% military</strong>, <strong class = 'color-r'>-40% resources</strong>",
-	
+	choosetext(amount){
+		this.description=`He thanked you and walked off, next thing you know, your archer's accuracy improved greatly. <strong class = 'color-g'>+40% military</strong>, <strong class = 'color-r'>-${amount} resources</strong>`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1277,7 +1293,9 @@ const information = [
 		title: "<strong class = 'color-r'>Theif</strong>",
 	size: "30px",
 	description: "He thanked you and ran off, next thing you know, he's selling all of the resources for his own gain. -40% resources",
-	
+	choosetext(amount){
+		this.description=`He thanked you and ran off, next thing you know, he's selling all of the resources for his own gain. -${amount} resources`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1293,7 +1311,9 @@ const information = [
 		title: "<strong class = 'color-r'>Murder!</strong>",
 	size: "30px",
 	description: "He scoffed at you and ran off, next thing you know, he's out to murder countless civilians. -20% population",
-	
+	choosetext(amount){
+		this.description=`He scoffed at you and ran off, next thing you know, he's out to murder countless civilians. -${amount} population`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1346,16 +1366,16 @@ const information = [
 	size: "30px",
 	
 	description: "We told him deal and gave him our resources. Moments later he came back with powerful weapons. -33% resources, +50% military",
-	choosetext: function(which){
+	choosetext: function(which,amount){
 		switch(which){
 			case 0:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. <strong class = 'color-g'>-33% resources</strong>,<strong class = 'color-g'> +50% military</strong>"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with powerful weapons. <strong class = 'color-r'>-${amount} resources</strong>,<strong class = 'color-g'> +50% military</strong>"
 			break
 			case 1:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. <strong class = 'color-g'>-33% resources</strong>, <strong class = 'color-g'>+50% food production</strong>"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with shiny new hoes. <strong class = 'color-r'>-${amount} resources</strong>, <strong class = 'color-g'>+50% food production</strong>"
 			break
 			case 2:
-			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. <strong class = 'color-g'>-33% resources</strong>, <strong class = 'color-g'>+50% resource production</strong>"
+			this.description = "We told him deal and gave him our resources. Moments later he came back with stronger pickaxes. <strong class = 'color-r'>-${amount} resources</strong>, <strong class = 'color-g'>+50% resource production</strong>"
 			break
 		}
 	},
@@ -1446,7 +1466,9 @@ const information = [
 		size: "30px",
 	
 		description: `You decided to sacrifice anything 33% of your resources. Hopefully the gods above blesses you. <strong class = 'color-r'>-33% resources</strong>`,
-	
+		choosetext(amount){
+		this.description=`You decided to sacrifice your resources. Hopefully the gods above blesses you. <strong class = 'color-r'>-${amount} resources</strong>`
+	},
 		choices: [
 		{
 			text: "close",
