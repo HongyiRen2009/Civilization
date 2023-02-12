@@ -145,6 +145,7 @@ const achievements = [
 	acquired: false,
 		title: "You and what army?",
 		description: "have 1000 military power",
+		imagesrc: "images/achievementWhatArmy.png",
 		requires(){
 		return military >= 1000
 		}
@@ -163,6 +164,7 @@ const achievements = [
 		acquired: false,
 		title: "Mining away",
 		description: "build your first Small Mine",
+		imagesrc: "images/achievementSmallMine.png",
 		requires(){
 		return buildingamounts[14] > 0
 		}
@@ -172,6 +174,7 @@ const achievements = [
 		acquired: false,
 		title: "So mean",
 		description: "build your first Medium Mine",
+		imagesrc: "images/achievementMediumMine.png",
 		requires(){
 		return buildingamounts[15] > 0
 		}
@@ -181,6 +184,7 @@ const achievements = [
 		acquired: false,
 		title: "Industrialization",
 		description: "build your first Large Mine",
+		imagesrc: "images/achievementLargeMine.png",
 		requires(){
 		return buildingamounts[16] > 0
 		}
@@ -216,6 +220,7 @@ const achievements = [
 		acquired: false,
 		title: "Conscription",
 		description: "Gain 100 military power from unemployed people",
+		imagesrc: "images/achievementConscription.png",
 		requires(){
 		return unemployed>=100
 		}
