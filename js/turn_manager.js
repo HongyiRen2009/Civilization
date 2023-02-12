@@ -31,19 +31,6 @@ function turnpopup(){
 			displaypopup(30,information)
 			return false
 	}
-	let totalcitymax = 0
-	if (max.right-p.cityincreases.right-5>totalcitymax){
-		totalcitymax = max.right-p.cityincreases.right-5
-	}
-	if (max.down-p.cityincreases.down-5>totalcitymax){
-		totalcitymax = max.down-p.cityincreases.down-5
-	}
-	if (max.up-p.cityincreases.up-5<totalcitymax){
-		totalcitymax = Math.abs(max.up-p.cityincreases.up+5)
-	}
-	if (max.left-p.cityincreases.left-5<totalcitymax){
-		totalcitymax = Math.abs(max.left-p.cityincreases.left+5)
-	}
 	switch(m.phase){
 	case 0 :
 	if (difficulty>10){
@@ -54,6 +41,13 @@ function turnpopup(){
 
 		displaypopup(0)
 		return false
+	}
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(outofrange))) <= 0){
+		popups[1].choosetext()
+		displaypopup(1)
+		return false
+
+
 	}
 	if (Math.random() > 0.7){
 		if (getRandomInt(0,15+luck)<5*difficultymultiplier){
@@ -70,14 +64,6 @@ function turnpopup(){
 
 		}
 	}
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/5))) <= 0){
-		popups[1].choosetext()
-		displaypopup(1)
-		return false
-
-
-	}
-	
 	if (reputation>30&&getRandomInt(0,2)==0){
 		randomindex = getRandomInt(11,12)
 		popups[randomindex].choosetext()
@@ -104,7 +90,7 @@ function turnpopup(){
 		displaypopup(13)
 		return false
 	}
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(outofrange*5)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return false
@@ -132,7 +118,7 @@ function turnpopup(){
 	displaypopup(17)
 	return false
 	default:
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(totalcitymax/10)) <= 0){
+	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(outofrange*5)) <= 0){
 		popups[1].choosetext()
 		displaypopup(1)
 		return false

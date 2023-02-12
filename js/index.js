@@ -517,7 +517,7 @@ function save(bindex){
 	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,cityincreases:p.cityincreases, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,cityincreases:p.cityincreases, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
@@ -551,6 +551,7 @@ function load(bindex){
 	xp = JSON.parse(localStorage.getItem('pstats'+bindex)).xp;
 	totalxp = JSON.parse(localStorage.getItem('pstats'+bindex)).totalxp;
 	megatemple = JSON.parse(localStorage.getItem('pstats'+bindex)).megatemple;
+	outofrange = JSON.parse(localStorage.getItem('pstats'+bindex)).outofrange;
 	const localtechstats = []
 	for (const obj in JSON.parse(localStorage.getItem('pstats'+bindex)).techstats){
 		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
@@ -670,6 +671,7 @@ function newgame(difficult){
 	difficultymultiplier=difficult
 	currentpop = 2
 	unemployed = 2
+	outofrange = 0
 	rivergrid.length = 0
 	hillgrid.length = 0
 	grid.length = 0
@@ -797,6 +799,8 @@ document.getElementById("select-grid").style.display = "flex"
 canvas.style.display = 'block'
 displayUI()
 render()
+
+p.cities.push({x:spawnX, y:spawnY})
 
 if (istutorial&&tutorialindex==0){
 continuetutorial(0)

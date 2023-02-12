@@ -335,18 +335,11 @@ const p = {
 		effect(){
 			resources-=this.amountbought**3
 			this.amountbought+=1
-			if((Math.floor(position.x-screen.width/2)/20)-spawnX+30>p.cityincreases.right){
-			p.cityincreases.right = (Math.floor(position.x-screen.width/2)/20)-spawnX+30
-			}
-			if((Math.floor(position.x-screen.width/2)/20)-spawnX-30<p.cityincreases.left){
-				p.cityincreases.left = (Math.floor(position.x-screen.width/2)/20)-spawnX-30
-			}
-			if(Math.floor((position.y-screen.height/2)/20)-spawnY+30>p.cityincreases.down){
-				p.cityincreases.down = (Math.floor(position.y-screen.height/2)/20)-spawnY+30
-			}
-			if(Math.floor((position.y-screen.height/2)/20)-spawnY-30<p.cityincreases.up){
-				p.cityincreases.up = (Math.floor(position.y-screen.height/2)/20)-spawnY-30
-			}
+			p.cities.push({
+				x: position.x/20,
+				y: position.y/20
+			})
+			recalcBuildings();
 
 		},
 		requires(){
@@ -413,12 +406,7 @@ const p = {
 		}
 	},
 ],
-cityincreases:{
-	up:-30,
-	down:30,
-	left:-30,
-	right:30
-},
+cities:[],
 food:0,
 population:0,
 military:0,
@@ -643,13 +631,14 @@ function isrepairing(){
 	}
 }
 function renderclouds(){
-	ctx.fillStyle = "#212121"
+	/*ctx.fillStyle = "#212121"
 	ctx.fillRect(((spawnX-scrollX)*20)+screen.width/2+max.right*20,0,screen.width,screen.height)
 	ctx.fillRect(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,screen.width,screen.height)
 	ctx.fillRect(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,screen.width,screen.height)
 	ctx.fillRect(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,screen.width,screen.height)
 	ctx.fillStyle = "rgba(0,0,0,1)"
-	ctx.stroke()
+	ctx.stroke()*/
+	// hah deprecated function cuz i reworked the city center - michael
 }
 function render(){
 	
@@ -739,10 +728,33 @@ function render(){
 	
 	
 }
+
+function recalcBuildings() {
+	for (const city of p.cities) {
+	for (const building of gridstats) {
+		if (building.inrange) {
+			continue
+		}
+		for (const position of building.positions) {
+		if (Math.abs(position.x/20-city.x) <= 30 && Math.abs(position.y/20-city.y) <= 30) {
+			building.inrange = true
+			outofrange--
+			console.log("asdf")
+			break
+		} else {
+			console.log(position.x)
+		}
+	}
+	}
+	}
+}
+
+
 canvas.onmousedown = function(event){
 	
 	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
 		allowed = false
+		let isInRange = false
 		click.play()
 		p.population = 0
 		p.military = 0
@@ -769,7 +781,14 @@ canvas.onmousedown = function(event){
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		
-		
+		if (!isInRange) {
+			for (j=0; j < p.cities.length; j++) {
+				if (Math.abs(p.cities[j].x-gridposition[i].x/20) <= 30 && Math.abs(p.cities[j].y-gridposition[i].y/20) <= 30) {
+					isInRange = true
+					break
+				}
+			}
+		}
 		
 		
 		if (!hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
@@ -779,6 +798,10 @@ canvas.onmousedown = function(event){
 			p.hill = true
 		}	
 		
+	}
+	
+	if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge") {
+		isInRange = true
 	}
 	const oldresources = resources
 		p.pieceROM[p_index].effect()
@@ -795,8 +818,11 @@ canvas.onmousedown = function(event){
 			fish:p.fish,
 			positions:gridposition.slice(0),
 			resourcerefund: oldresources-resources,
-			disabled: false
+			disabled: false,
+			inrange: isInRange
 		})
+
+
 		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation)*2)
 		first_turn = false
 		
@@ -807,7 +833,9 @@ canvas.onmousedown = function(event){
 		}
 		
 		buildingamounts[p_index] +=1
-		
+		if (!isInRange) {
+			outofrange++
+		}
 		displayUI()
 		if (tutorialindex==1||tutorialindex==2){
 			tutorialindex+=1
