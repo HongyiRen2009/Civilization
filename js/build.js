@@ -5,8 +5,8 @@ const p = {
 		name: "Canopy",
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
-		piecepositions:[{x:0,y:0,img:{dx:0,dy:0}}],
-		tab: "Housing",
+		piecepositions:[{x:0,y:0,img:{dx:1,dy:127}}],
+		tab: "housing",
 		unlocked: true,
 		near: "building",
 
@@ -24,7 +24,7 @@ const p = {
 		name: "Hut",
 		letter: "H",
 		description: "A medium unit of housing that houses 6 people. Requires 5 resources to construct",
-		piecepositions:[{x:0,y:0,img:{dx:20,dy:0}}],
+		piecepositions:[{x:0,y:0,img:{dx:22,dy:127}}],
 		unlocked: true,
 		near: "building",
 		effect(){
@@ -40,7 +40,7 @@ const p = {
 		name: "Townhouse",
 		letter: "TH",
 		description: "A house for many people. Houses 20 people and requires 10 resources to construct",
-		piecepositions:[{x:0,y:0,img:{dx:40,dy:0}},{x:1,y:0,img:{dx:60,dy:0}}],
+		piecepositions:[{x:0,y:0,img:{dx:1,dy:148}},{x:1,y:0,img:{dx:22,dy:148}}],
 		unlocked: false,
 		near: "building",
 		effect(){
@@ -57,7 +57,7 @@ const p = {
 		name: "Insula",
 		letter: "I",
 		description: "A high density primitive apartment that houses 35 people. Requires 15 resources to construct",
-		piecepositions:[{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		piecepositions:[{x:1,y:0,img:{dx:64,dy:127}},{x:0,y:0,img:{dx:43,dy:127}},{x:0,y:1,img:{dx:43,dy:148}},{x:1,y:1,img:{dx:43,dy:148}}],
 		unlocked: false,
 		near: "building",
 		tab: "Housing",
@@ -74,7 +74,7 @@ const p = {
 		name: "Road",
 		letter: "R",
 		description: "A road that connects one place from the village to another. Requires 0.25 resources to construct",
-		piecepositions:[{x:0,y:0}],
+		piecepositions:[{x:0,y:0,img:{dx:1,dy:22}}],
 		unlocked: true,
 		near: "building",
 		tab: "Misc",
@@ -89,7 +89,7 @@ const p = {
 	{
 		name: "Tiny Farm",
 		letter: "TF",
-		piecepositions: [{x:1,y:0,img:{dx:20,dy:20}},{x:0,y:0,img:{dx:0,dy:20}}],
+		piecepositions: [{x:1,y:0,img:{dx:22,dy:106}},{x:0,y:0,img:{dx:1,dy:106}}],
 		description: "A very small farm that produces 1 food. Requires 3 resources to construct",
 		unlocked: true,
 		near: "building",
@@ -106,7 +106,7 @@ const p = {
 	{
 		name: "Small Farm",
 		letter: "F",
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		piecepositions: [{x:1,y:0, img:{dx:64,dy:85}},{x:0,y:0,img:{dx:43,dy:85}},{x:0,y:1,img:{dx:43,dy:106}},{x:1,y:1,img:{dx:64,dy:106}}],
 		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
@@ -126,7 +126,7 @@ const p = {
 		letter: "MF",
 		description: "A medium farm that produces 12 food. Requires 12 resources to construct and 3 people operating it. Cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:0,img:{dx:64, dy:43}},{x:0,y:0, img:{dx:43, dy:43}},{x:0,y:1,img:{dx:43, dy:64}},{x:1,y:1, img:{dx:64, dy:64}},{x:1,y:-1, img:{dx:64, dy:22}}],
 		near: "!hill",
 		tab: "Farms",
 		effect(){
@@ -143,9 +143,9 @@ const p = {
 		letter: "LF",
 		description: "A large farm that produces 30 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		piecepositions: [{x:1,y:0, img:{dx:22, dy:64}},{x:0,y:0, img:{dx:1,dy:64}},{x:0,y:1,img:{dx:1,dy:85}},{x:1,y:1,img:{dx:22, dy:85}},{x:1,y:-1,img:{dx:22,dy:43}},{x:0,y:-1,img:{dx:1,dy:43}}],
 		near: "river not",
-		tab: "Farms",
+		tab: "farms",
 		effect(){
 			p.food=30
 			resources-=24-Math.ceil(24*techstats.simple_farms)
@@ -160,7 +160,7 @@ const p = {
 		letter: "T",
 		description: "A temple to pray to RNGesus (increases luck). Requires 40 resources to construct and 10 people operating it",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1}],
+		piecepositions: [{x:1,y:0,img:{dx:190, dy:106}},{x:0,y:0,img:{dx:169, dy:106}},{x:0,y:1,img:{dx:169,dy:127}},{x:1,y:1,img:{dx:190,dy:127}},{x:1,y:-1,img:{dx:190,dy:85}},{x:0,y:-1,img:{dx:169,dy:85}},{x:-1,y:0,img:{dx:148,dy:106}},{x:-1,y:-1,img:{dx:148,dy:85}},{x:-1,y:1,img:{dx:148,dy:127}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -179,7 +179,7 @@ const p = {
 		letter: "MB",
 		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 5 resources every turn to maintain",
 		unlocked: false,
-		piecepositions: [{x:1,y:1},{x:0,y:0},{x:-1,y:1},{x:-1,y:-1},{x:1,y:-1}],
+		piecepositions: [{x:1,y:1,img:{dx:127, dy:106}},{x:0,y:0, img:{dx:106, dy:85}},{x:-1,y:1, img:{dx:85, dy:106}},{x:-1,y:-1,img:{dx:85, dy:64}},{x:1,y:-1, img:{dx:127, dy:64}}],
 		near: "building",
 		tab: "Military",
 		effect(){
@@ -199,7 +199,7 @@ const p = {
 		letter: "BR",
 		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain",
 		unlocked: false,
-		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1}],
+		piecepositions: [{x:-1,y:0, img:{dx:85, dy:22}},{x:0,y:0, img:{dx:106, dy:22}},{x:0,y:1, img:{dx:106, dy:43}},{x:-1,y:1, img:{dx:85, dy:43}},{x:-1,y:-1, img:{dx:85, dy:1}},{x:0,y:-1, img:{dx:106, dy:1}},{x:1,y:-1, img:{dx:127, dy:1}},{x:1,y:1, img:{dx:127, dy:43}}],
 		near: "building",
 		tab: "Military",
 		effect(){
@@ -219,7 +219,7 @@ const p = {
 		letter: "FT",
 		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 20 people operating it. Double military if on a hill. Requires 35 resources every turn to maintain",
 		unlocked: false,
-		piecepositions: [{x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1},{x:0,y:-1},{x:1,y:-1},{x:2,y:-1},{x:2,y:1},{x:2,y:0}],
+		piecepositions: [{x:-1,y:0, img:{dx:85, dy:148}},{x:0,y:0, img:{dx:106, dy:148}},{x:0,y:1, img:{dx:106, dy:169}},{x:-1,y:1, img:{dx:85, dy: 169}},{x:-1,y:-1, img:{dx:85, dy:127}},{x:0,y:-1, img:{dx:106, dy:127}},{x:1,y:-1, img:{dx:127, dy:127}},{x:1,y:1, img:{dx:127, dy:169}},{x:1,y:0, img:{dx:127, dy:148}}],
 		near: "building",
 		tab: "Military",
 		effect(){
@@ -239,7 +239,7 @@ const p = {
 		letter: "B",
 		description: "A bridge to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
 		unlocked: true,
-		piecepositions: [{x:0,y:0}],
+		piecepositions: [{x:0,y:0, img:{dx:22, dy:22}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -255,7 +255,7 @@ const p = {
 		letter: "SM",
 		description: "A small mine to extract resources from a hill. Collects 2 resources per year. Requires 4 resources and 1 person operating it",
 		unlocked: true,
-		piecepositions: [{x:0,y:0},{x:0,y:1}],
+		piecepositions: [{x:0,y:0,img:{dx:1, dy:169}},{x:0,y:1, img:{dx:1, dy:190}}],
 		near: "building",
 		tab: "Mines",
 		effect(){
@@ -272,7 +272,7 @@ const p = {
 		name: "Medium Mine",
 		letter: "MM",
 		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be on a hill and requires 24 resources and 5 people operating it",
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1}],
+		piecepositions: [{x:-1,y:0, img:{dx:22, dy:169}},{x:0,y:0, img:{dx:43, dy:169}},{x:1,y:0, img:{dx:64, dy:169}},{x:-1,y:1, img:{dx:22, dy:190}},{x:0,y:1, img:{dx:43, dy:190}},{x:1,y:1, img:{dx:64, dy:190}}],
 		unlocked: false,
 		near: "hill",
 		tab: "Mines",
@@ -290,10 +290,10 @@ const p = {
 		letter: "LM",
 		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it. Must be entirely on a hill",
 		piecepositions: [
-			{x:1,y:0},{x:0,y:0}, {x:-1, y:0},
-			{x:0,y:1},{x:1,y:1}, {x:-1, y:1},
-			{x:0,y:2},{x:1,y:2}, {x:-1, y:2},
-			{x:1,y:-1},{x:0,y:-1}, {x:-1, y:-1}],
+			{x:1,y:0, img:{dx:190, dy:22}},{x:0,y:0, img:{dx:169, dy:22}}, {x:-1, y:0, img:{dx:148, dy:22}},
+			{x:0,y:1, img:{dx:190, dy:43}},{x:1,y:1, img:{dx:169, dy:43}}, {x:-1, y:1, img:{dx:148, dy:43}},
+			{x:0,y:2, img:{dx:190, dy:64}},{x:1,y:2, img:{dx:169, dy:64}}, {x:-1, y:2, img:{dx:148, dy:64}},
+			{x:1,y:-1, img:{dx:190, dy:1}},{x:0,y:-1, img:{dx:169, dy:1}}, {x:-1, y:-1, img:{dx:148, dy:1}}],
 		unlocked: false,
 		near: "entire",
 		tab: "Mines",
@@ -310,7 +310,7 @@ const p = {
 		name: "Mega Temple",
 		letter: "MT",
 		description: "A mega temple to directly contact god. Build one to beat the game. Requires 2000 resources and 100 people praying",
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:0},{x:-1,y:-1},{x:-1,y:1},{x:-1,y:1},{x:2,y:1},{x:2,y:0},{x:2,y:-1},{x:2,y:-2},{x:1,y:-2},{x:0,y:-2},{x:-1,y:-2}],
+	piecepositions: [{x:1,y:0, img:{dx:254, dy:127}},{x:0,y:0, img:{dx:232, dy:127}},{x:0,y:1, img:{dx:232, dy:148}},{x:1,y:1, img:{dx:254, dy:148}},{x:1,y:-1, img:{dx:254, dy:106}},{x:0,y:-1, img:{dx:232, dy:106}},{x:-1,y:0, img:{dx:211, dy:127}},{x:-1,y:-1, img:{dx:211, dy:106}},{x:-1,y:1, img:{dx:211, dy:148}},{x:2,y:1, img:{dx: 275, dy:148}},{x:2,y:0, img:{dx:275, dy:127}},{x:2,y:-1, img:{dx:275, dy:106}},{x:2,y:-2, img:{dx:275, dy:85}},{x:1,y:-2, img:{dx:254, dy:85}},{x:0,y:-2, img:{dx:232, dy:85}},{x:-1,y:-2, img:{dx:211, dy:85}}],
 		unlocked: false,
 		near: "building",
 		tab: "Misc",
@@ -565,6 +565,7 @@ ctx.beginPath();
 				else{
 				ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				}
+				debugger
 				ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				
 
@@ -821,8 +822,6 @@ canvas.onmousedown = function(event){
 			disabled: false,
 			inrange: isInRange
 		})
-
-
 		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation)*2)
 		first_turn = false
 		
