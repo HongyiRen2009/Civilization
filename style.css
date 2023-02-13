@@ -261,9 +261,22 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 6px;
 }
 
+.save-grid div,
 .save-grid p {
   flex-grow: 1;
   margin: 5px 0;
+}
+
+.save-grid table {
+  width: 100%;
+}
+
+.save-grid table th:nth-child(1) {
+  text-align: left;
+}
+
+.save-grid table th:nth-child(2) {
+  text-align: right;
 }
 
 .save-grid button {

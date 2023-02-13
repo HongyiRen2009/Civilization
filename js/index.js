@@ -1,3 +1,25 @@
+function createSimpleTable(rows) {
+	const table = document.createElement('table');
+	const tableBody = document.createElement('tbody');
+
+	for (const row of rows) {
+		const tableRow = document.createElement('tr');
+		tableBody.appendChild(tableRow);
+
+		row.forEach((content) => {
+			const tableCell = document.createElement('th');
+			tableCell.innerText = content;
+
+			tableRow.appendChild(tableCell);
+		});
+	}
+
+	table.appendChild(tableBody);
+
+	return table;
+}
+
+
 function difficultyscreen(){
 
 		const ele = document.getElementsByClassName("new_button")
@@ -188,8 +210,22 @@ function savescreen(save){
 				1.8: "diamond",
 				2: "eternity"
 			}[localstats.difficultymultiplier]
-			
-			ele.innerText=`difficulty: ${difficultyname}\nyear: ${shorten(localstats.difficulty)}\npopulation: ${shorten(localstats.currentpop)}\nresources: ${ shorten(localstats.resources)}\nmilitary: ${shorten(localstats.military)}`
+
+			// remove all children of `ele`
+			// https://stackoverflow.com/a/3955238/13996389
+			while (ele.lastChild) {
+				ele.removeChild(ele.lastChild)
+			}
+
+			ele.appendChild(
+				createSimpleTable([
+					['difficulty', difficultyname],
+					['year', shorten(localstats.difficulty)],
+					['population', shorten(localstats.currentpop)],
+					['resources', shorten(localstats.resources)],
+					['military', shorten(localstats.military)]
+				])
+			)
 		}
 	}
 	document.getElementById("title_start").style.display = "block"
