@@ -66,6 +66,30 @@ function settings(ifmenu=true){
 	document.getElementById("select-grid").style.display = "none"
 	document.getElementsByTagName('canvas')[0].style.display = 'none'
 }
+function pause_menu(){
+	document.getElementById("popup_block_buttons").style.display = "block"
+	pause = document.getElementById("pause_flex")
+	pause.style.display="flex"
+	pause.style.animation = "none"
+	pause.style.animation = "pause 1s"
+}
+function unpause(){
+document.getElementById("popup_block_buttons").style.display = 'none';
+document.getElementById("pause_flex").style.display='none'
+}
+function settings(ifmenu=true){
+	document.getElementById("popup_block_buttons").style.display = 'none';
+	document.getElementById("pause_flex").style.display='none'
+	document.getElementById("settings-flex").style.display = "flex"
+	document.getElementById("back_button").hidden = false
+	document.getElementById("back_button").onclick = function(){(ifmenu ? menu():start())}
+	document.getElementById("title_start").style.display = 'block'
+	document.getElementById("title_start").innerHTML = 'Settings'
+	document.getElementById("start-flex").style.display = "none"
+		document.getElementById("stats").style.display = "none"
+	document.getElementById("select-grid").style.display = "none"
+	document.getElementsByTagName('canvas')[0].style.display = 'none'
+}
 function confirmclear(index){
 	confirmation[2].choosetext(index)
 	displaypopup(2,confirmation)
@@ -126,6 +150,7 @@ repairing = false
 }
 function menu(){
 	build_music.pause()
+	war_music.pause()
 	market_music.pause()
 	removing=false
 	ispainting = false
@@ -137,7 +162,7 @@ document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'
 document.getElementById("title_start").innerHTML = 'Dawn of Civilization'
 	document.getElementById("back_button").hidden = true
-	document.getElementById("boss_health_container").display = "none"
+	document.getElementById("boss_health_container").style.display = "none"
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("start-flex").style.display = "grid"
 	document.body.style.overflow = "hidden"
@@ -219,13 +244,16 @@ function savescreen(save){
 
 			ele.appendChild(
 				createSimpleTable([
-					['difficulty', difficultyname],
-					['year', shorten(localstats.difficulty)],
-					['population', shorten(localstats.currentpop)],
-					['resources', shorten(localstats.resources)],
-					['military', shorten(localstats.military)]
+					['difficulty:', difficultyname],
+					['year:', shorten(localstats.difficulty)],
+					['population:', shorten(localstats.currentpop)],
+					['resources:', shorten(localstats.resources)],
+					['military:', shorten(localstats.military)]
 				])
 			)
+		}
+		else{
+			ele.innerHTML="Empty Slot"
 		}
 	}
 	document.getElementById("title_start").style.display = "block"
@@ -243,6 +271,7 @@ function techscreen(){
 removing = false
 repairing = false
 	build_music.pause()
+	war_music.pause()
 	boss_music.pause()
 	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
@@ -531,10 +560,7 @@ function savegame(bindex){
 }
 function save(bindex){
 	window.onbeforeunload=null
-	const ele = document.getElementsByClassName("savedes"+bindex)
-	for (i=ele.length-1;i>=0;i--){
-		ele[i].remove();
-	}
+	
 	const localunlocked = []
 
 	
@@ -553,7 +579,7 @@ function save(bindex){
 	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,cityincreases:p.cityincreases, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,cityincreases:p.cityincreases,wars, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
@@ -570,6 +596,7 @@ function load(bindex){
 	hillgrid.length=0
 	marketitems.length=0
 	unlocked.length=0
+	wars.length=0
 	
 	for (const el of JSON.parse(localStorage.getItem('griditems'+bindex)).grid){
 		grid.push(el)
@@ -586,8 +613,12 @@ function load(bindex){
 	reputation = JSON.parse(localStorage.getItem('pstats'+bindex)).reputation;
 	xp = JSON.parse(localStorage.getItem('pstats'+bindex)).xp;
 	totalxp = JSON.parse(localStorage.getItem('pstats'+bindex)).totalxp;
+	siege = JSON.parse(localStorage.getItem('pstats'+bindex)).siege;
 	megatemple = JSON.parse(localStorage.getItem('pstats'+bindex)).megatemple;
 	outofrange = JSON.parse(localStorage.getItem('pstats'+bindex)).outofrange;
+	for (const war of JSON.parse(localStorage.getItem('pstats'+bindex)).wars){
+		wars.push(war)
+	}
 	const localtechstats = []
 	for (const obj in JSON.parse(localStorage.getItem('pstats'+bindex)).techstats){
 		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
@@ -695,6 +726,7 @@ function newgame(difficult){
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
+	wars.length=0
 	switchtab()
 	hillgrid.length=0
 	temporaryeffects.length=0
@@ -794,16 +826,16 @@ function shorten(number){
 		case 0:
 		break
 		case 1:
-		endsymbol = "K"
+		endsymbol = "k"
 		break
 		case 2:
 		endsymbol = "m"
 		break
 		case 3:
-		endsymbol = "B"
+		endsymbol = "b"
 		break
 		case 4:
-		endsymbol = "T"
+		endsymbol = "t"
 		break
 		case 5:
 		endsymbol = "Qa"
@@ -831,13 +863,20 @@ function shorten(number){
 }
 function start(){
 	tech_music.pause()
-	if(m.phase<2){
+	if(m.phase>1){
+	boss_music.play()
+	war_music.pause()
+	build_music.pause()
+	}
+	else if (wars.length>0){
+	build_music.pause()
 	boss_music.pause()
-	build_music.play()
+	war_music.play()	
 	}
 	else{
-	build_music.pause()
-	boss_music.play()	
+		build_music.play()
+		boss_music.pause()
+		war_music.pause()
 	}
 	market_music.pause()
 	disableinfo=istutorial
@@ -845,7 +884,7 @@ function start(){
 	
 document.body.style.overflow = "hidden"
 document.getElementById("tech-tree").style.display = 'none'
-if (m.phase>1){document.getElementById("boss_health_container").style.display = 'block'}
+if (m.phase>1||wars.length>0){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'
 document.getElementById("info-flex").style.display = 'none'
