@@ -9,8 +9,10 @@ const dev = {
             for (const techs of tech) {
                 for (const technology of techs) {
                     technology.effect()
+                    technology.tier+=1
                 }
             }
+			displayUI()
             return "Note: Many buildings require Year > 3. Consider using time_warp()."
         } else {
             return "Devmode is not enabled. Go to index.html to enable."
@@ -54,11 +56,11 @@ const dev = {
             currentpop = 99999999999
             gridstats.push({
                 disabled: false,
-                employmentrequired: -99999999999,
+                employmentrequired: 0,
                 food: 99999999999,
                 index: "0",
                 letter: "CHEAT",
-                military: 99999999999,
+                military: 0,
                 population: 99999999999,
                 positions: [],
                 resourcerefund: 0,
@@ -75,7 +77,7 @@ const dev = {
     },
     	popup: function(type) {
         if (devmode) {
-            const types = ['attack','revolt','playerattack','plague','drought','folklore','fire','badomen','breakthrough','traveler','refugees','tradeoffer','traderoute','beast','eruption','beastattack','endgame','gameover']
+            const types = ['attack','revolt','playerattack','plague','drought','folklore','fire','badomen','breakthrough','traveler','refugees','tradeoffer','traderoute','beast','eruption','tribute','fireball','beastattack','war','battle','siege','warattack','breach','peace','endgame','gameover']
             const typeindex = types.indexOf(type)
             if(typeindex==-1){
                 return "Enter a valid popup"
