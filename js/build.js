@@ -6,7 +6,7 @@ const p = {
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
 		piecepositions:[{x:0,y:0,img:{dx:1,dy:127}}],
-		tab: "housing",
+		tab: "Housing",
 		unlocked: true,
 		near: "building",
 
@@ -73,16 +73,16 @@ const p = {
 	{
 		name: "Road",
 		letter: "R",
-		description: "A road that connects one place from the village to another. Requires 0.25 resources to construct",
+		description: "A road that connects one place from the village to another. Requires 0.5 resources to construct",
 		piecepositions:[{x:0,y:0,img:{dx:1,dy:22}}],
 		unlocked: true,
 		near: "building",
 		tab: "Misc",
 		effect(){
-			resources -=techstats.cement ? 0.1:0.25
+			resources -=techstats.cement ? 0.25:0.5
 		},
 		requires(){
-			return resources >= (techstats.cement ? 0.1:0.25)
+			return resources >= (techstats.cement ? 0.25:0.5)
 
 		}
 	},
@@ -177,7 +177,7 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 5 resources every turn to maintain",
+		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 2 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:1,y:1,img:{dx:127, dy:106}},{x:0,y:0, img:{dx:106, dy:85}},{x:-1,y:1, img:{dx:85, dy:106}},{x:-1,y:-1,img:{dx:85, dy:64}},{x:1,y:-1, img:{dx:127, dy:64}}],
 		near: "building",
@@ -185,7 +185,7 @@ const p = {
 		effect(){
 			p.military=10*(p.entirehill ? 2:1)
 			resources-=6
-			p.resources-=5
+			p.resources-=2
 			unemployed-=3
 			
 		},
@@ -197,7 +197,7 @@ const p = {
 	{
 		name: "Barracks",
 		letter: "BR",
-		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 20 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain",
+		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 10 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:-1,y:0, img:{dx:85, dy:22}},{x:0,y:0, img:{dx:106, dy:22}},{x:0,y:1, img:{dx:106, dy:43}},{x:-1,y:1, img:{dx:85, dy:43}},{x:-1,y:-1, img:{dx:85, dy:1}},{x:0,y:-1, img:{dx:106, dy:1}},{x:1,y:-1, img:{dx:127, dy:1}},{x:1,y:1, img:{dx:127, dy:43}}],
 		near: "building",
@@ -205,7 +205,7 @@ const p = {
 		effect(){
 			modifiers.military +=0.1
 			resources-=20
-			p.resources-=20
+			p.resources-=10
 			unemployed-=10
 			
 		},
@@ -217,7 +217,7 @@ const p = {
 	{
 		name: "Fortress",
 		letter: "FT",
-		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 20 people operating it. Double military if on a hill. Requires 35 resources every turn to maintain",
+		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 40 people operating it. Double military if on a hill. Requires 15 resources every year to maintain",
 		unlocked: false,
 		piecepositions: [{x:-1,y:0, img:{dx:85, dy:148}},{x:0,y:0, img:{dx:106, dy:148}},{x:0,y:1, img:{dx:106, dy:169}},{x:-1,y:1, img:{dx:85, dy: 169}},{x:-1,y:-1, img:{dx:85, dy:127}},{x:0,y:-1, img:{dx:106, dy:127}},{x:1,y:-1, img:{dx:127, dy:127}},{x:1,y:1, img:{dx:127, dy:169}},{x:1,y:0, img:{dx:127, dy:148}}],
 		near: "building",
@@ -225,12 +225,12 @@ const p = {
 		effect(){
 			p.military = Math.floor(150*(p.entirehill ? 2:1)*(1+techstats.archery))
 			resources-=70
-			p.resources-=35
-			unemployed-=8
+			p.resources-=15
+			unemployed-=40
 			
 		},
 		requires(){
-			return resources >= 70 && unemployed>=8
+			return resources >= 70 && unemployed>=40
 		}
 		
 	},
@@ -243,10 +243,10 @@ const p = {
 		near: "building",
 		tab: "Misc",
 		effect(){
-			resources-=techstats.cement ? 0.1:3
+			resources-=techstats.cement ? 1.5:3
 		},
 		requires(){
-			return resources >= techstats.cement ? 0.1:3 &&difficulty>4
+			return resources >= (techstats.cement ? 1.5:3)
 		}
 		
 	},
@@ -274,7 +274,7 @@ const p = {
 		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be entirely on a hill and requires 24 resources and 5 people operating it",
 		piecepositions: [{x:-1,y:0, img:{dx:22, dy:169}},{x:0,y:0, img:{dx:43, dy:169}},{x:1,y:0, img:{dx:64, dy:169}},{x:-1,y:1, img:{dx:22, dy:190}},{x:0,y:1, img:{dx:43, dy:190}},{x:1,y:1, img:{dx:64, dy:190}}],
 		unlocked: false,
-		near: "eitre",
+		near: "entire",
 		tab: "Mines",
 		effect(){
 			p.resources=18
@@ -632,14 +632,14 @@ function isrepairing(){
 	}
 }
 function renderclouds(){
-	/*ctx.fillStyle = "#212121"
+	ctx.fillStyle = "#212121"
 	ctx.fillRect(((spawnX-scrollX)*20)+screen.width/2+max.right*20,0,screen.width,screen.height)
 	ctx.fillRect(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,screen.width,screen.height)
 	ctx.fillRect(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,screen.width,screen.height)
 	ctx.fillRect(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,screen.width,screen.height)
 	ctx.fillStyle = "rgba(0,0,0,1)"
-	ctx.stroke()*/
-	// hah deprecated function cuz i reworked the city center - michael
+	ctx.stroke()
+	
 }
 function render(){
 	
@@ -781,7 +781,9 @@ canvas.onmousedown = function(event){
 			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
-		
+		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge") {
+			isInRange = true
+		}
 		if (!isInRange) {
 			for (j=0; j < p.cities.length; j++) {
 				if (Math.abs(p.cities[j].x-gridposition[i].x/20) <= 30 && Math.abs(p.cities[j].y-gridposition[i].y/20) <= 30) {
@@ -801,9 +803,7 @@ canvas.onmousedown = function(event){
 		
 	}
 	
-	if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge") {
-		isInRange = true
-	}
+	
 	const oldresources = resources
 		p.pieceROM[p_index].effect()
 
@@ -1047,7 +1047,7 @@ function displaytab(){
 			
 			}
 			else{button.disabled = false;
-			if (buildingamounts[i]<1){
+			if (buildingamounts[i]<1&&!psettings.noflash){
 				button.style.animation = "flash 2s step-start infinite"
 			}
 			}
