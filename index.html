@@ -32,7 +32,7 @@
 		
 </div>
 
-<div  id = market-flex>
+<div  id = "market-flex">
 	<div id ="market-top-bar">
 	<p style = "font-weight: bold;" id = "mresource">Resources: </p>
 	<h1 class = "title_screen">Market</h1>
@@ -65,32 +65,32 @@
 </div>
 <div class = "save-flex" id = 'save-flex'>
 	<div class = "save-grid" id = "save-grid1">
-		<h1>Save Slot 1:</h1>
-		<div class= "savedes1"> Empty Slot</div>
+		<h1 style = "font-size:25px;">Save Slot 1:</h1>
+		<div class = "savedes1"> Empty Slot</div>
 		<button id = "1" class = "save_button" onclick = "savegame(1)">Save Game</button>
 		<button id = "clear1" class = "clear_button" onclick = "confirmclear(1)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid2">
-		<h1>Save Slot 2:</h1>
-		<div class= "savedes2"> Empty Slot</div>
+		<h1 style = "font-size:25px;">Save Slot 2:</h1>
+		<div class = "savedes2"> Empty Slot</div>
 		<button id = "2" class = "save_button" onclick = "savegame(2)">Save Game</button>
 		<button id = "clear2" class = "clear_button" onclick = "confirmclear(2)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid3">
-		<h1>Save Slot 3:</h1>
-		<div class= "savedes3"> Empty Slot</div>
+		<h1 style = "font-size:25px;">Save Slot 3:</h1>
+		<div class = "savedes3"> Empty Slot</div>
 		<button id = "3" class = "save_button" onclick = "savegame(3)">Save Game</button>
 		<button id = "clear3" class = "clear_button" onclick = "confirmclear(3)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid4">
-		<h1>Save Slot 4:</h1>
-		<div class= "savedes3"> Empty Slot</div>
+		<h1 style = "font-size:25px;">Save Slot 4:</h1>
+		<div class = "savedes4"> Empty Slot</div>
 		<button id = "4" class = "save_button" onclick = "savegame(4)">Save Game</button>
 		<button id = "clear4" class = "clear_button" onclick = "confirmclear(4)">Clear Save</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid5">
-		<h1>Save Slot 5:</h1>
-		<div class= "savedes5"> Empty Slot</div>
+		<h1 style = "font-size:25px;">Save Slot 5:</h1>
+		<div class = "savedes5"> Empty Slot</div>
 		<button id = "5" class = "save_button" onclick = "savegame(5)">Save Game</button>
 		<button id = "clear5" class = "clear_button" onclick = "confirmclear(5)">Clear Save</button>
 	 </div>
@@ -106,7 +106,7 @@
 		<p>Rebellions happen less frequently</p>
 		<p>+30% production</p>
 		<p>-0.3% enemy strength</p>
-		<button id = "1" class = "new_button" onclick = "newgame(1.2)">New Game</button>
+		<button id = "1.2" class = "new_button" onclick = "newgame(1.2)">New Game</button>
 	 </div>
 	 <div class = "save-grid" id = "save-grid2">
 		<h1 class = 'color-y'>Iron</h1>
@@ -130,7 +130,7 @@
 		<p>Rebellions happen very frequently</p>
 		<p>-50% production</p>
 		<p>+1.5% enemy strength</p>
-		<button id = "3" class = "new_button" onclick = "newgame(2)">New Game</button>
+		<button id = "4" class = "new_button" onclick = "newgame(2)">New Game</button>
 	 </div>
  </div>
 
@@ -223,10 +223,10 @@
 
 <script>
 const canvas = document.querySelector("canvas")
-canvas.height = screen.height-230
+canvas.height = screen.height*0.88
 canvas.width = screen.width
 const ctx = canvas.getContext("2d")
-const heightmax = Math.round((screen.height-225)/20)
+const heightmax = Math.round((screen.height*0.88)/20)
 const widthmax = Math.round((screen.width)/20)
 const rivergrid = [] 
 const max = {
@@ -239,7 +239,7 @@ const grid = []
 const hillgrid = []
 const tabs = ["City Centers","Housing","Farms","Military","Mines","Misc"]
 const gridstats = []
-
+const wars = []
 const psettings = {
 	noimage:false,
 	nofade:false,
@@ -279,12 +279,14 @@ let scrollY = 250
 let spawnX = 0
 let spawnY = 0
 let ispainting = false
+let siege = false
 let repairing = false
 let position = {}
 let letter = ""
 let piece = []
 let population = 0
 let difference =0
+let m_personnel = 0
 let food = 0
 let resources = 8
 let research_points =0
@@ -313,10 +315,12 @@ const repairsound = new Audio("sounds/repair.mp3");
 const techclick = new Audio("sounds/techclick.mp3");
 const techbuy = new Audio("sounds/techbuy.mp3");
 const tech_music = new Audio("music/tech_music.mp3");
+const war_music = new Audio("music/War_music.mp3");
 market_music.loop = true
 build_music.loop = true
 boss_music.loop = true
 tech_music.loop=true
+war_music.loop=true
 let istutorial = false;
 let tutorialindex = 0;
 let disableinfo = false
