@@ -332,6 +332,7 @@ function achievementscreen(ismenu){
 			const description = document.createElement("p")
 			const imagediv = document.createElement("div")
 			const image = document.createElement("img")
+			
 			imagediv.appendChild(image)
 			imagediv.className = "achievement-image-div"
 			title.innerHTML = el.title
@@ -347,7 +348,7 @@ function achievementscreen(ismenu){
 			
 			document.getElementById("achievement-flex").appendChild(flex)
 			if (!el.acquired){
-			
+			image.style.filter = "brightness(30%)"
 			flex.style.opacity = "0.7"
 			title.style.opacity = "0.7"
 			description.style.opacity = "0.7"
