@@ -126,16 +126,16 @@ const confirmation = [
 const popups = [
 	
 	{
-	title: "<strong class = 'color-r'>Enemy Attack</strong>",
+	title: "<strong class = 'color-r'>Raid!</strong>",
 	size: "30px",
 	power: 0,
-	description: "A neighbouring tribe is attacking you",
+	description: "A neighbouring tribe is raiding your village",
 	choosetext(){
 		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0)){
 			choicesdisabled.push(1)
 		}
 		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10)))
-		this.description = `A neighbouring tribe is attacking you${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
+		this.description = `A neighbouring tribe is raiding your village${techstats.scouting ?`<br><br>Scouting Estimate: ${this.power}`:""}`
 	
 	},
 	choices: [
@@ -154,6 +154,7 @@ const popups = [
 			
 			
 			document.getElementById("popup").style.display = "none"
+			reputation-=getRandomInt(3,5)
 			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0))
 			information[12].choosetext(amountremove)
 			resources-=amountremove
@@ -202,7 +203,6 @@ const popups = [
 			information[3].choosetext(Math.max(currentpop-population,Math.floor(currentpop/8)))
 			currentpop -=Math.max(currentpop-population,Math.floor(currentpop/8))
 			punishamount+=1
-			reputation-=getRandomInt(3,6)
 			if (punishamount>=5&&!achievements[24].acquired)
 			{
 				displayachievement(24)
@@ -216,7 +216,7 @@ const popups = [
 		effect(){
 			information[2].choosetext(Math.floor((difficulty**2.7)/200))
 			resources-= Math.floor((difficulty**2.7)/200)
-			
+			reputation-=getRandomInt(3,5)
 			displayUI()
 			displaypopup(2, information)
 
@@ -823,7 +823,7 @@ const popups = [
 				}
 				else{
 					removebuildings(4,false)
-					currentpop-=Math.floor(currentpop/3)
+					currentpop-=Math.floor(m_personnel*0.5)
 					displaypopup(34, information)
 				}
 			
@@ -882,7 +882,7 @@ const popups = [
 				}
 				else{
 					removebuildings()
-					currentpop-=Math.floor(currentpop/3)
+					currentpop-=Math.floor(m_personnel*0.5)
 					displaypopup(38, information)
 				}
 			
@@ -891,6 +891,447 @@ const popups = [
 			
 			}
 		}]
+	},
+	{
+	title: "<strong class = 'color-r'>Ultimatum</strong>",
+	size: "25px",
+	description: "An enemy tribe presents you with an ultimatum, either ",
+	choosetext(){
+		const choice = [
+			`pay them a tribute of ${Math.floor((difficulty**3)/200)} resources a year<br> for 10 years`, 
+			`provide them with ${Math.floor(currentpop/3)} laborers`,
+			`reduce your military by 90% for 10 years`, 
+		]
+		const random = getRandomInt(0,2)
+		this.choices[1].index=random
+		this.description = `An enemy tribe sends you an ultimatum, either <strong class = 'color-r'>${choice[random]}</strong> or <strong class = 'color-r'>go to war</strong>`
+	},
+	choices: [
+	{
+		text:"fight",
+		effect(){
+			const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*2
+			wars.push({power:enemymilitary,totalpower:enemymilitary})
+			displaypopup(40,information)
+			
+		}
+	},
+	{
+		text:"negotiate",
+		index:0,
+		effect(){
+			switch(this.index){
+				case 0:
+				temporaryeffects.push({type: "add", resources:Math.floor((difficulty**3)/200)*-1,unemployed:0,military:0,food:0,duration:10})
+				break
+				case 1:
+				currentpop-=Math.floor(currentpop/3)
+				break
+				case 2:
+				temporaryeffects.push({type: "percent", resources:0,military:-0.9,food:0,duration:10})
+				break
+			}
+			displaypopup(41,information)
+		}
+	},
+]
+},
+{
+	title: "<strong class = 'color-r'>Battle</strong>",
+size: "25px",
+description: "Your scouts claims that the enemy is attacking, but with unknown power. What percentage of your army should you commit?",
+choosetext(){
+	const enemyamount = getRandomInt(1,wars.length)
+	let enemypower = 0
+	for(i=0;i<enemyamount;i++){
+		enemypower+=Math.max(wars[i].power*(getRandomInt(1,4)*0.13),wars[i].totalpower/7)
+	}
+	for (const choice of this.choices){
+		choice.power = enemypower
+	}
+},
+choices: [
+	{
+text:"0%",
+power:0,
+effect(){
+	if(getRandomInt(0,4)==0){
+		displaypopup(42, information)
+	}
+	else{
+		removebuildings()
+		displaypopup(48,information)
+	}
+}
+	},
+{
+	text:"25%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			
+			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/16)
+		}
+		else if(military*.25>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/16))
+		currentpop+=Math.floor(this.power/5)
+		displaypopup(44, information)
+
+	}
+	else{
+		
+		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+		currentpop-=Math.floor(m_personnel/8)
+		
+		displaypopup(0,information)
+	}
+		resources-=Math.floor(m_personnel/16)
+		displayUI()
+	}
+},
+{
+	text:"50%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/4)
+			
+		}
+		else if(military*.5>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/8))
+		currentpop+=Math.floor(this.power/5)
+		displaypopup(44, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		currentpop-=Math.floor(m_personnel/4)
+		displaypopup(0,information)
+		
+	}
+	resources-=Math.floor(m_personnel/8)
+	displayUI()
+	}
+},
+{
+	text:"75%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/4)
+		}
+		else if(military*.75>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/6))
+		currentpop+=Math.floor(this.power/5)
+		displaypopup(44, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel/6))
+		currentpop-=Math.floor(m_personnel/3)
+		displaypopup(0,information)
+	}
+		resources-=Math.floor(m_personnel/6)
+		displayUI()
+	}
+},
+{
+	text:"100%",
+	power:0,
+	effect(){
+		
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/2)
+		}
+		else if(military>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/4))
+		currentpop+=Math.floor(this.power/5)
+		displaypopup(44, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+		currentpop-=Math.floor(m_personnel/2)
+		displaypopup(0,information)
+	}
+	resources-=Math.floor(m_personnel/4)
+	displayUI()
+	}
+},
+
+]
+},
+	{
+		
+			title: "<strong class = 'color-r'>Siege!</strong>",
+		size: "25px",
+		description: "The enemy is sieging one of your cities.",
+		choosetext(){
+		},
+		choices: [
+		{
+			text:"Sally Out",
+			effect(){
+				
+				const random_war = getRandomInt(0,wars.length-1)
+				if(military>wars[random_war].power){
+					wars[random_war].power-=Math.floor(wars[random_war].power/3)
+					information[44].choosetext(Math.floor(wars[random_war].power),Math.floor(m_personnel/8))
+					currentpop+=Math.floor(wars[random_war].power/5)
+					displaypopup(44, information)
+				}
+				else{
+					removebuildings()
+					currentpop-=Math.floor(m_personnel/2)
+					information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+					displaypopup(0,information)
+				}
+				resources-=Math.floor(m_personnel/8)
+			
+			displayUI()
+			
+			
+			}
+		},
+		{
+			text: "Ignore it",
+			effect(){
+				siege = true
+				displaypopup(45,information)
+				displayUI()
+			}
+		}
+		
+		]
+	},
+	
+{
+	title: "<strong class = 'color-g'>Attack</strong>",
+size: "25px",
+description: "Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?",
+choosetext(){
+	const enemyamount = getRandomInt(1,wars.length)
+	let enemypower = 0
+	for(i=0;i<enemyamount;i++){
+		enemypower+=Math.max(wars[i].power*(getRandomInt(1,4)*0.1),wars[i].totalpower/7)
+	}
+	for (const choice of this.choices){
+		choice.power = enemypower
+	}
+},
+choices: [
+	{
+text:"0%",
+power:0,
+effect(){
+	displaypopup(46, information)
+}
+	},
+{
+	text:"25%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			
+			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/16)
+		}
+		else if(military*.25>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/1.5)
+		information[47].choosetext(Math.floor(this.power*2),Math.floor(m_personnel/16))
+		currentpop+=Math.floor(this.power/2.5)
+		displaypopup(47, information)
+
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+		currentpop-=Math.floor(m_personnel/8)
+		displaypopup(0,information)
+		
+	}
+		resources-=Math.floor(m_personnel/16)
+		displayUI()
+	}
+},
+{
+	text:"50%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/4)
+			
+		}
+		else if(military*.5>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/1.5)
+		information[47].choosetext(Math.floor(this.power*2),Math.floor(m_personnel/8))
+		currentpop+=Math.floor(this.power/2.5)
+		displaypopup(47, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		currentpop-=Math.floor(m_personnel/4)
+		displaypopup(0,information)
+	}
+	resources-=Math.floor(m_personnel/8)
+	displayUI()
+	}
+},
+{
+	text:"75%",
+	power:0,
+	effect(){
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/4)
+		}
+		else if(military*.75>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/1.5)
+		information[47].choosetext(Math.floor(this.power*2),Math.floor(m_personnel/6))
+		currentpop+=Math.floor(this.power/2.5)
+		displaypopup(47, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel/8))
+		currentpop-=Math.floor(m_personnel/3)
+		displaypopup(0,information)
+	}
+		resources-=Math.floor(m_personnel/6)
+		displayUI()
+	}
+},
+{
+	text:"100%",
+	power:0,
+	effect(){
+		
+		if(getRandomInt(0,3)==0){
+			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+			displaypopup(43,information)
+			currentpop-=Math.floor(m_personnel/2)
+		}
+		else if(military>this.power){
+			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/1.5)
+		information[47].choosetext(Math.floor(this.power*2),Math.floor(m_personnel/4))
+		currentpop+=Math.floor(this.power/2.5)
+		displaypopup(47, information)
+	}
+	else{
+		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+		currentpop-=Math.floor(m_personnel/2)
+		displaypopup(0,information)
+	}
+	resources-=Math.floor(m_personnel/4)
+	displayUI()
+	}
+},
+
+]
+},
+	{
+		
+			title: "<strong class = 'color-r'>Breach!</strong>",
+		size: "25px",
+		description: "The enemy breached your defenses and are attacking the city",
+		choosetext(){
+		},
+		choices: [
+		{
+			text:"Fight",
+			effect(){
+				
+				const random_war = getRandomInt(0,wars.length-1)
+				if(military>wars[random_war].power){
+					wars[random_war].power-=Math.floor(wars[random_war].power/3)
+					information[44].choosetext(Math.floor(wars[random_war].power),Math.floor(m_personnel/8))
+					currentpop+=Math.floor(wars[random_war].power/5)
+					displaypopup(44, information)
+				}
+				else{
+					removebuildings(3)
+					currentpop-=Math.floor(m_personnel/2)
+					information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+					displaypopup(0,information)
+				}
+				resources-=Math.floor(m_personnel/8)
+			siege=false
+			displayUI()
+			
+			
+			}
+		},
+		{
+			text: "Surrender",
+			effect(){
+				siege = false
+				displaypopup(48,information)
+				removebuildings(4)
+				displayUI()
+			}
+		}
+		
+		]
+	},
+	{
+		title: "<strong class = 'color-g'>Peace Offer</strong>",
+	size: "30px",
+	description: `A courier trader scrolls into our village. He presents an offer: if we give him half of our resources, he'll make weapons for us in return. Do we accept his offer?`,
+	choosetext(){
+		let power = 0
+		for(const war of wars){
+			power+=war.power
+		}
+		if(power>military){
+		this.description = `A courier of peace enters our village with a peace offer. If we pay them a tribute of <strong class = 'color-r'>${Math.floor(100*power/military)}</strong> resources a year for 10 years, they'll make peace. Do we accept their offer?`
+		this.choices[0].resourceamount = Math.floor(100*power/military)*-1
+		}
+		else{
+		this.description = `A courier of peace enters our village with a peace offer. If they pay us a tribute of <strong class = 'color-g'>${Math.floor(100*military/power)}</strong> resources a year for 10 years, we'll make peace. Do we accept their offer?`	
+		this.choices[0].resourceamount=Math.floor(100*military/power)
+		}
+		
+		 
+		 
+	},
+	choices: [
+	{
+		text: "Accept",
+		resourceamount:0,
+		effect(){
+		temporaryeffects.push({type: "add", resources:this.resourceamount,unemployed:0,military:0,food:0,duration:10})
+		displaypopup(48,information)
+		wars.length=0
+		siege=false
+		start()
+		displayUI()
+		}
+	}, {
+		text: "Decline",
+		effect(){
+			
+			displaypopup(49, information)
+				
+			
+			
+			displayUI()
+			
+
+		}
+		
+	}
+		]
 	},
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
@@ -902,13 +1343,13 @@ const popups = [
 		text: "Keep Playing",
 		effect(){
 			switch(difficultymultiplier){
-				case 1:
+				case 1.2:
 					displayachievement(achievements.length-3)
 					break
 				case 1.5:
 				displayachievement(achievements.length-2)
 					break
-				case 2:
+				case 1.8:
 				displayachievement(achievements.length-1)
 					break
 			}
@@ -921,13 +1362,13 @@ const popups = [
 		text: "Main menu",
 		effect(){
 			switch(difficultymultiplier){
-				case 1:
+				case 1.2:
 					displayachievement(achievements.length-3)
 					break
 				case 1.5:
 				displayachievement(achievements.length-2)
 					break
-				case 2:
+				case 1.8:
 				displayachievement(achievements.length-1)
 					break
 			}
@@ -986,7 +1427,9 @@ const information = [
 	title: "<strong class = 'color-r'>Failure</strong>",
 	size: "30px",
 	description: "The enemy defeated you",
-	choosetext(){},
+	choosetext(poplost,reslost){
+		this.description=`The enemy defeated you<br>Casualties: <strong class = 'color-r'>${poplost}</strong><br>Resources spent: <strong class = 'color-r'>${reslost}</strong>`
+	},
 	choices: [
 	{
 		text: "close",
@@ -1000,9 +1443,9 @@ const information = [
 	{
 	title: "<strong class = 'color-g'>Success</strong>",
 	size: "30px",
-	description: "You defeated the enemy and captured their soldiers. <strong class = 'color-g'>+33% population</strong>",
-	choosetext(amount){
-		this.description=`You defeated the enemy and captured their soldiers. <strong class = 'color-g'>+${amount} population</strong>`
+	description: "You defeated the raiders and captured their soldiers. <strong class = 'color-g'>+33% population</strong>",
+	choosetext(amount,resamount){
+		this.description=`You defeated the raiders.<br>Raiders Captured: <strong class = 'color-g'>${amount}</strong><br>Resources spent: <strong class= 'color-r'>${resamount}</strong>`
 	},
 	choices: [
 	{
@@ -1108,7 +1551,7 @@ const information = [
 	size: "30px",
 	description: "You decimated their village and enslaved their people.<strong class = 'color-g'> +33% population</strong>",
 	choosetext(amount){
-		this.description=`You decimated their village and stole their resources. <strong class = 'color-g'>+${amount} population</strong>`
+		this.description=`You decimated their village and enslaved their people. <strong class = 'color-g'>+${amount} population</strong>`
 	},
 	choices: [
 	{
@@ -1721,6 +2164,210 @@ const information = [
 		},
 			]
 	},
+	{
+		title: "<strong class = 'color-r'>Declaration of War</strong>",
+		size: "30px",
+		description: `You refused their demands, so war was declared`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				start()
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>I accept</strong>",
+		size: "30px",
+		description: `You adhered to their demands, so war was avoided`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				start()
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Fake News</strong>",
+		size: "30px",
+		description: `The enemy wasn't present`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Disaster</strong>",
+		size: "30px",
+		description: `You adhered to their demands, so war was avoided`,
+		choosetext(amount){
+			choice = [
+				"drowned in a flash flood",
+				"were killed in an ambush",
+				"fell into a trap",
+				"died of a tornado"
+			]
+			this.description = `After sending your army to fight, you hear reports that they <strong class = 'color-r'>${choice[getRandomInt(0,3)]}.<br> -${shorten(amount)} population</strong>`
+		},
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				start()
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Victory</strong>",
+		size: "30px",
+		choosetext(enemy, resources){
+		this.description= `You defeated the enemy army.<br>Enemy casualties: <strong class = 'color-g'>${shorten(Math.floor(enemy/3))}</strong><br>Enemies captured: <strong class = 'color-g'>${shorten(Math.floor(enemy/5))}</strong><br>Resources spent: <strong class = 'color-r'>${shorten(resources)}</strong>`
+		},
+		description: `The enemy wasn't present`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Starve</strong>",
+		size: "30px",
+		description: `The enemy decided to starve you out instead of fighting`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Not ready</strong>",
+		size: "30px",
+		description: `you decided not to attack`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Victory</strong>",
+		size: "30px",
+		choosetext(enemy, resources){
+		this.description= `You overcame their defenses and devestated their village<br>Enemy casualties: <strong class = 'color-g'>${shorten(Math.floor(enemy/3))}</strong><br>Enemies captured: <strong class = 'color-g'>${shorten(Math.floor(enemy/5))}</strong><br>Resources spent: <strong class = 'color-r'>${shorten(resources)}</strong>`
+		},
+		description: `The enemy wasn't present`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Show mercy</strong>",
+		size: "30px",
+		description: `you surrendered, and they destroyed your village`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-g'>Accepted</strong>",
+		size: "30px",
+		description: `you accepted their peace offer`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>Declined</strong>",
+		size: "30px",
+		description: `you declined thier peace offer`,
+		
+		
+	
+		choices: [
+		{
+			text: "close",
+			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
 ]
 
 
@@ -1749,7 +2396,6 @@ ispainting = false
 	title.style.fontSize = list[index].size
 	grid.style.display = "grid"
 	
-	grid.style.gridTemplateColumns=((300/list[index].choices.length).toString() + " ").repeat(list[index].choices.length)
 	grid.style.gridTemplateColumns="100 100 100 100"
 	button.id = "choice "+i
 	button.className = "popup_choice"
