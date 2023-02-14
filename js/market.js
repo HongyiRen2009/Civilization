@@ -577,7 +577,7 @@ function marketscreen(){
 		document.getElementById("mresource").innerHTML = 'Resources: ' + shorten(resources)
 	document.getElementById("mreputation").innerHTML = "Reputation: " + reputation
 	document.getElementById("difficulty-flex").style.display = 'none'
-	document.getElementById("market-flex").style.display = 'flex'
+	document.getElementById("market-flex").style.display = 'block'
 	document.getElementById("boss_health_container").style.display="none"
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){start()}

@@ -38,11 +38,6 @@ input[type="range"]::-webkit-slider-thumb {
 .settings_button:hover {
   filter: brightness(80%);
 }
-.market-ui {
-  display: flex;
-  align-items: center;
-  gap: 10%;
-}
 
 @keyframes done {
   from {
@@ -242,13 +237,41 @@ input[type="range"]::-webkit-slider-thumb {
   padding: 20px;
 }
 
-.save-flex {
+#market-flex {
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+#market-top-bar {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+}
+
+#market-top-bar h1 {
+  flex-grow: 1;
+}
+
+.save-flex,
+#difficulty-flex {
+  --item-width: 180px;
+  display: none;
+}
+
+.market-ui {
+  --item-width: 200px;
+  display: grid;
+}
+
+.save-flex,
+.market-ui,
+#difficulty-flex {
+  grid-template-columns: repeat(auto-fit, minmax(var(--item-width), 1fr));
   gap: 15px;
 }
-.save-grid {
-  width: 180px;
+
+.save-grid,
+.item {
+  width: var(--item-width);
   height: 100%;
   min-height: 400px;
   margin: auto;
@@ -262,9 +285,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .save-grid div,
-.save-grid p {
+.save-grid p,
+.item p {
   flex-grow: 1;
   margin: 5px 0;
+  word-wrap: break-word;
 }
 
 .save-grid table {
@@ -297,18 +322,6 @@ input[type="range"]::-webkit-slider-thumb {
   z-index: 3;
 }
 
-.item {
-  background-color: var(--game-container-bg-color);
-  display: grid;
-  width: 230px;
-  grid-template-rows: 50px 100px 100px 50px 50px;
-  border: 3px solid #000000;
-  border-radius: 6px;
-}
-.item > * {
-  text-align: center;
-  margin: auto;
-}
 .color-r {
   /*
   * this used to be just #ff0000. Why is this weird color now?
@@ -590,8 +603,4 @@ button:disabled {
 
 canvas {
   display: none;
-}
-
-strong {
-  white-space: pre;
 }
