@@ -34,52 +34,89 @@ function turnpopup(){
 	switch(m.phase){
 	case 0 :
 	if (difficulty>10){
-	
-	if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+		if(difficulty<40){
+		if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+			
+			popups[0].choosetext()
+
+			displaypopup(0)
+			return false
+		}
+		}
+		else if (wars.length >0){
+			let warpower = 0
+			for (const war of wars){
+				warpower+=war.power
+			}
+			const randomwar=getRandomInt(0,8)
+			if(randomwar>=0&&randomwar<=3){
+				popups[19].choosetext()
+				displaypopup(19)
+				return false
+			}
+			else if (randomwar>=4&&randomwar<=6){
+				popups[20].choosetext()
+				displaypopup(20)
+				return false
+			}
+			else if (Math.abs(warpower-military)>1000&&randomwar>6){
+				popups[22].choosetext()
+				displaypopup(22)
+				return false
+			}
+			else{
+				popups[21].choosetext()
+				displaypopup(21)
+				return false
+			}
+			
+		}
 		
-		popups[0].choosetext()
-
-		displaypopup(0)
-		return false
-	}
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+(techstats.social_care ? 2:0)-Math.floor(outofrange))) <= 0){
-		popups[1].choosetext()
-		displaypopup(1)
-		return false
-
-
-	}
-	if (Math.random() > 0.7){
-		if (getRandomInt(0,15+luck)<5*difficultymultiplier){
-		randomindex = getRandomInt(3,7)
-		popups[randomindex].choosetext()
-		displaypopup(randomindex)
-		return false
+		if(getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
+			popups[18].choosetext()
+			displaypopup(18)
+			return false
 		}
-		else{
-		randomindex = getRandomInt(8,10)
-		popups[randomindex].choosetext()
-		displaypopup(randomindex)
-		return false
+	
+
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange))) <= 0){
+			popups[1].choosetext()
+			displaypopup(1)
+			return false
+
 
 		}
-	}
-	if (reputation>30&&getRandomInt(0,2)==0){
-		randomindex = getRandomInt(11,12)
-		popups[randomindex].choosetext()
-		displaypopup(randomindex)
-		return false
-	}
-	if (m.scout){
-		popups[12].choosetext()
-		displaypopup(12)
-		m.scout=false
-		return false
-	}
-	if (military>difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))){
-		displaypopup(2)
-		return false
+		if (Math.random() > 0.7){
+			if (getRandomInt(0,15+luck)<5*difficultymultiplier){
+			randomindex = getRandomInt(3,7)
+			popups[randomindex].choosetext()
+			displaypopup(randomindex)
+			return false
+			}
+			else{
+			randomindex = getRandomInt(8,10)
+			popups[randomindex].choosetext()
+			displaypopup(randomindex)
+			return false
+
+			}
 		}
+		if (reputation>30&&getRandomInt(0,2)==0){
+			randomindex = getRandomInt(11,12)
+			popups[randomindex].choosetext()
+			displaypopup(randomindex)
+			return false
+		}
+		if (m.scout){
+			popups[12].choosetext()
+			displaypopup(12)
+			m.scout=false
+			return false
+		}
+		if (military>difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))){
+			displaypopup(2)
+			return false
+			}
 	
 	
 	}
@@ -182,7 +219,11 @@ function next_turn(){
 	xp+=xpgained
 	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
-	
+	debugger
+	for (const war of wars){
+		war.power+=war.totalpower/getRandomInt(20,25)
+		war.power =Math.min(war.power,war.totalpower)
+	}
 	if (difficulty>20){
 		
 		for (const p of m.marketselections){
@@ -205,11 +246,25 @@ function displayUI(turn=false){
 		military = 0
 		resourcesgained = 0
 		xpgained = 0
+		m_personnel = 0
 		unemployed = currentpop
 		if (m.phase>1){
 			document.getElementById("boss_health_container").style.display = "block"
 			document.getElementById("boss_health").style.width = Math.max(0,100*(m.bhealth/m.totalbhealth))+"%"
 			document.getElementById("boss_health_text").innerHTML = "boss: " +Math.max(0, m.bhealth) + "/" + m.totalbhealth
+		}
+		else if (wars.length>0){
+			let enemypower=0
+			let totalenemypower=0
+			for(const war of wars){
+				enemypower+=war.power
+				totalenemypower+=war.totalpower
+			}
+			enemypower=Math.floor(enemypower)
+			totalenemypower=Math.floor(totalenemypower)
+			document.getElementById("boss_health_container").style.display = "block"
+			document.getElementById("boss_health").style.width = Math.max(0,100*(enemypower/totalenemypower))+"%"
+			document.getElementById("boss_health_text").innerHTML = "enemy military: " +Math.max(0, enemypower) + "/" + totalenemypower
 		}
 		else{
 			document.getElementById("boss_health_container").style.display = "none"
@@ -228,7 +283,7 @@ function displayUI(turn=false){
 				el.disabled = false
 				}
 				else{
-					el.disabled = !techstats.market
+					el.disabled = !(techstats.market&&!siege)
 				}
 			}
 		}
@@ -244,11 +299,15 @@ function displayUI(turn=false){
 			military += gridstats[i].military
 			xpgained += gridstats[i].xp
 			resourcesgained += gridstats[i].resources
+			if(gridstats[i].military>0){
+				m_personnel+=gridstats[i].employmentrequired
+			}
 			unemployed -= gridstats[i].employmentrequired
 			}
 			else{
 				gridstats[i].disabled = true
 			}
+			
 		}
 		}
 		displaytab()
@@ -258,8 +317,8 @@ function displayUI(turn=false){
 			totalxp+=10+Math.floor(totalxp/7)
 			
 		}
-		food += Math.ceil(food*modifiers.food)
-		resourcesgained += Math.ceil(resourcesgained*modifiers.resources)
+		food += Math.ceil(food*modifiers.food)-(siege ? Math.ceil(food*modifiers.food)*0.7:0)
+		resourcesgained += Math.ceil(resourcesgained*modifiers.resources)-(siege ? Math.ceil(resourcesgained*modifiers.resources)*0.7:0)
 		population += Math.ceil(population*modifiers.population)
 		military += Math.ceil(military*modifiers.military*(m.shield*0.01))
 		for (const ef of temporaryeffects){
@@ -281,6 +340,7 @@ function displayUI(turn=false){
 		
 		
 		military+=unemployed
+		m_personnel+=unemployed
 		for (i=0;i<achievements.length;i++){
 			if (achievements[i].requires()&&!achievements[i].acquired){
 			
@@ -296,10 +356,11 @@ function displayUI(turn=false){
 		if(m.phase>0&&m.bhealth<=0){
 			displaypopup(39, information)
 		}
+		currentpop=Math.max(0,currentpop)
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
-		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>&nbsp;"+shorten(food)+"</strong>": shorten(food))
+		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'> "+shorten(food)+"</strong>": shorten(food))
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
 document.getElementById("resources").innerHTML = `Resources: ${shorten(resources)} (${(resourcesgained>=0 ? "+":"")}${shorten(resourcesgained)})`
@@ -311,7 +372,11 @@ function attack(power){
 	if (enemy_power>military){
 		
 		reputation-=getRandomInt(1,3)
-		removebuildings()
+		
+		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		resources-=Math.floor(m_personnel/8)
+		currentpop-=Math.floor(m_personnel/4)
+		removebuildings(5)
 		displaypopup(0, information)
 		
 
@@ -320,9 +385,9 @@ function attack(power){
 	render()
 		return
 	}
-	information[1].choosetext(Math.ceil(currentpop/4))
-	currentpop+= Math.ceil(currentpop/4)
-	
+	information[1].choosetext(Math.ceil(power/4),Math.floor(m_personnel/8))
+	currentpop+= Math.ceil(power/4)
+	resources-=Math.floor(m_personnel/8)
 	displaypopup(1, information)
 }
 
