@@ -631,11 +631,36 @@ function isrepairing(){
 		repairing = false
 	}
 }
+
 function renderclouds(){
-	ctx.fillStyle = "#212121"
+	
+	const grd = ctx.createLinearGradient(((spawnX-scrollX)*20)+screen.width/2+max.right*20,0,((spawnX-scrollX)*20)+screen.width+screen.width/2+max.right*20,0)
+	grd.addColorStop(1,"#ffffff")
+	grd.addColorStop(0.25,"#ffffff")
+	grd.addColorStop(0.15,"rgba(255,255,255,0.8)")
+	grd.addColorStop(0,"rgba(255,255,255,0)")
+	ctx.fillStyle = grd
 	ctx.fillRect(((spawnX-scrollX)*20)+screen.width/2+max.right*20,0,screen.width,screen.height)
+	const ygrd = ctx.createLinearGradient(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,((spawnX-scrollX)*20)+screen.width/2+max.left*20,0)
+	ygrd.addColorStop(0,"#ffffff")
+	ygrd.addColorStop(0.75,"#ffffff")
+	ygrd.addColorStop(0.85,"rgba(255,255,255,0.8)")
+	ygrd.addColorStop(1,"rgba(255,255,255,0)")
+	ctx.fillStyle = ygrd
 	ctx.fillRect(((spawnX-scrollX)*20)-screen.width/2+max.left*20,0,screen.width,screen.height)
+	const yxgrd = ctx.createLinearGradient(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,0,(-80+(spawnY-scrollY)*20)+900+screen.height/2+max.down*20)
+	yxgrd.addColorStop(1,"#ffffff")
+	yxgrd.addColorStop(0.25,"#ffffff")
+	yxgrd.addColorStop(0.15,"rgba(255,255,255,0.8)")
+	yxgrd.addColorStop(0,"rgba(255,255,255,0)")
+	ctx.fillStyle = yxgrd
 	ctx.fillRect(0,(-80+(spawnY-scrollY)*20)+screen.height/2+max.down*20,screen.width,screen.height)
+	const xygrd = ctx.createLinearGradient(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,0,(-120+(spawnY-scrollY)*20)+screen.height/2+max.up*20)
+	xygrd.addColorStop(0,"#ffffff")
+	xygrd.addColorStop(0.65,"#ffffff")
+	xygrd.addColorStop(0.75,"rgba(255,255,255,0.8)")
+	xygrd.addColorStop(1,"rgba(255,255,255,0)")
+	ctx.fillStyle = xygrd
 	ctx.fillRect(0,(-120+(spawnY-scrollY)*20)-screen.height/2+max.up*20,screen.width,screen.height)
 	ctx.fillStyle = "rgba(0,0,0,1)"
 	ctx.stroke()
