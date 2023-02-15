@@ -48,25 +48,33 @@ function turnpopup(){
 			for (const war of wars){
 				warpower+=war.power
 			}
-			const randomwar=getRandomInt(0,8)
-			if(randomwar>=0&&randomwar<=3){
-				popups[19].choosetext()
+			
+			
+			if(getRandomInt(0,2)==0){
+								popups[19].choosetext()
 				displaypopup(19)
 				return false
 			}
-			else if (randomwar>=4&&randomwar<=6){
+			
+			else if(siege&&getRandomInt(0,1)==1){
+					popups[22].choosetext()
+				displaypopup(22)
+				return false
+			}
+			
+			else if (warpower/military>1.5&&getRandomInt(0,2)!=0){
 				popups[20].choosetext()
 				displaypopup(20)
 				return false
 			}
-			else if (Math.abs(warpower-military)>1000&&randomwar>6){
-				popups[22].choosetext()
-				displaypopup(22)
-				return false
-			}
-			else{
+			else if (warpower/military<0.5&&getRandomInt(0,2)!=0){
 				popups[21].choosetext()
 				displaypopup(21)
+				return false
+			}
+			else if(warpower/military>4||warpower/military<0.25){
+				popups[23].choosetext()
+				displaypopup(23)
 				return false
 			}
 			
