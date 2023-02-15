@@ -22,19 +22,6 @@ function createSimpleTable(rows) {
 
 function difficultyscreen(){
 
-		const ele = document.getElementsByClassName("new_button")
-		let k = 1
-		for (const el of ele){
-				if (k==2){
-					break
-				}
-				el.innerHTML = "New Game"
-				el.disabled = false;
-				el.id = k
-				el.onclick = function(){newgame(parseFloat(el.id))}
-				k+=0.5
-			
-		}
 	document.getElementById("difficulty-flex").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
 	document.getElementById("back_button").onclick = function(){menu()}
@@ -54,6 +41,7 @@ document.getElementById("popup_block_buttons").style.display = 'none';
 document.getElementById("pause_flex").style.display='none'
 }
 function settings(ifmenu=true){
+	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("popup_block_buttons").style.display = 'none';
 	document.getElementById("pause_flex").style.display='none'
 	document.getElementById("settings-flex").style.display = "flex"
@@ -503,7 +491,7 @@ repairing = false
 			techoption.addEventListener("mouseout", function(){
 				techoption.classList.remove("hover")
 			})
-			if (tech[i][j].unlocked){
+			if (tech[i][j].tier>=1){
 				image.style.filter = "brightness(100%)"
 			}
 			else{
@@ -624,6 +612,8 @@ function load(bindex){
 		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
 		
 	}
+	
+	
 	i=0
 	for (const obj in techstats){
 		
@@ -883,6 +873,7 @@ function start(){
 
 	
 document.body.style.overflow = "hidden"
+window.scrollTo(0, 0);
 document.getElementById("tech-tree").style.display = 'none'
 if (m.phase>1||wars.length>0){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
