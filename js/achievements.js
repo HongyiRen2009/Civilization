@@ -320,7 +320,8 @@ function achievementscreen(ismenu){
 		document.getElementById("back_button").hidden = false
 		document.getElementById("title_start").hidden = true
 		document.getElementById("start-flex").style.display = "none"
-		
+		document.getElementById("popup_block_buttons").style.display = 'none';
+		document.getElementById("difficulty-flex").style.display = 'none'
 		document.getElementById("stats").style.display = "none"
 		document.getElementById("select-grid").style.display = "none"
 		ctx.clearRect(0,0,screen.width,screen.height)
