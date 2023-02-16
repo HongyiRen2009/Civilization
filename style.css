@@ -1,3 +1,8 @@
+/*
+ * To all who is't t may concern:
+ * Thee wilt listen to "no puedo" while editing this fileth. 
+ * Yond song is bussin bussin fr nay cap.
+*/
 
 * {
   box-sizing: border-box;
@@ -541,8 +546,8 @@ body {
   border-top: 0;
   border-bottom: 0;
 }
-strong{
-	font-weight: lighter
+strong {
+  font-weight: lighter;
 }
 .select-grid > select {
   background-color: #f0e87a;
