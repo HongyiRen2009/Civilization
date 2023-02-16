@@ -226,8 +226,7 @@ function next_turn(){
 	
 	xp+=xpgained
 	difficulty+=1
-	document.getElementById("mbutton").disabled=!techstats.market
-	debugger
+	document.getElementById("mbutton").disabled=!techstats.market	
 	for (const war of wars){
 		war.power+=war.totalpower/getRandomInt(20,25)
 		war.power =Math.min(war.power,war.totalpower)
@@ -368,7 +367,7 @@ function displayUI(turn=false){
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
-		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'> "+shorten(food)+"</strong>": shorten(food))
+		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>&nbsp;"+shorten(food)+"</strong>": shorten(food))
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
 document.getElementById("resources").innerHTML = `Resources: ${shorten(resources)} (${(resourcesgained>=0 ? "+":"")}${shorten(resourcesgained)})`
