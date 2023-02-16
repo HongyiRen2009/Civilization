@@ -200,6 +200,29 @@ input[type="range"]::-webkit-slider-thumb {
   width: 80%;
   height: 20px;
 }
+
+#boss_health_container {
+  display: none;
+  border: 3px solid black;
+  height: 25px;
+  position: absolute;
+  bottom: 90%;
+  left: 50%;
+  transform: translate(-50%, 90%);
+}
+
+#boss_health {
+  background-color: red;
+}
+
+#boss_health_text {
+  text-align: center;
+  position: relative;
+  bottom: 35px;
+  color: white;
+  z-index: 2;
+}
+
 .achievement-unlocked {
   display: none;
   flex-direction: column;
@@ -217,6 +240,12 @@ input[type="range"]::-webkit-slider-thumb {
   border: 3px solid #000000;
   border-radius: 6px;
 }
+
+.achievement-unlocked #achievement-title {
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .showxp {
   font-weight: bold;
   position: absolute;
@@ -245,6 +274,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 #market-flex {
   display: none;
+  padding-bottom: 100px;
 }
 
 #market-top-bar {
@@ -316,6 +346,10 @@ input[type="range"]::-webkit-slider-thumb {
   margin: 3px 0px;
 }
 
+.save-grid h1 {
+  font-size: 25px;
+}
+
 #popup_block_buttons {
   display: none;
   /* position: fixed is position relative to the screen, so it will always cover the screen.
@@ -347,7 +381,8 @@ input[type="range"]::-webkit-slider-thumb {
 .color-dg {
   color: #006300;
 }
-.title_screen {
+.title_screen,
+#achievement-title {
   margin: 20px;
   text-align: center;
 
@@ -612,4 +647,88 @@ button:disabled {
 
 canvas {
   display: none;
+}
+
+#mresource,
+#mreputation {
+  font-weight: bold;
+}
+
+#year_label {
+  margin: auto;
+  font-weight: bold;
+}
+
+#xp_flex {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+#xp_bar_container {
+  width: 20%;
+  height: 22px;
+  border: 2px solid black;
+}
+
+#xp_bar {
+  width: 10%;
+  height: 18px;
+  background-color: #e224ff;
+}
+
+#xp_text {
+  text-align: center;
+  position: relative;
+  bottom: 35px;
+  color: white;
+  z-index: 2;
+}
+
+#pause_flex {
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 30px;
+  border: 3px solid black;
+  border-radius: 4px;
+  background-color: var(--game-container-bg-color);
+  width: 30%;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+#pause-text {
+  font-size: 30px;
+}
+
+#cloudimg {
+  display: none;
+}
+
+#settings-flex {
+  display: none;
+  margin: auto;
+  width: 70%;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+#settings-flex p {
+  font-weight: bold;
+}
+
+#settings-toggle-container {
+  display: flex;
+  gap: 40px;
+}
+
+.settings-toggle-column {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
