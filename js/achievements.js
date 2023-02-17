@@ -318,7 +318,7 @@ function achievementscreen(ismenu){
 		document.getElementById("achievement-flex").style.display = 'flex'
 		document.getElementById("difficulty-flex").style.display = 'none'
 		document.getElementById("back_button").hidden = false
-		document.getElementById("title_start").hidden = true
+		document.getElementById("title_start").style.display = "none"
 		document.getElementById("start-flex").style.display = "none"
 		document.getElementById("popup_block_buttons").style.display = 'none';
 		document.getElementById("difficulty-flex").style.display = 'none'
