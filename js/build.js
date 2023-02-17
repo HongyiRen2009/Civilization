@@ -16,6 +16,7 @@ const p = {
 		},
 		
 		requires(){
+			
 			return resources >=1
 		}
 
@@ -33,7 +34,7 @@ const p = {
 		},
 		tab: "Housing",
 		requires(){
-			return resources >=5-Math.ceil(3*techstats.eff_infra) && difficulty>3
+			return resources >=5-Math.ceil(3*techstats.eff_infra)
 		}
 	},
 	{
@@ -534,7 +535,6 @@ for (i=0,len=piece.length;i!=len;i++){
 			}
 		return localallowed
 }
-
 canvas.onmousemove = function(event){
 	
 		
@@ -577,7 +577,11 @@ ctx.beginPath();
 				ctx.rect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 			}
 			else{
+				ctx.fillStyle="rgba(0,255,0,0.7)"
+											ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+
 			ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+
 			}
 		}
 		}
@@ -666,6 +670,26 @@ function renderclouds(){
 	ctx.stroke()
 	
 }
+function searchrange(lower,higher,list){
+	
+	let numlist = [...list]
+	while (numlist.length>1){
+		const numlen = numlist.length
+		if(numlist[Math.floor(numlen/2)]>higher){
+			numlist = numlist.slice(0,Math.floor(numlen/2))
+			
+		}
+		else if (numlist[Math.floor(numlen/2)]<lower){
+			numlist = numlist.slice(Math.floor(numlen/2),numlen-1)
+		}
+		else{
+			return numlist[Math.floor(numlen/2)]
+		}
+	}
+    
+   
+    return null
+}
 function render(){
 	
 	ctx.beginPath()
@@ -676,7 +700,8 @@ function render(){
 	ctx.fillRect(0,0, screen.width,screen.height)
 	ctx.fillStyle = "rgb(103, 104, 107)"
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
-		for (let j = 0; j<hillgrid[i].length;j++){
+		
+		for (let j = 0, len =hillgrid[i].length; j<len;j++){
 			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
 			
 			ctx.fillRect(hillgrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
@@ -687,7 +712,7 @@ function render(){
 	ctx.fillStyle = "rgba(0,0,0,1)"
 	ctx.fillStyle = "rgb(3,172,252)"	
 	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
-		for (let j = 0; j!=rivergrid[i].length;j++){
+		for (let j = 0, len = rivergrid[i].length;j<len;j++){
 			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
 			
 			ctx.fillRect(rivergrid[i][j]-(scrollX*20),(i-scrollY)*20,20,20)
@@ -736,14 +761,21 @@ function render(){
 			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
 				ctx.drawImage(document.getElementById("cloudimg"),gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
 				ctx.stroke()
+				
 
 			}
+			ctx.closePath()
 				
 				
 		}
 	
 		
 		
+	}
+	for (const road in roadgrid){
+		
+		const pos = JSON.parse(road)
+		ctx.drawImage(document.getElementById("cloudimg"),roadgrid[road].x,roadgrid[road].y,20,20,pos.x-scrollX*20,pos.y-scrollY*20,22,22)
 	}
 	
 }
@@ -775,7 +807,52 @@ function recalcBuildings() {
 	}
 }
 
-
+function recalcroads(roads){
+	const valueindex=["0000",'1000','0100','0010','0001','1100','0110','0011','1001','1110','0111','1011','1101','1010','0101','1111']
+	const valuexy=[{x:212,y:1},{x:233,y:1},{x:254,y:1},{x:275,y:1},{x:212,y:21},{x:233,y:21},{x:254,y:21},{x:275,y:21},{x:212,y:42},{x:233,y:42},{x:254,y:42},{x:275,y:42},{x:212,y:63},{x:233,y:63},{x:254,y:63},{x:275,y:63}]
+	const constraints = [
+	{
+		istrue(whichroad){
+			const pos = JSON.parse(whichroad)
+			return roadgrid[JSON.stringify({x:pos.x,y:pos.y-20})]!=undefined
+		}
+		
+	},
+	{
+		istrue(whichroad){
+			const pos = JSON.parse(whichroad)
+			return roadgrid[JSON.stringify({x:pos.x+20,y:pos.y})]!=undefined
+		}
+		
+	},
+	{
+		istrue(whichroad){
+			const pos = JSON.parse(whichroad)
+			return roadgrid[JSON.stringify({x:pos.x,y:pos.y+20})]!=undefined
+		}
+		
+	},
+	{
+		istrue(whichroad){
+			const pos = JSON.parse(whichroad)
+			return roadgrid[JSON.stringify({x:pos.x-20,y:pos.y})]!=undefined
+		}
+		
+	},
+	]
+	
+	for (const road in roads){
+		if(roadgrid[roads[road]]!=undefined){
+		let value = ""
+		for(const el of constraints){
+			value+=(el.istrue(roads[road]) ? 1:0)
+		}
+		
+		roadgrid[roads[road]]=valuexy[valueindex.indexOf(value.toString())]
+		}
+	}
+	
+}
 canvas.onmousedown = function(event){
 	
 	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
@@ -808,6 +885,21 @@ canvas.onmousedown = function(event){
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
 		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge") {
 			isInRange = true
+			if(p.pieceROM[p_index].name == "Road"){
+				p.pieceROM[p_index].effect()
+				debugger
+				roadgrid[JSON.stringify({x:position.x,y:position.y})] = {x:0,y:0}
+				recalcroads([JSON.stringify({x:position.x,y:position.y}),JSON.stringify({x:position.x+20,y:position.y}),JSON.stringify({x:position.x,y:position.y+20}),JSON.stringify({x:position.x,y:position.y-20}),JSON.stringify({x:position.x-20,y:position.y})])
+				displayUI()
+				render()
+				allowed = false
+				first_turn=false
+				if (!p.pieceROM[p_index].requires()){
+					piece.length = 0
+					ispainting = false
+				}
+				return
+				}
 		}
 		if (!isInRange) {
 			for (j=0; j < p.cities.length; j++) {
@@ -824,7 +916,7 @@ canvas.onmousedown = function(event){
 		}
 		if (hillgrid[gridposition[i].y/20].includes(gridposition[i].x)){
 			p.hill = true
-		}	
+		}
 		
 	}
 	
@@ -853,7 +945,6 @@ canvas.onmousedown = function(event){
 		if (!p.pieceROM[p_index].requires()){
 			piece.length = 0
 			ispainting = false
-			allowed = false
 		}
 		
 		buildingamounts[p_index] +=1
@@ -861,16 +952,24 @@ canvas.onmousedown = function(event){
 			outofrange++
 		}
 		displayUI()
+		render()
 		if (tutorialindex==1||tutorialindex==2){
 			tutorialindex+=1
 			continuetutorial(tutorialindex)
 		}
 		
 }
+
 else if (removing&&grid[position.y/20].includes(position.x)){
 	
 	let found = false
 	let buildingindex = 0
+	if(roadgrid[JSON.stringify({x:position.x,y:position.y})]!=undefined){
+	delete roadgrid[JSON.stringify({x:position.x,y:position.y})]
+	recalcroads([JSON.stringify({x:position.x+20,y:position.y}),JSON.stringify({x:position.x,y:position.y+20}),JSON.stringify({x:position.x,y:position.y-20}),JSON.stringify({x:position.x-20,y:position.y})])
+	render()
+	return
+}
 	for (i=0, len=gridstats.length;i<len;i++){
 		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
 		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
@@ -890,6 +989,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
 	buildingamounts[gridstats[buildingindex].index]-=1
 	gridstats.splice(buildingindex,1)
+	render()
 	displayUI()
 }
 else if (repairing&&grid[position.y/20].includes(position.x)){
@@ -910,7 +1010,7 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 	repairsound.play()
 	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats[buildingindex].disabled=false
-	
+	render()
 	displayUI()
 	}
 }
