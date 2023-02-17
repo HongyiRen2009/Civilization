@@ -34,6 +34,7 @@ function turnpopup(){
 	switch(m.phase){
 	case 0 :
 	if (difficulty>10){
+		
 		if(difficulty<40){
 		if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
 			
@@ -43,7 +44,12 @@ function turnpopup(){
 			return false
 		}
 		}
-		else if (wars.length >0){
+		else if(getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
+			popups[18].choosetext()
+			displaypopup(18)
+			return false
+		}
+		if (wars.length >0){
 			let warpower = 0
 			for (const war of wars){
 				warpower+=war.power
@@ -80,11 +86,7 @@ function turnpopup(){
 			
 		}
 		
-		if(getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
-			popups[18].choosetext()
-			displaypopup(18)
-			return false
-		}
+		
 	
 
 		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange))) <= 0){
@@ -182,12 +184,16 @@ function enable(){
 	const turnreturn = turnpopup()
 	
 	document.getElementById("popup_block_buttons").style.animation = "none"
-	if(turnreturn==true&&!psettings.nofade){
+	if(turnreturn==true){
 	
-	
+	if(!psettings.nofade){
 	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
+	}
 	setTimeout(function(){document.getElementById("popup_block_buttons").animation = "none";document.getElementById("popup_block_buttons").style.display = "none"},1000)
 	}
+	
+	
+	
 	
 	
 
@@ -226,7 +232,8 @@ function next_turn(){
 	
 	xp+=xpgained
 	difficulty+=1
-	document.getElementById("mbutton").disabled=!techstats.market	
+	document.getElementById("mbutton").disabled=!techstats.market
+	debugger
 	for (const war of wars){
 		war.power+=war.totalpower/getRandomInt(20,25)
 		war.power =Math.min(war.power,war.totalpower)
@@ -294,7 +301,12 @@ function displayUI(turn=false){
 				}
 			}
 		}
-		
+		if(difficulty<5){
+			document.getElementById("techbutton").disabled = true
+		}
+		else{
+			document.getElementById("techbutton").disabled=false
+		}
 		for (len = gridstats.length,i=0;i<len;i++){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
@@ -319,6 +331,9 @@ function displayUI(turn=false){
 		}
 		displaytab()
 		while (xp>=totalxp){
+			if(difficulty>5){
+			document.getElementById("techbutton").style.animation = "flash 2s step-start infinite"
+			}
 			research_points+=1
 			xp-=totalxp
 			totalxp+=10+Math.floor(totalxp/7)
@@ -365,7 +380,7 @@ function displayUI(turn=false){
 		}
 		currentpop=Math.max(0,currentpop)
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
-		document.getElementById("xp_text").innerHTML = xp+"/"+totalxp
+		document.getElementById("xp_text").innerHTML = shorten(xp)+"/"+shorten(totalxp)
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>&nbsp;"+shorten(food)+"</strong>": shorten(food))
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
