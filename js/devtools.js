@@ -1,5 +1,11 @@
 const dev = {
-
+	removemax(){
+	max.up=-1000000000
+	max.left=-1000000000
+	max.right=10000
+	max.down=100000000
+	techstats.exploration = true
+	},
     help: function() {
         return dev && console.log('To display a popup: type dev.popup(), and inside the argument, add the name of the event INSIDE A STRING. here are the events that you can summon: attack, revolt, playerattack, plauge, drought, folklore, fire, badomen, breakthrough, traveler, refugees, tradeoffer, traderoute, beast, eruption, tribute, beastattack, endgame, gameover. 	WARNING: SOME OF THESE EVENTS CAN BREAK THE GAME. DO NOT USE ON A GAME YOU CARE ABOUT.')
     },
