@@ -18,3 +18,5 @@ Programming and Idea Contributions: 0verkil
 Art Lead, Idea Contributions and Audio designer: TNTiger17
 
 Graphic Design Lead, Bugfixer, Public Relations: Bulmenisaurus
+
+Actually created by odle kids
