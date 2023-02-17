@@ -524,7 +524,7 @@ select {
 }
 
 body {
-  background-color: #fff8dc;
+  background-color: linear-gradient(to bottom, #fff2bf, #fff8dc);
   user-select: none;
   font-variant-numeric: tabular-nums;
   margin: 0;
