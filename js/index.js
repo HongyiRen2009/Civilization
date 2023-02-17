@@ -264,6 +264,7 @@ repairing = false
 	tech_music.play()
 	document.getElementById("info-flex").style.display = 'none'
 	document.body.overflowY="scroll"
+	document.getElementById("techbutton").style.animation = "none"
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("tech-tree").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
@@ -349,8 +350,9 @@ repairing = false
 	
 	techgrid.style.gridTemplateColumns = (`${(screen.width*0.8)/categories.length}px `).repeat(categories.length)+"160px"
 	techgrid.style.gridTemplateRows = ((screen.height-400)/tech.length+"px ").repeat(tech.length)+"200px"
-	linecontainer.setAttribute("height", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.height});
-	linecontainer.setAttribute("width", function(){const techwidth = techgrid.getBoundingClientRect(); return techwidth.width});
+	const techrect = techgrid.getBoundingClientRect()
+	linecontainer.setAttribute("height", techrect.height);
+	linecontainer.setAttribute("width", techrect.width);
 	techgrid.appendChild(descriptioncontainer)
 	descriptioncontainer.addEventListener("mouseover", function(){
 		descriptioncontainer.classList.add("hover")
@@ -521,10 +523,10 @@ repairing = false
 				const thisposition = techoption.getBoundingClientRect()
 				const thatposition = techelement.element.getBoundingClientRect()
 				
-				techline.setAttribute('x1',thisposition.x+15);
-				techline.setAttribute('y1',thisposition.y+15);
-				techline.setAttribute('x2',thatposition.x+15);
-				techline.setAttribute('y2',thatposition.y+15);
+				techline.setAttribute('x1',thisposition.x+17.5);
+				techline.setAttribute('y1',thisposition.y+17.5);
+				techline.setAttribute('x2',thatposition.x+17.5);
+				techline.setAttribute('y2',thatposition.y+17.5);
 				techline.style.stroke = "black"
 				techline.style.strokeWidth = "2"
 				linecontainer.append(techline);
@@ -565,7 +567,7 @@ function save(bindex){
 	for (const item of m.marketselections){
 		localmarketstats.push({price: item.price,amountincrease:item.amountincrease,stock:item.stock})
 	}
-	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,rivergrid,hillgrid,gridstats}));
+	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,roadgrid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
 	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,cityincreases:p.cityincreases,wars, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
@@ -607,20 +609,16 @@ function load(bindex){
 	for (const war of JSON.parse(localStorage.getItem('pstats'+bindex)).wars){
 		wars.push(war)
 	}
-	const localtechstats = []
 	for (const obj in JSON.parse(localStorage.getItem('pstats'+bindex)).techstats){
-		localtechstats.push(JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj])
+		techstats[obj] = JSON.parse(localStorage.getItem('pstats'+bindex)).techstats[obj]
 		
 	}
 	
-	
-	i=0
-	for (const obj in techstats){
+	for (const obj in JSON.parse(localStorage.getItem('griditems'+bindex)).roadgrid){
+		roadgrid[obj] = JSON.parse(localStorage.getItem('griditems'+bindex)).roadgrid[obj]
 		
-		
-  		techstats[obj] = localtechstats[i];
-		i+=1
 	}
+
 	i=0
 	for (const un of tech){
 		for (const unn of un){
@@ -686,7 +684,7 @@ function load(bindex){
 	max.left=localscrolldata[4].left
 	max.right=localscrolldata[4].right
 	
-	if (gridstats.length>0){
+	if (gridstats.length>0||Object.keys(roadgrid).length>0){
 		first_turn=false
 	}
 	modifiers.food = localmod.food
@@ -745,7 +743,7 @@ function newgame(difficult){
 	unemployed = 2
 	military=0
 	xp=0
-	totalxp=0
+	totalxp=50
 	rivergrid.length = 0
 	hillgrid.length = 0
 	m.assissin = 0
@@ -775,7 +773,7 @@ function newgame(difficult){
 	generateblob(spawnX+Math.floor(widthmax/2),spawnY+Math.floor(heightmax/2),false)
 	let xspawn = 50
 	let yspawn = 50
-	for (let h=0,rand=getRandomInt(60,80);h<rand;h++){
+	for (let h=0,rand=getRandomInt(40,50);h<rand;h++){
 		
 		generateblob(xspawn+getRandomInt(-30,30),yspawn+getRandomInt(-30,30), getRandomInt(0,30)==0)
 	
@@ -787,6 +785,7 @@ function newgame(difficult){
 		
 		
 	}
+	
 	
 	
 if(psettings.notutorial){
@@ -903,9 +902,4 @@ function move(x,y){
 	scrollY+=y
 	render()
 }
-function removemax(){
-	max.up=-1000000000
-	max.left=-1000000000
-	max.right=10000
-	max.down=100000000
-}
+
