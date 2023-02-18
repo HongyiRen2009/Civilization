@@ -108,7 +108,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .techline {
   display: none;
-
 }
 @keyframes pause {
   from {
@@ -521,7 +520,7 @@ select {
 }
 
 body {
-  background-color: linear-gradient(to bottom, #fff2bf, #fff8dc);
+  background: linear-gradient(to bottom, #fff2bf, #fff8dc);
   user-select: none;
   font-variant-numeric: tabular-nums;
   margin: 0;
