@@ -206,11 +206,6 @@ function enable(){
 }
 
 function next_turn(){
-	if (Math.random() > 0.2) {
-		raining = true
-	} else {
-		raining = false
-	}
 	window.onbeforeunload = function(){return "hi"}
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
@@ -220,6 +215,11 @@ function next_turn(){
 	pbb.offsetHeight; /* trigger reflow */
 	if(!psettings.nofade){
 	pbb.style.animation = "block_done linear 1s 1 normal"; 
+	if (Math.random() > 0.2) {
+		raining = true
+	} else {
+		raining = false
+	}
 	}
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
