@@ -1,3 +1,86 @@
+var rainthroughnum = 500;
+var speedRainTrough = 25;
+var RainTrough = [];
+var rainnum = 300;
+var rain = [];
+var w = canvas2.width;
+var h = canvas2.height;
+
+function random(min, max) {
+  return Math.random() * (max - min + 1) + min;
+}
+
+function createRainTrough() {
+  for (var i = 0; i < rainthroughnum; i++) {
+    RainTrough[i] = {
+      x: random(0, w),
+      y: random(0, h),
+      length: Math.floor(random(1, 830)),
+      opacity: Math.random() * 0.2,
+      xs: random(-2, 2),
+      ys: random(10, 20)
+    };
+  }
+}
+
+function createRain() {
+  for (var i = 0; i < rainnum; i++) {
+    rain[i] = {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      l: Math.random() * 1,
+      // xs: -4 + Math.random() * 4 + 2, //random rain movement, more natural but no wind
+	  xs: 5, //set rain movement, looks slightly more windy and straight
+      ys: Math.random() * 10 + 10
+    };
+  }
+}
+
+function drawRain(i) {
+	ctx2.globalCompositeOperation='destination-over';
+  ctx2.beginPath();
+  ctx2.moveTo(rain[i].x, rain[i].y);
+  ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
+  ctx2.strokeStyle = 'rgba(174,194,224,0.5)';
+  ctx2.lineWidth = 2;
+  ctx2.lineCap = 'round';
+  ctx2.stroke();
+
+}
+
+function animateRain() {
+  for (var i = 0; i < rainnum; i++) {
+    rain[i].x += rain[i].xs;
+    rain[i].y += rain[i].ys;
+    if (rain[i].x > w || rain[i].y > h) {
+      rain[i].x = Math.random() * w;
+      rain[i].y = -20;
+    }
+	if (raining) {
+    drawRain(i);
+	}
+  }
+}
+
+function init() {
+  createRainTrough();
+  createRain();
+  window.addEventListener('resize', createRainTrough);
+}
+init();
+
+function animloop() {
+  animateRain();
+  requestAnimationFrame(animloop);
+  if (raintimer > 0) {
+	  raintimer-=1
+  } else {
+	  raintimer = 2
+	  ctx2.clearRect(0,0,screen.width,screen.height)
+  }
+}
+animloop();
+
 function createSimpleTable(rows) {
 	const table = document.createElement('table');
 	const tableBody = document.createElement('tbody');
