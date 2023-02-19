@@ -117,6 +117,16 @@ input[type="range"]::-webkit-slider-thumb {
     transform: translate(-50%, 50%);
   }
 }
+@keyframes rain {
+  from {
+    transform: rotate(105deg) translateX(0);
+	z-index: 10
+  }
+  to {
+    transform: rotate(105deg) translateX(calc(100vh + 20px));
+	z-index: 10
+  }
+}
 .pause_button {
   margin: auto;
   font-size: 30px;
@@ -641,8 +651,19 @@ button:disabled {
   background-color: #9c9c95;
 }
 
-canvas {
+#canvas {
   display: none;
+  z-index: 0;
+}
+#canvas2 {
+	pointer-events: none;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 #mresource,
