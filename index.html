@@ -131,7 +131,8 @@
  </div>
 
  <button class = "back_button" id = "back_button" hidden>Back</button>
- <canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
+<canvas id="canvas" width="1500" height="500" id="canvas"></canvas>
+<canvas id="canvas2" width="1500" height="500"></canvas>
 
 <div class="select-grid" id="select-grid" hidden = true>
 <button class = 'cancel' onclick = "cancel()">Cancel</button>
@@ -211,6 +212,15 @@ const canvas = document.querySelector("canvas")
 canvas.height = screen.height*0.88
 canvas.width = screen.width
 const ctx = canvas.getContext("2d")
+const canvas2 = document.getElementById("canvas2")
+canvas2.height = screen.height*0.88
+canvas2.width = screen.width
+const ctx2 = canvas2.getContext("2d")
+const canvasrect = canvas.getBoundingClientRect()
+canvas2.style.left=canvasrect.left
+canvas2.style.right=canvasrect.right
+canvas2.style.top=canvasrect.top
+canvas2.style.bottom=canvasrect.bottom
 const heightmax = Math.round((screen.height*0.88)/20)
 const widthmax = Math.round((screen.width)/20)
 const rivergrid = [] 
