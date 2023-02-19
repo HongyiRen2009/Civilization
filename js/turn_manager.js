@@ -206,6 +206,11 @@ function enable(){
 }
 
 function next_turn(){
+	if (Math.random() > 0.2) {
+		raining = true
+	} else {
+		raining = false
+	}
 	window.onbeforeunload = function(){return "hi"}
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
