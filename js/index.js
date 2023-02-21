@@ -585,11 +585,6 @@ repairing = false
 			techgrid.appendChild(techoption)
 			
 			image.src=tech[i][j].image
-			image.style.position="relative"
-			image.style.right = "6px"
-			image.style.bottom = "3px"
-			image.style.width="30px"
-			image.style.height="33px"
 			techoption.appendChild(image)
 			
 			for (const el of tech[i][j].requires){
