@@ -120,11 +120,11 @@ input[type="range"]::-webkit-slider-thumb {
 @keyframes rain {
   from {
     transform: rotate(105deg) translateX(0);
-	z-index: 10
+    z-index: 10;
   }
   to {
     transform: rotate(105deg) translateX(calc(100vh + 20px));
-	z-index: 10
+    z-index: 10;
   }
 }
 .pause_button {
@@ -656,7 +656,7 @@ button:disabled {
   z-index: 0;
 }
 #canvas2 {
-	pointer-events: none;
+  pointer-events: none;
   display: block;
   position: absolute;
   top: 0;
