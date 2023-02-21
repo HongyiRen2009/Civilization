@@ -1,8 +1,11 @@
+
 var rainthroughnum = 500;
 var speedRainTrough = 25;
 var RainTrough = [];
-var rainnum = 300;
+
+var rainnum = 200;
 var rain = [];
+
 var w = canvas2.width;
 var h = canvas2.height;
 
@@ -30,21 +33,43 @@ function createRain() {
       y: Math.random() * h,
       l: Math.random() * 1,
       // xs: -4 + Math.random() * 4 + 2, //random rain movement, more natural but no wind
-	  xs: 5, //set rain movement, looks slightly more windy and straight
-      ys: Math.random() * 10 + 10
+	  xs: Math.random() - 0.5,
+      ys: Math.random() * 5
     };
   }
 }
 
 function drawRain(i) {
-	ctx2.globalCompositeOperation='destination-over';
-  ctx2.beginPath();
-  ctx2.moveTo(rain[i].x, rain[i].y);
-  ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
-  ctx2.strokeStyle = 'rgba(174,194,224,0.5)';
-  ctx2.lineWidth = 2;
-  ctx2.lineCap = 'round';
-  ctx2.stroke();
+	if (weather == 1) {
+		ctx2.globalCompositeOperation='destination-over';
+		ctx2.beginPath();
+		ctx2.moveTo(rain[i].x, rain[i].y);
+		ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
+		ctx2.strokeStyle = 'rgba(174,194,224,0.5)';
+		ctx2.lineWidth = 2;
+		ctx2.lineCap = 'round';
+		ctx2.stroke();
+	} else if (weather == 2) {
+		ctx2.globalCompositeOperation='destination-over';
+		ctx2.beginPath();
+		ctx2.moveTo(rain[i].x, rain[i].y);
+		// ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
+		ctx2.arc(rain[i].x, rain[i].y, 1, 0, 2 * Math.PI, false);
+		ctx2.strokeStyle = 'rgba(240, 242, 247,0.99)';
+		ctx2.lineWidth = 4;
+		ctx2.lineCap = 'round';
+		ctx2.stroke();
+	} else if (weather == 3) {
+		ctx2.globalCompositeOperation='destination-over';
+		ctx2.beginPath();
+		ctx2.moveTo(rain[i].x, rain[i].y);
+		// ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
+		ctx2.arc(rain[i].x, rain[i].y, 1, 0, 2 * Math.PI, false);
+		ctx2.strokeStyle = 'rgba(255, 255, 255,0.99)';
+		ctx2.lineWidth = 5;
+		ctx2.lineCap = 'round';
+		ctx2.stroke();
+	}
 
 }
 
@@ -52,15 +77,25 @@ function animateRain() {
   for (var i = 0; i < rainnum; i++) {
     rain[i].x += rain[i].xs;
     rain[i].y += rain[i].ys;
+	if (weather == 1) {
+		rain[i].ys = Math.random() * 10 + 10
+	}
+	if (weather == 2) {
+		rain[i].ys = Math.random() * 10 + 20
+	}
+	if (weather == 3) {
+		rain[i].ys = Math.random() * 5
+	}
     if (rain[i].x > w || rain[i].y > h) {
-      rain[i].x = Math.random() * w;
+		rain[i].x = Math.random() * w;
       rain[i].y = -20;
     }
-	if (raining) {
+	if (weather > 0) {
     drawRain(i);
 	}
   }
 }
+
 
 function init() {
   createRainTrough();
@@ -75,7 +110,13 @@ function animloop() {
   if (raintimer > 0) {
 	  raintimer-=1
   } else {
-	  raintimer = 2
+	  if (weather == 1) {
+		  raintimer = 2
+	  } else if (weather == 2) {
+		  raintimer = 1
+	  } else if (weather == 3) {
+		  raintimer = 2
+	  }
 	  ctx2.clearRect(0,0,screen.width,screen.height)
   }
 }
