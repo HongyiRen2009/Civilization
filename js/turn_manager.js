@@ -264,6 +264,7 @@ function next_turn(){
 	setTimeout(enable,1000)
 	
 }
+}
 
 function displayUI(turn=false){
 	
