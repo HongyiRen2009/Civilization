@@ -215,11 +215,18 @@ function next_turn(){
 	pbb.offsetHeight; /* trigger reflow */
 	if(!psettings.nofade){
 	pbb.style.animation = "block_done linear 1s 1 normal"; 
-	if (Math.random() > 0.2) {
-		raining = true
+	if (Math.random() > 0.6) {
+		if (Math.random() > 0.6) {
+			weather = 1
+		} else {
+			weather = 2
+		}
 	} else {
-		raining = false
-	}
+		if (Math.random() > 0.95) {
+			weather = 3
+		} else {
+			weather = 0
+		}
 	}
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
