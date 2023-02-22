@@ -1,6 +1,0 @@
--when you select a building to place and then enter the market, the world will display as the bakcground of the market and the game will be interactable
-(should cancel building press to enter market)
--JUST got a shop offer where i get 6 food in return for 44 resources
-
-
-
