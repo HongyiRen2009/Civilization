@@ -16,7 +16,7 @@ const confirmation = [
 			
 			save(confirmation[0].index)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		},
 	},
 	{
@@ -25,7 +25,7 @@ const confirmation = [
 			
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			
 		}
 	},
@@ -44,7 +44,7 @@ const confirmation = [
 			
 			menu()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			document.getElementById("pause_flex").style.display = "none"
 		},
 	},
@@ -53,7 +53,7 @@ const confirmation = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			
 		}
 	},
@@ -77,7 +77,7 @@ const confirmation = [
 			clearsave(index)
 			savescreen()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		},
 	},
 	{
@@ -86,7 +86,7 @@ const confirmation = [
 			
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			
 		}
 	},
@@ -104,7 +104,7 @@ const confirmation = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			istutorial = true
 			start()
 		},
@@ -115,7 +115,7 @@ const confirmation = [
 			
 			start()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			
 		}
 	},
@@ -144,7 +144,7 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10))))
 		},
 	},
@@ -153,7 +153,7 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			reputation-=getRandomInt(3,5)
 			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0))
 			information[12].choosetext(amountremove)
@@ -168,7 +168,7 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			if (getRandomInt(0,2) == 0){
 				displaypopup(4, information)
 			}
@@ -310,7 +310,7 @@ const popups = [
 			temporaryeffects.push({type: "percent", resources:0,military:0,food:-0.2,duration:3})
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 
 		}
 	}, 
@@ -365,7 +365,7 @@ const popups = [
 		effect(){
 		removebuildings(5)
 		document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 	
@@ -456,7 +456,7 @@ const popups = [
 			
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 
 		}
 	},
@@ -759,7 +759,7 @@ const popups = [
 			effect(){
 				m.phase+=1
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 				start()
 			
 			}
@@ -777,7 +777,7 @@ const popups = [
 				
 				removebuildings(2,true)
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			
 			}
 		}]
@@ -1354,7 +1354,7 @@ effect(){
 					break
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 
 
 		}
@@ -1374,7 +1374,7 @@ effect(){
 			}
 			menu()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 
 		}
 		
@@ -1407,7 +1407,7 @@ effect(){
 			clearsave(save_slot)
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			menu()
 		}
 	}
@@ -1436,7 +1436,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 		}]
 	},
@@ -1454,7 +1454,7 @@ const information = [
 			currentpop+=Math.floor(currentpop/3)
 			reputation+=getRandomInt(5,10)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			displayUI()
 		}
 	},
@@ -1473,7 +1473,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1491,7 +1491,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1507,7 +1507,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1522,7 +1522,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1541,7 +1541,7 @@ const information = [
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
 
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1559,7 +1559,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1575,7 +1575,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1592,7 +1592,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1608,7 +1608,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1624,7 +1624,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1643,7 +1643,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1668,7 +1668,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1693,7 +1693,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1709,7 +1709,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1727,7 +1727,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1745,7 +1745,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1763,7 +1763,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1782,7 +1782,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1799,7 +1799,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1828,7 +1828,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1845,7 +1845,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1864,7 +1864,7 @@ const information = [
 		effect(){
 			resources-=Math.ceil(resources/2)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			displayUI()
 		}
 	},
@@ -1882,7 +1882,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.display = "none"
+			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 		}
 	},
 		]
@@ -1899,7 +1899,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -1918,7 +1918,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -1938,7 +1938,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -1956,7 +1956,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -1974,7 +1974,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -1992,7 +1992,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2010,7 +2010,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2028,7 +2028,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2046,7 +2046,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2064,7 +2064,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2082,7 +2082,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2100,7 +2100,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2118,7 +2118,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2136,7 +2136,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2154,7 +2154,7 @@ const information = [
 			effect(){
 				megatemple+=1
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 				boss_music.pause()
 				build_music.play()
 				m.phase=0
@@ -2177,7 +2177,7 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2195,7 +2195,7 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2212,7 +2212,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2238,7 +2238,7 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2267,7 +2267,7 @@ const information = [
 				}
 				
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2284,7 +2284,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2301,7 +2301,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2331,7 +2331,7 @@ const information = [
 				}
 				else{
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 				}
 			}
 		},
@@ -2349,7 +2349,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2366,7 +2366,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2383,7 +2383,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
@@ -2408,14 +2408,16 @@ const information = [
 				start()
 				displayUI()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.display = "none"
+				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
 			}
 		},
 			]
 	},
 ]
 
-
+function removepopup() {
+	document.getElementById("popup").style.display = "none"
+}
 function displaypopup(index, list = popups){
 ispainting = false
 	document.getElementById("popup_block_buttons").style.display = "block"
@@ -2440,6 +2442,7 @@ ispainting = false
 	des.innerHTML = list[index].description
 	title.style.fontSize = list[index].size
 	grid.style.display = "grid"
+	grid.style.animation = "fadein 0.5s"
 	
 	grid.style.gridTemplateColumns="100 100 100 100"
 	button.id = "choice "+i
