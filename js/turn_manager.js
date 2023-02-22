@@ -182,40 +182,7 @@ function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
 	const turnreturn = turnpopup()
-	
-	document.getElementById("popup_block_buttons").style.animation = "none"
-	if(turnreturn==true){
-	
-	if(!psettings.nofade){
-	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
-	}
-	setTimeout(function(){document.getElementById("popup_block_buttons").animation = "none";document.getElementById("popup_block_buttons").style.display = "none"},1000)
-	}
-	
-	
-	
-	
-	
-
-	document.getElementById("year_label").innerHTML = "Year: "+difficulty
-	displayUI()
-	if (tutorialindex == 3){
-		tutorialindex+=1
-		continuetutorial(tutorialindex)
-	}
-}
-
-function next_turn(){
-	window.onbeforeunload = function(){return "hi"}
-	document.getElementById("turn").innerHTML = "please wait"
-	document.getElementById("turn").disabled = true
-	const pbb = document.getElementById("popup_block_buttons")
-	pbb.style.display = "block"
-	pbb.style.animation = 'none';
-	pbb.offsetHeight; /* trigger reflow */
-	if(!psettings.nofade){
-	pbb.style.animation = "block_done linear 1s 1 normal"; 
-	if (Math.random() > 0.6) {
+		if (Math.random() > 0.6) {
 		if (Math.random() > 0.6) {
 			weather = 1
 		} else {
@@ -227,6 +194,37 @@ function next_turn(){
 		} else {
 			weather = 0
 		}
+	}
+	document.getElementById("popup_block_buttons").style.animation = "none"
+	if(!psettings.nofade){
+	document.getElementById("popup_block_buttons").style.animation = "fadeout 1s"
+	}
+	
+
+	document.getElementById("year_label").innerHTML = "Year: "+difficulty
+	displayUI()
+	if (tutorialindex == 3){
+		tutorialindex+=1
+		continuetutorial(tutorialindex)
+	}
+	setTimeout(clearblock, 1000)
+}
+function clearblock(){
+	document.getElementById("popup_block_buttons").style.display = "none"
+}
+function next_turn(){
+	window.onbeforeunload = function(){return "hi"}
+	document.getElementById("turn").innerHTML = "please wait"
+	document.getElementById("turn").disabled = true
+	const pbb = document.getElementById("popup_block_buttons")
+	pbb.style.display = "block"
+	pbb.style.animation = 'none'
+	pbb.offsetHeight; /* trigger reflow */
+	if(!psettings.nofade){
+	pbb.style.animation = "none"
+	pbb.style.animation = "fadein 1s"
+	// pbb.style.animation = "none"
+	// pbb.style.animation = "endback 1s"; 
 	}
 	
 	for(i=temporaryeffects.length-1;i>-1;i--){
@@ -245,7 +243,6 @@ function next_turn(){
 	xp+=xpgained
 	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
-	debugger
 	for (const war of wars){
 		war.power+=war.totalpower/getRandomInt(20,25)
 		war.power =Math.min(war.power,war.totalpower)
@@ -259,11 +256,11 @@ function next_turn(){
 		selectmarketitems()
 		
 	}
+	
 }
 	
 	setTimeout(enable,1000)
 	
-}
 }
 
 function displayUI(turn=false){
