@@ -1,0 +1,22 @@
+****Graphics****
+-Complete building images(workshop, trade school, bonfire)
+-Texture UI(simple wood texture should work)
+-Texture grass, mountain, and river tiles
+-effect for unlocking tech besides a tiny "tech researched"(maybe a sort of star burst?)
+-also effect for unlocking a research point
+-text boxes that let you know when you have low food or housing?
+****Sound****
+-create song for bad event/good events(should be more of a 5-second sound effect)
+-weather should play sounds
+-ambience that plays over the other game sounds while in function start()
+-new remove/repair sounds(the current ones are for horror game jumpscares, they play at like 90000 decibels)
+****Code****
+-Create popup waiting list? Multiple popups can play, would add more to the descision-making element
+-Create help menu for dum-dums
+-improve achievement menu to use space better(multiple achievements per line)
+-some sort of signifier that lets you know whenever people die to starvation/you have - resourcer per turn/buildings break
+-make pause menu show difficulty, year, tech unlocked, and blueprint scraps collected
+-when loading a game, option to open up a more detailed tab that displays much more stats
+(resource production, food production, housing out of population, tech unlocked(maybe even WHAT tech you unlocked), and a bunch more.
+-Games automatically gain a random name generated, you can randomize the name during creation, but never again
+-You can name your civilization? Maybe not
