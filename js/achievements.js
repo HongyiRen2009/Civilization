@@ -303,10 +303,8 @@ function achievementscreen(ismenu){
 	ispainting = false
 	repairing=false
 	removing = false
-		const ele = document.getElementsByClassName("achievement-container")
-		for (let j=ele.length-1;j>=0;j--){
-			ele[j].remove();
-		}
+		Array.from(document.getElementsByClassName("achievement-container"))
+			.map(element => element.remove())
 		
 		if(ismenu){
 		document.getElementById("back_button").onclick = function(){menu()}
@@ -347,7 +345,7 @@ function achievementscreen(ismenu){
 			flex.appendChild(description)
 			
 			
-			document.getElementById("achievement-flex").appendChild(flex)
+			document.getElementById("achievements-container").appendChild(flex)
 			if (!el.acquired){
 			image.style.filter = "brightness(30%)"
 			flex.style.opacity = "0.7"

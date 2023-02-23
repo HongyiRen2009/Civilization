@@ -774,3 +774,9 @@ button:disabled {
   align-items: center;
   flex-direction: column;
 }
+
+#achievements-container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
