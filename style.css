@@ -163,7 +163,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 50px;
   border-bottom-style: solid;
   display: none;
-  gap: 1px;
+  gap: 10px;
   flex-wrap: nowrap;
 }
 
