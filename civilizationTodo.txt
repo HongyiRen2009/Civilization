@@ -5,6 +5,7 @@
 -effect for unlocking tech besides a tiny "tech researched"(maybe a sort of star burst?)
 -also effect for unlocking a research point
 -text boxes that let you know when you have low food or housing?
+-the less reputation you have, the more red the reputation indicator becomes, same for green on higher reputation, and then become gold at 100+.
 ****Sound****
 -create song for bad event/good events(should be more of a 5-second sound effect)
 -weather should play sounds
