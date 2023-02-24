@@ -13,7 +13,6 @@
 ****Code****
 -Create popup waiting list? Multiple popups can play, would add more to the descision-making element
 -Create help menu for dum-dums
--improve achievement menu to use space better(multiple achievements per line)
 -some sort of signifier that lets you know whenever people die to starvation/you have - resourcer per turn/buildings break
 -make pause menu show difficulty, year, tech unlocked, and blueprint scraps collected
 -when loading a game, option to open up a more detailed tab that displays much more stats
