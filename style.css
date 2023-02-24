@@ -99,6 +99,49 @@ outline: 0;
 background-color: #6b4f29;
 }
 
+* {
+  transition: all .2s ease;
+}
+
+.extra-info {
+  display: none;
+  line-height: 30px;
+  font-size: 12px;
+position: absolute;
+  top: 0;
+  left: 50px;
+}
+@keyframes fadeIn {
+	0% {opacity: 0%}
+	30% {opacity: 0%}
+	100% {opacity: 100%}
+}
+.info-box:hover .extra-info {
+	animation: fadeIn 5s;
+	animation-duration: 0.5s;
+	position: absolute;
+	display: block;
+	
+}
+
+.info-box {
+  font-size: 20px;
+  padding-left: 5px;
+  width: 30px;
+  border-radius: 15px;
+  position: absolute;
+  background-color: #fff7de;
+  margin: -37px 88px;
+}
+
+.info-box:hover {
+	position: absolute;
+	display: inline-block;
+  background-color: white;
+  padding: 0 0 0 5px;
+  width: 417px;
+  text-align: left !important;
+}
 .settings_button {
   font-size: 20px;
   width: 100px;
@@ -624,6 +667,8 @@ body {
   font-variant-numeric: tabular-nums;
   margin: 0;
   min-height: 100vh;
+  overflow: hidden;
+
 }
 .pop {
   white-space: nowrap;
