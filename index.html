@@ -184,26 +184,42 @@
 	<div id="settings-toggle-container">
 	<div class="settings-toggle-column">
 		<p >No Images</p>
-	<button class="settings_button" id = "noimage" onclick="change_settings('noimage')">OFF</button>
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "noimage"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	<p >No Year Fading</p>
-	<button class = "settings_button" onclick="change_settings('nofade')" id = "nofade">OFF</button>
+
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "nofade"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	</div>
 	<div class="settings-toggle-column">
-		<p>Arrow Keys</p>
-	<button class="settings_button" id = "arrowkeys" onclick="change_settings('arrowkeys')">OFF</button>
+	<p>Arrow Keys</p>
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "arrowkeys"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	<p>No Tutorial</p>
-	<button class = "settings_button" onclick="change_settings('notutorial')" id = "notutorial">OFF</button>
+
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "notutorial"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	</div>
 	<div class="settings-toggle-column">
 		<p>No Flashing</p>
-	<button class="settings_button" id = "noflash" onclick="change_settings('noflash')">OFF</button>
+
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "noflash"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	<p>No Market Popup</p>
-	<button class = "settings_button" onclick="change_settings('nompop')" id = "nompop">OFF</button>
+
+	<div class="checkbox-wrapper-2">
+	<input type="checkbox" id = "nompop"class="sc-gJwTLC ikxBAC">
+	</div>
 	
 	</div>
 	</div>
@@ -252,7 +268,7 @@ if(localStorage.getItem("settings")==null){
 else{
 	
 	const localsettings = JSON.parse(localStorage.getItem("settings"))
-	const ele = document.getElementsByClassName("settings_button")
+	const ele = document.getElementsByClassName("sc-gJwTLC ikxBAC")
 	let el=0
 	for (const se in psettings){
 		if(localsettings[se]==undefined){
@@ -260,12 +276,10 @@ else{
 		}
 		psettings[se]=localsettings[se]
 		if(psettings[se]==false){
-		ele[el].style.backgroundColor="rgb(255,0,0)"
-		ele[el].innerHTML="OFF"
+		ele[el].checked = false
 	}
 	else{
-		ele[el].style.backgroundColor="rgb(0,255,0)"
-		ele[el].innerHTML="ON"
+		ele[el].checked = true
 	}
 		el++
 	}
@@ -342,18 +356,19 @@ const buildingamounts = []
 const unlocked = []
 const roadgrid = {}
 const temporaryeffects = []
+let checkbox1 = document.getElementById("noimage");
+checkbox1.addEventListener( "change", () => {if ( checkbox1.checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
+let checkbox2 = document.getElementById("nofade");
+checkbox2.addEventListener( "change", () => {if ( checkbox2.checked ) {psettings.nofade = true;}else{psettings.nofade = false;};change_settings(nofade)});
+let checkbox3 = document.getElementById("arrowkeys");
+checkbox3.addEventListener( "change", () => {if ( checkbox3.checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
+let checkbox4 = document.getElementById("notutorial");
+checkbox4.addEventListener( "change", () => {if ( checkbox4.checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
+let checkbox5 = document.getElementById("noflash");
+checkbox5.addEventListener( "change", () => {if ( checkbox5.checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
+let checkbox6 = document.getElementById("nompop");
+checkbox6.addEventListener( "change", () => {if ( checkbox6.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
 function change_settings(setting){
-	
-	if(psettings[setting]==true){
-		psettings[setting]=false
-		document.getElementById(setting).style.backgroundColor="rgb(255,0,0)"
-		document.getElementById(setting).innerHTML="OFF"
-	}
-	else{
-		psettings[setting]=true
-		document.getElementById(setting).style.backgroundColor="rgb(0,255,0)"
-		document.getElementById(setting).innerHTML="ON"
-	}
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
 function switchtab(){
