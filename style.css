@@ -2,10 +2,9 @@
  * To all who is't t may concern:
  * Thee wilt listen to "no puedo" while editing this fileth. 
  * Yond song is bussin bussin fr nay cap.
- * shuteth upeth, alexeyith chubius maximus.
- * thy song that bears thy name of "no puedo" wilt become annoying should you listeneth for moreth than 1 minute
 */
-
+ * shuteth upeth, alexeyith chubius maximus.	
+ * thy song that bears thy name of "no puedo" wilt become annoying should you listeneth for moreth than 1 minute
 * {
   box-sizing: border-box;
 }
@@ -35,113 +34,6 @@ input[type="range"]::-webkit-slider-thumb {
   /* outline-offset: 0.125rem; */
   border-radius: 5px;
 }
-.checkbox-wrapper-2 .ikxBAC {
-appearance: none;
-background-color: #dfe1e4;
-border-radius: 72px;
-border-style: none;
-flex-shrink: 0;
-height: 25px;
-margin: 0;
-position: relative;
-width: 50px;
-}
-
-.checkbox-wrapper-2 .ikxBAC::before {
-bottom: -6px;
-content: "";
-left: -6px;
-position: absolute;
-right: -6px;
-top: -6px;
-}
-
-.checkbox-wrapper-2 .ikxBAC,
-.checkbox-wrapper-2 .ikxBAC::after {
-transition: all 100ms ease-out;
-}
-
-.checkbox-wrapper-2 .ikxBAC::after {
-background-color: #fff;
-border-radius: 50%;
-content: "";
-height: 18px;
-left: 3px;
-position: absolute;
-top: 3.6px;
-width: 18px;
-
-}
-
-.checkbox-wrapper-2 input[type=checkbox] {
-cursor: default;
-}
-
-.checkbox-wrapper-2 .ikxBAC:hover {
-background-color: #c9cbcd;
-transition-duration: 0s;
-}
-
-.checkbox-wrapper-2 .ikxBAC:checked {
-background-color: #b58645;
-}
-
-.checkbox-wrapper-2 .ikxBAC:checked::after {
-background-color: #fff;
-left: 29px;
-}
-
-.checkbox-wrapper-2 :focus:not(.focus-visible) {
-outline: 0;
-}
-
-.checkbox-wrapper-2 .ikxBAC:checked:hover {
-background-color: #6b4f29;
-}
-
-* {
-  transition: all .2s ease;
-}
-
-.extra-info {
-  display: none;
-  line-height: 30px;
-  font-size: 12px;
-position: absolute;
-  top: 0;
-  left: 50px;
-}
-@keyframes fadeIn {
-	0% {opacity: 0%}
-	30% {opacity: 0%}
-	100% {opacity: 100%}
-}
-.info-box:hover .extra-info {
-	animation: fadeIn 5s;
-	animation-duration: 0.5s;
-	position: absolute;
-	display: block;
-	
-}
-
-.info-box {
-  font-size: 20px;
-  padding-left: 5px;
-  width: 30px;
-  border-radius: 15px;
-  position: absolute;
-  background-color: #fff7de;
-  margin: -37px 88px;
-}
-
-.info-box:hover {
-	position: absolute;
-	display: inline-block;
-  background-color: white;
-  padding: 0 0 0 5px;
-  width: 417px;
-  text-align: left !important;
-}
 .settings_button {
   font-size: 20px;
   width: 100px;
@@ -153,7 +45,130 @@ position: absolute;
 .settings_button:hover {
   filter: brightness(80%);
 }
+.checkbox-wrapper-2 .ikxBAC {	
+appearance: none;	
+background-color: #dfe1e4;	
+border-radius: 72px;	
+border-style: none;	
+flex-shrink: 0;	
+height: 25px;	
+margin: 0;	
+position: relative;	
+width: 50px;	
+}	
 
+.checkbox-wrapper-2 .ikxBAC::before {	
+bottom: -6px;	
+content: "";	
+left: -6px;	
+position: absolute;	
+right: -6px;	
+top: -6px;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC,	
+.checkbox-wrapper-2 .ikxBAC::after {	
+transition: all 100ms ease-out;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC::after {	
+background-color: #fff;	
+border-radius: 50%;	
+content: "";	
+height: 18px;	
+left: 3px;	
+position: absolute;	
+top: 3.6px;	
+width: 18px;	
+
+}	
+
+.checkbox-wrapper-2 input[type=checkbox] {	
+cursor: default;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC:hover {	
+background-color: #c9cbcd;	
+transition-duration: 0s;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC:checked {	
+background-color: #b58645;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC:checked::after {	
+background-color: #fff;	
+left: 29px;	
+}	
+
+.checkbox-wrapper-2 :focus:not(.focus-visible) {	
+outline: 0;	
+}	
+
+.checkbox-wrapper-2 .ikxBAC:checked:hover {	
+background-color: #6b4f29;	
+}	
+
+* {	
+  transition: all .2s ease;	
+}	
+
+.extra-info {	
+  display: none;	
+  line-height: 30px;	
+  font-size: 12px;	
+position: absolute;	
+  top: 0;	
+  left: 50px;	
+}	
+@keyframes fadeIn {	
+	0% {opacity: 0%}	
+	30% {opacity: 0%}	
+	100% {opacity: 100%}	
+}
+@keyframes fadein {	
+  0% {	
+    opacity: 0%;	
+  }	
+  100% {	
+    opacity: 100%;	
+  }	
+  /* 100% {opacity: 0%;} */	
+}	
+@keyframes fadeout {	
+  0% {	
+    opacity: 100%;	
+  }	
+  100% {	
+    opacity: 0%;	
+  }	
+}
+.info-box:hover .extra-info {	
+	animation: fadeIn 5s;	
+	animation-duration: 0.5s;	
+	position: absolute;	
+	display: block;	
+
+}	
+
+.info-box {	
+  font-size: 20px;	
+  padding-left: 5px;	
+  width: 30px;	
+  border-radius: 15px;	
+  position: absolute;	
+  background-color: #fff7de;	
+  margin: -37px 88px;	
+}	
+
+.info-box:hover {	
+	position: absolute;	
+	display: inline-block;	
+  background-color: white;	
+  padding: 0 0 0 5px;	
+  width: 417px;	
+  text-align: left !important;	
+}
 @keyframes done {
   from {
     opacity: 1;
@@ -189,27 +204,15 @@ position: absolute;
     opacity: 0;
   }
 }
-@keyframes fadein {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-  /* 100% {opacity: 0%;} */
-}
-@keyframes fadeout {
-  0% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 0%;
-  }
-}
+
 @keyframes flash {
   50% {
     border: 3px solid yellow;
   }
+}
+.techyears{
+  display: grid;
+  
 }
 #tech-tree {
   z-index: 1;
@@ -223,9 +226,8 @@ position: absolute;
 #tech-tree > button {
   width: 35px;
   height: 35px;
-  padding: 0;
   border: 3px solid #000000;
-
+  padding: 0;
   margin: auto;
 }
 
@@ -246,11 +248,11 @@ position: absolute;
 @keyframes rain {
   from {
     transform: rotate(105deg) translateX(0);
-    z-index: 10;
+	z-index: 10
   }
   to {
     transform: rotate(105deg) translateX(calc(100vh + 20px));
-    z-index: 10;
+	z-index: 10
   }
 }
 .pause_button {
@@ -270,7 +272,7 @@ position: absolute;
   height: 50px;
   border-bottom-style: solid;
   display: none;
-  gap: 10px;
+  gap: 1px;
   flex-wrap: nowrap;
 }
 
@@ -306,22 +308,39 @@ position: absolute;
   gap: 15px;
 }
 .info-flex {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  display: grid;
-  /* Fun fact: I wanted to make this 10px, but that caused the Heimann Grid Illusion. */
-  gap: 5px;
-  padding: 10px;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.info-flex .info-grid {
   display: flex;
   flex-direction: column;
+  /* Fun fact: I wanted to make this 10px, but that caused the Heimann Grid Illusion. */
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
+#stat-info{
+  display: flex;
+  width: 80%;
+  margin: auto;
+  column-gap: 5%;
+  row-gap: 100px;
+  flex-wrap:wrap;
+}
+#stat-info > div{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: auto;
+  background-color: #e9edaf;
+  border: 3px solid black;
+  border-radius: 4px;
+}
+.info-flex .info-grid {
+  display: grid;
+  flex-direction: column;
+  grid-template-columns: 80px 25% 25% 25%;
+  grid-template-rows: 50px 50px;
   border: 3px solid #000000;
   border-radius: 3px;
-  padding: 5px;
-  background-color: var(--game-container-bg-color);
+  padding: 30px;
+  background-color: #e9edaf;
   height: 100%;
 }
 
@@ -415,13 +434,6 @@ position: absolute;
   padding: 10px 20px;
 }
 
-#resources-container {
-  /* TODO: should this have a background? */
-  position: fixed;
-  top: 10px;
-  right: 20px;
-}
-
 #market-top-bar h1 {
   flex-grow: 1;
 }
@@ -446,7 +458,8 @@ position: absolute;
 
 .save-grid,
 .item {
-  width: var(--item-width);
+  width: auto;
+  max-width: 220px;
   height: 100%;
   min-height: 400px;
   margin: auto;
@@ -509,13 +522,13 @@ position: absolute;
   * WebAIM recommends a contrast of at least 3 for large text: before this was 1.57, and a pain to read.
   * Now the contrast is three.
    */
-  color: #9c1f1f;
+  color: rgb(169, 0, 0);
 }
 .color-y {
   color: yellow;
 }
 .color-g {
-  color: #065906;
+  color: green;
 }
 .color-dg {
   color: #006300;
@@ -526,7 +539,7 @@ position: absolute;
   text-align: center;
 
   font-size: 50px;
-  color: #b8942a;
+  color: #745e1a;
 }
 .clear_button {
   margin: auto;
@@ -610,8 +623,9 @@ position: absolute;
 }
 .back_button {
   position: fixed;
-  left: 20px;
-  top: 10px;
+  left: 50%;
+  top: 95%;
+  transform: translate(-50%, -95%);
   font-size: 30px;
   border-style: solid;
   border-radius: 6px;
@@ -632,7 +646,12 @@ position: absolute;
 .next_turn:disabled {
   background-color: #8d8d8d;
 }
-
+#resources-container {	
+  /* TODO: should this have a background? */	
+  position: fixed;	
+  top: 10px;	
+  right: 20px;	
+}
 .info:hover:enabled {
   background-color: var(--game-container-bg-color);
 }
@@ -660,15 +679,22 @@ button,
 select {
   font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
 }
-
+.bgimg{
+  position: fixed;
+  z-index: -2;
+  width: 105%;
+  height: 105%;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
 body {
   background: linear-gradient(to bottom, #fff2bf, #fff8dc);
   user-select: none;
+  overflow: hidden;
   font-variant-numeric: tabular-nums;
   margin: 0;
   min-height: 100vh;
-  overflow: hidden;
-
 }
 .pop {
   white-space: nowrap;
@@ -705,8 +731,9 @@ body {
   background-color: #b8942a;
   align-items: center;
   position: absolute;
-  top: 93%;
-  height: 50px;
+  top: 94%;
+  min-height: 50px;
+  height: 6%;
   width: 100%;
   display: none;
   gap: 10px;
@@ -762,7 +789,9 @@ strong {
 
 .popup {
   background-color: var(--game-container-bg-color);
-  width: 400px;
+  max-width: 35%;
+  min-width: 25%;
+  width:auto;
   height: 300px;
   padding: 15px;
   border-style: solid;
@@ -790,7 +819,7 @@ button:disabled {
   z-index: 0;
 }
 #canvas2 {
-  pointer-events: none;
+	pointer-events: none;
   display: block;
   position: absolute;
   top: 0;
@@ -883,9 +912,8 @@ button:disabled {
   align-items: center;
   flex-direction: column;
 }
-
-#achievements-container {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
+#achievements-container {	
+  display: grid;	
+  gap: 10px;	
+  grid-template-columns: 1fr 1fr;	
 }
