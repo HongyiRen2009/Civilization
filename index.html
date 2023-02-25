@@ -26,9 +26,9 @@
 	<button title="click to enter the market!" id = "mbutton" class = "info" onclick = "marketscreen()">Market</button>
 	<button title="click to enter the save menu!" class = "next_turn" onclick = "savescreen(true)">SAVE</button>
 	<button title="click to view your achievements!" class = "info" onclick = "achievementscreen(false)">Achievements</button>
-	<button title="click to see what your buildings do!" class = "info" onclick = "info()">Building Info</button>
 	<button title="click to view and unlock things in the tech tree!" id = "techbutton" class = "info" onclick = "techscreen()">Tech</button>
-	
+	<button title="click to get help" class = "info" onclick = "info()">Help</button>
+
 	
 
 
@@ -49,7 +49,12 @@
 	<div class = "market-ui" id  = "black-market"></div>
 </div>
 <h1 class = "title_screen" id = "title_start">Dawn of Civilization</h1>
+<div id = "info" style="flex-direction: column;display: none;">
+<h1 style="text-align: center;">Stats Info</h1>
+<div id = "stat-info"></div>
+<h1 style="text-align: center;">Building Info</h1>
 <div id ="info-flex" class = 'info-flex'></div>
+</div>
 <div id ="achievement-flex" class =  'achievement-flex'>
 <h1 id="achievement-title">Achievements</h1>
 <div id="achievements-container"></div>
@@ -331,7 +336,7 @@ const max = {
 }
 const grid = []
 const hillgrid = []
-const tabs = ["City Centers","Housing","Farms","Military","Mines","Misc"]
+const tabs = ["Housing","Farms","Military","Mines","City Centers","Misc"]
 const gridstats = []
 const wars = []
 const psettings = {
@@ -396,13 +401,13 @@ let modifiers = {
 	military:0
 }
 const marketitems = []
-let tab = "house"
+let tab = "Housing"
 let punishamount = 0
 let allowed = true;
 let military = 0;
 let currentpop = 2;
 const click = new Audio("sounds/click.mp3");
-const build_music = new Audio("music/Menu_music.mp3");
+const build_music = new Audio("music/Build_music.mp3");
 const market_music = new Audio("music/Market_music.mp3");
 const boss_music = new Audio("music/Boss_music.mp3");
 const kaching = new Audio("sounds/Purchase.mp3");
@@ -412,6 +417,7 @@ const techclick = new Audio("sounds/techclick.mp3");
 const techbuy = new Audio("sounds/techbuy.mp3");
 const tech_music = new Audio("music/tech_music.mp3");
 const war_music = new Audio("music/War_music.mp3");
+const buildimg = document.getElementById("cloudimg")
 market_music.loop = true
 build_music.loop = true
 boss_music.loop = true
