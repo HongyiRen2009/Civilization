@@ -40,37 +40,32 @@ function createRain() {
 }
 
 function drawRain(i) {
-	if (weather == 1) {
-		ctx2.globalCompositeOperation='destination-over';
+	ctx2.globalCompositeOperation='destination-over';
 		ctx2.beginPath();
 		ctx2.moveTo(rain[i].x, rain[i].y);
+	switch(weather){
+		case 1:
 		ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
 		ctx2.strokeStyle = 'rgba(174,194,224,0.5)';
 		ctx2.lineWidth = 2;
-		ctx2.lineCap = 'round';
-		ctx2.stroke();
-	} else if (weather == 2) {
-		ctx2.globalCompositeOperation='destination-over';
-		ctx2.beginPath();
-		ctx2.moveTo(rain[i].x, rain[i].y);
+		break
+		case 2:
 		// ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
 		ctx2.arc(rain[i].x, rain[i].y, 1, 0, 2 * Math.PI, false);
 		ctx2.strokeStyle = 'rgba(240, 242, 247,0.99)';
 		ctx2.lineWidth = 4;
-		ctx2.lineCap = 'round';
-		ctx2.stroke();
-	} else if (weather == 3) {
-		ctx2.globalCompositeOperation='destination-over';
-		ctx2.beginPath();
-		ctx2.moveTo(rain[i].x, rain[i].y);
+		break
+	
+		case 3:
 		// ctx2.lineTo(rain[i].x + rain[i].l * rain[i].xs, rain[i].y + rain[i].l * rain[i].ys);
 		ctx2.arc(rain[i].x, rain[i].y, 1, 0, 2 * Math.PI, false);
 		ctx2.strokeStyle = 'rgba(255, 255, 255,0.99)';
 		ctx2.lineWidth = 5;
-		ctx2.lineCap = 'round';
-		ctx2.stroke();
+		
 	}
-
+	
+	ctx2.lineCap = 'round';
+	ctx2.stroke();
 }
 
 function animateRain() {
@@ -81,10 +76,10 @@ function animateRain() {
 		rain[i].ys = Math.random() * 10 + 10
 	}
 	if (weather == 2) {
-		rain[i].ys = Math.random() * 10 + 20
+		rain[i].ys = Math.random() * 10+5
 	}
 	if (weather == 3) {
-		rain[i].ys = Math.random() * 5
+		rain[i].ys = Math.random() * 10+10
 	}
     if (rain[i].x > w || rain[i].y > h) {
 		rain[i].x = Math.random() * w;
@@ -105,11 +100,13 @@ function init() {
 init();
 
 function animloop() {
-  animateRain();
-  requestAnimationFrame(animloop);
-  if (raintimer > 0) {
-	  raintimer-=1
+  if(psettings.noweather){return}
+  if (weather==0) {
+	return
   } else {
+	ctx2.clearRect(0,0,screen.width,screen.height)
+	animateRain();
+	requestAnimationFrame(animloop)
 	  if (weather == 1) {
 		  raintimer = 2
 	  } else if (weather == 2) {
@@ -117,10 +114,9 @@ function animloop() {
 	  } else if (weather == 3) {
 		  raintimer = 2
 	  }
-	  ctx2.clearRect(0,0,screen.width,screen.height)
+	 
   }
 }
-animloop();
 
 function createSimpleTable(rows) {
 	const table = document.createElement('table');
@@ -151,7 +147,9 @@ function difficultyscreen(){
 	document.getElementById("back_button").onclick = function(){menu()}
 	document.getElementById("title_start").innerHTML = 'Select Difficulty'
 	document.getElementById("start-flex").style.display = "none"
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
+	document.getElementById("bgimg").style.display = "none"
+	canvas.style.display = 'none'
+	canvas2.style.display = 'none'
 }
 function pause_menu(){
 	document.getElementById("popup_block_buttons").style.display = "block"
@@ -166,6 +164,7 @@ document.getElementById("pause_flex").style.display='none'
 }
 function settings(ifmenu=true){
 	document.getElementById("difficulty-flex").style.display = 'none'
+	document.getElementById("bgimg").style.display = 'none'
 	document.getElementById("popup_block_buttons").style.display = 'none';
 	document.getElementById("pause_flex").style.display='none'
 	document.getElementById("settings-flex").style.display = "flex"
@@ -176,7 +175,8 @@ function settings(ifmenu=true){
 	document.getElementById("start-flex").style.display = "none"
 		document.getElementById("stats").style.display = "none"
 	document.getElementById("select-grid").style.display = "none"
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
+	canvas.style.display = 'none'
+	canvas2.style.display = 'none'
 }
 function pause_menu(){
 	document.getElementById("popup_block_buttons").style.display = "block"
@@ -189,19 +189,7 @@ function unpause(){
 document.getElementById("popup_block_buttons").style.display = 'none';
 document.getElementById("pause_flex").style.display='none'
 }
-function settings(ifmenu=true){
-	document.getElementById("popup_block_buttons").style.display = 'none';
-	document.getElementById("pause_flex").style.display='none'
-	document.getElementById("settings-flex").style.display = "flex"
-	document.getElementById("back_button").hidden = false
-	document.getElementById("back_button").onclick = function(){(ifmenu ? menu():start())}
-	document.getElementById("title_start").style.display = 'block'
-	document.getElementById("title_start").innerHTML = 'Settings'
-	document.getElementById("start-flex").style.display = "none"
-		document.getElementById("stats").style.display = "none"
-	document.getElementById("select-grid").style.display = "none"
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
-}
+
 function confirmclear(index){
 	confirmation[2].choosetext(index)
 	displaypopup(2,confirmation)
@@ -220,15 +208,10 @@ function info(){
 ispainting = false
 removing = false
 repairing = false
-	const ele = document.getElementsByClassName("infotext")
-	for (let j=ele.length-1;j>=0;j--){
-		ele[j].remove();
-	}
-	const ele2 = document.getElementsByClassName("info-grid")
-	for (let j=ele2.length-1;j>=0;j--){
-		ele2[j].remove();
-	}
-	document.getElementById("info-flex").style.display = 'grid'
+	canvas.style.display="none"
+	canvas2.style.display="none"
+	document.getElementById("info-flex").innerHTML=""
+	document.getElementById("info").style.display = 'flex'
 	document.getElementById("boss_health_container").style.display = 'none'
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("back_button").hidden = false
@@ -238,24 +221,105 @@ repairing = false
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
 	
+	const statflex = document.getElementById("stat-info")
+	
+	const stats = [
+		{
+			title:"Population",
+			description:"",
+			choosetext(){
+			this.description = `The people in your village, who can be employed to preform important tasks.<br>Population: ${currentpop}`
+			}
+		},
+		{
+			title:"Food",
+			description:"",
+			choosetext(){
+			this.description = `A neccessity for survival, your population grows if there is more food than people.<br>Food Production: ${food}<br>Population Gain: ${Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))}`
+			}
+		},
+		
+		{
+			title:"Resources",
+			description:"",
+			choosetext(){
+			this.description = `The building blocks of construction, all buildings require resources to construct.<br>Resource Production: ${resourcesgained}`
+		},
+	},
+	{
+		title:"Unemployed",
+		description:"",
+		choosetext(){
+		this.description = `The people who aren't employed. Most buildings require operators.<br>Amount Unemployed: ${unemployed}`
+		}
+	},
+	{
+		title:"Military",
+		description:"",
+		choosetext(){
+		this.description = `The power of your military. All unemployed people serve in the military<br>Military Power: ${military}`
+		}
+	},
+	{
+		title:"Wisdom",
+		description:"",
+		choosetext(){
+		this.description = `The accumulated wisdom of your village. Once the wisom bar fills up, it's converted into research points, which can be used to unlock tech.<br>Progress to Next Level: ${(xp/totalxp).toFixed(2)}%`
+		}
+	},
+]
+	for (const stat of stats){
+	
+		const statf = document.createElement("div")
+		
+		const stattitle = document.createElement("h1")
+		const statdes = document.createElement("p")
+		stat.choosetext()
+		stattitle.style.textAlign = "center"
+		statdes.style.textAlign = "center"
+		stattitle.innerHTML = stat.title
+		statdes.innerHTML = stat.description
+		statf.appendChild(stattitle)
+		statf.appendChild(statdes)
+		statflex.appendChild(statf)
+	}
 		for (const building of p.pieceROM){
 			const grid = document.createElement("div")
 			grid.className = "info-grid"
+			
+			
 			const title = document.createElement("h1")
 			title.className = "infotext"
 			title.innerHTML = building.name
-			title.style.textAlign = 'center'
+			title.style.gridColumn = 3
 			grid.appendChild(title)
 			const des = document.createElement("p")
+			des.style.gridRow = 2
+			des.style.gridColumn = "3/ span 3"
 			if (building.unlocked){
+				const buildcanvas = document.createElement("canvas")
+			buildcanvas.style.gridRow=1
+			buildcanvas.style.gridColumn=2
+			buildcanvas.style.width = 80
+			buildcanvas.style.height = 80
+			const bctx =  buildcanvas.getContext("2d")
+			for (const pos of building.piecepositions){
+				
+				bctx.drawImage(buildimg, pos.img.dx, pos.img.dy, 20,20,(pos.x+2)*20,(pos.y+2)*20,20,20)
+			}
+			grid.appendChild(buildcanvas)
 			des.innerHTML = building.description
 			}
 			else{
 				des.innerHTML = "???"
+				grid.style.opacity = 0.7
+				title.style.opacity = 0.7
+				des.style.opacity = 0.7
+				grid.style.backgroundColor = "rgb(69, 62, 62)"
 			}
-			des.style.textAlign = 'center'
 			des.className = 'infotext'
 			grid.appendChild(des)
+			
 			document.getElementById("info-flex").appendChild(grid)
 		}
 	
@@ -263,12 +327,14 @@ repairing = false
 function menu(){
 	build_music.pause()
 	war_music.pause()
+	boss_music.pause()
 	market_music.pause()
 	removing=false
 	ispainting = false
 	repairing = false
 	istutorial=false
 document.getElementById("achievement-flex").style.display = 'none'
+document.getElementById("bgimg").style.display = 'block'
 document.getElementById("title_start").style.display = 'block'
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'
@@ -281,7 +347,8 @@ document.getElementById("title_start").innerHTML = 'Dawn of Civilization'
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
+	canvas.style.display = 'none'
+	canvas2.style.display = 'none'
 }
 function savescreen(save){
 	
@@ -371,12 +438,14 @@ function savescreen(save){
 	document.getElementById("title_start").style.display = "block"
 	document.getElementById("title_start").innerHTML = "Select Save"
 	document.getElementById("stats").style.display = "none"
+	document.getElementById("bgimg").style.display = 'none'
 	document.getElementById("start-flex").style.display = "none"
 	document.getElementById("select-grid").style.display = "none"
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "grid"
 	document.getElementById("boss_health_container").style.display = 'none'
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
+	canvas.style.display = 'none'
+	canvas2.style.display = 'none'
 }
 function techscreen(){
 	ispainting = false
@@ -386,13 +455,14 @@ repairing = false
 	war_music.pause()
 	boss_music.pause()
 	tech_music.play()
-	document.getElementById("info-flex").style.display = 'none'
+	document.getElementById("info").style.display = 'none'
 	document.body.overflowY="scroll"
 	document.getElementById("techbutton").style.animation = "none"
 	document.getElementById("difficulty-flex").style.display = 'none'
 	document.getElementById("tech-tree").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
-	document.getElementsByTagName('canvas')[0].style.display = 'none'
+	canvas.style.display = 'none'
+	canvas2.style.display = 'none'
 	document.getElementById("back_button").onclick = function(){start()}
 	document.getElementById("stats").style.display = "none"
 	document.getElementById("boss_health_container").style.display = 'none'
@@ -442,20 +512,24 @@ repairing = false
 	reserachbutton.hidden=true
 	des.style.gridColumn="2"
 	years.className="techyears"
+	years.style.gridTemplateRows = ((screen.height-400)/tech.length+"px ").repeat(tech.length)+"200px"
 	years.style.gridRow = "1/ span " +tech.length+1
 	years.style.gridColumn = categories.length+1
-	for (i=0;i<4;i++){
+	for (i=0;i<3;i++){
 		const yeardes = document.createElement("p")
-		yeardes.style.gridRow = i+1
+		
 		switch(i){
 			case 0:
 				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-10"
+				yeardes.style.gridRow = 1
 				break
 			case 1:
 				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 10-40"
+				yeardes.style.gridRow = 2
 				break
-			case 3:
+			case 2:
 				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1><br>years 40-infinity"
+				yeardes.style.gridRow = 4
 				break
 		}
 		years.appendChild(yeardes)
@@ -626,6 +700,9 @@ repairing = false
 			techgrid.appendChild(techoption)
 			
 			image.src=tech[i][j].image
+			
+			image.style.width="30px"
+			image.style.height="30px"
 			techoption.appendChild(image)
 			
 			for (const el of tech[i][j].requires){
@@ -688,7 +765,7 @@ function save(bindex){
 	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,roadgrid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,cityincreases:p.cityincreases,wars, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,weathermod,cities:p.cities,wars, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
@@ -706,7 +783,7 @@ function load(bindex){
 	marketitems.length=0
 	unlocked.length=0
 	wars.length=0
-	
+	p.cities.length=0
 	for (const el of JSON.parse(localStorage.getItem('griditems'+bindex)).grid){
 		grid.push(el)
 	}
@@ -718,6 +795,7 @@ function load(bindex){
 	}
 	const localscrolldata = JSON.parse(localStorage.getItem('scrollinfo'+bindex));
 	resources = JSON.parse(localStorage.getItem('pstats'+bindex)).resources;
+	weathermod = JSON.parse(localStorage.getItem('pstats'+bindex)).weathermod;
 	currentpop = JSON.parse(localStorage.getItem('pstats'+bindex)).currentpop;
 	reputation = JSON.parse(localStorage.getItem('pstats'+bindex)).reputation;
 	xp = JSON.parse(localStorage.getItem('pstats'+bindex)).xp;
@@ -764,8 +842,8 @@ function load(bindex){
 	}
 	save_slot = JSON.parse(localStorage.getItem('slot'+bindex));
 	difficulty = JSON.parse(localStorage.getItem('pstats'+bindex)).difficulty;
-	for (const increa in JSON.parse(localStorage.getItem('pstats'+bindex)).cityincreases){
-		p.cityincreases[increa] = JSON.parse(localStorage.getItem('pstats'+bindex)).cityincreases[increa]
+	for (const increa in JSON.parse(localStorage.getItem('pstats'+bindex)).cities){
+		p.cities[increa] = JSON.parse(localStorage.getItem('pstats'+bindex)).cities[increa]
 	}
 	difficultymultiplier = JSON.parse(localStorage.getItem('pstats'+bindex)).difficultymultiplier;
 	for (const el of JSON.parse(localStorage.getItem('pstats'+bindex)).buildingamounts){
@@ -781,6 +859,20 @@ function load(bindex){
 		marketitems.push(el)
 	}
 	luck = JSON.parse(localStorage.getItem('luck'+bindex));
+	weathermod = Math.sin(difficulty/3)/10
+	if(weathermod>0.05){
+		weather = 1
+	}
+	else if (weathermod<-0.05){
+		weather=2
+	}
+	else if(Math.random()>0.95){
+		weather=3
+	}
+	else {
+		weather=0
+	}
+	animloop()
 	const localmarketmod = JSON.parse(localStorage.getItem('marketmod'+bindex));
 	m.assissin = localmarketmod[0]
 	m.spy = localmarketmod[1]
@@ -833,8 +925,10 @@ function newgame(difficult){
 	rivergrid.length=0
 	gridstats.length=0
 	grid.length=0
+	weathermod=0
+	weather=0
 	wars.length=0
-	switchtab()
+	displaytab()
 	hillgrid.length=0
 	temporaryeffects.length=0
 	buildingamounts.length = 0
@@ -849,8 +943,8 @@ function newgame(difficult){
 }	
 	modifiers = {
 	population:0,
-	food: 1.5-difficult,
-	resources: 1.5-difficult,
+	food: 15-difficult*10,
+	resources: 15-difficult*10,
 	military: 0
 	}
 	first_turn=true
@@ -865,6 +959,8 @@ function newgame(difficult){
 	totalxp=50
 	rivergrid.length = 0
 	hillgrid.length = 0
+	p.cities.length = 0
+	p.cities.push({x:spawnX, y:spawnY})
 	m.assissin = 0
 	m.spy = 0
 	m.rebel = 0
@@ -996,7 +1092,7 @@ document.getElementById("tech-tree").style.display = 'none'
 if (m.phase>1||wars.length>0){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'
-document.getElementById("info-flex").style.display = 'none'
+document.getElementById("info").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
 document.getElementById("techlinecontainer").style.display = "none"
@@ -1007,10 +1103,11 @@ document.getElementById("market-flex").style.display = "none"
 document.getElementById("save-flex").style.display = "none"
 document.getElementById("select-grid").style.display = "flex"
 canvas.style.display = 'block'
+canvas2.style.display = 'block'
 displayUI()
 render()
 
-p.cities.push({x:spawnX, y:spawnY})
+
 
 if (istutorial&&tutorialindex==0){
 continuetutorial(0)
