@@ -255,7 +255,7 @@ function next_turn(){
 	
 	resources+=resourcesgained
 	
-	xp+=xpgained
+	xp+=Math.floor(xpgained*(techstats.innovation+1))
 	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
 	debugger
