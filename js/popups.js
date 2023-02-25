@@ -16,7 +16,7 @@ const confirmation = [
 			
 			save(confirmation[0].index)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		},
 	},
 	{
@@ -25,7 +25,7 @@ const confirmation = [
 			
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			
 		}
 	},
@@ -44,7 +44,7 @@ const confirmation = [
 			
 			menu()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			document.getElementById("pause_flex").style.display = "none"
 		},
 	},
@@ -53,7 +53,7 @@ const confirmation = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			
 		}
 	},
@@ -75,9 +75,9 @@ const confirmation = [
 			index = confirmation[2].index
 
 			clearsave(index)
-			savescreen()
+			savescreen(true)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		},
 	},
 	{
@@ -86,7 +86,7 @@ const confirmation = [
 			
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			
 		}
 	},
@@ -104,18 +104,18 @@ const confirmation = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			istutorial = true
 			start()
 		},
 	},
 	{
-		text: "No",
+		text: "I've played before",
 		effect(){
 			
 			start()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			
 		}
 	},
@@ -144,7 +144,7 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			attack(Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10))))
 		},
 	},
@@ -153,7 +153,7 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			reputation-=getRandomInt(3,5)
 			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0))
 			information[12].choosetext(amountremove)
@@ -168,7 +168,8 @@ const popups = [
 		effect(){
 			
 			
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
+			reputation-=getRandomInt(3,5)
 			if (getRandomInt(0,2) == 0){
 				displaypopup(4, information)
 			}
@@ -192,7 +193,7 @@ const popups = [
 	size: "30px",
 	description: "The peasants are revolting due to them being unhappy with your rule",
 	choosetext(){
-		if (resources<(difficulty**2.7)/200){
+		if (resources<(difficulty**2.7)/50){
 		choicesdisabled.push(1)
 	}
 	},
@@ -200,8 +201,8 @@ const popups = [
 	{
 		text: "Punish",
 		effect(){
-			information[3].choosetext(Math.max(currentpop-population,Math.floor(currentpop/8)))
-			currentpop -=Math.max(currentpop-population,Math.floor(currentpop/8))
+			information[3].choosetext(Math.ceil(currentpop/10))
+			currentpop -=Math.ceil(currentpop/10)
 			punishamount+=1
 			if (punishamount>=5&&!achievements[24].acquired)
 			{
@@ -215,7 +216,7 @@ const popups = [
 		text: "Bribe",
 		effect(){
 			information[2].choosetext(Math.floor((difficulty**2.7)/200))
-			resources-= Math.floor((difficulty**2.7)/200)
+			resources-= Math.floor((difficulty**2.7)/50)
 			reputation-=getRandomInt(3,5)
 			displayUI()
 			displaypopup(2, information)
@@ -269,8 +270,8 @@ const popups = [
 	{
 		text: "Lockdown",
 		effect(){
-			modifiers.food-=0.3
-			modifiers.resources-=0.3
+			modifiers.food-=3
+			modifiers.resources-=3
 			temporaryeffects.push({type: "percent", resources:-0.3,military:0,food:-0.3,duration:10})
 			displayUI()
 			displaypopup(8, information)
@@ -310,7 +311,7 @@ const popups = [
 			temporaryeffects.push({type: "percent", resources:0,military:0,food:-0.2,duration:3})
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 
 		}
 	}, 
@@ -338,7 +339,7 @@ const popups = [
 			if (getRandomInt(0,2)==0){
 				
 				information[16].choosetext(Math.floor(resources*0.4))
-				modifiers.military+=0.4
+				modifiers.military+=4
 				resources-=Math.floor(resources*0.4)
 				displaypopup(16,information)
 			}
@@ -365,7 +366,7 @@ const popups = [
 		effect(){
 		removebuildings(5)
 		document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 		}
 	},
 	
@@ -438,13 +439,13 @@ const popups = [
 			this.description = `A scientific breakthrough in ${choice[random].des} unlocked advanced technology. <strong class = 'color-g'>+30% ${choice[random].type} production</strong>`
 			switch(choice[random].type){
 				case 'food':
-				modifiers.food+=0.3
+				modifiers.food+=3
 				break
 				case 'resource':
-				modifiers.resources+=0.3
+				modifiers.resources+=3
 				break
 				case 'military':
-				modifiers.military+=0.3
+				modifiers.military+=3
 				break
 				
 			}
@@ -456,7 +457,7 @@ const popups = [
 			
 			displayUI()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 
 		}
 	},
@@ -513,13 +514,13 @@ const popups = [
 				displaypopup(13, information)
 				switch(choice[random].type){
 				case 'food':
-				modifiers.food+=0.3
+				modifiers.food+=3
 				break
 				case 'resource':
-				modifiers.resources+=0.3
+				modifiers.resources+=3
 				break
 				case 'military':
-				modifiers.military+=0.3
+				modifiers.military+=3
 				break
 				
 			}
@@ -527,13 +528,13 @@ const popups = [
 			else{
 				switch(choice[random].type){
 				case 'food':
-				modifiers.food-=0.3
+				modifiers.food-=3
 				break
 				case 'resource':
-				modifiers.resources-=0.3
+				modifiers.resources-=3
 				break
 				case 'military':
-				modifiers.military-=0.3
+				modifiers.military-=3
 				break
 				
 			}
@@ -626,13 +627,13 @@ const popups = [
 		reputation+=getRandomInt(2,4)*(1+techstats.charisma)
 		switch(random){
 			case 0:
-			modifiers.military +=0.5
+			modifiers.military +=5
 			break
 			case 1:
-			modifiers.food +=0.5
+			modifiers.food +=5
 			break
 			case 2:
-			modifiers.resources +=0.5
+			modifiers.resources +=5
 		}
 		information[21].choosetext(random,Math.ceil(resources/3))
 		resources-=Math.ceil(resources/3)
@@ -662,16 +663,16 @@ const popups = [
 	
 	choosetext(){ 
 		const upsides = [
-		{name: "food", info: "food production", trade(){modifiers.food+=0.3}},
-			{name: "resources",info: "resource production", trade(){modifiers.resources+=0.3}},
-			{name: "military support",info:"military", trade(){modifiers.military+=0.3}},
+		{name: "food", info: "food production", trade(){modifiers.food+=3}},
+			{name: "resources",info: "resource production", trade(){modifiers.resources+=3}},
+			{name: "military support",info:"military", trade(){modifiers.military+=3}},
 			
 			
 		]
 		const downsides = [
-			{name: "food", info: "food production", trade(){modifiers.food-=0.3}},
-			{name: "resources",info: "resource production", trade(){modifiers.resources-=0.3}},
-			{name: "military support",info:"military", trade(){modifiers.military-=0.3}},
+			{name: "food", info: "food production", trade(){modifiers.food-=3}},
+			{name: "resources",info: "resource production", trade(){modifiers.resources-=3}},
+			{name: "military support",info:"military", trade(){modifiers.military-=3}},
 			
 			
 		]
@@ -759,7 +760,7 @@ const popups = [
 			effect(){
 				m.phase+=1
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 				start()
 			
 			}
@@ -777,7 +778,7 @@ const popups = [
 				
 				removebuildings(2,true)
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			
 			}
 		}]
@@ -898,8 +899,8 @@ const popups = [
 	description: "An enemy tribe presents you with an ultimatum, either ",
 	choosetext(){
 		const choice = [
-			`pay them a tribute of ${Math.floor((difficulty**3)/200)} resources a year<br> for 10 years`, 
-			`provide them with ${Math.floor(currentpop/3)} laborers`,
+			`pay them a tribute of ${shorten(Math.floor((difficulty**3)/600))} resources a year<br> for 10 years`, 
+			`provide them with ${shorten(Math.floor(currentpop/3))} laborers`,
 			`reduce your military by 90% for 10 years`, 
 		]
 		const random = getRandomInt(0,2)
@@ -941,13 +942,21 @@ const popups = [
 size: "25px",
 description: "Your scouts claims that the enemy is attacking, but with unknown power. What percentage of your army should you commit?",
 choosetext(){
-	const enemyamount = getRandomInt(1,wars.length)
+
 	let enemypower = 0
-	for(i=0;i<enemyamount;i++){
+	for(i=0, len = wars.length;i<len;i++){
+		if(wars[i].power>0){
 		enemypower+=Math.max(wars[i].power*(getRandomInt(1,4)*0.13),Math.min(wars[i].power,wars[i].totalpower/7))
+		}
 	}
 	for (const choice of this.choices){
 		choice.power = enemypower
+	}
+	if(techstats.scouting){
+		this.description = `Your scouts claims that the enemy is attacking. What percentage of your army should you commit?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(8,12)/10)))}`
+	}
+	else{
+		this.description = "Your scouts claims that the enemy is attacking, but with unknown power. What percentage of your army should you commit?"
 	}
 },
 choices: [
@@ -968,6 +977,7 @@ effect(){
 	text:"25%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			
 			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
@@ -975,9 +985,13 @@ effect(){
 			currentpop-=Math.floor(m_personnel/16)
 		}
 		else if(military*.25>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power/1.5)
+				}
+			}
 		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/16))
-		currentpop+=Math.floor(this.power/5)
+		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 
 	}
@@ -996,6 +1010,7 @@ effect(){
 	text:"50%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
 			displaypopup(43,information)
@@ -1003,9 +1018,13 @@ effect(){
 			
 		}
 		else if(military*.5>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power/1.5)
+				}
+			}
 		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/8))
-		currentpop+=Math.floor(this.power/5)
+		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
@@ -1022,15 +1041,20 @@ effect(){
 	text:"75%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 		}
 		else if(military*.75>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power/1.5)
+				}
+			}
 		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/6))
-		currentpop+=Math.floor(this.power/5)
+		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
@@ -1053,9 +1077,13 @@ effect(){
 			currentpop-=Math.floor(m_personnel/2)
 		}
 		else if(military>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power/3)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power/1.5)
+				}
+			}
 		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/4))
-		currentpop+=Math.floor(this.power/5)
+		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
@@ -1119,13 +1147,20 @@ effect(){
 size: "25px",
 description: "Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?",
 choosetext(){
-	const enemyamount = getRandomInt(1,wars.length)
 	let enemypower = 0
-	for(i=0;i<enemyamount;i++){
+	for(i=0, len = wars.length;i<len;i++){
+		if(wars[i].power>0){
 		enemypower+=Math.min(wars[i].power,wars[i].totalpower/5)
+		}
 	}
 	for (const choice of this.choices){
 		choice.power = enemypower
+	}
+	if(techstats.scouting){
+		this.description = `Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(8,12)/10)))}`
+	}
+	else{
+		this.description = "Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?"
 	}
 },
 choices: [
@@ -1133,6 +1168,7 @@ choices: [
 text:"0%",
 power:0,
 effect(){
+	
 	displaypopup(46, information)
 }
 	},
@@ -1140,6 +1176,7 @@ effect(){
 	text:"25%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			
 			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
@@ -1147,7 +1184,12 @@ effect(){
 			currentpop-=Math.floor(m_personnel/16)
 		}
 		else if(military*.25>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power)
+				}
+			}
+			
 		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/16))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
@@ -1167,6 +1209,7 @@ effect(){
 	text:"50%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
 			displaypopup(43,information)
@@ -1174,7 +1217,11 @@ effect(){
 			
 		}
 		else if(military*.5>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power)
+				}
+			}
 		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/8))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
@@ -1192,14 +1239,19 @@ effect(){
 	text:"75%",
 	power:0,
 	effect(){
+		
 		if(getRandomInt(0,3)==0){
 			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 		}
 		else if(military*.75>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power)
-		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/6))
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power)
+				}
+			}
+			information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/6))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
 	}
@@ -1223,7 +1275,11 @@ effect(){
 			currentpop-=Math.floor(m_personnel/2)
 		}
 		else if(military>this.power){
-			wars[getRandomInt(0,wars.length-1)].power-=Math.floor(this.power)
+			for (const war of wars){
+				if(war.power>0){
+					war.power-=Math.floor(this.power)
+				}
+			}
 		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/4))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
@@ -1334,6 +1390,44 @@ effect(){
 		]
 	},
 	{
+		title: "<strong class = 'color-r'>The Termination</strong>",
+		size: "30px",
+		description: `Once people discovered that you've obtained all blueprint scraps, they allied against you to prevent the construction of The Mega Temple`,
+		choosetext(){},
+		choices: [
+		{
+			text: "Fight!",
+			effect(){
+				const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*2
+				wars.push({power:enemymilitary,totalpower:enemymilitary,divine:true})
+				start()
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
+		title: "<strong class = 'color-r'>It's not over</strong>",
+		size: "30px",
+		description: `Several more nations allied with the enemy and declared war on you.`,
+		choosetext(){},
+		choices: [
+		{
+			text: "Fight!",
+			effect(){
+				const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*8
+				wars.push({power:enemymilitary,totalpower:enemymilitary,divine:false})
+				
+				wars.splice(0,1)
+				start()
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+			}
+		},
+			]
+	},
+	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
 	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, he blesses you and your followers with infinite power. As you ascend to the heavens, leaving the mortal realm, you quickly glance back at your thriving city, which would leave its mark on history for ever.",
@@ -1354,7 +1448,7 @@ effect(){
 					break
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 
 
 		}
@@ -1374,7 +1468,7 @@ effect(){
 			}
 			menu()
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 
 		}
 		
@@ -1407,7 +1501,7 @@ effect(){
 			clearsave(save_slot)
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			menu()
 		}
 	}
@@ -1436,7 +1530,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 		}]
 	},
@@ -1454,7 +1548,7 @@ const information = [
 			currentpop+=Math.floor(currentpop/3)
 			reputation+=getRandomInt(5,10)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			displayUI()
 		}
 	},
@@ -1473,7 +1567,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1491,7 +1585,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1507,7 +1601,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1522,7 +1616,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1541,7 +1635,7 @@ const information = [
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
 
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1559,7 +1653,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1575,7 +1669,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1592,7 +1686,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1608,7 +1702,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1624,7 +1718,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1643,7 +1737,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1668,7 +1762,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1693,7 +1787,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1709,7 +1803,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1727,7 +1821,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1745,7 +1839,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1763,7 +1857,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1782,7 +1876,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1799,7 +1893,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1828,7 +1922,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1845,7 +1939,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1864,7 +1958,7 @@ const information = [
 		effect(){
 			resources-=Math.ceil(resources/2)
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 			displayUI()
 		}
 	},
@@ -1882,7 +1976,7 @@ const information = [
 		effect(){
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
-			document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+			document.getElementById("popup").style.display = "none"
 		}
 	},
 		]
@@ -1899,7 +1993,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -1918,7 +2012,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -1938,7 +2032,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -1956,7 +2050,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -1974,7 +2068,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -1992,7 +2086,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2010,7 +2104,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2028,7 +2122,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2046,7 +2140,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2064,7 +2158,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2082,7 +2176,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2100,7 +2194,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2118,7 +2212,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2136,7 +2230,7 @@ const information = [
 			effect(){
 			
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2154,7 +2248,7 @@ const information = [
 			effect(){
 				megatemple+=1
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 				boss_music.pause()
 				build_music.play()
 				m.phase=0
@@ -2177,7 +2271,7 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2195,13 +2289,13 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
 	},
 	{
-		title: "<strong class = 'color-g'>Fake News</strong>",
+		title: "<strong class = 'color-g'>Nothing</strong>",
 		size: "30px",
 		description: `The enemy wasn't present`,
 		
@@ -2212,7 +2306,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2238,7 +2332,7 @@ const information = [
 			effect(){
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2257,17 +2351,27 @@ const information = [
 		{
 			text: "close",
 			effect(){
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				let isdivine = false
 				let warpower=0
 				for(const war of wars){
 					warpower+=war.power
+					if(war.divine==true){
+						isdivine=true
+					}
 				}
-				if(warpower<=0){
+				if(warpower<=1){
+					if(isdivine){
+						displaypopup(25)
+					}
+					else{
 					information[51].choosetext()
 					displaypopup(51,information)
 				}
+			}
 				
-				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				
 			}
 		},
 			]
@@ -2284,7 +2388,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2301,7 +2405,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2321,18 +2425,27 @@ const information = [
 			text: "close",
 			effect(){
 				
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				let isdivine = false
 				let warpower=0
 				for(const war of wars){
-					warpower+=Math.floor(war.power)
+					warpower+=war.power
+					if(war.divine==true){
+						isdivine=true
+					}
 				}
-				if(warpower<=0){
+				if(warpower<=1){
+					if(isdivine){
+						displaypopup(25)
+					}
+					else{
 					information[51].choosetext()
 					displaypopup(51,information)
 				}
-				else{
-				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
-				}
+			}
+				
+				
 			}
 		},
 			]
@@ -2348,8 +2461,9 @@ const information = [
 		{
 			text: "close",
 			effect(){
+				reputation-=getRandomInt(2,3)
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2366,7 +2480,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2374,7 +2488,7 @@ const information = [
 	{
 		title: "<strong class = 'color-r'>Declined</strong>",
 		size: "30px",
-		description: `you declined thier peace offer`,
+		description: `you declined their peace offer`,
 		
 		
 	
@@ -2383,7 +2497,7 @@ const information = [
 			text: "close",
 			effect(){
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
@@ -2402,22 +2516,22 @@ const information = [
 			
 			text: "close",
 			effect(){
+				reputation+=getRandomInt(10,12)
 				resources+=Math.floor((difficulty**3)/25)
 				wars.length=0
 				siege=false
 				start()
 				displayUI()
 				document.getElementById("popup_block_buttons").style.display = "none"
-				document.getElementById("popup").style.animation = "fadeout 0.5s"; setTimeout(removepopup,500)
+				document.getElementById("popup").style.display = "none"
 			}
 		},
 			]
 	},
+	
 ]
 
-function removepopup() {
-	document.getElementById("popup").style.display = "none"
-}
+
 function displaypopup(index, list = popups){
 ispainting = false
 	document.getElementById("popup_block_buttons").style.display = "block"
@@ -2442,7 +2556,6 @@ ispainting = false
 	des.innerHTML = list[index].description
 	title.style.fontSize = list[index].size
 	grid.style.display = "grid"
-	grid.style.animation = "fadein 0.5s"
 	
 	grid.style.gridTemplateColumns="100 100 100 100"
 	button.id = "choice "+i
