@@ -11,28 +11,28 @@ const achievements = [
 	{
 	acquired: false,
 		title: "Small Town",
-		description: "build 10 buildings",
+		description: "build 25 buildings",
 		imagesrc: "images/achievementSmallTown.png",
 		requires(){
-		return gridstats.length>=10
+		return gridstats.length>=25
 		}
 	},
 	{
 	acquired: false,
 		title: "Megatropolis",
-		description: "build 50 buildings",
+		description: "build 100 buildings",
 		imagesrc: "images/achievementMegatropolis.png",
 		requires(){
-		return gridstats.length>=50
+		return gridstats.length>=100
 		}
 	},
 	{
 	acquired: false,
 		title: "UN recognized country",
-		description: "build 100 buildings",
+		description: "build 500 buildings",
 		imagesrc: "images/achievementUNcountry.png",
 		requires(){
-		return gridstats.length>=100
+		return gridstats.length>=500
 		}
 	},
 
@@ -312,6 +312,13 @@ function achievementscreen(ismenu){
 		else{
 		document.getElementById("back_button").onclick = function(){start()}
 		}
+		canvas.style.display="none"
+		canvas2.style.display="none"
+		document.getElementById("achievement-flex").style.display = 'flex'
+		document.getElementById("difficulty-flex").style.display = 'none'
+		document.getElementById("bgimg").style.display = 'none'
+		document.getElementById("back_button").hidden = false
+		document.getElementById("bgimg").style.display = 'none'
 		document.body.style.overflowY = "scroll"
 		document.getElementById("achievement-flex").style.display = 'flex'
 		document.getElementById("difficulty-flex").style.display = 'none'
