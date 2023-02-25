@@ -13,6 +13,7 @@
 <!-- End google font -->
 </head>
 <body>
+	<img src = "images/mainMenu.png" class = "bgimg" id = "bgimg"></img>
 <div id="stats">
 	<button title="make sure to save!" class = "next_turn" onclick = "pause_menu()">ESC</button>
 	<div title="how many total population you have out of your total housing. If the second number is red it means you do not have enough homes to house all of your citizens."id = "pop" class = "pop">Population: 0/0</div>
@@ -272,6 +273,35 @@
 	</div>
 	
 	</div>
+	<div class="settings-toggle-column">
+		<div>
+			<p>No Weather</p>
+			<div class="info-box" style = "margin: -37px 97px;">
+			<i class="icon-info-sign"></i>
+	
+			<span class="extra-info">
+			Remove rain and snow effect (reduces lag).
+			</span>
+			</div>
+		</div>
+		<div class="checkbox-wrapper-2">
+		<input type="checkbox" id = "noweather" class="sc-gJwTLC ikxBAC">
+		</div>
+		<div>
+		<p>Sans Serif</p>
+			<div class="info-box" style = "margin: -37px 97px;">
+			<i class="icon-info-sign"></i>
+	
+			<span class="extra-info">
+			Changes font to Sans Serif.
+			</span>
+			</div>
+		</div>
+		<div class="checkbox-wrapper-2">
+		<input type="checkbox" id = "noserif"class="sc-gJwTLC ikxBAC">
+		</div>
+		
+		</div>
 	</div>
 </div>
 
@@ -310,13 +340,15 @@ const psettings = {
 	arrowkeys:false,
 	notutorial:false,
 	noflash:false,
-	nompop:false
+	nompop:false,
+	noserif:false,
+	noweather:false,
 }
 if(localStorage.getItem("settings")==null){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
 else{
-	
+	debugger
 	const localsettings = JSON.parse(localStorage.getItem("settings"))
 	const ele = document.getElementsByClassName("sc-gJwTLC ikxBAC")
 	let el=0
@@ -406,21 +438,43 @@ const buildingamounts = []
 const unlocked = []
 const roadgrid = {}
 const temporaryeffects = []
-let checkbox1 = document.getElementById("noimage");
-checkbox1.addEventListener( "change", () => {if ( checkbox1.checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
-let checkbox2 = document.getElementById("nofade");
-checkbox2.addEventListener( "change", () => {if ( checkbox2.checked ) {psettings.nofade = true;}else{psettings.nofade = false;};change_settings(nofade)});
-let checkbox3 = document.getElementById("arrowkeys");
-checkbox3.addEventListener( "change", () => {if ( checkbox3.checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
-let checkbox4 = document.getElementById("notutorial");
-checkbox4.addEventListener( "change", () => {if ( checkbox4.checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
-let checkbox5 = document.getElementById("noflash");
-checkbox5.addEventListener( "change", () => {if ( checkbox5.checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
-let checkbox6 = document.getElementById("nompop");
-checkbox6.addEventListener( "change", () => {if ( checkbox6.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
+document.getElementById("noimage").addEventListener( "change", () => {if ( checkbox1.checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
+document.getElementById("nofade").addEventListener( "change", () => {if ( checkbox2.checked ) {psettings.nofade = true;}else{psettings.nofade = false;};change_settings(nofade)});
+document.getElementById("arrowkeys").addEventListener( "change", () => {if ( checkbox3.checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
+document.getElementById("notutorial").addEventListener( "change", () => {if ( checkbox4.checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
+document.getElementById("noflash").addEventListener( "change", () => {if ( checkbox5.checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
+document.getElementById("nompop").addEventListener( "change", () => {if ( checkbox6.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
+document.getElementById("noweather").addEventListener( "change", () => {if ( checkbox7.checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(nompop);ctx2.clearRect(0,0,screen.width,screen.height)});
+document.getElementById("noserif").addEventListener( "change", () => {if ( checkbox8.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop);changefont()});
 function change_settings(setting){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
+function changefont() {
+			if (!psettings.noserif)
+			 {
+				document.body.style.fontFamily = 'Roboto Slab';
+				const buttons =  document.getElementsByTagName('button')
+				
+				for(const b of buttons){
+				b.style.fontFamily = 'Roboto Slab';
+			  } 
+			  const sele = document.getElementsByTagName('select')
+			 for (const se of sele){ 
+			  se.style.fontFamily = 'Roboto Slab';
+			 }
+			   return 
+			} 
+			document.body.style.fontFamily = 'Arial'
+				const buttons =  document.getElementsByTagName('button')
+				
+				for(const b of buttons){
+				b.style.fontFamily = 'Arial';
+			  } 
+			  const sele = document.getElementsByTagName('select')
+			 for (const se of sele){ 
+			  se.style.fontFamily = 'Arial';
+			 }
+		}
 function switchtab(){
 	tab = document.getElementById("taboption").value
 	displaytab()
@@ -442,24 +496,25 @@ const max = el.max
 const value = el.value
 	el.style.background = `linear-gradient(to right, #755e2b 0%, #755e2b ${(value-min)/(max-min)*100}%, gray ${(value-min)/(max-min)*100}%, gray 100%)`
 
-el.oninput = function() {
-  if (el.id == "music"){
-	build_music.volume=el.value*0.01
-	tech_music.volume=el.value*0.01
-	market_music.volume=el.value*0.01
-	boss_music.volume=el.value*0.01
-  }
-  else if (el.id = "sound")
-  click.volume=el.value*0.01
-  techbuy.volume=el.value*0.01
-  techclick.volume=el.value*0.01
-  kaching.volume=el.value*0.01
-  breaksound.volume=el.value*0.01
-  repairsound.volume=el.value*0.01
-  this.style.background = `linear-gradient(to right, #755e2b 0%, #755e2b ${(this.value-this.min)/(this.max-this.min)*100}%, gray ${(this.value-this.min)/(this.max-this.min)*100}%, gray 100%)`
+el.oninput = function () {
+if (el.id == "music") {
+	build_music.volume = el.value * 0.01
+	tech_music.volume = el.value * 0.01
+	market_music.volume = el.value * 0.01
+	boss_music.volume = el.value * 0.01
+	war_music.volume = el.value * 0.01
+}
+else if (el.id = "sound"){
+	click.volume = el.value * 0.01
+techbuy.volume = el.value * 0.01
+techclick.volume = el.value * 0.01
+kaching.volume = el.value * 0.01
+breaksound.volume = el.value * 0.01
+repairsound.volume = el.value * 0.01
+}
+this.style.background = `linear-gradient(to right, #755e2b 0%, #755e2b ${(this.value - this.min) / (this.max - this.min) * 100}%, gray ${(this.value - this.min) / (this.max - this.min) * 100}%, gray 100%)`
 };
 }
-
 // enable/disable devtools
 const devmode = true
 
