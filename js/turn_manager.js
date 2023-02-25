@@ -33,10 +33,16 @@ function turnpopup(){
 	}
 	switch(m.phase){
 	case 0 :
+		if(megatemple>=3&&p.pieceROM[17].unlocked==false){
+			p.pieceROM[17].unlocked=true
+			unlocked[17]=true
+			displaypopup(24)
+			return false
+		}
 	if (difficulty>10){
 		
 		if(difficulty<40){
-		if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,3+m.assissin)==1) || getRandomInt(0,7)==0){
+		if ((difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))>military&& getRandomInt(0,2+m.assissin)==1) || getRandomInt(0,7)==0){
 			
 			popups[0].choosetext()
 
@@ -44,15 +50,14 @@ function turnpopup(){
 			return false
 		}
 		}
-		else if(getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
-			popups[18].choosetext()
-			displaypopup(18)
-			return false
-		}
+		let isdivine=false
 		if (wars.length >0){
 			let warpower = 0
 			for (const war of wars){
 				warpower+=war.power
+				if(war.divine=true){
+					isdivine=true
+				}
 			}
 			
 			
@@ -78,13 +83,19 @@ function turnpopup(){
 				displaypopup(21)
 				return false
 			}
-			else if(warpower/military>4||warpower/military<0.25){
+			else if(warpower/military>4||warpower/military<0.25&&!isdivine){
 				popups[23].choosetext()
 				displaypopup(23)
 				return false
 			}
 			
 		}
+		if(difficulty<40&&getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
+			popups[18].choosetext()
+			displaypopup(18)
+			return false
+		}
+		
 		
 		
 	
@@ -182,23 +193,19 @@ function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
 	const turnreturn = turnpopup()
-		if (Math.random() > 0.6) {
-		if (Math.random() > 0.6) {
-			weather = 1
-		} else {
-			weather = 2
-		}
-	} else {
-		if (Math.random() > 0.95) {
-			weather = 3
-		} else {
-			weather = 0
-		}
-	}
+	
 	document.getElementById("popup_block_buttons").style.animation = "none"
+	if(turnreturn==true){
+	
 	if(!psettings.nofade){
-	document.getElementById("popup_block_buttons").style.animation = "fadeout 1s"
+	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
 	}
+	setTimeout(function(){document.getElementById("popup_block_buttons").animation = "none";document.getElementById("popup_block_buttons").style.display = "none"},1000)
+	}
+	
+	
+	
+	
 	
 
 	document.getElementById("year_label").innerHTML = "Year: "+difficulty
@@ -207,26 +214,34 @@ function enable(){
 		tutorialindex+=1
 		continuetutorial(tutorialindex)
 	}
-	setTimeout(clearblock, 1000)
 }
-function clearblock(){
-	document.getElementById("popup_block_buttons").style.display = "none"
-}
+
 function next_turn(){
 	window.onbeforeunload = function(){return "hi"}
 	document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
 	const pbb = document.getElementById("popup_block_buttons")
 	pbb.style.display = "block"
-	pbb.style.animation = 'none'
+	pbb.style.animation = 'none';
 	pbb.offsetHeight; /* trigger reflow */
 	if(!psettings.nofade){
-	pbb.style.animation = "none"
-	pbb.style.animation = "fadein 1s"
-	// pbb.style.animation = "none"
-	// pbb.style.animation = "endback 1s"; 
-	}
+	pbb.style.animation = "block_done linear 1s 1 normal"; 
 	
+	}
+	weathermod = Math.sin(difficulty/3)/10
+	if(weathermod>0.05){
+		weather = 1
+	}
+	else if (weathermod<-0.05){
+		weather=2
+	}
+	else if(Math.random()>0.95){
+		weather=3
+	}
+	else {
+		weather=0
+	}
+	animloop()
 	for(i=temporaryeffects.length-1;i>-1;i--){
 		if (temporaryeffects[i].duration<=0){
 			temporaryeffects.splice(i,1)
@@ -235,7 +250,7 @@ function next_turn(){
 		temporaryeffects[i].duration-=1
 		}
 	}
-	xp+=Math.floor(Math.max(0,Math.min(1+Math.ceil(currentpop/5),food-currentpop))**0.5)*10
+	xp+=Math.floor(Math.max(0,Math.min(1+Math.ceil(currentpop/5),food-currentpop))**0.5)*10*(1+techstats.innovation)
 	currentpop+=Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))
 	
 	resources+=resourcesgained
@@ -243,6 +258,7 @@ function next_turn(){
 	xp+=xpgained
 	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
+	debugger
 	for (const war of wars){
 		war.power+=war.totalpower/getRandomInt(20,25)
 		war.power =Math.min(war.power,war.totalpower)
@@ -256,7 +272,6 @@ function next_turn(){
 		selectmarketitems()
 		
 	}
-	
 }
 	
 	setTimeout(enable,1000)
@@ -349,10 +364,11 @@ function displayUI(turn=false){
 			totalxp+=10+Math.floor(totalxp/7)
 			
 		}
-		food += Math.ceil(food*modifiers.food)-(siege ? Math.ceil(food*modifiers.food)*0.7:0)
-		resourcesgained += Math.ceil(resourcesgained*modifiers.resources)-(siege ? Math.ceil(resourcesgained*modifiers.resources)*0.7:0)
-		population += Math.ceil(population*modifiers.population)
-		military += Math.ceil(military*modifiers.military*(m.shield*0.01))
+		debugger
+		food += Math.ceil(food*(modifiers.food/10)*(1+weathermod))-(siege ? Math.ceil(food*(modifiers.food/10))*0.7:0)
+		resourcesgained += Math.ceil(resourcesgained*(modifiers.resources/10))-(siege ? Math.ceil(resourcesgained*(modifiers.resources/10))*0.7:0)
+		population += Math.ceil(population*modifiers.population/10)
+		military += Math.ceil(military*(modifiers.military/10)*(m.shield*0.01))
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
 				food += ef.food
@@ -381,10 +397,7 @@ function displayUI(turn=false){
 			}
 			
 		}
-		if(megatemple>=3){
-			p.pieceROM[17].unlocked=true
-			unlocked[17]=true
-		}
+		
 		if(m.phase>0&&m.bhealth<=0){
 			displaypopup(39, information)
 		}
@@ -404,11 +417,11 @@ function attack(power){
 	if (enemy_power>military){
 		
 		reputation-=getRandomInt(1,3)
-		
-		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		const newcasual = removebuildings(5)
+		information[0].choosetext(Math.floor(m_personnel/4)+newcasual,Math.floor(m_personnel/8))
 		resources-=Math.floor(m_personnel/8)
 		currentpop-=Math.floor(m_personnel/4)
-		removebuildings(5)
+		
 		displaypopup(0, information)
 		
 
@@ -422,3 +435,4 @@ function attack(power){
 	resources-=Math.floor(m_personnel/8)
 	displaypopup(1, information)
 }
+
