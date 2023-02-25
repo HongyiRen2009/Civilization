@@ -155,9 +155,9 @@ const m = {
 	},
 	{
 		price:10,
-		pricemod: 0.5,
+		pricemod: 1.5,
 		title: "Foriegn Aid",
-		description: "Supply neighboring tribes with foriegn aid.<br>Increases reputation",
+		description: "Supply neighboring tribes with foriegn aid.<br><strong class = 'color-g'>Increases reputation</strong>",
 		image: "<img src = 'images/marketAid.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -178,7 +178,7 @@ const m = {
 		},
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
-			reputation+=getRandomInt(6,12)
+			reputation+=Math.floor(getRandomInt(6,12)*(1+techstats.charisma))
 			
 		}
 	},
@@ -294,7 +294,7 @@ const m = {
 	},
 	{
 		price:5,
-		pricemod: 0.75,
+		pricemod: 0.5,
 		title: "Hijack",
 		description: "Hire mercenaries to fight for you.  ",
 		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
@@ -385,8 +385,8 @@ const m = {
 	{
 		price:10,
 		pricemod: 1.8,
-		title: "Assassination",
-		description: "Hire an assassin to kill your enemys's generals.<br>Reduce the chance of being attacked",
+		title: "Assassin",
+		description: "Hire an assassin to assasinate your enemys's generals.<br>Reduce the chance of being attacked",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -501,7 +501,7 @@ const m = {
 		}
 	},
 	{
-		price:2000,
+		price:5000,
 		pricemod: 1,
 		title: "Blueprints",
 		description: "Get a blueprint scrap on how to construct the Mega Temple",
@@ -515,7 +515,7 @@ const m = {
 		allowed: true,
 		choosetext(){
 			this.allowed = true
-						this.price = Math.max(1700,2000-(reputation*5))
+						this.price =5000
 
 			if (this.price*this.pricemod>resources){
 				this.allowed = false
@@ -550,7 +550,7 @@ const m = {
 		purchaseeffect(){
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
-			m.bhealth= Math.floor((500+60*difficulty**1.9)*difficultymultiplier)
+			m.bhealth= Math.floor((500+30*difficulty**2.2)*difficultymultiplier)
 			m.totalbhealth=m.bhealth
 		}
 	}
@@ -571,6 +571,7 @@ function marketscreen(){
 	build_music.pause()
 	market_music.play()
 	boss_music.pause()
+	war_music.pause()
 	canvas.style.display = "none"
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
@@ -611,6 +612,7 @@ function marketscreen(){
 		flex.className = "item"
 		if (el == "failed"){
 			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
+			continue
 		}
 		else if (el.stock>0){
 		
@@ -714,17 +716,21 @@ function marketscreen(){
 		flex.appendChild(des)
 		flex.appendChild(instock)
 		flex.appendChild(buy)
-		
+		if(i==3&&reputation<100){
+			flex.innerHTML = "<h1 class = 'color-r'> Requires 100 Reputation</h1>"
 		}
+	}
 		else{
 			flex.innerHTML = "<h1 class = 'color-g'>SOLD OUT</h1>";
 		}
+	
 		if(i<4){
 				document.getElementById("market").appendChild(flex)
 		}
 		else{
 			document.getElementById("black-market").appendChild(flex)
 		}
+	
 		i++
 	}
 }
@@ -735,5 +741,5 @@ function selectmarketitems(){
 	marketitems.length = 0
 	
 	
-	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,7),getRandomInt(8,9),getRandomInt(10,15), getRandomInt(10,15),m.marketselections.length-1)
+	marketitems.push(getRandomInt(0,2),getRandomInt(3,4),getRandomInt(5,9),m.marketselections.length-2,getRandomInt(10,15), getRandomInt(10,15),m.marketselections.length-1)
 }
