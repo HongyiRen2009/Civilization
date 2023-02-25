@@ -32,10 +32,10 @@ const tech = [
             
             effect(){
                 if (this.tier>0){
-                    modifiers.food+=0.1
+                    modifiers.food+=1
                 }
                 else{
-                    modifiers.food+=0.3
+                    modifiers.food+=3
                     this.description = "All farms produce +10% food"
                 }
             }
@@ -53,10 +53,10 @@ const tech = [
             
             effect(){
                 if (this.tier>0){
-                    modifiers.population+=0.1
+                    modifiers.population+=1
                 }
                 else{
-                   modifiers.population+=0.3
+                   modifiers.population+=3
                     this.description = "Houses have +10% capacity"
                 }
             }
@@ -74,17 +74,17 @@ const tech = [
             
             effect(){
                 if (this.tier>0){
-                    modifiers.resources+=0.1
+                    modifiers.resources+=1
                 }
                 else{
-                    modifiers.resources+=0.3
+                    modifiers.resources+=3
                     this.description = "Mines produce +10% resources"
                 }
             }
         },
 		{
             name:"Swords",
-            description:"+20% military",
+            description:"+30% military",
             requires:[],
             image:"images/techsword.png",
             cost:1,
@@ -95,11 +95,11 @@ const tech = [
             
             effect(){
                 if (this.tier>0){
-                    modifiers.military+=0.1
+                    modifiers.military+=2
                 }
                 else{
-                    modifiers.military+=0.2
-                    this.description = "+10% military"
+                    modifiers.military+=3
+                    this.description = "+20% military"
                 }
             }
         },
@@ -360,7 +360,7 @@ const tech = [
             
             effect(){
                 techstats.social_care=true
-                modifiers.resources-=0.1
+                modifiers.resources-=1
             }
         },
 		{
@@ -416,7 +416,7 @@ const tech = [
 	[	//ROW 3
 		{
             name:"Cement",
-            description:"Roads and bridges now only cost 0.10 resources",
+            description:"Roads and bridges' costs are halved",
             requires:[[2,0]],
             cost:1,
             category:"Intelligence",
@@ -523,12 +523,23 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if (this.unlocked){
+                if (!this.unlocked){
                 techstats.archery+=0.4
+                for(const b of gridstats){
+                    if(b.index==12){
+                        b.military = Math.floor(b.military*1.4)
+                    }
+                }
+                this.description = "Fortresses give +20% military"
                 }
                 else{
                     techstats.archery+=0.2
-                    this.description = "Fortresses give +20% military"
+                    for(const b of gridstats){
+                        if(b.index==12){
+                            b.military = Math.floor(b.military*1.4)
+                        }
+                    }
+                    
                 }
             }
         },
@@ -544,12 +555,13 @@ const tech = [
             unlocked: false,
             
             effect(){
-                if(this.unlocked){
+                if(!this.unlocked){
                     techstats.ded_worship+=0.4
+                    this.description="Temples are 40% more efficient"
                 }
                 else{
                     techstats.ded_worship+=0.2
-                    this.description="Temples and altars are 40% more efficient"
+                    
                 }
             }
         },
