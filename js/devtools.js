@@ -83,7 +83,7 @@ const dev = {
     },
     	popup: function(type) {
         if (devmode) {
-            const types = ['attack','revolt','playerattack','plague','drought','folklore','fire','badomen','breakthrough','traveler','refugees','tradeoffer','traderoute','beast','eruption','tribute','fireball','beastattack','war','battle','siege','warattack','breach','peace','endgame','gameover']
+            const types = ['attack','revolt','playerattack','plague','drought','folklore','fire','badomen','breakthrough','traveler','refugees','tradeoffer','traderoute','beast','eruption','tribute','fireball','beastattack','war','battle','siege','warattack','breach','peace','endbattle','endgame','gameover']
             const typeindex = types.indexOf(type)
             if(typeindex==-1){
                 return "Enter a valid popup"
