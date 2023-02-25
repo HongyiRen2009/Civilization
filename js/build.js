@@ -146,7 +146,7 @@ const p = {
 		unlocked: false,
 		piecepositions: [{x:1,y:0, img:{dx:22, dy:64}},{x:0,y:0, img:{dx:1,dy:64}},{x:0,y:1,img:{dx:1,dy:85}},{x:1,y:1,img:{dx:22, dy:85}},{x:1,y:-1,img:{dx:22,dy:43}},{x:0,y:-1,img:{dx:1,dy:43}}],
 		near: "river not",
-		tab: "farms",
+		tab: "Farms",
 		effect(){
 			p.food=30
 			resources-=24-Math.ceil(24*techstats.simple_farms)
@@ -204,7 +204,7 @@ const p = {
 		near: "building",
 		tab: "Military",
 		effect(){
-			modifiers.military +=0.1
+			modifiers.military +=1
 			resources-=20
 			p.resources-=10
 			unemployed-=10
@@ -356,8 +356,8 @@ const p = {
 		near: "building",
 		tab: "Misc",
 		effect(){
-			modifiers.food+=0.2
-			modifiers.resources+=0.2
+			modifiers.food+=2
+			modifiers.resources+=2
 			resources-=200
 			unemployed-=15
 		},
@@ -424,32 +424,53 @@ for (const un of p.pieceROM){
 
 
 function removebuildings(intensity = 4,onhill=false){
-	remove = onhill
+	let casualties = 0
+	let removeamount = Math.ceil(gridstats.length/intensity)
+	let remove = onhill
+	const buildingschecked = [...gridstats]
+	for (i=0;i<buildingschecked.length;i++){
+		buildingschecked[i].bindex = i
+	}
+	debugger
 		for(i=gridstats.length-1;i>-1;i--){
-		if (getRandomInt(0,intensity) == 0){
+		const trueindex = getRandomInt(0,buildingschecked.length-1)
+		const randomb = buildingschecked[trueindex].bindex
 		if(onhill){
 			remove = false
-			for (let j = 0; j!=gridstats[i].positions.length;j++){
-				if(hillgrid[gridstats[i].positions[j].y/20].includes(gridstats[i].positions[j].x)){
+			for (let j = 0; j!=gridstats[randomb].positions.length;j++){
+				if(hillgrid[gridstats[randomb].positions[j].y/20].includes(gridstats[randomb].positions[j].x)){
 					remove=true
+					
+					break
 				}
 			}
+			
+				
+			
 		}
 		else{
 			remove=true
 		}
+		buildingschecked.splice(trueindex,1)
 		if (remove){
 			
-			buildingamounts[gridstats[i].index]-=1
-			gridstats[i].disabled=true
-			currentpop-=gridstats[i].employmentrequired
+			buildingamounts[gridstats[randomb].index]-=1
+			gridstats[randomb].disabled=true
+			currentpop-=gridstats[randomb].employmentrequired
+			casualties+=gridstats[randomb].employmentrequired
+			removeamount-=1
+			if(removeamount<=0){
+				break
+			}
 		
 		}
 		
+		
 		}
-		}
+		
 		render()
 		displayUI()
+		return casualties
 }
 function isallowed(){
 localallowed = false
@@ -563,7 +584,7 @@ ctx.beginPath();
 					ctx.fillText(letter,position.x+10-(letter.length*4)-(scrollX*20)+piece[i].x*20,position.y+10-(scrollY*20)+piece[i].y*20);
 				}
 				else{
-				ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+				ctx.drawImage(buildimg,p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 				}
 				
 				ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
@@ -580,7 +601,7 @@ ctx.beginPath();
 				ctx.fillStyle="rgba(0,255,0,0.7)"
 											ctx.fillRect(position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 
-			ctx.drawImage(document.getElementById("cloudimg"),p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
+			ctx.drawImage(buildimg,p.pieceROM[p_index].piecepositions[i].img.dx,p.pieceROM[p_index].piecepositions[i].img.dy,20,20,position.x-(scrollX*20)+piece[i].x*20,position.y+(-scrollY+piece[i].y)*20,20,20)
 
 			}
 		}
@@ -725,11 +746,16 @@ function render(){
 	ctx.closePath()
 
 	if (psettings.noimage){
+		
+		
 		for(len = gridstats.length,i=0;i<len;i++){
 			ctx.beginPath()
 			
 			if(gridstats[i].disabled){
 				ctx.strokeStyle = "rgba(0,0,0,0.2)"
+			}
+			else if (!gridstats[i].inrange){
+				ctx.strokeStyle = "rgba(255,0,0,1)"
 			}
 			else{
 				ctx.strokeStyle = "rgba(0,0,0,1)"
@@ -738,18 +764,24 @@ function render(){
 			for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
 				if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20)
 					ctx.fillText(gridstats[i].letter,gridstats[i].positions[j].x+10-(gridstats[i].letter.length*4)-scrollX*20,gridstats[i].positions[j].y+10-scrollY*20);
-					ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
-					ctx.closePath()
-			ctx.stroke()
-			ctx.stroke()
+					ctx.rect(gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,19,19)
+			
 					
 					
 			}
-		
-			
+			ctx.stroke()
 			
 		}
 		
+		
+		ctx.strokeStyle = "rgba(0,0,0,1)"
+		for (const road in roadgrid){
+			const pos = JSON.parse(road)
+			
+			ctx.fillText("R",pos.x-scrollX*20+6,pos.y-scrollY*20+10);
+			ctx.rect(pos.x-scrollX*20,pos.y-scrollY*20,20,20)
+			
+		}
 	}
 	else{
 	for(len = gridstats.length,i=0;i<len;i++){
@@ -759,7 +791,7 @@ function render(){
 		
 		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
 			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
-				ctx.drawImage(document.getElementById("cloudimg"),gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+				ctx.drawImage(buildimg,gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
 				ctx.stroke()
 				
 
@@ -773,9 +805,11 @@ function render(){
 		
 	}
 	for (const road in roadgrid){
-		
 		const pos = JSON.parse(road)
-		ctx.drawImage(document.getElementById("cloudimg"),roadgrid[road].x,roadgrid[road].y,20,20,pos.x-scrollX*20,pos.y-scrollY*20,22,22)
+		
+		
+		ctx.drawImage(buildimg,roadgrid[road].x,roadgrid[road].y,20,20,pos.x-scrollX*20,pos.y-scrollY*20,22,22)
+		
 	}
 	
 }
@@ -788,16 +822,18 @@ function render(){
 }
 
 function recalcBuildings() {
+	outofrange = gridstats.length
 	for (const city of p.cities) {
 	for (const building of gridstats) {
 		if (building.inrange) {
-			continue
+			outofrange--
+			
 		}
+		else{
 		for (const position of building.positions) {
 		if (Math.abs(position.x/20-city.x) <= 30 && Math.abs(position.y/20-city.y) <= 30) {
 			building.inrange = true
 			outofrange--
-			console.log("asdf")
 			break
 		} else {
 			console.log(position.x)
@@ -805,6 +841,8 @@ function recalcBuildings() {
 	}
 	}
 	}
+	}
+	render()
 }
 
 function recalcroads(roads){
@@ -883,11 +921,11 @@ canvas.onmousedown = function(event){
 			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
-		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge") {
+		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge"||p.pieceROM[p_index].name == "Bonfire") {
 			isInRange = true
 			if(p.pieceROM[p_index].name == "Road"){
 				p.pieceROM[p_index].effect()
-				debugger
+				buildingamounts[p_index] +=1
 				roadgrid[JSON.stringify({x:position.x,y:position.y})] = {x:0,y:0}
 				recalcroads([JSON.stringify({x:position.x,y:position.y}),JSON.stringify({x:position.x+20,y:position.y}),JSON.stringify({x:position.x,y:position.y+20}),JSON.stringify({x:position.x,y:position.y-20}),JSON.stringify({x:position.x-20,y:position.y})])
 				displayUI()
