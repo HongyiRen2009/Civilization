@@ -5,7 +5,7 @@ const p = {
 		name: "Canopy",
 		letter: "C",
 		description: "A small unit of housing that houses 1 person. Requires 1 resource to construct",
-		piecepositions:[{x:0,y:0,img:{dx:1,dy:127}}],
+		piecepositions:[{x:0,y:0,img:{dx:65,dy:85}}],
 		tab: "Housing",
 		unlocked: true,
 		near: "building",
@@ -25,7 +25,7 @@ const p = {
 		name: "Hut",
 		letter: "H",
 		description: "A medium unit of housing that houses 6 people. Requires 5 resources to construct",
-		piecepositions:[{x:0,y:0,img:{dx:22,dy:127}}],
+		piecepositions:[{x:0,y:0,img:{dx:65,dy:106}}],
 		unlocked: true,
 		near: "building",
 		effect(){
@@ -58,7 +58,7 @@ const p = {
 		name: "Insula",
 		letter: "I",
 		description: "A high density primitive apartment that houses 35 people. Requires 15 resources to construct",
-		piecepositions:[{x:1,y:0,img:{dx:64,dy:127}},{x:0,y:0,img:{dx:43,dy:127}},{x:0,y:1,img:{dx:43,dy:148}},{x:1,y:1,img:{dx:43,dy:148}}],
+		piecepositions:[{x:1,y:0,img:{dx:64,dy:147}},{x:0,y:0,img:{dx:43,dy:147}},{x:0,y:1,img:{dx:43,dy:167}},{x:1,y:1,img:{dx:64,dy:167}}],
 		unlocked: false,
 		near: "building",
 		tab: "Housing",
@@ -90,7 +90,7 @@ const p = {
 	{
 		name: "Tiny Farm",
 		letter: "TF",
-		piecepositions: [{x:1,y:0,img:{dx:22,dy:106}},{x:0,y:0,img:{dx:1,dy:106}}],
+		piecepositions: [{x:1,y:0,img:{dx:274,dy:169}},{x:0,y:0,img:{dx:254,dy:169}},{x:1,y:1,img:{dx:273,dy:190}},{x:0,y:1,img:{dx:253,dy:190}}],
 		description: "A very small farm that produces 1 food. Requires 3 resources to construct",
 		unlocked: true,
 		near: "building",
@@ -107,7 +107,7 @@ const p = {
 	{
 		name: "Small Farm",
 		letter: "F",
-		piecepositions: [{x:1,y:0, img:{dx:64,dy:85}},{x:0,y:0,img:{dx:43,dy:85}},{x:0,y:1,img:{dx:43,dy:106}},{x:1,y:1,img:{dx:64,dy:106}}],
+		piecepositions: [{x:1,y:0, img:{dx:169,dy:150}},{x:0,y:0,img:{dx:148,dy:150}},{x:0,y:1,img:{dx:148,dy:170}},{x:1,y:1,img:{dx:169,dy:170}},{x:0,y:2,img:{dx:148,dy:190}},{x:1,y:2,img:{dx:169,dy:190}}],
 		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it",
 		unlocked: true,
 		near: "building",
@@ -127,7 +127,7 @@ const p = {
 		letter: "MF",
 		description: "A medium farm that produces 12 food. Requires 12 resources to construct and 3 people operating it. Cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0,img:{dx:64, dy:43}},{x:0,y:0, img:{dx:43, dy:43}},{x:0,y:1,img:{dx:43, dy:64}},{x:1,y:1, img:{dx:64, dy:64}},{x:1,y:-1, img:{dx:64, dy:22}}],
+		piecepositions: [{x:1,y:0,img:{dx:21, dy:106}},{x:0,y:0, img:{dx:1, dy:106}},{x:0,y:1,img:{dx:1, dy:127}},{x:1,y:1, img:{dx:21, dy:127}},{x:1,y:-1, img:{dx:21, dy:85}},{x:0,y:-1, img:{dx:1, dy:85}},{x:2,y:-1, img:{dx:42, dy:85}},{x:2,y:0, img:{dx:43, dy:106}},{x:2,y:1, img:{dx:43, dy:127}}],
 		near: "!hill",
 		tab: "Farms",
 		effect(){
@@ -144,7 +144,7 @@ const p = {
 		letter: "LF",
 		description: "A large farm that produces 30 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
 		unlocked: false,
-		piecepositions: [{x:1,y:0, img:{dx:22, dy:64}},{x:0,y:0, img:{dx:1,dy:64}},{x:0,y:1,img:{dx:1,dy:85}},{x:1,y:1,img:{dx:22, dy:85}},{x:1,y:-1,img:{dx:22,dy:43}},{x:0,y:-1,img:{dx:1,dy:43}}],
+		piecepositions: [{x:0,y:0, img:{dx:1, dy:1}},{x:1,y:0, img:{dx:21, dy:1}},{x:2,y:0, img:{dx:42, dy:1}},{x:3,y:0, img:{dx:63, dy:1}},{x:0,y:1, img:{dx:1, dy:21}},{x:1,y:1, img:{dx:21, dy:21}},{x:2,y:1, img:{dx:42, dy:21}},{x:3,y:1, img:{dx:63, dy:21}},{x:0,y:2, img:{dx:1, dy:42}},{x:1,y:2, img:{dx:21, dy:42}},{x:2,y:2, img:{dx:42, dy:42}},{x:3,y:2, img:{dx:63, dy:42}},{x:0,y:3, img:{dx:1, dy:63}},{x:1,y:3, img:{dx:21, dy:63}},{x:2,y:3, img:{dx:42, dy:63}},{x:3,y:3, img:{dx:63, dy:63}}],
 		near: "river not",
 		tab: "Farms",
 		effect(){
@@ -240,7 +240,7 @@ const p = {
 		letter: "B",
 		description: "A bridge to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
 		unlocked: true,
-		piecepositions: [{x:0,y:0, img:{dx:22, dy:22}}],
+		piecepositions: [{x:0,y:0, img:{dx:190, dy:148}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -256,7 +256,7 @@ const p = {
 		letter: "SM",
 		description: "A small mine to extract resources from a hill. Collects 2 resources per year. Requires 4 resources and 1 person operating it",
 		unlocked: true,
-		piecepositions: [{x:0,y:0,img:{dx:1, dy:169}},{x:0,y:1, img:{dx:1, dy:190}}],
+		piecepositions: [{x:0,y:0,img:{dx:22, dy:190}},{x:0,y:1, img:{dx:21, dy:211}}],
 		near: "building",
 		tab: "Mines",
 		effect(){
@@ -273,7 +273,7 @@ const p = {
 		name: "Medium Mine",
 		letter: "MM",
 		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be entirely on a hill and requires 24 resources and 5 people operating it",
-		piecepositions: [{x:-1,y:0, img:{dx:22, dy:169}},{x:0,y:0, img:{dx:43, dy:169}},{x:1,y:0, img:{dx:64, dy:169}},{x:-1,y:1, img:{dx:22, dy:190}},{x:0,y:1, img:{dx:43, dy:190}},{x:1,y:1, img:{dx:64, dy:190}}],
+		piecepositions: [{x:-1,y:0, img:{dx:43, dy:190}},{x:0,y:0, img:{dx:64, dy:190}},{x:1,y:0, img:{dx:85, dy:190}},{x:-1,y:1, img:{dx:43, dy:211}},{x:0,y:1, img:{dx:64, dy:211}},{x:1,y:1, img:{dx:85, dy:211}}],
 		unlocked: false,
 		near: "entire",
 		tab: "Mines",
@@ -292,8 +292,8 @@ const p = {
 		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it. Must be entirely on a hill",
 		piecepositions: [
 			{x:1,y:0, img:{dx:190, dy:22}},{x:0,y:0, img:{dx:169, dy:22}}, {x:-1, y:0, img:{dx:148, dy:22}},
-			{x:0,y:1, img:{dx:190, dy:43}},{x:1,y:1, img:{dx:169, dy:43}}, {x:-1, y:1, img:{dx:148, dy:43}},
-			{x:0,y:2, img:{dx:190, dy:64}},{x:1,y:2, img:{dx:169, dy:64}}, {x:-1, y:2, img:{dx:148, dy:64}},
+			{x:0,y:1, img:{dx:169, dy:43}},{x:1,y:1, img:{dx:190, dy:43}}, {x:-1, y:1, img:{dx:148, dy:43}},
+			{x:0,y:2, img:{dx:169, dy:64}},{x:1,y:2, img:{dx:190, dy:64}}, {x:-1, y:2, img:{dx:148, dy:64}},
 			{x:1,y:-1, img:{dx:190, dy:1}},{x:0,y:-1, img:{dx:169, dy:1}}, {x:-1, y:-1, img:{dx:148, dy:1}}],
 		unlocked: false,
 		near: "entire",
@@ -328,7 +328,7 @@ const p = {
 		name: "Bonfire",
 		letter: "BF",
 		description: "A city center. Requires exponentially more resources the more you build it",
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1}],
+		piecepositions: [{x:0,y:0, img:{dx:148, dy:211}},{x:1,y:0, img:{dx:169, dy:211}},{x:0,y:1, img:{dx:254, dy:211}},{x:1,y:1, img:{dx:275, dy:211}}],
 		unlocked: true,
 		near: "building",
 		tab: "City Centers",
@@ -352,7 +352,7 @@ const p = {
 		letter: "TS",
 		description: "A school for teaching miners and farmers.<br>Increases all production by 20% and requires 200 resources and 15 people to build.",
 		unlocked: false,
-		piecepositions: [{x:1,y:0},{x:0,y:0},{x:0,y:1},{x:1,y:1},{x:1,y:-1},{x:0,y:-1},{x:-1,y:-1},{x:-1,y:1}],
+		piecepositions: [{x:1,y:0, img:{dx:232, dy:190}},{x:0,y:0, img:{dx:211, dy:190}},{x:0,y:1, img:{dx:215, dy:211}},{x:1,y:1, img:{dx:235, dy:211}},{x:1,y:-1, img:{dx:232, dy:169}},{x:0,y:-1, img:{dx:211, dy:169}},{x:-1,y:-1, img:{dx:190, dy:169}},{x:-1,y:1, img:{dx:195, dy:211}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -370,7 +370,7 @@ const p = {
 		letter: "W",
 		description: "A workshop for practicing and learning. Increases wisdom by 50 but uses up 5 resources each round<br>Requires 20 resources and 5 people to build.",
 		unlocked: false,
-		piecepositions: [{x:0,y:0},{x:-1,y:0},{x:0,y:1}],
+		piecepositions: [{x:0,y:0, img:{dx:1, dy:169}},{x:1,y:0, img:{dx:21, dy:169}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -431,7 +431,7 @@ function removebuildings(intensity = 4,onhill=false){
 	for (i=0;i<buildingschecked.length;i++){
 		buildingschecked[i].bindex = i
 	}
-	debugger
+	
 		for(i=gridstats.length-1;i>-1;i--){
 		const trueindex = getRandomInt(0,buildingschecked.length-1)
 		const randomb = buildingschecked[trueindex].bindex
