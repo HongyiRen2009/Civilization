@@ -252,7 +252,7 @@
 	<div class="settings-toggle-column">
 	<div>
 		<p>No Flashing</p>
-		<div class="info-box" style = "margin: -37px 97px;">
+		<div class="info-box" style = "margin: -37px 97px; z-index: 1">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -265,7 +265,7 @@
 	</div>
 	<div>
 	<p>No Market Popup</p>
-		<div class="info-box" style = "margin: -37px 136px;">
+		<div class="info-box" style = "margin: -37px 136px; z-index: 1">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -444,14 +444,14 @@ const buildingamounts = []
 const unlocked = []
 const roadgrid = {}
 const temporaryeffects = []
-document.getElementById("noimage").addEventListener( "change", () => {if ( checkbox1.checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
-document.getElementById("nofade").addEventListener( "change", () => {if ( checkbox2.checked ) {psettings.nofade = true;}else{psettings.nofade = false;};change_settings(nofade)});
-document.getElementById("arrowkeys").addEventListener( "change", () => {if ( checkbox3.checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
-document.getElementById("notutorial").addEventListener( "change", () => {if ( checkbox4.checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
-document.getElementById("noflash").addEventListener( "change", () => {if ( checkbox5.checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
-document.getElementById("nompop").addEventListener( "change", () => {if ( checkbox6.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
-document.getElementById("noweather").addEventListener( "change", () => {if ( checkbox7.checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(nompop);ctx2.clearRect(0,0,screen.width,screen.height)});
-document.getElementById("noserif").addEventListener( "change", () => {if ( checkbox8.checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop);changefont()});
+document.getElementById("noimage").addEventListener( "change", () => {if ( document.getElementById("noimage").checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
+document.getElementById("nofade").addEventListener( "change", () => {if ( document.getElementById("nofade").checked ) {psettings.nofade = true;}else{psettings.nofade = false;};change_settings(nofade)});
+document.getElementById("arrowkeys").addEventListener( "change", () => {if ( document.getElementById("arrowkeys").checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
+document.getElementById("notutorial").addEventListener( "change", () => {if ( document.getElementById("notutorial").checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
+document.getElementById("noflash").addEventListener( "change", () => {if ( document.getElementById("noflash").checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
+document.getElementById("nompop").addEventListener( "change", () => {if ( document.getElementById("nompop").checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
+document.getElementById("noweather").addEventListener( "change", () => {change_settings(nompop);ctx2.clearRect(0,0,screen.width,screen.height)});
+document.getElementById("noserif").addEventListener( "change", () => {change_settings(nompop);changefont()});
 function change_settings(setting){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
