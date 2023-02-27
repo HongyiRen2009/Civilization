@@ -790,15 +790,21 @@ function render(){
 		
 		
 		for (let j = 0,len = gridstats[i].positions.length;j!=len;j++){
-			if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
-				ctx.drawImage(buildimg,gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
-				ctx.stroke()
-				
-
+		if(gridstats[i].positions[j].x-20<scrollX*20+widthmax*20&&gridstats[i].positions[j].x+20>scrollX*20){
+			if(gridstats[i].disabled){
+			ctx.drawImage(buildimg2,gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+			ctx.stroke()
+			} else if (!gridstats[i].inrange){
+			ctx.drawImage(buildimg3,gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+			ctx.stroke()
+			} else {
+			ctx.drawImage(buildimg,gridstats[i].positions[j].img.dx,gridstats[i].positions[j].img.dy,20,20,gridstats[i].positions[j].x-scrollX*20,gridstats[i].positions[j].y-scrollY*20,20,20)
+			ctx.stroke()
 			}
-			ctx.closePath()
-				
-				
+
+
+		}
+		ctx.closePath()
 		}
 	
 		
