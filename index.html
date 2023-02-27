@@ -454,8 +454,8 @@ document.getElementById("arrowkeys").addEventListener( "change", () => {if ( doc
 document.getElementById("notutorial").addEventListener( "change", () => {if ( document.getElementById("notutorial").checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
 document.getElementById("noflash").addEventListener( "change", () => {if ( document.getElementById("noflash").checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
 document.getElementById("nompop").addEventListener( "change", () => {if ( document.getElementById("nompop").checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
-document.getElementById("noweather").addEventListener( "change", () => {change_settings(nompop);ctx2.clearRect(0,0,screen.width,screen.height)});
-document.getElementById("noserif").addEventListener( "change", () => {change_settings(nompop);changefont()});
+document.getElementById("noweather").addEventListener( "change", () => {if ( document.getElementById("noweather").checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(noweather);ctx2.clearRect(0,0,screen.width,screen.height)});
+document.getElementById("noserif").addEventListener( "change", () => {if ( document.getElementById("noserif").checked ) {psettings.noserif = true;}else{psettings.noserif = false;};change_settings(noserif);changefont()});
 function change_settings(setting){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
