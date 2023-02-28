@@ -20,4 +20,4 @@ Art Lead, Idea Contributions and Audio designer: TNTiger17
 
 Graphic Design Lead, Bugfixer, Public Relations: Bulmenisaurus
 
-Actually created by odle kids
+created by odle
