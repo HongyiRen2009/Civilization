@@ -573,6 +573,7 @@ function marketscreen(){
 	boss_music.pause()
 	war_music.pause()
 	canvas.style.display = "none"
+	canvas2.style.display = "none"
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + shorten(resources)
