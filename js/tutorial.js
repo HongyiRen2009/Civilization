@@ -16,32 +16,150 @@ const tutorial = [
 			
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
-			tutorialindex+=1
+			tutorialindex++
 			continuetutorial(tutorialindex)
+			
 		},
 	},
 	
 	]
 	},
+	{
+		title: "Tutorial",
+		size: "30px",
+		
+		
+	
+		description: 'This is the build menu, where buildings can be selected and built.',
+			choices: [
+		{
+			text: "okay",
+			effect(){
+				document.getElementById("select-grid").style.zIndex = 10000
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				tutorialindex++
+				continuetutorial(tutorialindex, 78.5, 87.5)
+				
+			},
+		},
+		
+		]
+		},
 	{
 	title: "Tutorial",
 	size: "30px",
 	
 	
 
-	description: 'To get started, place down a small mine. The small mine will produce resources that you can use to build your base. You can do this by clicking the dropdown at the bottom of your screen, selecting "Mines" and then clicking the "Small mine". Then, place the mine where you want to.',
-
-	choices: [
+	description: 'This is the build menu, where buildings can be selected and built.',
+		choices: [
 	{
 		text: "okay",
 		effect(){
+			document.getElementById("select-grid").style.zIndex = 10000
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
+			tutorialindex++
+			continuetutorial(tutorialindex, 78.5, 87.5)
 			
 		},
 	},
 	
 	]
+	},
+	{
+		title: "Tutorial",
+		size: "30px",
+		
+		
+	
+		description: 'To select a building, simply click on it\'s corresponding button, then click where you want to place it on the map.',	
+		choices: [
+		{
+			text: "okay",
+			effect(){
+				document.getElementById("taboption").style.zIndex = 10000
+				document.getElementById("select-grid").style.zIndex = "auto"
+				
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				tutorialindex++
+				continuetutorial(tutorialindex, 78.5, 87.5)
+				
+			},
+		},
+		
+		]
+	},
+	{
+		title: "Tutorial",
+		size: "30px",
+		
+		
+	
+		description: 'To go through the different types of buildings, select the highlighted button (fourth from the left) and click on the appropriate tab.',
+		choices: [
+		{
+			text: "okay",
+			effect(){
+				document.getElementById("taboption").style.zIndex = "auto"
+				document.getElementById("remove").style.zIndex = 10000
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				tutorialindex++
+				continuetutorial(tutorialindex, 78.5, 87.5)
+				
+			},
+		},
+		
+		]
+	},
+	{
+		title: "Tutorial",
+		size: "30px",
+		
+		
+	
+		description: 'To remove buildings, select \"Remove\" and click on the desired building on the map.',
+		choices: [
+		{
+			text: "okay",
+			effect(){
+				document.getElementById("remove").style.zIndex = "auto"
+				document.getElementById("repair").style.zIndex = 10000
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				tutorialindex++
+				continuetutorial(tutorialindex, 78.5, 87.5)
+				
+			},
+		},
+		
+		]
+	},
+	{
+		title: "Tutorial",
+		size: "30px",
+		
+		
+	
+		description: 'To repair a damaged building, select \"Repair\" and click on the desired building on the map. Damaged buildings are greyed out visually. Damage can be incurred in a variety of ways, including battles and disrepair.',
+	
+		choices: [
+		{
+			text: "okay",
+			effect(){
+				document.getElementById("repair").style.zIndex = "auto"
+				document.getElementById("popup_block_buttons").style.display = "none"
+				document.getElementById("popup").style.display = "none"
+				tutorialindex++
+				continuetutorial(tutorialindex, 78.5, 87.5)
+				
+			},
+		},
+		
+		]
 	},
 	{
 	title: "Tutorial",
@@ -164,6 +282,6 @@ const tutorial = [
 	
 	
 ]
-function continuetutorial(index){
-	displaypopup(index, tutorial)
+function continuetutorial(index, dt=50, dl=50){
+	displaypopup(index, tutorial, dt, dl)
 }

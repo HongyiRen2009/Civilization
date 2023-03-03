@@ -2532,7 +2532,7 @@ const information = [
 ]
 
 
-function displaypopup(index, list = popups){
+function displaypopup(index, list = popups, dt = 50, dl = 50){
 ispainting = false
 	document.getElementById("popup_block_buttons").style.display = "block"
 	document.getElementById("popup_block_buttons").style.animation = "none"
@@ -2558,6 +2558,9 @@ ispainting = false
 	grid.style.display = "grid"
 	
 	grid.style.gridTemplateColumns="100 100 100 100"
+	grid.style.position = "absolute"
+	grid.style.left = `${dl}%`
+	grid.style.top = `${dt}%`
 	button.id = "choice "+i
 	button.className = "popup_choice"
 	button.style.gridRow="4"
