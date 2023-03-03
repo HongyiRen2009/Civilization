@@ -226,7 +226,7 @@ position: absolute;
  width: 35px;
  height: 35px;
  border: 3px solid #000000;
- padding: 0;
+ padding: 0px;
  margin: auto;
 }
 
@@ -353,6 +353,8 @@ position: absolute;
 
 #boss_health_container {
  display: none;
+ margin-top: 0px;
+ margin-bottom: 0px;
  border: 3px solid black;
  height: 25px;
  position: absolute;
@@ -360,7 +362,17 @@ position: absolute;
  left: 50%;
  transform: translate(-50%, 90%);
 }
-
+#boss_health_container > *{
+	margin-top: 0px;
+}
+#boss_healthg{
+ height:20px;
+ background-color: rgba(255,0,0,0.5);
+ transition: all 1s ease-out;
+ border-radius: 8px;
+ position: relative;
+ bottom: 20px;
+}
 #boss_health {
  background-color: red;
 }
@@ -368,7 +380,7 @@ position: absolute;
 #boss_health_text {
  text-align: center;
  position: relative;
- bottom: 35px;
+ bottom: 40px;
  color: white;
  z-index: 2;
 }
@@ -556,7 +568,7 @@ position: absolute;
 .save_button {
  margin: auto;
  font-size: 20px;
- width: 150px;
+ width: auto;
  border-style: solid;
  border-radius: 6px;
  transition-duration: 0.1s;
@@ -647,7 +659,7 @@ position: absolute;
 }
 #resources-container {	
  /* TODO: should this have a background? */	
- position: fixed;	
+ position: absolute;	
  top: 10px;	
  right: 20px;	
 }
@@ -730,7 +742,7 @@ body {
  background-color: #b8942a;
  align-items: center;
  position: absolute;
- top: 94%;
+ top: min(calc(100% - 50px),94%);
  min-height: 50px;
  height: 6%;
  width: 100%;
@@ -788,8 +800,8 @@ strong {
 
 .popup {
  background-color: var(--game-container-bg-color);
- max-width: 35%;
- min-width: 25%;
+ max-width: 500px;
+ min-width: 400px;
  width:auto;
  height: 300px;
  padding: 15px;
