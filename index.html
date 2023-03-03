@@ -163,6 +163,7 @@
 
 <div id = "boss_health_container" class = "bhealth">
 <div id = "boss_health" class = "bhealth"></div>
+<div id = "boss_healthg"></div>
 <p id = "boss_health_text">Boss: 1000/1100</p>
 </div>
 <div id = "tech-tree"></div>
@@ -179,9 +180,9 @@
 <button class = "pause_button" onclick = "settings(false)">Settings</button>
 <button class = "pause_button" onclick = "displaypopup(1, confirmation)">Menu</button>
 </div>
-<img src = "images/build1.png" id = "cloudimg" style = "display:none"></img>
-<img src = "images/build2.png" id = "cloudimg2" style = "display:none"></img>
-<img src = "images/build3.png" id = "cloudimg3" style = "display:none"></img>
+<img src = "images/build1.png" id = "cloudimg" style = 'display: none'></img>
+<img src = "images/build2.png" id = "cloudimg2" style = 'display: none'></img>
+<img src = "images/build3.png" id = "cloudimg3" style = 'display: none'></img>
 <svg id = "techlinecontainer", class="techline"></svg>
 <div id = "settings-flex">
 	<div style="width: 100%;">
@@ -355,7 +356,7 @@ if(localStorage.getItem("settings")==null){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
 else{
-	debugger
+	
 	const localsettings = JSON.parse(localStorage.getItem("settings"))
 	const ele = document.getElementsByClassName("sc-gJwTLC ikxBAC")
 	let el=0

@@ -75,7 +75,7 @@ const p = {
 		name: "Road",
 		letter: "R",
 		description: "A road that connects one place from the village to another. Requires 0.5 resources to construct",
-		piecepositions:[{x:0,y:0,img:{dx:1,dy:22}}],
+		piecepositions:[{x:0,y:0,img:{dx:210,dy:0}}],
 		unlocked: true,
 		near: "building",
 		tab: "Misc",
@@ -178,15 +178,15 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 10. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 2 resources every turn to maintain",
+		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 4 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:1,y:1,img:{dx:127, dy:106}},{x:0,y:0, img:{dx:106, dy:85}},{x:-1,y:1, img:{dx:85, dy:106}},{x:-1,y:-1,img:{dx:85, dy:64}},{x:1,y:-1, img:{dx:127, dy:64}}],
 		near: "building",
 		tab: "Military",
 		effect(){
-			p.military=10*(p.entirehill ? 2:1)
+			p.military=20*(p.entirehill ? 2:1)
 			resources-=6
-			p.resources-=2
+			p.resources-=4
 			unemployed-=3
 			
 		},
@@ -206,7 +206,7 @@ const p = {
 		effect(){
 			modifiers.military +=1
 			resources-=20
-			p.resources-=10
+			p.resources-=20
 			unemployed-=10
 			
 		},
@@ -218,15 +218,15 @@ const p = {
 	{
 		name: "Fortress",
 		letter: "FT",
-		description: "A massive structure that offers substantial defense. Increases military power by 150. Requires 70 resources to construct and 40 people operating it. Double military if on a hill. Requires 15 resources every year to maintain",
+		description: "A massive structure that offers substantial defense. Increases military power by 300. Requires 70 resources to construct and 40 people operating it. Double military if on a hill. Requires 30 resources every year to maintain",
 		unlocked: false,
 		piecepositions: [{x:-1,y:0, img:{dx:85, dy:148}},{x:0,y:0, img:{dx:106, dy:148}},{x:0,y:1, img:{dx:106, dy:169}},{x:-1,y:1, img:{dx:85, dy: 169}},{x:-1,y:-1, img:{dx:85, dy:127}},{x:0,y:-1, img:{dx:106, dy:127}},{x:1,y:-1, img:{dx:127, dy:127}},{x:1,y:1, img:{dx:127, dy:169}},{x:1,y:0, img:{dx:127, dy:148}}],
 		near: "building",
 		tab: "Military",
 		effect(){
-			p.military = Math.floor(150*(p.entirehill ? 2:1)*(1+techstats.archery))
+			p.military = Math.floor(300*(p.entirehill ? 2:1)*(1+techstats.archery))
 			resources-=70
-			p.resources-=15
+			p.resources-=30
 			unemployed-=40
 			
 		},
@@ -425,45 +425,46 @@ for (const un of p.pieceROM){
 
 function removebuildings(intensity = 4,onhill=false){
 	let casualties = 0
-	let removeamount = Math.ceil(gridstats.length/intensity)
-	let remove = onhill
-	const buildingschecked = [...gridstats]
-	for (i=0;i<buildingschecked.length;i++){
-		buildingschecked[i].bindex = i
-	}
+	let amount = 0
 	
+	
+	
+	
+	const buildingschecked = [...gridstats]
+	for (i=buildingschecked.length-1;i>-1;i--){
+		buildingschecked[i].bindex = i
+		let remove = false
+		
+		for (let j = 0; j!=buildingschecked[i].positions.length;j++){
+			if(hillgrid[buildingschecked[i].positions[j].y/20].includes(buildingschecked[i].positions[j].x)){remove = true}
+			}
+		
+		if (!buildingschecked[i].disabled&&(!onhill||remove)){
+			amount+=1
+		}
+		else{
+			buildingschecked.splice(i,1)
+		}
+		
+	}
+	let removeamount = Math.floor(amount/intensity)
 		for(i=gridstats.length-1;i>-1;i--){
 		const trueindex = getRandomInt(0,buildingschecked.length-1)
 		const randomb = buildingschecked[trueindex].bindex
-		if(onhill){
-			remove = false
-			for (let j = 0; j!=gridstats[randomb].positions.length;j++){
-				if(hillgrid[gridstats[randomb].positions[j].y/20].includes(gridstats[randomb].positions[j].x)){
-					remove=true
-					
-					break
-				}
-			}
-			
-				
-			
-		}
-		else{
-			remove=true
-		}
-		buildingschecked.splice(trueindex,1)
-		if (remove){
-			
-			buildingamounts[gridstats[randomb].index]-=1
-			gridstats[randomb].disabled=true
-			currentpop-=gridstats[randomb].employmentrequired
-			casualties+=gridstats[randomb].employmentrequired
-			removeamount-=1
-			if(removeamount<=0){
-				break
-			}
 		
+		buildingschecked.splice(trueindex,1)
+		
+		
+		buildingamounts[gridstats[randomb].index]-=1
+		gridstats[randomb].disabled=true
+		currentpop-=gridstats[randomb].employmentrequired
+		casualties+=gridstats[randomb].employmentrequired
+		removeamount-=1
+		if(removeamount<=0){
+			break
 		}
+	
+	
 		
 		
 		}
@@ -1049,7 +1050,7 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 		}
 		if(found)break
 	}
-	if(gridstats[buildingindex].disabled==true&&resources>=Math.round(gridstats[buildingindex].resourcerefund/2)){
+	if(gridstats[buildingindex].disabled==true&&resources>=Math.round(gridstats[buildingindex].resourcerefund/2)&&unemployed>=gridstats[buildingindex].employmentrequired){
 
 	repairsound.play()
 	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)

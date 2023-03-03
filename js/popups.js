@@ -175,7 +175,7 @@ const popups = [
 			}
 			else {
 				reputation-=getRandomInt(1,2)
-				removebuildings(3)
+				removebuildings(6)
 				displayUI()
 				displaypopup(5, information)
 			}
@@ -470,7 +470,7 @@ const popups = [
 	description: `A scientific breakthrough in unlocked advanced technology. +30% food production`,
 	resource: "",
 	choosetext(){
-			choice = [
+			const choice = [
 			{
 				type: "food",
 				des: "<strong class = 'color-g'>An agriculture expert</strong>",
@@ -501,18 +501,21 @@ const popups = [
 			random = getRandomInt(0,4)
 			this.description = `${choice[random].des} decided to visit your village. He claims that he is from a faraway land of all knowledge. Do we trust him?`
 			this.resource = choice[random].type
-				
+			this.choices[0].resource = this.resource
+			this.choices[0].chance = choice[random].chance
 			},
 		
 	choices: [
 	{
 		text: "Yes",
+		resource:"",
+		chance:0,
 		effect(){
 			
-			if (getRandomInt(2,choice[random].chance)<=5){
-				information[13].choosetext(choice[random].type)
+			if (getRandomInt(2,this.chance)<=5){
+				information[13].choosetext(this.resource)
 				displaypopup(13, information)
-				switch(choice[random].type){
+				switch(this.resource){
 				case 'food':
 				modifiers.food+=3
 				break
@@ -526,7 +529,7 @@ const popups = [
 			}
 			}
 			else{
-				switch(choice[random].type){
+				switch(this.resource){
 				case 'food':
 				modifiers.food-=3
 				break
@@ -538,7 +541,7 @@ const popups = [
 				break
 				
 			}
-				information[14].choosetext(choice[random].type)
+				information[14].choosetext(this.resource)
 				displaypopup(14,information)
 			}
 			displayUI()
@@ -574,7 +577,7 @@ const popups = [
 		},
 		text: "Let in",
 		effect(){
-			information[19].choosetext(Math.round(currentpop*1.5))
+			information[19].choosetext(Math.round(currentpop*0.5))
 			temporaryeffects.push({type: "add", resources:0,unemployed:Math.round(currentpop*0.25)*-1,military:0,food:0,duration:this.time})
 			currentpop+=Math.round(currentpop*0.5)
 			
@@ -776,7 +779,7 @@ const popups = [
 			text:"close",
 			effect(){
 				
-				removebuildings(2,true)
+				removebuildings(5,true)
 				document.getElementById("popup_block_buttons").style.display = "none"
 				document.getElementById("popup").style.display = "none"
 			
@@ -818,7 +821,7 @@ const popups = [
 		{
 			text:"fight",
 			effect(){
-				if (military>=(getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**2.9)/16)){
+				if (military>=(getRandomInt(6,14)/10)*difficultymultiplier*((difficulty**3.2)/9)){
 				displaypopup(33, information)
 				m.bhealth-=Math.floor(military/2)
 				}
@@ -877,7 +880,7 @@ const popups = [
 			text:"Fight",
 			effect(){
 				
-				if (military>=(getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**2.9)/16)){
+				if (military>=(getRandomInt(6,14)/10)*difficultymultiplier*((difficulty**3.2)/9)){
 				displaypopup(37, information)
 				m.bhealth-=Math.floor(military/2)
 				}
@@ -911,8 +914,8 @@ const popups = [
 	{
 		text:"fight",
 		effect(){
-			const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*2
-			wars.push({power:enemymilitary,totalpower:enemymilitary})
+			const enemymilitary = (getRandomInt(8,12)/10)*difficultymultiplier*((difficulty**3.2)/3)
+			wars.push({power:enemymilitary,totalpower:enemymilitary,divine:false})
 			displaypopup(40,information)
 			
 		}
@@ -946,14 +949,14 @@ choosetext(){
 	let enemypower = 0
 	for(i=0, len = wars.length;i<len;i++){
 		if(wars[i].power>0){
-		enemypower+=Math.max(wars[i].power*(getRandomInt(1,4)*0.13),Math.min(wars[i].power,wars[i].totalpower/7))
+		enemypower+=Math.max(wars[i].power*getRandomInt(30,80)/100,Math.min(wars[i].power,wars[i].totalpower/7))
 		}
 	}
 	for (const choice of this.choices){
 		choice.power = enemypower
 	}
 	if(techstats.scouting){
-		this.description = `Your scouts claims that the enemy is attacking. What percentage of your army should you commit?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(8,12)/10)))}`
+		this.description = `Your scouts claims that the enemy is attacking. What percentage of your army should you commit?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(5,15)/10)))}`
 	}
 	else{
 		this.description = "Your scouts claims that the enemy is attacking, but with unknown power. What percentage of your army should you commit?"
@@ -980,9 +983,9 @@ effect(){
 		
 		if(getRandomInt(0,3)==0){
 			
-			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/16)
+			currentpop-=Math.floor(m_personnel/4)
 		}
 		else if(military*.25>this.power){
 			for (const war of wars){
@@ -990,19 +993,19 @@ effect(){
 					war.power-=Math.floor(this.power/1.5)
 				}
 			}
-		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/16))
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/4))
 		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 
 	}
 	else{
 		
-		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
 		currentpop-=Math.floor(m_personnel/8)
 		
 		displaypopup(0,information)
 	}
-		resources-=Math.floor(m_personnel/16)
+		resources-=Math.floor(m_personnel/4)
 		displayUI()
 	}
 },
@@ -1012,7 +1015,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 			
@@ -1023,17 +1026,17 @@ effect(){
 					war.power-=Math.floor(this.power/1.5)
 				}
 			}
-		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/8))
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/2))
 		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
 		currentpop-=Math.floor(m_personnel/4)
 		displaypopup(0,information)
 		
 	}
-	resources-=Math.floor(m_personnel/8)
+	resources-=Math.floor(m_personnel/2)
 	displayUI()
 	}
 },
@@ -1043,7 +1046,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 		}
@@ -1053,16 +1056,16 @@ effect(){
 					war.power-=Math.floor(this.power/1.5)
 				}
 			}
-		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/6))
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel))
 		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel/6))
+		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel))
 		currentpop-=Math.floor(m_personnel/3)
 		displaypopup(0,information)
 	}
-		resources-=Math.floor(m_personnel/6)
+		resources-=Math.floor(m_personnel)
 		displayUI()
 	}
 },
@@ -1072,7 +1075,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/2)
 		}
@@ -1082,16 +1085,16 @@ effect(){
 					war.power-=Math.floor(this.power/1.5)
 				}
 			}
-		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel/4))
+		information[44].choosetext(Math.floor(this.power),Math.floor(m_personnel*2))
 		currentpop+=Math.floor(this.power/2.5)
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
 		currentpop-=Math.floor(m_personnel/2)
 		displaypopup(0,information)
 	}
-	resources-=Math.floor(m_personnel/4)
+	resources-=Math.floor(m_personnel*2)
 	displayUI()
 	}
 },
@@ -1111,19 +1114,20 @@ effect(){
 			effect(){
 				
 				const random_war = getRandomInt(0,wars.length-1)
-				if(military>wars[random_war].power){
-					wars[random_war].power-=Math.floor(wars[random_war].power/3)
-					information[44].choosetext(Math.floor(wars[random_war].power),Math.floor(m_personnel/8))
-					currentpop+=Math.floor(wars[random_war].power/5)
+				const randomm = getRandomInt(14,30)/100
+				if(military>wars[random_war].power*randomm){
+					wars[random_war].power-=Math.floor(wars[random_war].power*randomm)
+					information[44].choosetext(Math.floor(wars[random_war].power*randomm*3),Math.floor(m_personnel/2))
+					currentpop+=Math.floor(wars[random_war].power*randomm*0.6)
 					displaypopup(44, information)
 				}
 				else{
-					removebuildings()
-					currentpop-=Math.floor(m_personnel/2)
-					information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+					const casual = removebuildings(6)
+					currentpop-=Math.floor(m_personnel/2)+casual
+					information[0].choosetext(Math.floor(m_personnel/4)+casual,Math.floor(m_personnel/2))
 					displaypopup(0,information)
 				}
-				resources-=Math.floor(m_personnel/8)
+				resources-=Math.floor(m_personnel/2)
 			
 			displayUI()
 			
@@ -1157,7 +1161,7 @@ choosetext(){
 		choice.power = enemypower
 	}
 	if(techstats.scouting){
-		this.description = `Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(8,12)/10)))}`
+		this.description = `Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?<br>Scouting Estimate: ${shorten(Math.floor(enemypower*(getRandomInt(6,14)/10)))}`
 	}
 	else{
 		this.description = "Your scouts claims that the enemy's defenses are down. What percentage of your army should you commit to the attack?"
@@ -1179,9 +1183,9 @@ effect(){
 		
 		if(getRandomInt(0,3)==0){
 			
-			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/16)
+			currentpop-=Math.floor(m_personnel/4)
 		}
 		else if(military*.25>this.power){
 			for (const war of wars){
@@ -1190,18 +1194,18 @@ effect(){
 				}
 			}
 			
-		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/16))
+		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/4))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
 
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/16))
+		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
 		currentpop-=Math.floor(m_personnel/8)
 		displaypopup(0,information)
 		
 	}
-		resources-=Math.floor(m_personnel/16)
+		resources-=Math.floor(m_personnel/4)
 		displayUI()
 	}
 },
@@ -1211,7 +1215,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 			
@@ -1222,16 +1226,16 @@ effect(){
 					war.power-=Math.floor(this.power)
 				}
 			}
-		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/8))
+		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/2))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
 		currentpop-=Math.floor(m_personnel/4)
 		displaypopup(0,information)
 	}
-	resources-=Math.floor(m_personnel/8)
+	resources-=Math.floor(m_personnel/2)
 	displayUI()
 	}
 },
@@ -1241,7 +1245,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/6))
+			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/4)
 		}
@@ -1251,16 +1255,16 @@ effect(){
 					war.power-=Math.floor(this.power)
 				}
 			}
-			information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/6))
+			information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel/8))
+		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel))
 		currentpop-=Math.floor(m_personnel/3)
 		displaypopup(0,information)
 	}
-		resources-=Math.floor(m_personnel/6)
+		resources-=Math.floor(m_personnel)
 		displayUI()
 	}
 },
@@ -1270,7 +1274,7 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
 			displaypopup(43,information)
 			currentpop-=Math.floor(m_personnel/2)
 		}
@@ -1280,16 +1284,16 @@ effect(){
 					war.power-=Math.floor(this.power)
 				}
 			}
-		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel/4))
+		information[47].choosetext(Math.floor(this.power*3),Math.floor(m_personnel*2))
 		currentpop+=Math.floor(this.power*0.6)
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel/4))
+		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
 		currentpop-=Math.floor(m_personnel/2)
 		displaypopup(0,information)
 	}
-	resources-=Math.floor(m_personnel/4)
+	resources-=Math.floor(m_personnel*2)
 	displayUI()
 	}
 },
@@ -1309,16 +1313,17 @@ effect(){
 			effect(){
 				
 				const random_war = getRandomInt(0,wars.length-1)
-				if(military>wars[random_war].power){
-					wars[random_war].power-=Math.floor(wars[random_war].power/3)
-					information[44].choosetext(Math.floor(wars[random_war].power),Math.floor(m_personnel/8))
-					currentpop+=Math.floor(wars[random_war].power/5)
+				const randomm = getRandomInt(14,30)/100
+				if(military>wars[random_war].power*randomm){
+					wars[random_war].power-=Math.floor(wars[random_war].power*randomm)
+					information[44].choosetext(Math.floor(wars[random_war].power*randomm*3),Math.floor(m_personnel/8))
+					currentpop+=Math.floor(wars[random_war].power*randomm*0.6)
 					displaypopup(44, information)
 				}
 				else{
-					removebuildings(3)
-					currentpop-=Math.floor(m_personnel/2)
-					information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/8))
+					const casual = removebuildings(6)
+					currentpop-=Math.floor(m_personnel/2)+casual
+					information[0].choosetext(Math.floor(m_personnel/4)+casual,Math.floor(m_personnel/8))
 					displaypopup(0,information)
 				}
 				resources-=Math.floor(m_personnel/8)
@@ -1747,7 +1752,6 @@ const information = [
 	size: "30px",
 	description: "",
 	choosetext(resource){
-		console.log(resource)
 		if (resource != "military"){
 		this.description = `The person gave you valuable advice.<strong class = 'color-g'> +33% ${resource} production</strong>`
 		}
@@ -1772,7 +1776,6 @@ const information = [
 	size: "30px",
 	description: "",
 	choosetext(resource){
-		console.log(resource)
 		if (resource != "military"){
 		this.description = `The person mislead you. -33% ${resource} production`
 		}
@@ -2340,8 +2343,8 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Victory</strong>",
 		size: "30px",
-		choosetext(enemy, resources){
-		this.description= `You defeated the enemy army.<br>Enemy casualties: <strong class = 'color-g'>${shorten(Math.floor(enemy/3))}</strong><br>Enemies captured: <strong class = 'color-g'>${shorten(Math.floor(enemy/5))}</strong><br>Resources spent: <strong class = 'color-r'>${shorten(resources)}</strong>`
+		choosetext(enemy, resource){
+		this.description= `You defeated the enemy army.<br>Enemy casualties: <strong class = 'color-g'>${shorten(Math.floor(enemy/3))}</strong><br>Enemies captured: <strong class = 'color-g'>${shorten(Math.floor(enemy/5))}</strong><br>Resources spent: <strong class = 'color-r'>${shorten(resource)}</strong>`
 		},
 		description: `The enemy wasn't present`,
 		
@@ -2507,7 +2510,8 @@ const information = [
 		size: "30px",
 		description: `You defeated their entire military and they surrendered.`,
 		choosetext(){
-			this.description = `You defeated their entire military and they surrendered.<br><strong class = 'color-g'>+${Math.floor((difficulty**3)/25)} resources</strong>`
+			const amountr = Math.floor((difficulty**3)/10+(resources<0 ? Math.abs(resources)/2:0))
+			this.description = `You defeated their entire military and they surrendered.<br><strong class = 'color-g'>+${amountr} resources</strong>`
 		},
 		
 	
@@ -2516,8 +2520,8 @@ const information = [
 			
 			text: "close",
 			effect(){
-				reputation+=getRandomInt(10,12)
-				resources+=Math.floor((difficulty**3)/25)
+				reputation+=getRandomInt(20,22)
+				resources+=Math.floor((difficulty**3)/10+(resources<0 ? Math.abs(resources)/2:0))
 				wars.length=0
 				siege=false
 				start()

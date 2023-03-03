@@ -28,7 +28,7 @@ const tech = [
             category:"Farming",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
                 if (this.tier>0){
@@ -49,7 +49,7 @@ const tech = [
             image:"images/techhammer.png",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
                 if (this.tier>0){
@@ -70,7 +70,7 @@ const tech = [
             category:"Mining",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
                 if (this.tier>0){
@@ -91,7 +91,7 @@ const tech = [
             category:"Military",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
                 if (this.tier>0){
@@ -112,10 +112,10 @@ const tech = [
             image:"images/techstar.png",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     techstats.charisma+=0.1
                 }
                 else{
@@ -135,7 +135,7 @@ const tech = [
             tier: 0,
             image:"images/techscroll.png",
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[7].unlocked = true
@@ -151,9 +151,9 @@ const tech = [
             image:"images/techupgrade.png",
             tier: 0,
             maxtier: 4,
-            unlocked: false,
+            
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     techstats.simple_farms+=0.1
                     
                 }
@@ -173,7 +173,7 @@ const tech = [
             tier: 0,
             image:"images/techscroll.png",
             maxtier: 1,
-            unlocked: false,
+            
             effect(){
                 p.pieceROM[2].unlocked = true
 			unlocked[2]=true
@@ -189,9 +189,9 @@ const tech = [
             image:"images/techupgrade.png",
             tier: 0,
             maxtier: 4,
-            unlocked: false,
+            
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     techstats.eff_infra+=0.1
                    
                 }
@@ -210,10 +210,10 @@ const tech = [
             category:"Mining",
             tier: 0,
             maxtier: 4,
-            unlocked: false,
+            
             image:"images/techupgrade.png",
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     techstats.planned_mines+=0.1
                         
              
@@ -233,7 +233,7 @@ const tech = [
             image:"images/techscroll.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[15].unlocked = true
@@ -249,7 +249,7 @@ const tech = [
             image:"images/techbase.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[10].unlocked = true
@@ -265,10 +265,10 @@ const tech = [
             image:"images/techdiplomacy.png",
             tier: 0,
             maxtier: 5,
-            unlocked: false,
+            
             
             effect(){
-				if(this.unlocked){
+				if(this.tier>0){
                 techstats.diplomacy +=0.1
 				}
 				else{
@@ -287,10 +287,10 @@ const tech = [
             image:"images/techhouse.png",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
-                if (this.unlocked){
+                if (this.tier>0){
                     techstats.innovation+=0.1
                 }
                 else{
@@ -308,7 +308,7 @@ const tech = [
             image:"images/techmarket.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 techstats.market=true
@@ -325,7 +325,7 @@ const tech = [
             image:"images/techexplore.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 techstats.exploration = true
@@ -340,7 +340,7 @@ const tech = [
             tier: 0,
             image:"images/techhammer.png",
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
 				p.pieceROM[20].unlocked = true
@@ -356,7 +356,7 @@ const tech = [
             image:"images/techcare.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 techstats.social_care=true
@@ -372,7 +372,7 @@ const tech = [
             image:"images/techspyglass.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 techstats.scouting=true
@@ -387,7 +387,7 @@ const tech = [
             image:"images/techfish.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
 	    p.pieceROM[21].unlocked = true
@@ -404,7 +404,7 @@ const tech = [
             image:"images/tech2swords.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[11].unlocked = true
@@ -422,7 +422,7 @@ const tech = [
             category:"Intelligence",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             image:"images/techroad.png",
             effect(){
                 techstats.cement=true
@@ -437,7 +437,7 @@ const tech = [
             category:"Farming",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[8].unlocked = true
@@ -453,7 +453,7 @@ const tech = [
             category:"Housing",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[3].unlocked = true
@@ -469,7 +469,7 @@ const tech = [
             category:"Mining II",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[16].unlocked = true
@@ -485,7 +485,7 @@ const tech = [
             category:"Military",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
 				p.pieceROM[12].unlocked = true
@@ -501,7 +501,7 @@ const tech = [
             image:"images/techscroll.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[9].unlocked = true
@@ -520,17 +520,17 @@ const tech = [
             image:"images/techbow.png",
             tier: 0,
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
-                if (!this.unlocked){
+                if (this.tier<1){
                 techstats.archery+=0.4
                 for(const b of gridstats){
                     if(b.index==12){
                         b.military = Math.floor(b.military*1.4)
                     }
                 }
-                this.description = "Fortresses give +20% military"
+                
                 }
                 else{
                     techstats.archery+=0.2
@@ -541,6 +541,7 @@ const tech = [
                     }
                     
                 }
+				this.description = "Fortresses give +20% military"
             }
         },
 		{
@@ -552,10 +553,10 @@ const tech = [
             tier: 0,
             image:"images/techhand.png",
             maxtier: -1,
-            unlocked: false,
+            
             
             effect(){
-                if(!this.unlocked){
+                if(this.tier<1){
                     techstats.ded_worship+=0.4
                     this.description="Temples are 40% more efficient"
                 }
@@ -574,7 +575,7 @@ const tech = [
             image:"images/techbook.png",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             
             effect(){
                 p.pieceROM[19].unlocked = true
@@ -593,7 +594,7 @@ const tech = [
             category:"Intelligence II",
             tier: 0,
             maxtier: 1,
-            unlocked: false,
+            
             image:"images/techmega.png",
             effect(){
                 megatemple+=1
