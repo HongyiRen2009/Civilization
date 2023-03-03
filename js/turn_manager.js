@@ -15,7 +15,7 @@ function turnpopup(){
 		displaypopup(popups.length-1)
 		return false
 	}
-	else if (food < currentpop/10){
+	else if (food <1){
 		popups[popups.length-1].choosetext("food")
 		displaypopup(popups.length-1)
 		return false
@@ -55,13 +55,13 @@ function turnpopup(){
 			let warpower = 0
 			for (const war of wars){
 				warpower+=war.power
-				if(war.divine=true){
+				if(war.divine==true){
 					isdivine=true
 				}
 			}
 			
 			
-			if(getRandomInt(0,2)==0){
+			if(getRandomInt(0,1)==0){
 								popups[19].choosetext()
 				displaypopup(19)
 				return false
@@ -78,7 +78,7 @@ function turnpopup(){
 				displaypopup(20)
 				return false
 			}
-			else if (warpower/military<0.5&&getRandomInt(0,2)!=0){
+			else if (getRandomInt(0,1)==0||(military>warpower&&getRandomInt(0,2)!=0)){
 				popups[21].choosetext()
 				displaypopup(21)
 				return false
@@ -90,7 +90,7 @@ function turnpopup(){
 			}
 			
 		}
-		if(difficulty<40&&getRandomInt(0,5+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
+		if(difficulty>50&&getRandomInt(0,7+Math.max(-5,Math.floor(((reputation/5)+m.assissin)*(getRandomInt(7,14)/10)*(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5)/military))))==0){
 			popups[18].choosetext()
 			displaypopup(18)
 			return false
@@ -134,16 +134,16 @@ function turnpopup(){
 			m.scout=false
 			return false
 		}
-		if (military>difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))){
+		if (difficulty<40&&military>difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*0.0625*difficulty**2.5+getRandomInt(-10,5))){
 			displaypopup(2)
 			return false
-			}
+		}
 	
 	
 	}
 	break
 	case 1:
-	if(getRandomInt(0,4)==0){
+	if(getRandomInt(0,1)==0){
 		popups[13].choosetext()
 		displaypopup(13)
 		return false
@@ -157,7 +157,7 @@ function turnpopup(){
 	}
 	break
 	case 2:
-	switch(getRandomInt(0,3)){
+	switch(getRandomInt(0,5)){
 	case 0:
 		displaypopup(14)
 		return false
@@ -229,6 +229,7 @@ function next_turn(){
 	
 	}
 	weathermod = Math.sin(difficulty/3)/10
+	ctx2.clearRect(0,0,screen.width,screen.height)
 	if(weathermod>0.05){
 		weather = 1
 	}
@@ -258,7 +259,7 @@ function next_turn(){
 	xp+=Math.floor(xpgained*(techstats.innovation+1))
 	difficulty+=1
 	document.getElementById("mbutton").disabled=!techstats.market
-	debugger
+	
 	for (const war of wars){
 		war.power+=war.totalpower/getRandomInt(20,25)
 		war.power =Math.min(war.power,war.totalpower)
@@ -286,6 +287,7 @@ function displayUI(turn=false){
 		resourcesgained = 0
 		xpgained = 0
 		m_personnel = 0
+		let renderend = false
 		unemployed = currentpop
 		if (m.phase>1){
 			document.getElementById("boss_health_container").style.display = "block"
@@ -302,7 +304,13 @@ function displayUI(turn=false){
 			enemypower=Math.floor(enemypower)
 			totalenemypower=Math.floor(totalenemypower)
 			document.getElementById("boss_health_container").style.display = "block"
+			const healthg = document.getElementById("boss_healthg")
+			healthg.style.transition = 0
+			healthg.style.width = document.getElementById("boss_health").style.width
 			document.getElementById("boss_health").style.width = Math.max(0,100*(enemypower/totalenemypower))+"%"
+			
+			healthg.style.transition = "all 2s ease_out"
+			setTimeout(function(){healthg.style.width = document.getElementById("boss_health").style.width},1000)
 			document.getElementById("boss_health_text").innerHTML = "enemy military: " +Math.max(0, enemypower) + "/" + totalenemypower
 		}
 		else{
@@ -350,6 +358,7 @@ function displayUI(turn=false){
 			}
 			else{
 				gridstats[i].disabled = true
+				renderend =true
 			}
 			
 		}
@@ -364,11 +373,11 @@ function displayUI(turn=false){
 			totalxp+=10+Math.floor(totalxp/7)
 			
 		}
-		debugger
-		food += Math.ceil(food*(modifiers.food/10)*(1+weathermod))-(siege ? Math.ceil(food*(modifiers.food/10))*0.7:0)
-		resourcesgained += Math.ceil(resourcesgained*(modifiers.resources/10))-(siege ? Math.ceil(resourcesgained*(modifiers.resources/10))*0.7:0)
+		
+		food += Math.ceil(food*(modifiers.food/10)*(1+weathermod))-(siege ? Math.ceil(food*(modifiers.food/10))*0.3:0)
+		resourcesgained += Math.ceil(resourcesgained*(modifiers.resources/10))-(siege ? Math.ceil(resourcesgained*(modifiers.resources/10))*0.3:0)
 		population += Math.ceil(population*modifiers.population/10)
-		military += Math.ceil(military*(modifiers.military/10)*(m.shield*0.01))
+		military += Math.ceil(military*(modifiers.military/10)*(1+(m.shield*0.01)))
 		for (const ef of temporaryeffects){
 			if (ef.type =="add"){
 				food += ef.food
@@ -388,7 +397,6 @@ function displayUI(turn=false){
 		
 		
 		military+=unemployed
-		m_personnel+=unemployed
 		for (i=0;i<achievements.length;i++){
 			if (achievements[i].requires()&&!achievements[i].acquired){
 			
@@ -402,6 +410,7 @@ function displayUI(turn=false){
 			displaypopup(39, information)
 		}
 		currentpop=Math.max(0,currentpop)
+		if(renderend){render}
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = shorten(xp)+"/"+shorten(totalxp)
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
