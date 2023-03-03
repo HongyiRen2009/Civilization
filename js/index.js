@@ -9,19 +9,17 @@ var rain = [];
 var w = canvas2.width;
 var h = canvas2.height;
 
-function random(min, max) {
-  return Math.random() * (max - min + 1) + min;
-}
+
 
 function createRainTrough() {
   for (var i = 0; i < rainthroughnum; i++) {
     RainTrough[i] = {
-      x: random(0, w),
-      y: random(0, h),
-      length: Math.floor(random(1, 830)),
+      x: getRandomInt(0, w),
+      y: getRandomInt(0, h),
+      length: Math.floor(getRandomInt(1, 830)),
       opacity: Math.random() * 0.2,
-      xs: random(-2, 2),
-      ys: random(10, 20)
+      xs: getRandomInt(-2, 2),
+      ys: getRandomInt(10, 20)
     };
   }
 }
@@ -517,18 +515,18 @@ repairing = false
 	years.style.gridColumn = categories.length+1
 	for (i=0;i<3;i++){
 		const yeardes = document.createElement("p")
-		
+		yeardes.style.verticalAlign = "top"
 		switch(i){
 			case 0:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1><br>years 5-10"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1>years 5-10"
 				yeardes.style.gridRow = 1
 				break
 			case 1:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1><br>years 10-40"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1>years 10-40"
 				yeardes.style.gridRow = 2
 				break
 			case 2:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1><br>years 40-infinity"
+				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1>years 40-infinity"
 				yeardes.style.gridRow = 4
 				break
 		}
@@ -703,6 +701,9 @@ repairing = false
 			
 			image.style.width="30px"
 			image.style.height="30px"
+			image.style.position="relative"
+			image.style.bottom = "0.5px"
+			image.style.right = "1px"
 			techoption.appendChild(image)
 			
 			for (const el of tech[i][j].requires){
@@ -747,15 +748,14 @@ function savegame(bindex){
 function save(bindex){
 	window.onbeforeunload=null
 	
-	const localunlocked = []
 
 	
 	
 	const localtier = []
 	for (const un of tech){
 		for (const unn of un){
-			localunlocked.push(unn.unlocked)
-			localtier.push(unn.tier)
+			localtier.push({tier:unn.tier,description:unn.description})
+			
 		}
 	}
 	save_slot = bindex
@@ -765,7 +765,7 @@ function save(bindex){
 	}
 	localStorage.setItem('griditems'+bindex, JSON.stringify({grid,roadgrid,rivergrid,hillgrid,gridstats}));
 	localStorage.setItem('scrollinfo'+bindex, JSON.stringify([scrollX,scrollY,spawnX,spawnY,max]));
-	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,weathermod,cities:p.cities,wars, megatemple,xp,totalxp,localunlocked,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
+	localStorage.setItem('pstats'+bindex, JSON.stringify({localtier,siege,weathermod,cities:p.cities,wars, megatemple,xp,totalxp,techstats,research_points,difficultymultiplier,unlocked,luck,buildingamounts,temporaryeffects,reputation,difficulty,modifiers,currentpop,military,resources,outofrange}));
 	localStorage.setItem('slot'+bindex, JSON.stringify(save_slot));
 	localStorage.setItem('marketmod'+bindex, JSON.stringify([m.assissin,m.spy,m.rebel,m.phase,m.bhealth,m.totalbhealth,m.scout,m.shield]));
 	localStorage.setItem('marketstats'+bindex, JSON.stringify(localmarketstats));
@@ -820,8 +820,9 @@ function load(bindex){
 	for (const un of tech){
 		for (const unn of un){
 			
-			unn.unlocked = JSON.parse(localStorage.getItem('pstats'+bindex)).localunlocked[i]
-			unn.tier = JSON.parse(localStorage.getItem('pstats'+bindex)).localtier[i]
+			unn.tier = JSON.parse(localStorage.getItem('pstats'+bindex)).localtier[i].tier
+			
+			unn.description = JSON.parse(localStorage.getItem('pstats'+bindex)).localtier[i].description
 			i+=1
 		}
 	}
