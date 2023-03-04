@@ -2536,10 +2536,12 @@ const information = [
 ]
 
 
-function displaypopup(index, list = popups, dt = 50, dl = 50){
+function displaypopup(index, list = popups, dt = 50, dl = 50, disable=true){
 ispainting = false
+	if (disable) {
 	document.getElementById("popup_block_buttons").style.display = "block"
 	document.getElementById("popup_block_buttons").style.animation = "none"
+	}
 	const ele = document.getElementsByClassName("popup_choice")
 			while(ele[0]){
 				ele[0].parentNode.removeChild(ele[0]);

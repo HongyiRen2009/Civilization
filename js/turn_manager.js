@@ -210,7 +210,7 @@ function enable(){
 
 	document.getElementById("year_label").innerHTML = "Year: "+difficulty
 	displayUI()
-	if (tutorialindex == 3){
+	if (tutorialindex == 13){
 		tutorialindex+=1
 		continuetutorial(tutorialindex)
 	}

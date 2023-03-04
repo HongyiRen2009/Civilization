@@ -9,8 +9,10 @@ const p = {
 		tab: "Housing",
 		unlocked: true,
 		near: "building",
+		amountbought: 0,
 
 		effect(){
+			this.amountbought++
 			p.population=1
 			resources-=1
 		},
@@ -998,9 +1000,15 @@ canvas.onmousedown = function(event){
 		}
 		displayUI()
 		render()
-		if (tutorialindex==1||tutorialindex==2){
-			tutorialindex+=1
-			continuetutorial(tutorialindex)
+		if (tutorialindex==10||tutorialindex==11||tutorialindex==12){
+			displayUI()
+			if (tutorialindex!=12) {
+				continuetutorial(++tutorialindex, 78.5, 87.5, false)
+			} else {
+				if (p.pieceROM[0].amountbought >= 2) {
+					continuetutorial(++tutorialindex)
+				}
+			}
 		}
 		
 }
@@ -1212,7 +1220,8 @@ function displaytab(){
 		button.className = "select-choice"
 		button.id = i
 		button.onclick = function(){select(button.id)}
-			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked){
+			if (!p.pieceROM[i].requires()||!p.pieceROM[i].unlocked||(tutorialindex==10 && p.pieceROM[i].name != "Small Mine")
+			||(tutorialindex==11 && p.pieceROM[i].name != "Small Farm")||(tutorialindex==12 && p.pieceROM[i].name != "Canopy")){
 			button.disabled = true;
 			
 			}

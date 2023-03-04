@@ -273,6 +273,8 @@ position: absolute;
  display: none;
  gap: 1px;
  flex-wrap: nowrap;
+ background-color: rgb(255, 242, 191);
+ position: relative;
 }
 
 #stats button {
@@ -289,6 +291,8 @@ position: absolute;
  flex-grow: 1;
  display: flex;
  align-items: center;
+ background-color: rgb(255, 242, 191);
+ position: relative;
 }
 
 .status {
