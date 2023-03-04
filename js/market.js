@@ -588,9 +588,8 @@ function marketscreen(){
 	ctx.clearRect(0,0,screen.width,screen.height)
 	document.getElementById("save-flex").style.display = "none"
 	const ele = document.getElementsByClassName("item")
-	if (istutorial&&tutorialindex==4){
-		continuetutorial(tutorial.length-1)
-		tutorialindex+=1
+	if (istutorial&&tutorialindex==17){
+		continuetutorial(++tutorialindex)
 	}
 	for (let j=ele.length-1;j>=0;j--){
 		ele[j].remove();

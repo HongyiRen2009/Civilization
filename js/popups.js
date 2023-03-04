@@ -2550,29 +2550,33 @@ ispainting = false
 		
 		const title = document.getElementById("title")
 		const des = document.getElementById("description")
-	
-	
-	
-	for (i=0;i<list[index].choices.length;i++){
-	
 		const grid = document.getElementById("popup")
-	const button = document.createElement("button")
-	title.innerHTML = list[index].title
 	
-	des.innerHTML = list[index].description
-	title.style.fontSize = list[index].size
 	grid.style.display = "grid"
-	
+
 	grid.style.gridTemplateColumns="100 100 100 100"
 	grid.style.position = "absolute"
 	grid.style.left = `${dl}%`
 	grid.style.top = `${dt}%`
+
+	title.innerHTML = list[index].title
+	
+	des.innerHTML = list[index].description
+	title.style.fontSize = list[index].size
+	title.style.gridColumn="1 / span "+(list[index].choices.length).toString()
+	des.style.gridColumn="1 / span "+(list[index].choices.length).toString()
+
+	for (i=0;i<list[index].choices.length;i++){
+	
+		
+	const button = document.createElement("button")
+	
+	
 	button.id = "choice "+i
 	button.className = "popup_choice"
 	button.style.gridRow="4"
 	button.style.gridColumn=(i+1).toString()
-	title.style.gridColumn="1 / span "+(list[index].choices.length).toString()
-	des.style.gridColumn="1 / span "+(list[index].choices.length).toString()
+	
 	let text = document.createTextNode(list[index].choices[i].text)
 	button.appendChild(text)
 	button.disabled = false

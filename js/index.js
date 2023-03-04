@@ -220,7 +220,6 @@ repairing = false
 	document.getElementById("save-flex").style.display = "none"
 	
 	const statflex = document.getElementById("stat-info")
-	
 	const stats = [
 		{
 			title:"Population",
@@ -446,6 +445,10 @@ function savescreen(save){
 	canvas2.style.display = 'none'
 }
 function techscreen(){
+	if (istutorial && tutorialindex == 16) {
+		continuetutorial(++tutorialindex)
+	}
+
 	ispainting = false
 removing = false
 repairing = false
@@ -1084,7 +1087,11 @@ function start(){
 		war_music.pause()
 	}
 	market_music.pause()
-	disableinfo=istutorial
+	if (istutorial) {
+		disableinfo = (tutorialindex < 14)
+	} else {
+		disableinfo = false
+	}
 
 	
 document.body.style.overflow = "hidden"

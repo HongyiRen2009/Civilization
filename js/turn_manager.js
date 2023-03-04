@@ -371,6 +371,9 @@ function displayUI(turn=false){
 			research_points+=1
 			xp-=totalxp
 			totalxp+=10+Math.floor(totalxp/7)
+			if (!tutorial[19].hastriggered&&istutorial) {
+				continuetutorial(19)
+			}
 			
 		}
 		
