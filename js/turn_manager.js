@@ -304,13 +304,11 @@ function displayUI(turn=false){
 			enemypower=Math.floor(enemypower)
 			totalenemypower=Math.floor(totalenemypower)
 			document.getElementById("boss_health_container").style.display = "block"
-			const healthg = document.getElementById("boss_healthg")
-			healthg.style.transition = 0
-			healthg.style.width = document.getElementById("boss_health").style.width
+			
 			document.getElementById("boss_health").style.width = Math.max(0,100*(enemypower/totalenemypower))+"%"
 			
-			healthg.style.transition = "all 2s ease_out"
-			setTimeout(function(){healthg.style.width = document.getElementById("boss_health").style.width},1000)
+		
+			setTimeout(function(){document.getElementById("boss_healthg").style.width = document.getElementById("boss_health").style.width},2000)
 			document.getElementById("boss_health_text").innerHTML = "enemy military: " +Math.max(0, enemypower) + "/" + totalenemypower
 		}
 		else{

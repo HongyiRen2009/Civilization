@@ -1103,6 +1103,7 @@ document.getElementById("settings-flex").style.display = 'none'
 document.getElementById("info").style.display = 'none'
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("back_button").hidden = true
+
 document.getElementById("techlinecontainer").style.display = "none"
 document.getElementById("title_start").style.display = "none"
 document.getElementById("stats").style.display = "flex"
@@ -1113,6 +1114,9 @@ document.getElementById("select-grid").style.display = "flex"
 canvas.style.display = 'block'
 canvas2.style.display = 'block'
 displayUI()
+document.getElementById("boss_healthg").style.transition = "0s"
+document.getElementById("boss_healthg").style.width = document.getElementById("boss_health").style.width
+document.getElementById("boss_healthg").style.transition = "all 1s ease-out"
 render()
 
 
