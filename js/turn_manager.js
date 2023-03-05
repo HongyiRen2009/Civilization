@@ -26,6 +26,7 @@ function turnpopup(){
 			return false
 		case 10:
 			displaypopup(29,information)
+			recalcBuildings()
 			return false
 		case 40:
 			displaypopup(30,information)
@@ -100,7 +101,7 @@ function turnpopup(){
 		
 	
 
-		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.floor((currentpop-population)/4)))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange))) <= 0){
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange*4))) <= 0){
 			popups[1].choosetext()
 			displaypopup(1)
 			return false
@@ -157,7 +158,7 @@ function turnpopup(){
 	}
 	break
 	case 2:
-	switch(getRandomInt(0,5)){
+	switch(getRandomInt(0,4)){
 	case 0:
 		displaypopup(14)
 		return false
@@ -176,13 +177,13 @@ function turnpopup(){
 	displaypopup(17)
 	return false
 	default:
-	if (getRandomInt(0,Math.max(0,(3-Math.max(-7,currentpop-population))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel)+(techstats.social_care ? 2:0)-Math.floor(outofrange*5)) <= 0){
-		popups[1].choosetext()
-		displaypopup(1)
-		return false
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange*4))) <= 0){
+			popups[1].choosetext()
+			displaypopup(1)
+			return false
 
 
-	}
+		}
 	}
 	}
 
@@ -280,7 +281,7 @@ function next_turn(){
 }
 
 function displayUI(turn=false){
-	
+		reputation = Math.round(reputation)
 		population = 0
 		food = 0
 		military = 0
@@ -292,7 +293,8 @@ function displayUI(turn=false){
 		if (m.phase>1){
 			document.getElementById("boss_health_container").style.display = "block"
 			document.getElementById("boss_health").style.width = Math.max(0,100*(m.bhealth/m.totalbhealth))+"%"
-			document.getElementById("boss_health_text").innerHTML = "boss: " +Math.max(0, m.bhealth) + "/" + m.totalbhealth
+			setTimeout(function(){document.getElementById("boss_healthg").style.width = document.getElementById("boss_health").style.width},1000)
+			document.getElementById("boss_health_text").innerHTML = "boss: " +shorten(Math.max(0, m.bhealth)) + "/" + shorten(m.totalbhealth)
 		}
 		else if (wars.length>0){
 			let enemypower=0
@@ -308,8 +310,8 @@ function displayUI(turn=false){
 			document.getElementById("boss_health").style.width = Math.max(0,100*(enemypower/totalenemypower))+"%"
 			
 		
-			setTimeout(function(){document.getElementById("boss_healthg").style.width = document.getElementById("boss_health").style.width},2000)
-			document.getElementById("boss_health_text").innerHTML = "enemy military: " +Math.max(0, enemypower) + "/" + totalenemypower
+			setTimeout(function(){document.getElementById("boss_healthg").style.width = document.getElementById("boss_health").style.width},1000)
+			document.getElementById("boss_health_text").innerHTML = "enemy military: " +shorten(Math.max(0, enemypower)) + "/" + shorten(totalenemypower)
 		}
 		else{
 			document.getElementById("boss_health_container").style.display = "none"
@@ -356,6 +358,20 @@ function displayUI(turn=false){
 			}
 			else{
 				gridstats[i].disabled = true
+				switch(gridstats[i].index){
+					case 11:
+						modifiers.military-=1
+					case 18:
+						for (i=0,len=p.cities.length;i<len;i++){
+							if(p.cities[i].x==gridstats[buildingindex].citypos.x&&p.cities[i].y==gridstats[buildingindex].citypos.y){
+								p.cities.splice(i,1)
+							}
+						}
+						recalcBuildings()
+					case 19:
+						modifiers.food-=2
+						modifiers.resources-=2
+				}
 				renderend =true
 			}
 			
