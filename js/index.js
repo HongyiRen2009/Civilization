@@ -573,7 +573,7 @@ repairing = false
 			
 			if (el.classList.contains("hover")){
 			techclick.play()
-			el.style.border = "3px solid yellow"
+			el.style.border = "4px solid yellow"
 			const techindex = JSON.parse(el.id)
 			reserachbutton.hidden=false
 			destitle.innerHTML=tech[techindex[0]][techindex[1]].name
@@ -671,7 +671,7 @@ repairing = false
 			
 			}
 			else{
-				el.style.border = "3px solid black"
+				el.style.border = "4px solid black"
 			}
 			isimage++
 		}
@@ -964,7 +964,6 @@ function newgame(difficult){
 	rivergrid.length = 0
 	hillgrid.length = 0
 	p.cities.length = 0
-	p.cities.push({x:spawnX, y:spawnY})
 	m.assissin = 0
 	m.spy = 0
 	m.rebel = 0
