@@ -101,7 +101,7 @@ function turnpopup(){
 		
 	
 
-		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange*4))) <= 0){
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-outofrange)) <= 0){
 			popups[1].choosetext()
 			displaypopup(1)
 			return false
@@ -177,7 +177,7 @@ function turnpopup(){
 	displaypopup(17)
 	return false
 	default:
-		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-Math.floor(outofrange*4))) <= 0){
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-outofrange)) <= 0){
 			popups[1].choosetext()
 			displaypopup(1)
 			return false
