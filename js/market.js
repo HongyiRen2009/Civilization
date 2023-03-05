@@ -597,12 +597,9 @@ function marketscreen(){
 	
 	const marketitemsindex = []
 	for (i=0,len=marketitems.length;i<len;i++){
-		if (marketitems == "failed"){
-			marketitemsindex.push("failed")
-		}
-		else{
+		
 		marketitemsindex.push(m.marketselections[marketitems[i]])
-	}
+	
 	}
 	i=0
 	
@@ -610,11 +607,8 @@ function marketscreen(){
 		
 		const flex = document.createElement("div")
 		flex.className = "item"
-		if (el == "failed"){
-			flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
-			continue
-		}
-		else if (el.stock>0){
+		
+		if (el.stock>0){
 		
 		el.choosetext()
 		const title = document.createElement("h1")
@@ -658,7 +652,6 @@ function marketscreen(){
 			const status = document.getElementById("status")
 			const index = i
 			status.style.animation = "none"
-			if (getRandomInt(0,100-(buy.id.includes("b") ? 30:0)+reputation)>5||el.title=="Blueprints"){
 			status.style.color = "green"
 			status.innerHTML = "<h1>TRADE SUCCESSFUL</h1>"
 			el.purchaseeffect();
@@ -697,13 +690,8 @@ function marketscreen(){
 			buy.disabled = true
 			}
 			
-			}
-			else{
-				status.style.color = "red"
-				status.innerHTML = "<h1>TRADE FAILED</h1>"
-				flex.innerHTML = "<h1 class = 'color-r'>Failed TRADE</h1>";
-				marketitems[index]="failed"
-			}
+			
+			
 			status.style.animation = "done 2s linear 0s 1 normal forwards"
 			
 			if(!psettings.nompop){
