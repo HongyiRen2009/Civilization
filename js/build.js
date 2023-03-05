@@ -312,18 +312,18 @@ const p = {
 	{
 		name: "Mega Temple",
 		letter: "MT",
-		description: "A mega temple to directly contact god. Build one to beat the game. Requires 2000 resources and 100 people praying",
+		description: "A mega temple to directly contact god. Build one to beat the game. Requires 100000 resources and 300 people praying",
 	piecepositions: [{x:1,y:0, img:{dx:254, dy:127}},{x:0,y:0, img:{dx:232, dy:127}},{x:0,y:1, img:{dx:232, dy:148}},{x:1,y:1, img:{dx:254, dy:148}},{x:1,y:-1, img:{dx:254, dy:106}},{x:0,y:-1, img:{dx:232, dy:106}},{x:-1,y:0, img:{dx:211, dy:127}},{x:-1,y:-1, img:{dx:211, dy:106}},{x:-1,y:1, img:{dx:211, dy:148}},{x:2,y:1, img:{dx: 275, dy:148}},{x:2,y:0, img:{dx:275, dy:127}},{x:2,y:-1, img:{dx:275, dy:106}},{x:2,y:-2, img:{dx:275, dy:85}},{x:1,y:-2, img:{dx:254, dy:85}},{x:0,y:-2, img:{dx:232, dy:85}},{x:-1,y:-2, img:{dx:211, dy:85}}],
 		unlocked: false,
 		near: "building",
 		tab: "Misc",
 		effect(){
 			displaypopup(popups.length-2)
-			resources-=2000
-			unemployed-=100
+			resources-=100000
+			unemployed-=300
 		},
 		requires(){
-			return resources >=2000 && unemployed>=100
+			return resources >=100000 && unemployed>=130000
 		}
 	},
 	{
@@ -336,17 +336,18 @@ const p = {
 		tab: "City Centers",
 		amountbought: 0,
 		effect(){
-			resources-=this.amountbought**3
+			resources-=((difficulty-10)**2.7)/100
 			this.amountbought+=1
 			p.cities.push({
 				x: position.x/20,
 				y: position.y/20
 			})
+			
 			recalcBuildings();
 
 		},
 		requires(){
-			return resources >=this.amountbought**3
+			return resources >=((difficulty-10)**2.7)/100&&difficulty>=10
 		}
 	},
 	{
@@ -459,6 +460,20 @@ function removebuildings(intensity = 4,onhill=false){
 		
 		buildingamounts[gridstats[randomb].index]-=1
 		gridstats[randomb].disabled=true
+		switch(gridstats[randomb].index){
+			case '11':
+			modifiers.military-=1
+		case '18':
+			for (i=0,len=p.cities.length;i<len;i++){
+				if(p.cities[i].x==gridstats[randomb].citypos.x&&p.cities[i].y==gridstats[randomb].citypos.y){
+					p.cities.splice(i,1)
+				}
+			}
+			recalcBuildings()
+		case '19':
+			modifiers.food-=2
+			modifiers.resources-=2
+		}
 		currentpop-=gridstats[randomb].employmentrequired
 		casualties+=gridstats[randomb].employmentrequired
 		removeamount-=1
@@ -831,26 +846,26 @@ function render(){
 }
 
 function recalcBuildings() {
+	if(difficulty<10){
+		return
+	}
 	outofrange = gridstats.length
-	for (const city of p.cities) {
+	
 	for (const building of gridstats) {
-		if (building.inrange) {
-			outofrange--
-			
-		}
-		else{
+		building.inrange=false
+		for (const city of p.cities) {
 		for (const position of building.positions) {
 		if (Math.abs(position.x/20-city.x) <= 30 && Math.abs(position.y/20-city.y) <= 30) {
 			building.inrange = true
 			outofrange--
 			break
-		} else {
-			console.log(position.x)
 		}
+			
+		
 	}
 	}
 	}
-	}
+	
 	render()
 }
 
@@ -930,7 +945,7 @@ canvas.onmousedown = function(event){
 			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
-		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge"||p.pieceROM[p_index].name == "Bonfire") {
+		if (p.pieceROM[p_index].name == "Road" || p.pieceROM[p_index].name == "Bridge"||p.pieceROM[p_index].name == "Bonfire"||difficulty <10) {
 			isInRange = true
 			if(p.pieceROM[p_index].name == "Road"){
 				p.pieceROM[p_index].effect()
@@ -950,7 +965,7 @@ canvas.onmousedown = function(event){
 		}
 		if (!isInRange) {
 			for (j=0; j < p.cities.length; j++) {
-				if (Math.abs(p.cities[j].x-gridposition[i].x/20) <= 30 && Math.abs(p.cities[j].y-gridposition[i].y/20) <= 30) {
+				if (Math.abs(p.cities[j].x-gridposition[i].x/20) <= 15 && Math.abs(p.cities[j].y-gridposition[i].y/20) <= 15) {
 					isInRange = true
 					break
 				}
@@ -988,7 +1003,12 @@ canvas.onmousedown = function(event){
 		})
 		xp+=Math.ceil((oldresources-resources)*(1+techstats.innovation)*2)
 		first_turn = false
-		
+		if(p_index==18){
+			gridstats[gridstats.length-1].citypos ={
+				x: position.x/20,
+				y: position.y/20
+			}
+		}
 		if (!p.pieceROM[p_index].requires()){
 			piece.length = 0
 			ispainting = false
@@ -1041,7 +1061,23 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 	}
 	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
 	buildingamounts[gridstats[buildingindex].index]-=1
+	debugger
+	switch(gridstats[buildingindex].index){
+		case "11":
+			modifiers.military-=1
+		case "18":
+			for (i=0,len=p.cities.length;i<len;i++){
+				if(p.cities[i].x==gridstats[buildingindex].citypos.x&&p.cities[i].y==gridstats[buildingindex].citypos.y){
+					p.cities.splice(i,1)
+				}
+			}
+			recalcBuildings()
+		case "19":
+			modifiers.food-=2
+			modifiers.resources-=2
+	}
 	gridstats.splice(buildingindex,1)
+	
 	render()
 	displayUI()
 }
@@ -1063,6 +1099,16 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 	repairsound.play()
 	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats[buildingindex].disabled=false
+	switch(gridstats[buildingindex].index){
+		case '11':
+			modifiers.military+=1
+		case '18':
+			p.cities.push(gridstats[buildingindex].citypos)
+			recalcBuildings()
+		case '19':
+			modifiers.food+=2
+			modifiers.resources+=2
+	}
 	render()
 	displayUI()
 	}
