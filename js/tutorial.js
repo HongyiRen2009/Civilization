@@ -248,7 +248,7 @@ title: "Tutorial",
 size: "30px",
 
 
-description: 'Let\'s get started! First, place down a Small Mine. (Small Mines are more effective on hills.)',
+description: 'Let\'s get started! First, place down a Small Mine.',
 choices: [
 {
 	text: "How?",
