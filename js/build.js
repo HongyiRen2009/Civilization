@@ -1060,8 +1060,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		breaksound.play()
 	}
 	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
-	buildingamounts[gridstats[buildingindex].index]-=1
-	debugger
+	buildingamounts[gridstats[buildingindex].index]-=1	
 	switch(gridstats[buildingindex].index){
 		case "11":
 			modifiers.military-=1
