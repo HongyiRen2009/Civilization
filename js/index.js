@@ -460,7 +460,7 @@ repairing = false
 	document.body.overflowY="scroll"
 	document.getElementById("techbutton").style.animation = "none"
 	document.getElementById("difficulty-flex").style.display = 'none'
-	document.getElementById("tech-tree").style.display = 'grid'
+	document.getElementById("tech-tree-container").style.display = 'grid'
 	document.getElementById("back_button").hidden = false
 	canvas.style.display = 'none'
 	canvas2.style.display = 'none'
@@ -478,27 +478,26 @@ repairing = false
 	techgrid.innerHTML=""
 	
 	const techelements = []
-	const descriptioncontainer = document.createElement("div")
+	const descriptioncontainer = document.getElementById("techcontainer")
 	const destitle = document.createElement("h1")
 	const cost = document.createElement("p")
 	const tier = document.createElement("p")
 	const points = document.createElement("p")
 	const ifyears = document.createElement(("p"))
 	const reserachbutton = document.createElement("button")
-	const years = document.createElement("div")
 	
 	points.innerHTML="Research Points:<br> " +research_points
 	destitle.style.gridRow="1"
-	destitle.style.gridColumn="2"	
+	destitle.style.gridColumn="1"	
 	points.style.gridRow="1"
-	points.style.gridColumn="4"
+	points.style.gridColumn="3"
 	points.style.fontSize = "20px"
 	points.id = "research-points"
 	cost.style.gridRow="1"
-	cost.style.gridColumn="3"
+	cost.style.gridColumn="2"
 	cost.style.fontSize = "20px"
 	tier.style.gridRow="1"
-	tier.style.gridColumn="2"
+	tier.style.gridColumn="1"
 	tier.style.marginTop="auto"
 	tier.style.fontSize = "20px"
 	document.body.style.overflowY = "scroll"
@@ -512,32 +511,8 @@ repairing = false
 	reserachbutton.style.maxHeight="40px"
 	reserachbutton.hidden=true
 	des.style.gridColumn="2"
-	years.className="techyears"
-	years.style.gridTemplateRows = ((screen.height-400)/tech.length+"px ").repeat(tech.length)+"200px"
-	years.style.gridRow = "1/ span " +tech.length+1
-	years.style.gridColumn = categories.length+1
-	for (i=0;i<3;i++){
-		const yeardes = document.createElement("p")
-		yeardes.style.verticalAlign = "top"
-		switch(i){
-			case 0:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Tribal-Age</h1>years 5-10"
-				yeardes.style.gridRow = 1
-				break
-			case 1:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Pre-Diplomacy</h1>years 10-40"
-				yeardes.style.gridRow = 2
-				break
-			case 2:
-				yeardes.innerHTML="<h1 style = 'font-size:20px'>Post_Diplomacy</h1>years 40-infinity"
-				yeardes.style.gridRow = 4
-				break
-		}
-		years.appendChild(yeardes)
-	}
+
 	descriptioncontainer.className='techcontainer'
-	descriptioncontainer.style.gridColumn = `1/ span ${categories.length+1}`
-	descriptioncontainer.style.gridRow = tech.length+1
 	descriptioncontainer.appendChild(destitle)
 	descriptioncontainer.appendChild(des)
 	descriptioncontainer.appendChild(cost)
@@ -545,14 +520,13 @@ repairing = false
 	descriptioncontainer.appendChild(reserachbutton)
 	descriptioncontainer.appendChild(points)
 	descriptioncontainer.appendChild(tier)
-	techgrid.appendChild(years)
-	
-	techgrid.style.gridTemplateColumns = (`${(screen.width*0.8)/categories.length}px `).repeat(categories.length)+"160px"
-	techgrid.style.gridTemplateRows = ((screen.height-400)/tech.length+"px ").repeat(tech.length)+"200px"
+
+	techgrid.style.gridTemplateColumns = `1fr `.repeat(categories.length)
+	techgrid.style.gridTemplateRows = `1fr `.repeat(tech.length)
+
 	const techrect = techgrid.getBoundingClientRect()
 	linecontainer.setAttribute("height", techrect.height);
 	linecontainer.setAttribute("width", techrect.width);
-	techgrid.appendChild(descriptioncontainer)
 	descriptioncontainer.addEventListener("mouseover", function(){
 		descriptioncontainer.classList.add("hover")
 	})
@@ -722,18 +696,18 @@ repairing = false
 				
 				const thisposition = techoption.getBoundingClientRect()
 				const thatposition = techelement.element.getBoundingClientRect()
+
+				const screenOffsetY = techgrid.getBoundingClientRect().top;
+				const screenOffsetX = techgrid.getBoundingClientRect().left;
 				
-				techline.setAttribute('x1',thisposition.x+17.5);
-				techline.setAttribute('y1',thisposition.y+17.5);
-				techline.setAttribute('x2',thatposition.x+17.5);
-				techline.setAttribute('y2',thatposition.y+17.5);
+				techline.setAttribute('x1',thisposition.x+17.5-screenOffsetX);
+				techline.setAttribute('y1',thisposition.y+17.5-screenOffsetY);
+				techline.setAttribute('x2',thatposition.x+17.5-screenOffsetX);
+				techline.setAttribute('y2',thatposition.y+17.5-screenOffsetY);
 				techline.style.stroke = "black"
 				techline.style.strokeWidth = "2"
 				linecontainer.append(techline);
 			}
-			
-			
-			
 			techelements.push({image: image,element: techoption, techposition: [i,j]})
 
 		}
@@ -1095,7 +1069,7 @@ function start(){
 	
 document.body.style.overflow = "hidden"
 window.scrollTo(0, 0);
-document.getElementById("tech-tree").style.display = 'none'
+document.getElementById("tech-tree-container").style.display = 'none'
 if (m.phase>1||wars.length>0){document.getElementById("boss_health_container").style.display = 'block'}
 document.getElementById("difficulty-flex").style.display = 'none'
 document.getElementById("settings-flex").style.display = 'none'

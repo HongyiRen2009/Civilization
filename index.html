@@ -166,7 +166,21 @@
 <div id = "boss_healthg"></div>
 <p id = "boss_health_text">Boss: 1000/1100</p>
 </div>
-<div id = "tech-tree"></div>
+<div id="tech-tree-container">
+	<div id="tech-tree-layers">
+		<div id = "tech-tree"></div>
+		<svg id = "techlinecontainer" class="techline"></svg>
+	</div>
+	<div id="techyears">
+		<h1>Tribal-Age</h1>
+		<p>years 5-10</p>
+		<h1>Pre-Diplomacy</h1>
+		<p>years 10-40</p>
+		<h1>Post Diplomacy</h1>
+		<p>years 40-infinity</p>
+	</div>
+	<div id="techcontainer"></div>
+</div>
 
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
@@ -183,7 +197,6 @@
 <img src = "images/build1.png" id = "cloudimg" style = 'display: none'></img>
 <img src = "images/build2.png" id = "cloudimg2" style = 'display: none'></img>
 <img src = "images/build3.png" id = "cloudimg3" style = 'display: none'></img>
-<svg id = "techlinecontainer", class="techline"></svg>
 <div id = "settings-flex">
 	<div style="width: 100%;">
 	<h1 style="text-align: center;">Music</h1>
