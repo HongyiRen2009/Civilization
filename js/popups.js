@@ -131,7 +131,7 @@ const popups = [
 	power: 0,
 	description: "A neighbouring tribe is raiding your village",
 	choosetext(){
-		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0)){
+		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy+1)){
 			choicesdisabled.push(1)
 		}
 		this.power =Math.floor(difficultymultiplier*((getRandomInt(m.spy,3) ? 1:0.5)*((difficulty**2.9)/64)*(getRandomInt(8,12)/10)))
@@ -155,7 +155,7 @@ const popups = [
 			
 			document.getElementById("popup").style.display = "none"
 			reputation-=getRandomInt(3,5)
-			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy ? 0.3:0)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy ? 0.3:0))
+			const amountremove = Math.max((resources/2)+((resources/2)*(techstats.diplomacy+1)),((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy+1))
 			information[12].choosetext(amountremove)
 			resources-=amountremove
 			displaypopup(12, information)
@@ -193,7 +193,7 @@ const popups = [
 	size: "30px",
 	description: "The peasants are revolting due to them being unhappy with your rule",
 	choosetext(){
-		if (resources<(difficulty**2.7)/50){
+		if (resources<(difficulty**2.7)/50*(techstats.diplomacy+1)){
 		choicesdisabled.push(1)
 	}
 	},
@@ -215,8 +215,8 @@ const popups = [
 	}, {
 		text: "Bribe",
 		effect(){
-			information[2].choosetext(Math.floor((difficulty**2.7)/200))
-			resources-= Math.floor((difficulty**2.7)/50)
+			information[2].choosetext(Math.floor((difficulty**2.7)/50*(techstats.diplomacy+1)))
+			resources-= Math.floor((difficulty**2.7)/50*(techstats.diplomacy+1))
 			reputation-=getRandomInt(3,5)
 			displayUI()
 			displaypopup(2, information)
@@ -802,8 +802,8 @@ const popups = [
 		{
 			text:"sacrifice",
 			effect(){
-			information[31].choosetext(popamount)
-				currentpop-=popamount
+			information[31].choosetext(this.popamount)
+				currentpop-=this.popamount
 			displaypopup(31, information)	
 			displayUI()
 			
@@ -983,9 +983,9 @@ effect(){
 		
 		if(getRandomInt(0,3)==0){
 			
-			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/8),Math.floor(m_personnel/4))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 		}
 		else if(military*.25>this.power){
 			for (const war of wars){
@@ -1000,8 +1000,8 @@ effect(){
 	}
 	else{
 		
-		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
-		currentpop-=Math.floor(m_personnel/8)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/8),Math.floor(m_personnel/4))
+		currentpop-=Math.floor((m_personnel+unemployed)/8)
 		
 		displaypopup(0,information)
 	}
@@ -1015,9 +1015,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel/2))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 			
 		}
 		else if(military*.5>this.power){
@@ -1031,8 +1031,8 @@ effect(){
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
-		currentpop-=Math.floor(m_personnel/4)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel/2))
+		currentpop-=Math.floor((m_personnel+unemployed)/4)
 		displaypopup(0,information)
 		
 	}
@@ -1046,9 +1046,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 		}
 		else if(military*.75>this.power){
 			for (const war of wars){
@@ -1061,8 +1061,8 @@ effect(){
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel))
-		currentpop-=Math.floor(m_personnel/3)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/3),Math.floor(m_personnel))
+		currentpop-=Math.floor((m_personnel+unemployed)/3)
 		displaypopup(0,information)
 	}
 		resources-=Math.floor(m_personnel)
@@ -1075,9 +1075,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/2),Math.floor(m_personnel*2))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/2)
+			currentpop-=Math.floor((m_personnel+unemployed)/2)
 		}
 		else if(military>this.power){
 			for (const war of wars){
@@ -1090,8 +1090,8 @@ effect(){
 		displaypopup(44, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
-		currentpop-=Math.floor(m_personnel/2)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/2),Math.floor(m_personnel*2))
+		currentpop-=Math.floor((m_personnel+unemployed)/2)
 		displaypopup(0,information)
 	}
 	resources-=Math.floor(m_personnel*2)
@@ -1123,8 +1123,8 @@ effect(){
 				}
 				else{
 					const casual = removebuildings(6)
-					currentpop-=Math.floor(m_personnel/2)+casual
-					information[0].choosetext(Math.floor(m_personnel/4)+casual,Math.floor(m_personnel/2))
+					currentpop-=Math.floor((m_personnel+unemployed)/2)+casual
+					information[0].choosetext(Math.floor((m_personnel+unemployed)/2)+casual,Math.floor(m_personnel/2))
 					displaypopup(0,information)
 				}
 				resources-=Math.floor(m_personnel/2)
@@ -1183,9 +1183,9 @@ effect(){
 		
 		if(getRandomInt(0,3)==0){
 			
-			information[43].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/8),Math.floor(m_personnel/4))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 		}
 		else if(military*.25>this.power){
 			for (const war of wars){
@@ -1200,8 +1200,8 @@ effect(){
 
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/8),Math.floor(m_personnel/4))
-		currentpop-=Math.floor(m_personnel/8)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/8),Math.floor(m_personnel/4))
+		currentpop-=Math.floor((m_personnel+unemployed)/8)
 		displaypopup(0,information)
 		
 	}
@@ -1215,9 +1215,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel/2))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 			
 		}
 		else if(military*.5>this.power){
@@ -1231,8 +1231,8 @@ effect(){
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel/2))
-		currentpop-=Math.floor(m_personnel/4)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel/2))
+		currentpop-=Math.floor((m_personnel+unemployed)/4)
 		displaypopup(0,information)
 	}
 	resources-=Math.floor(m_personnel/2)
@@ -1245,9 +1245,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/4),Math.floor(m_personnel))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/4),Math.floor(m_personnel))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/4)
+			currentpop-=Math.floor((m_personnel+unemployed)/4)
 		}
 		else if(military*.75>this.power){
 			for (const war of wars){
@@ -1260,8 +1260,8 @@ effect(){
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/3),Math.floor(m_personnel))
-		currentpop-=Math.floor(m_personnel/3)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/3),Math.floor(m_personnel))
+		currentpop-=Math.floor((m_personnel+unemployed)/3)
 		displaypopup(0,information)
 	}
 		resources-=Math.floor(m_personnel)
@@ -1274,9 +1274,9 @@ effect(){
 	effect(){
 		
 		if(getRandomInt(0,3)==0){
-			information[43].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
+			information[43].choosetext(Math.floor((m_personnel+unemployed)/2),Math.floor(m_personnel*2))
 			displaypopup(43,information)
-			currentpop-=Math.floor(m_personnel/2)
+			currentpop-=Math.floor((m_personnel+unemployed)/2)
 		}
 		else if(military>this.power){
 			for (const war of wars){
@@ -1289,8 +1289,8 @@ effect(){
 		displaypopup(47, information)
 	}
 	else{
-		information[0].choosetext(Math.floor(m_personnel/2),Math.floor(m_personnel*2))
-		currentpop-=Math.floor(m_personnel/2)
+		information[0].choosetext(Math.floor((m_personnel+unemployed)/2),Math.floor(m_personnel*2))
+		currentpop-=Math.floor((m_personnel+unemployed)/2)
 		displaypopup(0,information)
 	}
 	resources-=Math.floor(m_personnel*2)
@@ -1322,8 +1322,8 @@ effect(){
 				}
 				else{
 					const casual = removebuildings(6)
-					currentpop-=Math.floor(m_personnel/2)+casual
-					information[0].choosetext(Math.floor(m_personnel/4)+casual,Math.floor(m_personnel/8))
+					currentpop-=Math.floor((m_personnel+unemployed)/2)+casual
+					information[0].choosetext(Math.floor((m_personnel+unemployed)/2)+casual,Math.floor(m_personnel/8))
 					displaypopup(0,information)
 				}
 				resources-=Math.floor(m_personnel/8)
@@ -1395,7 +1395,7 @@ effect(){
 		]
 	},
 	{
-		title: "<strong class = 'color-r'>The Termination</strong>",
+		title: "<strong class = 'color-r'>The End</strong>",
 		size: "30px",
 		description: `Once people discovered that you've obtained all blueprint scraps, they allied against you to prevent the construction of The Mega Temple`,
 		choosetext(){},
@@ -1403,7 +1403,7 @@ effect(){
 		{
 			text: "Fight!",
 			effect(){
-				const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*2
+				const enemymilitary = (getRandomInt(8,12)/10)*difficultymultiplier*((difficulty**3.2)/3)
 				wars.push({power:enemymilitary,totalpower:enemymilitary,divine:true})
 				start()
 				document.getElementById("popup_block_buttons").style.display = "none"
@@ -1421,7 +1421,7 @@ effect(){
 		{
 			text: "Fight!",
 			effect(){
-				const enemymilitary = (getRandomInt(7,14)/10)*difficultymultiplier*((difficulty**3.2)/16)*getRandomInt(1,4)*8
+				const enemymilitary = (getRandomInt(8,12)/10)*difficultymultiplier*((difficulty**3.2)/3)*8
 				wars.push({power:enemymilitary,totalpower:enemymilitary,divine:false})
 				
 				wars.splice(0,1)
@@ -1527,7 +1527,7 @@ const information = [
 	size: "30px",
 	description: "The enemy defeated you",
 	choosetext(poplost,reslost){
-		this.description=`The enemy defeated you<br>Casualties: <strong class = 'color-r'>${poplost}</strong><br>Resources spent: <strong class = 'color-r'>${reslost}</strong>`
+		this.description=`The enemy defeated you<br>Casualties: <strong class = 'color-r'>${shorten(poplost)}</strong><br>Resources spent: <strong class = 'color-r'>${shorten(reslost)}</strong>`
 	},
 	choices: [
 	{
@@ -2325,7 +2325,7 @@ const information = [
 				"fell into a trap",
 				"died of a tornado"
 			]
-			this.description = `After sending your army to fight, you hear reports that they <strong class = 'color-r'>${choice[getRandomInt(0,3)]}.<br> -${shorten(amount)} population</strong>`
+			this.description = `After sending your army to fight, you hear reports that they <strong class = 'color-r'>${choice[getRandomInt(0,3)]}.<br> Casualties: ${shorten(amount)}</strong>`
 		},
 		
 	
