@@ -6,7 +6,7 @@ const techstats = {
     simple_farms:0,
     eff_infra:0,
     planned_mines:0,
-    diplomacy:false,
+    diplomacy:0,
     innovation:0,
     market:false,
     exploration:false,
