@@ -479,6 +479,7 @@ repairing = false
 	
 	const techelements = []
 	const descriptioncontainer = document.getElementById("techcontainer")
+	descriptioncontainer.innerHTML=""
 	const destitle = document.createElement("h1")
 	const cost = document.createElement("p")
 	const tier = document.createElement("p")
