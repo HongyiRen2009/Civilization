@@ -24,7 +24,7 @@ const tech = [
             description:"All farms produce +30% food",
             requires:[],
             cost:1,
-            image:"images/techfarm.png",
+            image:"images/techFarm.png",
             category:"Farming",
             tier: 0,
             maxtier: -1,
