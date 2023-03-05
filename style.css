@@ -227,8 +227,8 @@ input[type="range"]::-webkit-slider-thumb {
 }
 #tech-tree > button {
   width: 35px;
-  height: 35px;
-  border: 3px solid #000000;
+  height: 36px;
+  border: 6px solid #000000;
   padding: 0px;
   margin: auto;
 }
