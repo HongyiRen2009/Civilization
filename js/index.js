@@ -301,7 +301,6 @@ repairing = false
 			buildcanvas.height = 80
 			const bctx =  buildcanvas.getContext("2d")
 			for (const pos of building.piecepositions){
-				debugger
 				bctx.drawImage(buildimg, pos.img.dx, pos.img.dy, 20,20,(pos.x)*20,(pos.y)*20,20,20)
 			}
 			grid.appendChild(buildcanvas)
