@@ -70,6 +70,10 @@ const dev = {
             resources: 99999999999,
             xp: 0,
         });
+        tech.flat().map((t) => {
+            t.effect();
+            t.tier++;
+        });
         displayUI();
         return 'Done!';
     },
