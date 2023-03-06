@@ -351,7 +351,7 @@ choices: [
 size: "30px",
 
 
-description: 'Make sure that after every year you have enough food (indicated by the food display) and enough housing (indicated by the population display). You will know if you dont have enough of one of these things if the display is red for either.',
+description: 'Make sure that after every year you have enough food (indicated by the food display) and enough housing (indicated by the population display). You will know if you don\'t have enough of one of these things if the display is red for either.',
 choices: [
 {
 	text: "Okay",
@@ -372,7 +372,7 @@ choices: [
 size: "30px",
 
 
-description: 'This is the laboratory, where you can purchase new technologies. Acquiring enough wisdom grants <strong class = "color-g">Research Points</strong>, which are used to purchase new technologies. Some technologies require other technologies, and all technologies require a certain time period to have occurred before being puchaseable.',
+description: 'This is the laboratory, where you can purchase new technologies. Acquiring enough wisdom grants <strong class = "color-g">Research Points</strong>, which are used to purchase new technologies. Some technologies require other technologies, and all technologies require a certain time period to have occurred before being purchaseable.',
 choices: [
 {
 	text: "Okay",

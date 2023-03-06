@@ -232,7 +232,7 @@ repairing = false
 			title:"Food",
 			description:"",
 			choosetext(){
-			this.description = `A neccessity for survival, your population grows if there is more food than people.<br>Food Production: ${food}<br>Population Gain: ${Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))}`
+			this.description = `A necessity for survival, your population grows if there is more food than people.<br>Food Production: ${food}<br>Population Gain: ${Math.max(-2-Math.ceil(currentpop/5),Math.min(1+Math.ceil(currentpop/5),food-currentpop))}`
 			}
 		},
 		
@@ -261,7 +261,7 @@ repairing = false
 		title:"Wisdom",
 		description:"",
 		choosetext(){
-		this.description = `The accumulated wisdom of your village. Once the wisom bar fills up, it's converted into research points, which can be used to unlock tech.<br>Progress to Next Level: ${(xp/totalxp).toFixed(2)}%`
+		this.description = `The accumulated wisdom of your village. Once the wisdom bar fills up, it's converted into research points, which can be used to unlock tech.<br>Progress to Next Level: ${(xp/totalxp).toFixed(2)}%`
 		}
 	},
 ]

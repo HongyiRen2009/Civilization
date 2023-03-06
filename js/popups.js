@@ -129,7 +129,7 @@ const popups = [
 	title: "<strong class = 'color-r'>Raid!</strong>",
 	size: "30px",
 	power: 0,
-	description: "A neighbouring tribe is raiding your village",
+	description: "A neighboring tribe is raiding your village",
 	choosetext(){
 		if (resources<((difficulty**3)/200)-((difficulty**3)/200)*(techstats.diplomacy+1)){
 			choicesdisabled.push(1)
@@ -229,7 +229,7 @@ const popups = [
 	{
 		title: "<strong class = 'color-g'>Attack</strong>",
 		size: "30px",
-		description: "The neighbouring tribe looks weak, do we enslave his people or steal their resources",
+		description: "The neighboring tribe looks weak, do we enslave his people or steal their resources",
 		choices: [
 	{
 		text: "Enslave",
@@ -320,7 +320,7 @@ const popups = [
 	{
 		title: "<strong class = 'color-g'>Folklore?</strong>",
 	size: "25px",
-	description: "A man wearing a silly green hat and a bow strung on his back arrives to your village. He claims that he is Robin Hood steals from the rich and gives to the poor. He askes us for some resources and in exchange we will recieve a great prize. Do we trust him?",
+	description: "A man wearing a silly green hat and a bow strung on his back arrives to your village. He claims that he is Robin Hood steals from the rich and gives to the poor. He asks us for some resources and in exchange we will receive a great prize. Do we trust him?",
 	choosetext(){},
 	choices: [
 	{
@@ -428,7 +428,7 @@ const popups = [
 			},
 			{
 				type: "military",
-				des: "weaponery"
+				des: "weaponry"
 			},
 			{
 				type: 'resource',
@@ -755,7 +755,7 @@ const popups = [
 		{
 			title: "<strong class = 'color-r'>BEAST!</strong>",
 		size: "25px",
-		description: "A distant roar echos across the mountains, followed by thunderous flaps. An ancient creature has awoken, perpare your village and your army<br><strong class = 'color-r'>they won't last long.</strong>",
+		description: "A distant roar echos across the mountains, followed by thunderous flaps. An ancient creature has awoken, prepare your village and your army<br><strong class = 'color-r'>they won't last long.</strong>",
 		choosetext(){},
 		choices: [
 		{
@@ -772,7 +772,7 @@ const popups = [
 	{
 			title: "<strong class = 'color-r'>Eruption!</strong>",
 		size: "25px",
-		description: "Deafing sounds shockwave across your village. Piles of ash and lava pour down the hills, annihilating everything in its way, while debris launched into the air squash housing like cockroaches.",
+		description: "Deafening sounds shockwave across your village. Piles of ash and lava pour down the hills, annihilating everything in its way, while debris launched into the air squash housing like cockroaches.",
 		choosetext(){},
 		choices: [
 		{
@@ -1435,7 +1435,7 @@ effect(){
 	{
 		title: "<strong class = 'color-g'>You Win</strong>",
 	size: "30px",
-	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, he blesses you and your followers with infinite power. As you ascend to the heavens, leaving the mortal realm, you quickly glance back at your thriving city, which would leave its mark on history for ever.",
+	description: "After years of trials and tribulation, you finally constructed the ultimate megastructure, the Mega Temple. As god decends from the heavens, he blesses you and your followers with infinite power. As you ascend to the heavens, leaving the mortal realm, you quickly glance back at your thriving city, which would leave its mark on history forever.",
 	
 	choices: [
 	{
@@ -1484,7 +1484,7 @@ effect(){
 	{
 		title: "<strong class = 'color-r'>Game Over</strong>",
 	size: "30px",
-	description: `A mysterious trader scrolls into our village. He presents an offer: if we give him resources, he'll make weapons for us in return. Do we accept his offer?`,
+	description: `A mysterious trader strolls into our village. He presents an offer: if we give him resources, he'll make weapons for us in return. Do we accept his offer?`,
 	choosetext(reason){
 		switch(reason){
 			case "pop":

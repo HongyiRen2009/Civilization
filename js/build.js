@@ -180,7 +180,7 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 20. Double effectivness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 4 resources every turn to maintain",
+		description: "A building for military operations that increases military power by 20. Double effectiveness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 4 resources every turn to maintain",
 		unlocked: false,
 		piecepositions: [{x:1,y:1,img:{dx:127, dy:106}},{x:0,y:0, img:{dx:106, dy:85}},{x:-1,y:1, img:{dx:85, dy:106}},{x:-1,y:-1,img:{dx:85, dy:64}},{x:1,y:-1, img:{dx:127, dy:64}}],
 		near: "building",
@@ -291,7 +291,7 @@ const p = {
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it. Must be entirely on a hill",
+		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it",
 		piecepositions: [
 			{x:1,y:0, img:{dx:190, dy:22}},{x:0,y:0, img:{dx:169, dy:22}}, {x:-1, y:0, img:{dx:148, dy:22}},
 			{x:0,y:1, img:{dx:169, dy:43}},{x:1,y:1, img:{dx:190, dy:43}}, {x:-1, y:1, img:{dx:148, dy:43}},

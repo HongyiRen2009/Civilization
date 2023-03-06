@@ -156,8 +156,8 @@ const m = {
 	{
 		price:10,
 		pricemod: 1.5,
-		title: "Foriegn Aid",
-		description: "Supply neighboring tribes with foriegn aid.<br><strong class = 'color-g'>Increases reputation</strong>",
+		title: "Foreign Aid",
+		description: "Supply neighboring tribes with foreign aid.<br><strong class = 'color-g'>Increases reputation</strong>",
 		image: "<img src = 'images/marketAid.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -284,7 +284,7 @@ const m = {
 			}
 			
 			
-			this.description=`Grant a loan for ${shorten(this.price/2)} resources for 10 turns at a 30% intrest`
+			this.description=`Grant a loan for ${shorten(this.price/2)} resources for 10 turns at a 30% interest`
 		},
 		purchaseeffect(){
 			resources-=this.price/2
@@ -386,7 +386,7 @@ const m = {
 		price:10,
 		pricemod: 1.8,
 		title: "Assassin",
-		description: "Hire an assassin to assasinate your enemys's generals.<br>Reduce the chance of being attacked",
+		description: "Hire an assassin to assassinate your enemy's generals.<br>Reduce the chance of being attacked",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -473,7 +473,7 @@ const m = {
 	{
 		price:5,
 		pricemod: 1.5,
-		title: "Propoganda",
+		title: "Propaganda",
 		description: "Hire a sham philosopher to spread fake news. <br> Reduced chance for rebellions",
 		image:"<img src = 'images/marketScroll.png' width='50' height='46'></img>",
 		amountincrease: 0,
