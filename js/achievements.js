@@ -2,7 +2,8 @@ const achievements = [
 	{
 		acquired: false,
 		title: "Humble Beginnings",
-		description: "build your first building",
+		description: `Build your first building.`,
+		flavortext: "",
 		imagesrc: "images/achievementFirstBuild.png",
 		requires(){
 		return gridstats.length>=1
@@ -12,6 +13,7 @@ const achievements = [
 	acquired: false,
 		title: "Small Town",
 		description: "build 25 buildings",
+		flavortext: "",
 		imagesrc: "images/achievementSmallTown.png",
 		requires(){
 		return gridstats.length>=25
@@ -21,6 +23,7 @@ const achievements = [
 	acquired: false,
 		title: "Megatropolis",
 		description: "build 100 buildings",
+		flavortext: "",
 		imagesrc: "images/achievementMegatropolis.png",
 		requires(){
 		return gridstats.length>=100
@@ -30,6 +33,7 @@ const achievements = [
 	acquired: false,
 		title: "UN recognized country",
 		description: "build 500 buildings",
+		flavortext: "More than the Vatican!",
 		imagesrc: "images/achievementUNcountry.png",
 		requires(){
 		return gridstats.length>=500
@@ -40,6 +44,7 @@ const achievements = [
 	acquired: false,
 	title: "First Shelter",
 	description: "build your first Canopy",
+	flavortext: "",
 	imagesrc: "images/achievementFirstShelter.png",
 	requires(){
 		return buildingamounts[0] > 0
@@ -49,6 +54,7 @@ const achievements = [
 	acquired: false,
 	title: "it's settling time",
 	description: "build your first hut",
+	flavortext: "",
 	imagesrc: "images/achievementHouse.png",
 	requires(){
 		return buildingamounts[1] > 0
@@ -58,6 +64,7 @@ const achievements = [
 	acquired: false,
 	title: "Two for the price of two",
 	description: "build your first townhouse",
+	flavortext: "",
 	imagesrc: "images/achievementDuplex.png",
 	requires(){
 		return buildingamounts[2] > 0
@@ -67,6 +74,7 @@ const achievements = [
 		acquired: false,
 		title: "Urbanization",
 		description: "build your first insula",
+		flavortext: "",
 		imagesrc: "images/achievementInsula.png",
 		requires(){
 			return buildingamounts[3] > 0
@@ -76,6 +84,7 @@ const achievements = [
 		acquired: false,
 		title: "Country Road take me home",
 		description: "build your first Road",
+		flavortext: "",
 		imagesrc: "images/achievementCountryRoad.png",
 		requires(){
 			return buildingamounts[4] > 0
@@ -85,6 +94,7 @@ const achievements = [
 		acquired: false,
 		title: "Ant agriculture",
 		description: "build your first Tiny Farm",
+		flavortext: "",
 		imagesrc: "images/achievementAntFarm.png",
 		requires(){
 		return buildingamounts[5] > 0
@@ -95,6 +105,7 @@ const achievements = [
 		acquired: false,
 		title: "Cheap food",
 		description: "build your first Small Farm",
+		flavortext: "",
 		imagesrc: "images/achievementHoe.png",
 		requires(){
 		return buildingamounts[6] > 0
@@ -105,6 +116,7 @@ const achievements = [
 		acquired: false,
 		title: "It's 3/4 farm",
 		description: "build your first Medium Farm",
+		flavortext: "",
 		imagesrc: "images/achievement34ths.png",
 		requires(){
 		return buildingamounts[7] > 0
@@ -115,6 +127,7 @@ const achievements = [
 		acquired: false,
 		title: "Irrigation",
 		description: "build your first Large Farm",
+		flavortext: "",
 		imagesrc: "images/achievementIrrigation.png",
 		requires(){
 		return buildingamounts[8] > 0
@@ -125,6 +138,7 @@ const achievements = [
 		acquired: false,
 		title: "Bless me",
 		description: "build your first Temple",
+		flavortext: "Actually, bless you!",
 		imagesrc: "images/achievementBlessMe.png",
 		requires(){
 		return buildingamounts[9] > 0
@@ -135,6 +149,7 @@ const achievements = [
 		acquired: false,
 		title: "The Army!?!",
 		description: "build your first Military Base",
+		flavortext: "",
 		imagesrc: "images/achievementTheArmy.png",
 		requires(){
 		return buildingamounts[10] > 0
@@ -145,6 +160,7 @@ const achievements = [
 	acquired: false,
 		title: "You and what army?",
 		description: "have 1000 military power",
+		flavortext: "",
 		imagesrc: "images/achievementWhatArmy.png",
 		requires(){
 		return military >= 1000
@@ -152,8 +168,9 @@ const achievements = [
 	},
 	{
 		acquired: false,
-		title: "London bridge is falling down",
-		description: "build your first Bridge",
+		title: "London Bridge is Falling Down",
+		description: "Build your first Bridge.",
+		flavortext: "Not to be confused with the Tacoma Narrows Bridge.",
 		imagesrc: "images/achievementBridge.png",
 		requires(){
 		return buildingamounts[13] > 0
@@ -164,6 +181,7 @@ const achievements = [
 		acquired: false,
 		title: "Mining away",
 		description: "build your first Small Mine",
+		flavortext: "",
 		imagesrc: "images/achievementSmallMine.png",
 		requires(){
 		return buildingamounts[14] > 0
@@ -174,6 +192,7 @@ const achievements = [
 		acquired: false,
 		title: "So mean",
 		description: "build your first Medium Mine",
+		flavortext: "",
 		imagesrc: "images/achievementMediumMine.png",
 		requires(){
 		return buildingamounts[15] > 0
@@ -184,6 +203,7 @@ const achievements = [
 		acquired: false,
 		title: "Industrialization",
 		description: "build your first Large Mine",
+		flavortext: "",
 		imagesrc: "images/achievementLargeMine.png",
 		requires(){
 		return buildingamounts[16] > 0
@@ -193,6 +213,7 @@ const achievements = [
 		acquired: false,
 		title: "Cursed",
 		description: "???",
+		flavortext: "",
 		imagesrc: "images/achievementCursed.png",
 		requires(){
 		return luck < 0
@@ -202,6 +223,7 @@ const achievements = [
 		acquired: false,
 		title: "Efficiency -100",
 		description: "build more than 10 tiny farms while only having less than two small farms",
+		flavortext: "",
 		imagesrc: "images/achievementefficiency-100.png",
 		requires(){
 		return buildingamounts[5] > 10 && buildingamounts[6]<2
@@ -211,6 +233,7 @@ const achievements = [
 		acquired: false,
 		title: "Hero",
 		description: "Give resources to Robin Hood.",
+		flavortext: "",
 		imagesrc: "images/achievementHero.png",
 		requires(){
 		return false
@@ -220,6 +243,7 @@ const achievements = [
 		acquired: false,
 		title: "Conscription",
 		description: "Gain 100 military power from unemployed people",
+		flavortext: "",
 		imagesrc: "images/achievementConscription.png",
 		requires(){
 		return unemployed>=100
@@ -229,6 +253,7 @@ const achievements = [
 		acquired: false,
 		title: "Dictator",
 		description: "Punish revolutionaries 5 times in one game",
+		flavortext: "",
 		imagesrc: "images/achievementDictator.png",
 		requires(){
 		return false
@@ -239,6 +264,7 @@ const achievements = [
 		acquired: false,
 		title: "Novice ruler",
 		description: "Beat the game in Copper difficulty",
+		flavortext: "",
 		imagesrc: "images/achievementCopper.png",
 		requires(){
 		return false
@@ -249,6 +275,7 @@ const achievements = [
 		acquired: false,
 		title: "The King of Kings",
 		description: "Beat the game in Iron difficulty",
+		flavortext: "",
 		imagesrc: "images/achievementIron.png",
 		requires(){
 		return false
@@ -259,6 +286,7 @@ const achievements = [
 		acquired: false,
 		title: "The Chosen One",
 		description: "Beat the game in Diamond difficulty",
+		flavortext: "",
 		imagesrc: "images/achievementDiamond.png",
 		requires(){
 		return false
@@ -336,6 +364,7 @@ function achievementscreen(ismenu){
 			
 			const title = document.createElement("h1")
 			const description = document.createElement("p")
+			const flavor = document.createElement("i")
 			const imagediv = document.createElement("div")
 			const image = document.createElement("img")
 			
@@ -343,6 +372,7 @@ function achievementscreen(ismenu){
 			imagediv.className = "achievement-image-div"
 			title.innerHTML = el.title
 			description.innerHTML = el.description
+			flavor.innerHTML = el.flavortext
 			image.src = el.imagesrc
 			title.style.display = "inline-block"
 			flex.className = "achievement-container"
@@ -350,6 +380,7 @@ function achievementscreen(ismenu){
 			flex.appendChild(title)
 			flex.append(imagediv)
 			flex.appendChild(description)
+			flex.append(flavor)
 			
 			
 			document.getElementById("achievements-container").appendChild(flex)
