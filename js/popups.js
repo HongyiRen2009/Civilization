@@ -110,7 +110,7 @@ const confirmation = [
 		},
 	},
 	{
-		text: "I've played before",
+		text: "No",
 		effect(){
 			
 			start()
