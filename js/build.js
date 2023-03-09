@@ -464,9 +464,10 @@ function removebuildings(intensity = 4,onhill=false){
 			case '11':
 			modifiers.military-=1
 		case '18':
-			for (i=0,len=p.cities.length;i<len;i++){
-				if(p.cities[i].x==gridstats[randomb].citypos.x&&p.cities[i].y==gridstats[randomb].citypos.y){
-					p.cities.splice(i,1)
+			for (let j=p.cities.length-1;j>0;j--){
+				if(p.cities[j].x==gridstats[randomb].citypos.x&&p.cities[j].y==gridstats[randomb].citypos.y){
+					p.cities.splice(j,1)
+					break
 				}
 			}
 			recalcBuildings()
@@ -1060,7 +1061,8 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		breaksound.play()
 	}
 	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
-	buildingamounts[gridstats[buildingindex].index]-=1	
+	buildingamounts[gridstats[buildingindex].index]-=1
+	
 	switch(gridstats[buildingindex].index){
 		case "11":
 			modifiers.military-=1
