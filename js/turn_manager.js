@@ -26,6 +26,7 @@ function turnpopup(){
 			return false
 		case 10:
 			displaypopup(29,information)
+			p.pieceROM[18].unlocked=true
 			recalcBuildings()
 			return false
 		case 40:
@@ -340,6 +341,12 @@ function displayUI(turn=false){
 		else{
 			document.getElementById("techbutton").disabled=false
 		}
+		for (const ef of temporaryeffects){
+			if (ef.type =="add"){
+				
+				unemployed +=ef.unemployed
+			}
+		}
 		for (len = gridstats.length,i=0;i<len;i++){
 			if(!gridstats[i].disabled){
 			if (unemployed>=gridstats[i].employmentrequired){
@@ -377,7 +384,7 @@ function displayUI(turn=false){
 			
 		}
 		}
-		displaytab()
+		
 		while (xp>=totalxp){
 			if(difficulty>5){
 			document.getElementById("techbutton").style.animation = "flash 2s step-start infinite"
@@ -400,7 +407,6 @@ function displayUI(turn=false){
 				food += ef.food
 				resourcesgained += ef.resources
 				military += ef.military
-				unemployed +=ef.unemployed
 			}
 			else{
 				food += Math.ceil(food*ef.food)
@@ -427,7 +433,8 @@ function displayUI(turn=false){
 			displaypopup(39, information)
 		}
 		currentpop=Math.max(0,currentpop)
-		if(renderend){render}
+		displaytab()
+		if(renderend){render()}
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = shorten(xp)+"/"+shorten(totalxp)
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
