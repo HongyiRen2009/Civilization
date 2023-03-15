@@ -1024,7 +1024,7 @@ canvas.onmousedown = function(event){
 		if (tutorialindex==10||tutorialindex==11||tutorialindex==12){
 			displayUI()
 			if (tutorialindex!=12) {
-				continuetutorial(++tutorialindex, 78.5, 87.5, false)
+				continuetutorial(++tutorialindex, 30, 70, false)
 			} else {
 				if (p.pieceROM[0].amountbought >= 2) {
 					continuetutorial(++tutorialindex)
