@@ -344,18 +344,15 @@ input[type='range']::-webkit-slider-thumb {
     width: 100%;
 }
 #stat-info {
-    display: flex;
+    display: grid;
+	grid-template-columns: 1fr 1fr;
     width: 80%;
     margin: auto;
-    column-gap: 5%;
-    row-gap: 100px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 #stat-info > div {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    height: auto;
+	padding: 10px;
     background-color: #e9edaf;
     border: 3px solid black;
     border-radius: 4px;
