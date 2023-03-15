@@ -18,7 +18,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 50, 80)
 			
 		},
 	},
@@ -42,7 +42,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 30, 70)
 			
 		},
 	},
@@ -66,7 +66,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 30, 70)
 			
 		},
 	},
@@ -90,7 +90,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 30, 70)
 			
 		},
 	},
@@ -114,7 +114,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 30, 70)
 			
 		},
 	},
@@ -138,7 +138,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 20.5, 87.5)
+			continuetutorial(tutorialindex, 30, 30)
 			disableinfo = false
 			
 		},
@@ -163,7 +163,7 @@ const tutorial = [
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 78.5, 87.5)
+			continuetutorial(tutorialindex, 30, 30)
 			
 		},
 	},
@@ -186,7 +186,7 @@ description: 'This is the build menu, where buildings can be selected and built.
 		document.getElementById("popup_block_buttons").style.display = "none"
 		document.getElementById("popup").style.display = "none"
 		tutorialindex++
-		continuetutorial(tutorialindex, 78.5, 87.5)
+		continuetutorial(tutorialindex, 30, 70)
 		
 	},
 },
@@ -211,7 +211,7 @@ description: 'This is the build menu, where buildings can be selected and built.
 			document.getElementById("popup_block_buttons").style.display = "none"
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
-			continuetutorial(tutorialindex, 78.5, 87.5)
+			continuetutorial(tutorialindex, 30, 70)
 			
 		},
 	},
@@ -235,7 +235,7 @@ description: 'This is the build menu, where buildings can be selected and built.
 			document.getElementById("popup").style.display = "none"
 			tutorialindex++
 			displayUI()
-			continuetutorial(tutorialindex, 78.5, 87.5, false)
+			continuetutorial(tutorialindex, 30, 70, false)
 			
 		},
 	},
@@ -257,7 +257,7 @@ choices: [
 		document.getElementById("popup_block_buttons").style.display = "none"
 		document.getElementById("popup").style.display = "none"
 		tutorialindex -= 3
-		continuetutorial(tutorialindex, 78.5, 87.5)
+		continuetutorial(tutorialindex, 30, 70)
 		
 	},
 },
