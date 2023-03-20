@@ -76,7 +76,7 @@ const p = {
 	{
 		name: "Road",
 		letter: "R",
-		description: "A road that connects one place from the village to another. Requires 0.5 resources to construct",
+		description: "A road that connects one place from the village to another. Requires 0.5 resources to construct.",
 		piecepositions:[{x:0,y:0,img:{dx:210,dy:0}}],
 		unlocked: true,
 		near: "building",
@@ -93,7 +93,7 @@ const p = {
 		name: "Tiny Farm",
 		letter: "TF",
 		piecepositions: [{x:1,y:0,img:{dx:274,dy:169}},{x:0,y:0,img:{dx:254,dy:169}},{x:1,y:1,img:{dx:273,dy:190}},{x:0,y:1,img:{dx:253,dy:190}}],
-		description: "A very small farm that produces 1 food. Requires 3 resources to construct",
+		description: "A very small farm that produces 1 food. Requires 3 resources to construct.",
 		unlocked: true,
 		near: "building",
 		tab: "Farms",
@@ -110,7 +110,7 @@ const p = {
 		name: "Small Farm",
 		letter: "F",
 		piecepositions: [{x:1,y:0, img:{dx:169,dy:150}},{x:0,y:0,img:{dx:148,dy:150}},{x:0,y:1,img:{dx:148,dy:170}},{x:1,y:1,img:{dx:169,dy:170}},{x:0,y:2,img:{dx:148,dy:190}},{x:1,y:2,img:{dx:169,dy:190}}],
-		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it",
+		description: "A small farm that produces 3 food. Requires 4 resources to construct and 1 person operating it.",
 		unlocked: true,
 		near: "building",
 		tab: "Farms",
@@ -127,7 +127,7 @@ const p = {
 	{
 		name: "Medium Farm",
 		letter: "MF",
-		description: "A medium farm that produces 12 food. Requires 12 resources to construct and 3 people operating it. Cannot be on a hill",
+		description: "A medium farm that produces 12 food. Requires 12 resources to construct and 3 people operating it. Cannot be on a hill.",
 		unlocked: false,
 		piecepositions: [{x:1,y:0,img:{dx:21, dy:106}},{x:0,y:0, img:{dx:1, dy:106}},{x:0,y:1,img:{dx:1, dy:127}},{x:1,y:1, img:{dx:21, dy:127}},{x:1,y:-1, img:{dx:21, dy:85}},{x:0,y:-1, img:{dx:1, dy:85}},{x:2,y:-1, img:{dx:42, dy:85}},{x:2,y:0, img:{dx:43, dy:106}},{x:2,y:1, img:{dx:43, dy:127}}],
 		near: "!hill",
@@ -144,7 +144,7 @@ const p = {
 	{
 		name: "Large Farm",
 		letter: "LF",
-		description: "A large farm that produces 30 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill",
+		description: "A large farm that produces 30 food. Requires 24 resources to construct, 5 people operating it. Must be nearby a river for irrigation and cannot be on a hill.",
 		unlocked: false,
 		piecepositions: [{x:0,y:0, img:{dx:1, dy:1}},{x:1,y:0, img:{dx:21, dy:1}},{x:2,y:0, img:{dx:42, dy:1}},{x:3,y:0, img:{dx:63, dy:1}},{x:0,y:1, img:{dx:1, dy:21}},{x:1,y:1, img:{dx:21, dy:21}},{x:2,y:1, img:{dx:42, dy:21}},{x:3,y:1, img:{dx:63, dy:21}},{x:0,y:2, img:{dx:1, dy:42}},{x:1,y:2, img:{dx:21, dy:42}},{x:2,y:2, img:{dx:42, dy:42}},{x:3,y:2, img:{dx:63, dy:42}},{x:0,y:3, img:{dx:1, dy:63}},{x:1,y:3, img:{dx:21, dy:63}},{x:2,y:3, img:{dx:42, dy:63}},{x:3,y:3, img:{dx:63, dy:63}}],
 		near: "river not",
@@ -161,7 +161,7 @@ const p = {
 	{
 		name: "Temple",
 		letter: "T",
-		description: "A temple to pray to RNGesus (increases luck). Requires 40 resources to construct and 10 people operating it",
+		description: "A temple to pray to RNGesus (increases luck). Requires 40 resources to construct and 10 people operating it.",
 		unlocked: false,
 		piecepositions: [{x:1,y:0,img:{dx:190, dy:106}},{x:0,y:0,img:{dx:169, dy:106}},{x:0,y:1,img:{dx:169,dy:127}},{x:1,y:1,img:{dx:190,dy:127}},{x:1,y:-1,img:{dx:190,dy:85}},{x:0,y:-1,img:{dx:169,dy:85}},{x:-1,y:0,img:{dx:148,dy:106}},{x:-1,y:-1,img:{dx:148,dy:85}},{x:-1,y:1,img:{dx:148,dy:127}}],
 		near: "building",
@@ -180,7 +180,7 @@ const p = {
 	{
 		name: "Military Base",
 		letter: "MB",
-		description: "A building for military operations that increases military power by 20. Double effectiveness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 4 resources every turn to maintain",
+		description: "A building for military operations that increases military power by 20. Double effectiveness if entirely on a hill. Requires 6 resources to construct and 3 people operating it. Requires 4 resources every turn to maintain.",
 		unlocked: false,
 		piecepositions: [{x:1,y:1,img:{dx:127, dy:106}},{x:0,y:0, img:{dx:106, dy:85}},{x:-1,y:1, img:{dx:85, dy:106}},{x:-1,y:-1,img:{dx:85, dy:64}},{x:1,y:-1, img:{dx:127, dy:64}}],
 		near: "building",
@@ -200,7 +200,7 @@ const p = {
 	{
 		name: "Barracks",
 		letter: "BR",
-		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 10 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain",
+		description: "A building to store weapons and train soldiers, increasing your military 10%. Requires 10 resources to construct and 10 people operating it. Gains no bonuses for being on a hill. Requires 20 resources every turn to maintain.",
 		unlocked: false,
 		piecepositions: [{x:-1,y:0, img:{dx:85, dy:22}},{x:0,y:0, img:{dx:106, dy:22}},{x:0,y:1, img:{dx:106, dy:43}},{x:-1,y:1, img:{dx:85, dy:43}},{x:-1,y:-1, img:{dx:85, dy:1}},{x:0,y:-1, img:{dx:106, dy:1}},{x:1,y:-1, img:{dx:127, dy:1}},{x:1,y:1, img:{dx:127, dy:43}}],
 		near: "building",
@@ -220,7 +220,7 @@ const p = {
 	{
 		name: "Fortress",
 		letter: "FT",
-		description: "A massive structure that offers substantial defense. Increases military power by 300. Requires 70 resources to construct and 40 people operating it. Double military if on a hill. Requires 30 resources every year to maintain",
+		description: "A massive structure that offers substantial defense. Increases military power by 300. Requires 70 resources to construct and 40 people operating it. Double military if on a hill. Requires 30 resources every year to maintain.",
 		unlocked: false,
 		piecepositions: [{x:-1,y:0, img:{dx:85, dy:148}},{x:0,y:0, img:{dx:106, dy:148}},{x:0,y:1, img:{dx:106, dy:169}},{x:-1,y:1, img:{dx:85, dy: 169}},{x:-1,y:-1, img:{dx:85, dy:127}},{x:0,y:-1, img:{dx:106, dy:127}},{x:1,y:-1, img:{dx:127, dy:127}},{x:1,y:1, img:{dx:127, dy:169}},{x:1,y:0, img:{dx:127, dy:148}}],
 		near: "building",
@@ -240,7 +240,7 @@ const p = {
 	{
 		name: "Bridge",
 		letter: "B",
-		description: "A bridge to connect one side of the river to another. Must be on a river to construct and requires 3 resources",
+		description: "A bridge to connect one side of the river to another. Must be on a river to construct and requires 3 resources.",
 		unlocked: true,
 		piecepositions: [{x:0,y:0, img:{dx:190, dy:148}}],
 		near: "building",
@@ -256,7 +256,7 @@ const p = {
 	{
 		name: "Small Mine",
 		letter: "SM",
-		description: "A small mine to extract resources from a hill. Collects 2 resources per year. Requires 4 resources and 1 person operating it",
+		description: "A small mine to extract resources from a hill. Collects 2 resources per year. Requires 4 resources and 1 person operating it.",
 		unlocked: true,
 		piecepositions: [{x:0,y:0,img:{dx:22, dy:190}},{x:0,y:1, img:{dx:21, dy:211}}],
 		near: "building",
@@ -274,7 +274,7 @@ const p = {
 	{
 		name: "Medium Mine",
 		letter: "MM",
-		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be entirely on a hill and requires 24 resources and 5 people operating it",
+		description: "A medium mine to extract resources from a hill. Collects 18 resources per year. Must be entirely on a hill and requires 24 resources and 5 people operating it.",
 		piecepositions: [{x:-1,y:0, img:{dx:43, dy:190}},{x:0,y:0, img:{dx:64, dy:190}},{x:1,y:0, img:{dx:85, dy:190}},{x:-1,y:1, img:{dx:43, dy:211}},{x:0,y:1, img:{dx:64, dy:211}},{x:1,y:1, img:{dx:85, dy:211}}],
 		unlocked: false,
 		near: "entire",
@@ -291,7 +291,7 @@ const p = {
 	{
 		name: "Large Mine",
 		letter: "LM",
-		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it",
+		description: "A large mine to extract resources from a hill. Collects 70 resources per year. Must be on entirely on a hill and requires 70 resources and 8 people operating it.",
 		piecepositions: [
 			{x:1,y:0, img:{dx:190, dy:22}},{x:0,y:0, img:{dx:169, dy:22}}, {x:-1, y:0, img:{dx:148, dy:22}},
 			{x:0,y:1, img:{dx:169, dy:43}},{x:1,y:1, img:{dx:190, dy:43}}, {x:-1, y:1, img:{dx:148, dy:43}},
@@ -312,7 +312,7 @@ const p = {
 	{
 		name: "Mega Temple",
 		letter: "MT",
-		description: "A mega temple to directly contact god. Build one to beat the game. Requires 100000 resources and 300 people praying",
+		description: "A mega temple to directly contact god. Build one to beat the game. Requires 100000 resources and 300 people praying.",
 	piecepositions: [{x:1,y:0, img:{dx:254, dy:127}},{x:0,y:0, img:{dx:232, dy:127}},{x:0,y:1, img:{dx:232, dy:148}},{x:1,y:1, img:{dx:254, dy:148}},{x:1,y:-1, img:{dx:254, dy:106}},{x:0,y:-1, img:{dx:232, dy:106}},{x:-1,y:0, img:{dx:211, dy:127}},{x:-1,y:-1, img:{dx:211, dy:106}},{x:-1,y:1, img:{dx:211, dy:148}},{x:2,y:1, img:{dx: 275, dy:148}},{x:2,y:0, img:{dx:275, dy:127}},{x:2,y:-1, img:{dx:275, dy:106}},{x:2,y:-2, img:{dx:275, dy:85}},{x:1,y:-2, img:{dx:254, dy:85}},{x:0,y:-2, img:{dx:232, dy:85}},{x:-1,y:-2, img:{dx:211, dy:85}}],
 		unlocked: false,
 		near: "building",
@@ -329,7 +329,7 @@ const p = {
 	{
 		name: "Bonfire",
 		letter: "BF",
-		description: "A city center. Requires exponentially more resources the more you build it",
+		description: "A city center. Requires exponentially more resources the more you build it.",
 		piecepositions: [{x:0,y:0, img:{dx:148, dy:211}},{x:1,y:0, img:{dx:169, dy:211}},{x:0,y:1, img:{dx:254, dy:211}},{x:1,y:1, img:{dx:275, dy:211}}],
 		unlocked: true,
 		near: "building",
@@ -389,7 +389,7 @@ const p = {
 	{
 		name: "Fishery",
 		letter: "F",
-		description: "A fishery for fishing. Every years' catch will vary in amount of food. Requires 10 resources and 2 people to build",
+		description: "A fishery for fishing. Every years' catch will vary in amount of food. Requires 10 resources and 2 people to build.",
 		unlocked: false,
 		piecepositions: [
 												

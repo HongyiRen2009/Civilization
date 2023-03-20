@@ -1443,13 +1443,16 @@ effect(){
 		effect(){
 			switch(difficultymultiplier){
 				case 1.2:
-					displayachievement(achievements.length-3)
+					displayachievement(achievements.length-4)
 					break
 				case 1.5:
-				displayachievement(achievements.length-2)
+					displayachievement(achievements.length-3)
 					break
 				case 1.8:
-				displayachievement(achievements.length-1)
+					displayachievement(achievements.length-2)
+					break
+				case 2:
+					displayachievement(achievements.length-1)
 					break
 			}
 			document.getElementById("popup_block_buttons").style.display = "none"
