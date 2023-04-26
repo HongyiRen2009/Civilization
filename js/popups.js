@@ -2100,7 +2100,7 @@ const information = [
 	{
 		title: "<strong class = 'color-r'>Sacrifice</strong>",
 		size: "30px",
-		description: `Several brave souls were sent to the beast. May they rest in peace.`,
+		description: `Several brave souls were sent to the beast- hopefully they did not die in vain.`,
 		
 		
 	
@@ -2116,7 +2116,7 @@ const information = [
 			]
 	},
 	{
-		title: "<strong class = 'color-g'>We would never</strong>",
+		title: "<strong class = 'color-r'>Never</strong>",
 		size: "30px",
 		description: `You refused to sacrifice anyone. <strong class = 'color-r'>Moments later, the beast arrived and laid waste to your village.</strong>`,
 		
@@ -2154,7 +2154,7 @@ const information = [
 	{
 		title: "<strong class = 'color-r'>Annihilatation</strong>",
 		size: "30px",
-		description: `You sent your army against the beast, but the only one returning was the beast itself. It swooped in and laid waste to your village.`,
+		description: `You sent your army against the beast, but the only one returning was the beast itself. It swooped in and laid waste to your city.`,
 		
 		
 	
@@ -2172,7 +2172,7 @@ const information = [
 	{
 		title: "<strong class = 'color-r'>Fireball!</strong>",
 		size: "30px",
-		description: `the beast swooped in and blasted your village to smitherines.`,
+		description: `the beast swooped in and blasted several of your buildings to smithereens.`,
 		
 		
 	
@@ -2190,7 +2190,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Drove off</strong>",
 		size: "30px",
-		description: `You blackened the sky with arrows, forcing the beast to retreat as it screams in pain.`,
+		description: `You blackened the sky with arrows, forcing the beast to retreat as it roars in pain.`,
 		
 		
 	
@@ -2208,7 +2208,7 @@ const information = [
 	{
 		title: "<strong class = 'color-g'>Success!</strong>",
 		size: "30px",
-		description: `After sending in your army, you hear the beast screech and it flew off.`,
+		description: `After sending in your army, with sheers numbers you were able to fend off the monster.`,
 		
 		
 	
@@ -2326,7 +2326,9 @@ const information = [
 				"drowned in a flash flood",
 				"were killed in an ambush",
 				"fell into a trap",
-				"died of a tornado"
+				"died of a tornado",
+				"jumped too high",
+				"ate too many crumpets"
 			]
 			this.description = `After sending your army to fight, you hear reports that they <strong class = 'color-r'>${choice[getRandomInt(0,3)]}.<br> Casualties: ${shorten(amount)}</strong>`
 		},
