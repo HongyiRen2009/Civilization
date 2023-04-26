@@ -353,9 +353,9 @@ const p = {
 	{
 		name: "Trade School",
 		letter: "TS",
-		description: "A school for teaching miners and farmers.<br>Increases all production by 20% and requires 200 resources and 15 people to build.",
+		description: "A school for teaching miners and farmers.<br>Increases resource and food production 20% and requires 200 resources and 15 people to build.",
 		unlocked: false,
-		piecepositions: [{x:1,y:0, img:{dx:232, dy:190}},{x:0,y:0, img:{dx:211, dy:190}},{x:0,y:1, img:{dx:215, dy:211}},{x:1,y:1, img:{dx:235, dy:211}},{x:1,y:-1, img:{dx:232, dy:169}},{x:0,y:-1, img:{dx:211, dy:169}},{x:-1,y:-1, img:{dx:190, dy:169}},{x:-1,y:1, img:{dx:195, dy:211}}],
+		piecepositions: [{x:1,y:0, img:{dx:232, dy:190}},{x:0,y:0, img:{dx:211, dy:190}},{x:-1,y:0, img:{dx:190, dy:190}},{x:0,y:1, img:{dx:211, dy:211}},{x:1,y:1, img:{dx:232, dy:211}},{x:1,y:-1, img:{dx:232, dy:169}},{x:0,y:-1, img:{dx:211, dy:169}},{x:-1,y:-1, img:{dx:190, dy:169}},{x:-1,y:1, img:{dx:190, dy:211}}],
 		near: "building",
 		tab: "Misc",
 		effect(){
@@ -391,12 +391,7 @@ const p = {
 		letter: "F",
 		description: "A fishery for fishing. Every years' catch will vary in amount of food. Requires 10 resources and 2 people to build.",
 		unlocked: false,
-		piecepositions: [
-												
-						{x:-1,y:1},{x:0,y:1}, {x:1,y:1},
-						{x:1,y:0},
-						{x:-1,y:-1},{x:0,y:-1}, {x:1,y:-1}						
-												],
+		piecepositions: [{x:0,y:0, img:{dx:106, dy:211}},{x:1,y:0, img:{dx:127, dy:211}},{x:1,y:-1, img:{dx:127, dy:190}}],
 		near: "river",
 		tab: "Farms",
 		effect(){
