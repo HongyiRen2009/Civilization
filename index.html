@@ -4,6 +4,7 @@
 <title>Dawn</title>
 <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon' />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.cdnfonts.com/css/pf-tempesta-five" rel="stylesheet">
 <!-- Start google font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -208,7 +209,7 @@
 	<div class="settings-toggle-column">
 	<div>
 		<p >No Images</p>
-		<div class="info-box" style = "z-index: 5">
+		<div class="info-box" style = "margin: -40px 105px; z-index: 5;">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -221,7 +222,7 @@
 	</div>
 	<div>
 	<p >No Year Fading</p>
-		<div class="info-box" style = "margin: -37px 121px; z-index: 5">
+		<div class="info-box" style = "margin: -40px 160px; z-index: 5">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -239,7 +240,7 @@
 	<div>
 	<p>Arrow Keys</p>
 	</div>
-		<div class="info-box" style = "margin: -37px 94px; z-index: 3">
+		<div class="info-box" style = "margin: -40px 125px; z-index: 3">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -252,7 +253,7 @@
 	</div>
 	<div>
 	<p>No Tutorial</p>
-		<div class="info-box" style = "margin: -37px 90px; z-index: 3">
+		<div class="info-box" style = "margin: -40px 115px; z-index: 3">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -268,7 +269,7 @@
 	<div class="settings-toggle-column">
 	<div>
 		<p>No Flashing</p>
-		<div class="info-box" style = "margin: -37px 97px; z-index: 1">
+		<div class="info-box" style = "margin: -40px 125px; z-index: 1">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -281,7 +282,7 @@
 	</div>
 	<div>
 	<p>No Market Popup</p>
-		<div class="info-box" style = "margin: -37px 136px; z-index: 1">
+		<div class="info-box" style = "margin: -40px 175px; z-index: 1">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
@@ -297,7 +298,7 @@
 	<div class="settings-toggle-column">
 		<div>
 			<p>No Weather</p>
-			<div class="info-box" style = "margin: -37px 97px;">
+			<div class="info-box" style = "margin: -40px 125px;">
 			<i class="icon-info-sign"></i>
 	
 			<span class="extra-info">
@@ -308,24 +309,24 @@
 		<div class="checkbox-wrapper-2">
 		<input type="checkbox" id = "noweather" class="sc-gJwTLC ikxBAC">
 		</div>
-		<div>
-		<p>Sans Serif</p>
-			<div class="info-box" style = "margin: -37px 97px;">
-			<i class="icon-info-sign"></i>
+		<!-- <div> -->
+		<!-- <p>Sans Serif</p> -->
+			<!-- <div class="info-box" style = "margin: -40px 125px;"> -->
+			<!-- <i class="icon-info-sign"></i> -->
 	
-			<span class="extra-info">
-			Changes font to Sans Serif.
-			</span>
-			</div>
-		</div>
-		<div class="checkbox-wrapper-2">
-		<input type="checkbox" id = "noserif"class="sc-gJwTLC ikxBAC">
+			<!-- <span class="extra-info"> -->
+			<!-- Changes font to Sans Serif. -->
+			<!-- </span> -->
+			<!-- </div> -->
+		<!-- </div> -->
+		<!-- <div class="checkbox-wrapper-2"> -->
+		<!-- <input type="checkbox" id = "noserif"class="sc-gJwTLC ikxBAC"> -->
 		</div>
 		
 		</div>
 	</div>
 </div>
-
+                
 
 <script>
 const canvas = document.querySelector("canvas")
@@ -363,7 +364,7 @@ const psettings = {
 	noflash:false,
 	nompop:false,
 	noweather:false,
-	noserif:false,
+	<!-- noserif:false, -->
 	
 }
 if(localStorage.getItem("settings")==null){
@@ -470,7 +471,7 @@ document.getElementById("notutorial").addEventListener( "change", () => {if ( do
 document.getElementById("noflash").addEventListener( "change", () => {if ( document.getElementById("noflash").checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
 document.getElementById("nompop").addEventListener( "change", () => {if ( document.getElementById("nompop").checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
 document.getElementById("noweather").addEventListener( "change", () => {if ( document.getElementById("noweather").checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(noweather);ctx2.clearRect(0,0,screen.width,screen.height)});
-document.getElementById("noserif").addEventListener( "change", () => {if ( document.getElementById("noserif").checked ) {psettings.noserif = true;}else{psettings.noserif = false;};change_settings(noserif);changefont()});
+<!-- document.getElementById("noserif").addEventListener( "change", () => {if ( document.getElementById("noserif").checked ) {psettings.noserif = true;}else{psettings.noserif = false;};change_settings(noserif);changefont()}); -->
 function change_settings(setting){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
