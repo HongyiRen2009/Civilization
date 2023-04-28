@@ -11,6 +11,18 @@
 :root {
     --game-container-bg-color: #c89c59;
 }
+::-webkit-scrollbar {
+	width:8px;
+}
+::-webkit-scrollbar-track {
+	background: #856a1b;
+}
+::-webkit-scrollbar-thumb {
+	background: #4a3b0f;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b2209;
+}
 .setting_slider {
     width: 100%;
     -webkit-appearance: none;
@@ -114,7 +126,7 @@ input[type='range']::-webkit-slider-thumb {
 .extra-info {
     display: none;
     line-height: 30px;
-    font-size: 12px;
+    font-size: 10px;
     position: absolute;
     top: 0;
     left: 50px;
@@ -161,7 +173,7 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: 15px;
     position: absolute;
     background-color: #fff7de;
-    margin: -37px 88px;
+    margin: -40px 125px;
 }
 
 .info-box:hover {
@@ -251,7 +263,7 @@ input[type='range']::-webkit-slider-thumb {
 #tech-tree > button {
     width: 35px;
     height: 36px;
-    border: 6px solid #000000;
+    border: 4px solid #000000;
     padding: 0px;
     margin: auto;
 }
@@ -714,7 +726,7 @@ input[type='range']::-webkit-slider-thumb {
 body,
 button,
 select {
-    font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
+    font-family: 'PF Tempesta Five Condensed', 'Roboto Slab', Arial, Helvetica, sans-serif;
 }
 .bgimg {
     position: fixed;
@@ -897,7 +909,7 @@ button:disabled {
 #xp_text {
     text-align: center;
     position: relative;
-    bottom: 35px;
+    bottom: 38px;
     color: white;
     z-index: 2;
 }
