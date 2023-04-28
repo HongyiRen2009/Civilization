@@ -3,7 +3,7 @@ const achievements = [
 		acquired: false,
 		title: "Humble Beginnings",
 		description: `Build <strong class="color-g">your first</strong> building.`,
-		flavortext: "",
+		flavortext: "It's not like you earned this, but whatever.",
 		imagesrc: "images/achievementFirstBuild.png",
 		requires(){
 		return gridstats.length>=1
@@ -127,7 +127,7 @@ const achievements = [
 		acquired: false,
 		title: "Irrigation",
 		description: `Build your first <strong class="color-g">Large Farm</strong>.`,
-		flavortext: "",
+		flavortext: "Where does the water go?",
 		imagesrc: "images/achievementIrrigation.png",
 		requires(){
 		return buildingamounts[8] > 0
@@ -149,7 +149,7 @@ const achievements = [
 		acquired: false,
 		title: "The Army!?!",
 		description: `Build your first <strong class="color-g">Military Base</strong>.`,
-		flavortext: "",
+		flavortext: "Finally I can stop negotiating and pleading!",
 		imagesrc: "images/achievementTheArmy.png",
 		requires(){
 		return buildingamounts[10] > 0
@@ -160,7 +160,7 @@ const achievements = [
 	acquired: false,
 		title: "You and What Army?",
 		description: `Obtain <strong class="color-g">1000</strong> Military Power.`,
-		flavortext: "",
+		flavortext: `<strong class="color-r">Time for you to plead.</strong>`,
 		imagesrc: "images/achievementWhatArmy.png",
 		requires(){
 		return military >= 1000
@@ -203,7 +203,7 @@ const achievements = [
 		acquired: false,
 		title: "Industrialization",
 		description: `Build your first <strong class="color-g">Large Mine</strong>.`,
-		flavortext: "",
+		flavortext: "Too bad minecarts don't exist yet. Those would look awesome.",
 		imagesrc: "images/achievementLargeMine.png",
 		requires(){
 		return buildingamounts[16] > 0
@@ -213,7 +213,7 @@ const achievements = [
 		acquired: false,
 		title: "Cursed",
 		description: "???",
-		flavortext: `<strong class="color-r"><b>Beware.</b></strong>`,
+		flavortext: `<strong class="color-r"><b>I know what you did.</b></strong>`,
 		imagesrc: "images/achievementCursed.png",
 		requires(){
 		return luck < 0
@@ -223,7 +223,7 @@ const achievements = [
 		acquired: false,
 		title: "Efficiency -100",
 		description: `Build more than <strong class="color-g">10 Tiny Farms</strong> while having less than <strong class="color-g">2 Small Farms</strong>.`,
-		flavortext: "",
+		flavortext: "Come on, manage your population better!",
 		imagesrc: "images/achievementefficiency-100.png",
 		requires(){
 		return buildingamounts[5] > 10 && buildingamounts[6]<2
@@ -233,7 +233,7 @@ const achievements = [
 		acquired: false,
 		title: "Hero",
 		description: "Give resources to Robin Hood.",
-		flavortext: "",
+		flavortext: "Is it really hero if he sells them for his own gain?",
 		imagesrc: "images/achievementHero.png",
 		requires(){
 		return false
@@ -253,7 +253,7 @@ const achievements = [
 		acquired: false,
 		title: "Dictator",
 		description: `Punish revolutionaries <strong class="color-r">5 times</strong> in one game.`,
-		flavortext: "",
+		flavortext: "I refuse to talk it out!",
 		imagesrc: "images/achievementDictator.png",
 		requires(){
 		return false
@@ -273,7 +273,7 @@ const achievements = [
 	},
 	{
 		acquired: false,
-		title: "The King of Kings",
+		title: "Global Empire",
 		description: `Beat the game in <strong class="color-y">Iron</strong> difficulty.`,
 		flavortext: "",
 		imagesrc: "images/achievementIron.png",
@@ -284,7 +284,7 @@ const achievements = [
 	},
 	{
 		acquired: false,
-		title: "Global Empire",
+		title: "The King of Kings",
 		description: `Beat the game in <strong class="color-r">Diamond</strong> difficulty.`,
 		flavortext: "",
 		imagesrc: "images/achievementDiamond.png",
@@ -297,7 +297,7 @@ const achievements = [
 		acquired: false,
 		title: "The Chosen One",
 		description: `Beat the game in <strong class="color-r"><b>Eternity</b></strong> difficulty.`,
-		flavortext: "",
+		flavortext: "Even I haven't beaten this yet!",
 		imagesrc: "images/achievementEternity.png",
 		requires(){
 		return false
