@@ -1,38 +1,32 @@
-
-var rainthroughnum = 500;
-var speedRainTrough = 25;
-var RainTrough = [];
-
-var rainnum = 200;
-var rain = [];
-
-var w = canvas2.width;
-var h = canvas2.height;
-
-
-
+let rainthroughnum = 500;
+let speedRainTrough = 25;
+let RainTrough = [];
+let rainnum = 200;
+let rain = [];
+let w = canvas2.width;
+let h = canvas2.height;
 function createRainTrough() {
-  for (var i = 0; i < rainthroughnum; i++) {
+  for (let i = 0; i < rainthroughnum; i++) {
     RainTrough[i] = {
       x: getRandomInt(0, w),
       y: getRandomInt(0, h),
       length: Math.floor(getRandomInt(1, 830)),
       opacity: Math.random() * 0.2,
       xs: getRandomInt(-2, 2),
-      ys: getRandomInt(10, 20)
+      ys: 5
     };
   }
 }
 
 function createRain() {
-  for (var i = 0; i < rainnum; i++) {
+  for (let i = 0; i < rainnum; i++) {
     rain[i] = {
       x: Math.random() * w,
       y: Math.random() * h,
       l: Math.random() * 1,
       // xs: -4 + Math.random() * 4 + 2, //random rain movement, more natural but no wind
 	  xs: Math.random() - 0.5,
-      ys: Math.random() * 5
+      ys: 5
     };
   }
 }
@@ -67,18 +61,18 @@ function drawRain(i) {
 }
 
 function animateRain() {
-  for (var i = 0; i < rainnum; i++) {
+  for (let i = 0; i < rainnum; i++) {
     rain[i].x += rain[i].xs;
     rain[i].y += rain[i].ys;
-	if (weather == 1) {
-		rain[i].ys = Math.random() * 10 + 10
-	}
-	if (weather == 2) {
-		rain[i].ys = Math.random() * 10+5
-	}
-	if (weather == 3) {
-		rain[i].ys = Math.random() * 10+10
-	}
+	// if (weather == 1) {
+		// rain[i].ys = (10)
+	// }
+	// if (weather == 2) {
+		// rain[i].ys = (10)
+	// }
+	// if (weather == 3) {
+		// rain[i].ys = (15)
+	// }
     if (rain[i].x > w || rain[i].y > h) {
 		rain[i].x = Math.random() * w;
       rain[i].y = -20;
@@ -449,8 +443,8 @@ function techscreen(){
 	}
 
 	ispainting = false
-removing = false
-repairing = false
+	removing = false
+	repairing = false
 	build_music.pause()
 	war_music.pause()
 	boss_music.pause()
@@ -488,13 +482,13 @@ repairing = false
 	
 	points.innerHTML="Research Points:<br> " +research_points
 	destitle.style.gridRow="1"
-	destitle.style.gridColumn="1"	
+	destitle.style.gridColumn="2"	
 	points.style.gridRow="1"
 	points.style.gridColumn="3"
 	points.style.fontSize = "20px"
 	points.id = "research-points"
 	cost.style.gridRow="1"
-	cost.style.gridColumn="2"
+	cost.style.gridColumn="1"
 	cost.style.fontSize = "20px"
 	tier.style.gridRow="1"
 	tier.style.gridColumn="1"
@@ -511,11 +505,10 @@ repairing = false
 	reserachbutton.style.maxHeight="40px"
 	reserachbutton.hidden=true
 	des.style.gridColumn="2"
-
 	descriptioncontainer.className='techcontainer'
+	descriptioncontainer.appendChild(cost)
 	descriptioncontainer.appendChild(destitle)
 	descriptioncontainer.appendChild(des)
-	descriptioncontainer.appendChild(cost)
 	descriptioncontainer.appendChild(ifyears)
 	descriptioncontainer.appendChild(reserachbutton)
 	descriptioncontainer.appendChild(points)
