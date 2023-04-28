@@ -119,6 +119,15 @@ const confirmation = [
 			
 		}
 	},
+	{
+		text: "Cancel",
+		effect(){
+			
+			document.getElementById("popup_block_buttons").style.display = "none"
+			document.getElementById("popup").style.display = "none"
+			
+		}
+	},
 	]
 	},
 	]
