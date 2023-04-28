@@ -220,12 +220,6 @@ input[type='range']::-webkit-slider-thumb {
     }
 }
 
-@keyframes flash {
-    50% {
-        border: 3px solid yellow;
-    }
-}
-
 #techyears {
     padding: 0 20px;
 }
@@ -321,6 +315,8 @@ input[type='range']::-webkit-slider-thumb {
     border-bottom: 0;
     border-top: 0;
     border-radius: 0;
+	border: 3px solid black;
+	height: 55px;
 }
 
 #stats div {
@@ -793,9 +789,14 @@ body {
 .select-grid > button,
 .select-grid > select {
     height: 100%;
-    border-radius: 0;
+    border-radius: 3;
     border-top: 0;
     border-bottom: 0;
+}
+@keyframes flash {
+    50% {
+        border: 3px solid yellow;
+    }
 }
 strong {
     font-weight: lighter;
