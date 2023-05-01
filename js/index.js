@@ -196,12 +196,16 @@ function clearsave(index){
 	localStorage.removeItem('marketstats'+index);
 }
 function info(){
+	infovisits += 1
 	document.body.style.overflowY = "scroll"
-ispainting = false
-removing = false
-repairing = false
+	ispainting = false
+	removing = false
+	repairing = false
 	canvas.style.display="none"
 	canvas2.style.display="none"
+	for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 	document.getElementById("info-flex").innerHTML=""
 	document.getElementById("info").style.display = 'flex'
 	document.getElementById("boss_health_container").style.display = 'none'
@@ -248,14 +252,14 @@ repairing = false
 		title:"Military",
 		description:"",
 		choosetext(){
-		this.description = `The power of your military. All unemployed people serve in the military<br>Military Power: ${military}`
+		this.description = `The power of your military. All unemployed people serve in the military.<br>Military Power: ${military}`
 		}
 	},
 	{
 		title:"Wisdom",
 		description:"",
 		choosetext(){
-		this.description = `The accumulated wisdom of your village. Once the wisdom bar fills up, it's converted into research points, which can be used to unlock tech.<br>Progress to Next Level: ${(xp/totalxp).toFixed(2)}%`
+		this.description = `The accumulated wisdom of your village, now in pure number form! Once the wisdom bar fills up, it's converted into research points, which can be used to unlock tech.<br>Progress to Next Level: ${(xp/totalxp).toFixed(2)}%`
 		}
 	},
 ]
@@ -323,6 +327,9 @@ function menu(){
 	ispainting = false
 	repairing = false
 	istutorial=false
+		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 document.getElementById("achievement-flex").style.display = 'none'
 document.getElementById("bgimg").style.display = 'block'
 document.getElementById("title_start").style.display = 'block'
@@ -341,7 +348,9 @@ document.getElementById("title_start").innerHTML = 'Dawn of Civilization'
 	canvas2.style.display = 'none'
 }
 function savescreen(save){
-	
+		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 	removing=false
 	ispainting = false
 	repairing = false
@@ -441,7 +450,9 @@ function techscreen(){
 	if (istutorial && tutorialindex == 16) {
 		continuetutorial(++tutorialindex)
 	}
-
+		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 	ispainting = false
 	removing = false
 	repairing = false
