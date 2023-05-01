@@ -34,7 +34,7 @@ const m = {
 		pricemod: 1.5,
 		title: "Supply wagons",
 		description: "Hire mercenaries to fight for you.  ",
-		image: "<img src = 'images/marketBread.png' width='50' height='50'></img>",
+		image: "<img src = 'images/marketBread.png' width='65' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
 		turnmodify(){
@@ -124,7 +124,7 @@ const m = {
 		price:10,
 		pricemod: 2,
 		title: "Arms agreement",
-		description: "Hire mercenaries to fight for you. Gain ",
+		description: "<style = 'font-size: 28px'>Hire mercenaries to fight for you. Gain ",
 		image: "<img src = 'images/marketSword.png' width='50' height='50'></img>",
 		amountincrease: 0,
 		stock:1,
@@ -529,7 +529,7 @@ const m = {
 	{
 		price:0,
 		pricemod: 1,
-		title: "Mysterious Artifact",
+		title: "Artifact",
 		description: "An ancient artifact of unknown origins.<br><strong class = 'color-r'>Warning! Harboring this artifact may attract a beast of ultimate power.</strong>",
 		image: "<img src = 'images/egg.png' width='50' height='50'></img>",
 		amountincrease: 0,
@@ -548,6 +548,7 @@ const m = {
 			}
 		},
 		purchaseeffect(){
+			displayachievement(31)
 			resources-=Math.floor(this.price*this.pricemod)
 			m.phase+=1
 			m.bhealth= Math.floor((500+30*difficulty**2.2)*difficultymultiplier)
@@ -574,6 +575,9 @@ function marketscreen(){
 	war_music.pause()
 	canvas.style.display = "none"
 	canvas2.style.display = "none"
+	for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 	document.body.style.overflowY = "scroll"
 	document.getElementById("status").hidden = true
 		document.getElementById("mresource").innerHTML = 'Resources: ' + shorten(resources)
@@ -613,6 +617,7 @@ function marketscreen(){
 		el.choosetext()
 		const title = document.createElement("h1")
 		title.innerHTML = el.title
+		title.style.fontSize = '18px'
 		const des = document.createElement("p")
 		const im = document.createElement("p")
 		const instock = document.createElement("p")
@@ -705,7 +710,7 @@ function marketscreen(){
 		flex.appendChild(instock)
 		flex.appendChild(buy)
 		if(i==3&&reputation<100){
-			flex.innerHTML = "<h1 class = 'color-r'> Requires 100 Reputation</h1>"
+			flex.innerHTML = "<h1 class = 'color-r' style = 'font-size: 28px;'> Requires 100 Reputation</h1>"
 		}
 	}
 		else{
@@ -718,7 +723,6 @@ function marketscreen(){
 		else{
 			document.getElementById("black-market").appendChild(flex)
 		}
-	
 		i++
 	}
 }
