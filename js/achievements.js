@@ -262,6 +262,146 @@ const achievements = [
 	},
 	{
 		acquired: false,
+		title: "Why???",
+		description: "place 500 canopies in one game",
+		flavortext: "",
+		imagesrc: "",
+		requires(){
+		return buildingamounts[0] > 499
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Know my power",
+		description: "repair and destry buildings 250 times in one game",
+		flavortext: "I shape the world as I please!",
+		imagesrc: "",
+		requires(){
+		return repairbreakamount > 249
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Innatentive",
+		description: "???",
+		flavortext: "Did you even listen to the tutorial!?",
+		imagesrc: "",
+		requires(){
+		return infovisits > 29
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "What are you looking for?",
+		description: "Place 1000 roads in one game",
+		flavortext: "I don't know where I'm going, but I'll know when I get there!",
+		imagesrc: "",
+		requires(){
+		return buildingamounts[4] > 999
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Diplomacist",
+		description: "Research diplomacy 5 times",
+		flavortext: "We WILL have peace!",
+		imagesrc: "",
+		requires(){
+		return diplomacylearned > 4
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Wait for it...",
+		description: "Unlock the Mega Temple and be able to build it for 10 turns straight",
+		flavortext: "Savor the moment",
+		imagesrc: "",
+		requires(){
+		return megatempletimer < 1
+		}
+		
+	},
+	{
+		acquired: false,//31
+		title: "What have I done",
+		description: `Purchase the "Artifact"`,
+		flavortext: "<strong class='color-r'>THAT'S MINE.</strong>",
+		imagesrc: "",
+		requires(){
+			return false
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Indecisive",
+		description: "Accumilate 10 research points at once",
+		flavortext: "",
+		imagesrc: "",
+		requires(){
+		return research_points > 9
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Number one",
+		description: "Obtain 150 virtue",
+		flavortext: "You didn't need that much!",
+		imagesrc: "",
+		requires(){
+		return reputation > 149
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "The ultimate architect",
+		description: "Unlock every single building, including the Mega Temple in one game",
+		flavortext: "",
+		imagesrc: "",
+		requires(){//22 buildings
+		return (p.pieceROM[0].unlocked && 
+		p.pieceROM[1].unlocked && p.pieceROM[2].unlocked && p.pieceROM[3].unlocked && 
+		p.pieceROM[4].unlocked && p.pieceROM[5].unlocked && p.pieceROM[6].unlocked && 
+		p.pieceROM[7].unlocked && p.pieceROM[8].unlocked && p.pieceROM[9].unlocked && 
+		p.pieceROM[10].unlocked && p.pieceROM[11].unlocked && p.pieceROM[12].unlocked && 
+		p.pieceROM[13].unlocked && p.pieceROM[14].unlocked && p.pieceROM[15].unlocked && 
+		p.pieceROM[16].unlocked && p.pieceROM[17].unlocked && p.pieceROM[18].unlocked && 
+		p.pieceROM[19].unlocked && p.pieceROM[20].unlocked && p.pieceROM[21].unlocked)
+		//there has got to be a better way to do this
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Try me",
+		description: "Obtain 50 thousand military power",
+		flavortext: "<strong class='color-r'>go on, try me</strong>",
+		imagesrc: "",
+		requires(){
+		return military >= 50000
+		}
+		
+	},
+	{
+		acquired: false,
+		title: "Underprepared",
+		description: "???",
+		flavortext: "The past few decades have been rough, okay?",
+		imagesrc: "",
+		requires(){
+		return bosstimer >= 30
+		}
+		
+	},
+	{
+		acquired: false,
 		title: "Novice Ruler",
 		description: `Beat the game in <strong class="color-g">Copper</strong> difficulty.`,
 		flavortext: "",
@@ -342,6 +482,9 @@ function achievementscreen(ismenu){
 	ispainting = false
 	repairing=false
 	removing = false
+	for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		document.getElementsByClassName('warning-box')[i].style.display = 'none';
+	}
 		Array.from(document.getElementsByClassName("achievement-container"))
 			.map(element => element.remove())
 		
