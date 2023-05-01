@@ -428,7 +428,27 @@ choices: [
 },
 ],
 hastriggered: false
-}
+},
+{
+	
+	title: "<strong class = 'color-r'>Town Halls</strong>",
+size: "30px",
+
+
+description: 'In this age, all buildings must be in range of a Town Hall, otherwise your people will revolt. Buildings that are not in range are colored pink. You can find the town hall in the misc tab.',
+choices: [
+{
+	text: "Okay",
+	effect(){
+		
+		
+		document.getElementById("popup_block_buttons").style.display = "none"
+		document.getElementById("popup").style.display = "none"
+	},
+},
+
+]
+},
 ]
 function continuetutorial(index, dt=50, dl=50, disable=true){
 	displaypopup(index, tutorial, dt, dl, disable)
