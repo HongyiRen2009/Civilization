@@ -219,6 +219,9 @@ function enable(){
 }
 
 function next_turn(){
+	if(save_slot != null && psettings.autosave) {
+		save(save_slot)
+	}
 	window.onbeforeunload = function(){return "hi"}
 	// document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
