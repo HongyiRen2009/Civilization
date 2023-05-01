@@ -203,7 +203,7 @@ function info(){
 	repairing = false
 	canvas.style.display="none"
 	canvas2.style.display="none"
-	for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+	for (let i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
 		document.getElementsByClassName('warning-box')[i].style.display = 'none';
 	}
 	document.getElementById("info-flex").innerHTML=""
@@ -218,6 +218,7 @@ function info(){
 	document.getElementById("save-flex").style.display = "none"
 	
 	const statflex = document.getElementById("stat-info")
+	statflex.innerHTML = "";
 	const stats = [
 		{
 			title:"Population",
@@ -327,7 +328,7 @@ function menu(){
 	ispainting = false
 	repairing = false
 	istutorial=false
-		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		for (let i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
 		document.getElementsByClassName('warning-box')[i].style.display = 'none';
 	}
 document.getElementById("achievement-flex").style.display = 'none'
@@ -348,7 +349,7 @@ document.getElementById("title_start").innerHTML = 'Dawn of Civilization'
 	canvas2.style.display = 'none'
 }
 function savescreen(save){
-		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		for (let i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
 		document.getElementsByClassName('warning-box')[i].style.display = 'none';
 	}
 	removing=false
@@ -403,7 +404,7 @@ function savescreen(save){
 		document.getElementById("back_button").onclick = function(){start()}
 		
 	}
-	for (i=1;i<6;i++){
+	for (let i=1;i<6;i++){
 		const localstats = JSON.parse(localStorage.getItem("pstats"+i))
 		const ele = document.getElementsByClassName("savedes"+i)[0]
 		if (localStorage.getItem('pstats'+i) != null){
@@ -450,7 +451,7 @@ function techscreen(){
 	if (istutorial && tutorialindex == 16) {
 		continuetutorial(++tutorialindex)
 	}
-		for (i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+		for (let i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
 		document.getElementsByClassName('warning-box')[i].style.display = 'none';
 	}
 	ispainting = false
@@ -655,7 +656,7 @@ function techscreen(){
 		}
 	}
 	}
-	for (i=0,len=tech.length;i<len;i++){
+	for (let i=0,len=tech.length;i<len;i++){
 		
 		for (let j=0,leng=tech[i].length;j<leng;j++){
 			const techoption = document.createElement("button")
@@ -769,7 +770,7 @@ function load(bindex){
 		grid.push(el)
 	}
 	const localmarketstats = JSON.parse(localStorage.getItem("marketstats"+bindex))
-	for (i=0;i<m.marketselections.length;i++){
+	for (let i=0;i<m.marketselections.length;i++){
 		m.marketselections[i].price=localmarketstats[i].price
 		m.marketselections[i].amountincrease=localmarketstats[i].amountincrease
 		m.marketselections[i].stock=localmarketstats[i].stock
@@ -899,7 +900,7 @@ function newgame(difficult){
 			techstats[stat]=0
 		}
 	}
-	for (i=0;i<tech.length;i++){
+	for (let i=0;i<tech.length;i++){
 		for(j=0;j<tech[i].length;j++){
 			tech[i][j].tier =0
 		}
@@ -920,7 +921,7 @@ function newgame(difficult){
 	scrollX=spawnX
 	scrollY=spawnY
 	difficulty=0
-	for (i=0;i<p.pieceROM.length;i++){
+	for (let i=0;i<p.pieceROM.length;i++){
 	buildingamounts.push(0);
 }	
 	modifiers = {
@@ -952,13 +953,13 @@ function newgame(difficult){
 	m.shield = 0
 	grid.length = 0
 	gridstats.length = 0
-	for (i=0;i<500;i++){
+	for (let i=0;i<500;i++){
 	rivergrid.push([])
 	}
-	for (i=0;i<500;i++){
+	for (let i=0;i<500;i++){
 		hillgrid.push([])
 	}
-	for (i=0;i<500;i++){
+	for (let i=0;i<500;i++){
 		grid.push([])
 	}
 	
