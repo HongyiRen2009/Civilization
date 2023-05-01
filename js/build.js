@@ -327,7 +327,7 @@ const p = {
 		}
 	},
 	{
-		name: "Townhouse",
+		name: "Town Hall",
 		letter: "TH",
 		description: "A city center. Requires exponentially more resources the more you build it.",
 		piecepositions: [{x:0,y:0, img:{dx:148, dy:211}},{x:1,y:0, img:{dx:169, dy:211}},{x:0,y:1, img:{dx:254, dy:211}},{x:1,y:1, img:{dx:275, dy:211}}],
@@ -336,18 +336,17 @@ const p = {
 		tab: "Misc",
 		amountbought: 0,
 		effect(){
-			resources-=((difficulty-10)**2.7)/100
+			resources-=Math.ceil(Math.max(((difficulty-10)**2.7)/100,4))
 			this.amountbought+=1
 			p.cities.push({
 				x: position.x/20,
 				y: position.y/20
 			})
 			
-			recalcBuildings();
 
 		},
 		requires(){
-			return resources >=((difficulty-10)**2.7)/100&&difficulty>=10
+			return resources >=Math.ceil(Math.max(((difficulty-10)**2.7)/100,4))&&difficulty>=10
 		}
 	},
 	{
@@ -429,7 +428,7 @@ function removebuildings(intensity = 4,onhill=false){
 	
 	
 	const buildingschecked = [...gridstats]
-	for (i=buildingschecked.length-1;i>-1;i--){
+	for (let i=buildingschecked.length-1;i>-1;i--){
 		buildingschecked[i].bindex = i
 		let remove = false
 		
@@ -488,7 +487,7 @@ function removebuildings(intensity = 4,onhill=false){
 }
 function isallowed(){
 localallowed = false
-for (i=0,len=piece.length;i!=len;i++){
+for (let i=0,len=piece.length;i!=len;i++){
 		
 		
 		if ((position.x/20)-(widthmax/2)+piece[i].x-spawnX>max.right||(position.x/20)-(widthmax/2)+piece[i].x-spawnX<max.left||(position.y/20)-(heightmax/2)+piece[i].y-spawnY>max.down||(position.y/20)-(heightmax/2)+piece[i].y-spawnY<max.up){
@@ -545,7 +544,7 @@ for (i=0,len=piece.length;i!=len;i++){
 		}
 		if (!localallowed) return false
 		if (p.pieceROM[p_index].near != "building"&&(!p.pieceROM[p_index].near.includes("!hill")&&!p.pieceROM[p_index].near.includes("entire"))){localallowed = false}
-			for (i=0;i!=piece.length;i++){
+			for (let i=0;i!=piece.length;i++){
 			
 			if (p.pieceROM[p_index].near.includes("river")){
 				if (rivergrid[(position.y/20)+piece[i].y].includes(20+position.x+piece[i].x*20)){
@@ -734,7 +733,7 @@ function render(){
 					ctx.fillStyle = "rgb(51, 166, 59)"
 	ctx.fillRect(0,0, screen.width,screen.height)
 	ctx.fillStyle = "rgb(103, 104, 107)"
-	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
+	for (let i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		
 		for (let j = 0, len =hillgrid[i].length; j<len;j++){
 			if (hillgrid[i][j]-20<scrollX*20+widthmax*20&&hillgrid[i][j]+20>scrollX*20){
@@ -746,7 +745,7 @@ function render(){
 	}
 	ctx.fillStyle = "rgba(0,0,0,1)"
 	ctx.fillStyle = "rgb(3,172,252)"	
-	for (i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
+	for (let i=scrollY;i<=Math.min(499,scrollY+heightmax);i++){
 		for (let j = 0, len = rivergrid[i].length;j<len;j++){
 			if (rivergrid[i][j]-20<scrollX*20+widthmax*20&&rivergrid[i][j]+20>scrollX*20){
 			
@@ -842,6 +841,7 @@ function render(){
 }
 
 function recalcBuildings() {
+	
 	if(difficulty<10){
 		return
 	}
@@ -851,7 +851,8 @@ function recalcBuildings() {
 		building.inrange=false
 		for (const city of p.cities) {
 		for (const position of building.positions) {
-		if (Math.abs(position.x/20-city.x) <= 30 && Math.abs(position.y/20-city.y) <= 30) {
+			
+		if (Math.abs(position.x/20-city.x) <= 15 && Math.abs(position.y/20-city.y) <= 15) {
 			building.inrange = true
 			outofrange--
 			break
@@ -936,7 +937,7 @@ canvas.onmousedown = function(event){
 		if(Math.floor((position.y-screen.height/2)/20)-spawnY-5<max.up){
 			max.up = (Math.floor(position.y-screen.height/2)/20)-spawnY-5
 		}
-		for (i=0;i!=piece.length;i++){
+		for (let i=0;i!=piece.length;i++){
 			
 		gridposition.push({x:position.x+piece[i].x*20,y:position.y+piece[i].y*20,img:p.pieceROM[p_index].piecepositions[i].img})
 		grid[((position.y)/20+piece[i].y)].push(position.x+piece[i].x*20)
@@ -1013,6 +1014,9 @@ canvas.onmousedown = function(event){
 		if (!isInRange) {
 			outofrange++
 		}
+		if(p_index==18){
+			recalcBuildings()
+		}
 		displayUI()
 		render()
 		if (tutorialindex==10||tutorialindex==11||tutorialindex==12){
@@ -1033,12 +1037,13 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 	let found = false
 	let buildingindex = 0
 	if(roadgrid[JSON.stringify({x:position.x,y:position.y})]!=undefined){
+	grid[position.y/20].splice(grid[position.y/20].indexOf(position.x))
 	delete roadgrid[JSON.stringify({x:position.x,y:position.y})]
 	recalcroads([JSON.stringify({x:position.x+20,y:position.y}),JSON.stringify({x:position.x,y:position.y+20}),JSON.stringify({x:position.x,y:position.y-20}),JSON.stringify({x:position.x-20,y:position.y})])
 	render()
 	return
 }
-	for (i=0, len=gridstats.length;i<len;i++){
+	for (let i=0, len=gridstats.length;i<len;i++){
 		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
 		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
 			buildingindex=i
@@ -1062,9 +1067,11 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		case "11":
 			modifiers.military-=1
 		case "18":
-			for (i=0,len=p.cities.length;i<len;i++){
+			
+			for (let i=0,len=p.cities.length;i<len;i++){
 				if(p.cities[i].x==gridstats[buildingindex].citypos.x&&p.cities[i].y==gridstats[buildingindex].citypos.y){
 					p.cities.splice(i,1)
+					break
 				}
 			}
 			recalcBuildings()
@@ -1080,7 +1087,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 else if (repairing&&grid[position.y/20].includes(position.x)){
 	let found = false
 	let buildingindex = 0
-	for (i=0, len=gridstats.length;i<len;i++){
+	for (let i=0, len=gridstats.length;i<len;i++){
 		for (let j=0,len=gridstats[i].positions.length;j<len;j++){
 		if (gridstats[i].positions[j].x==position.x&&gridstats[i].positions[j].y==position.y){
 			buildingindex=i
@@ -1181,7 +1188,7 @@ function rotate(){
 	difference +=0.5
 	let x = []
 	let y = []
-	for (i=0;i!=piece.length;i++){
+	for (let i=0;i!=piece.length;i++){
 		x.push(piece[i].x)
 		y.push(piece[i].y)
 		
@@ -1222,7 +1229,7 @@ function select(index){
 	p.river = false
 	p.hill=false
 	p.entirehill=true
-	for (i=0;i!=p.pieceROM[index].piecepositions.length;i++){
+	for (let i=0;i!=p.pieceROM[index].piecepositions.length;i++){
 	piece.push(p.pieceROM[index].piecepositions[i])
 	
 	}
@@ -1249,11 +1256,11 @@ function cancel(){
 function displaytab(){
 	const selectcontainer = document.getElementById("select-grid")
 	const ele = document.getElementsByClassName("select-choice")
-	for (i=ele.length-1;i>-1;i--){
+	for (let i=ele.length-1;i>-1;i--){
 		
 		ele[i].remove()
 	}
-	for (i=0,len=p.pieceROM.length;i<len;i++){
+	for (let i=0,len=p.pieceROM.length;i<len;i++){
 		
 		if (p.pieceROM[i].tab ==tab){
 		const button = document.createElement("button")
