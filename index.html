@@ -182,7 +182,9 @@
 	</div>
 	<div id="techcontainer"></div>
 </div>
-
+<div class = 'warning-box' id = 'housing-warning' style = 'display:none; top: 60px; left: 60px; width: 110px; height: 30px;'> HOUSING</div>
+<div class = 'warning-box' id = 'food-warning' style = 'display:none; top: 60px; left: 210px; width: 60px; height: 30px;'> FOOD</div>
+<div class = 'warning-box' id = 'resource-warning' style = 'display:none; top: 60px; left: 650px; width: 120px; height: 30px;'> RESOURCES</div>
 <div class = "popup_block_buttons" id = "popup_block_buttons"></div>
 <div class = "popup" id = "popup">
 	<div id = "title" class = "title">undefined</div><br></br>
@@ -353,7 +355,7 @@ const max = {
 }
 const grid = []
 const hillgrid = []
-const tabs = ["Housing","Farms","Military","Mines","City Centers","Misc"]
+const tabs = ["Housing","Farms","Military","Mines","Misc"]
 const gridstats = []
 const wars = []
 const psettings = {
@@ -412,6 +414,11 @@ let research_points =0
 let resourcesgained = 0
 let p_index = 0
 let megatemple = 0
+let repairbreakamount = 0
+let infovisits = 0
+let diplomacylearned = 0
+let megatempletimer = 5
+let bosstimer = -1
 let modifiers = {
 	population: 0,
 	food: 0,
