@@ -323,17 +323,17 @@ const p = {
 			unemployed-=300
 		},
 		requires(){
-			return resources >=100000 && unemployed>=130000
+			return resources >=100000 && unemployed>=300
 		}
 	},
 	{
-		name: "Bonfire",
-		letter: "BF",
+		name: "Townhouse",
+		letter: "TH",
 		description: "A city center. Requires exponentially more resources the more you build it.",
 		piecepositions: [{x:0,y:0, img:{dx:148, dy:211}},{x:1,y:0, img:{dx:169, dy:211}},{x:0,y:1, img:{dx:254, dy:211}},{x:1,y:1, img:{dx:275, dy:211}}],
 		unlocked: true,
 		near: "building",
-		tab: "City Centers",
+		tab: "Misc",
 		amountbought: 0,
 		effect(){
 			resources-=((difficulty-10)**2.7)/100
@@ -912,7 +912,6 @@ function recalcroads(roads){
 	
 }
 canvas.onmousedown = function(event){
-	
 	if (ispainting && allowed&&position.y-scrollY*20<canvas.height){
 		allowed = false
 		let isInRange = false
@@ -1053,6 +1052,7 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 	for (const el of gridstats[buildingindex].positions){
 		const indexx = grid[el.y/20].indexOf(el.x)
 		grid[el.y/20].splice(indexx,1)
+		repairbreakamount += 1
 		breaksound.play()
 	}
 	resources+=Math.floor(gridstats[buildingindex].resourcerefund/2)
@@ -1091,7 +1091,7 @@ else if (repairing&&grid[position.y/20].includes(position.x)){
 		if(found)break
 	}
 	if(gridstats[buildingindex].disabled==true&&resources>=Math.round(gridstats[buildingindex].resourcerefund/2)&&unemployed>=gridstats[buildingindex].employmentrequired){
-
+	repairbreakamount += 1
 	repairsound.play()
 	resources-=Math.round(gridstats[buildingindex].resourcerefund/2)
 	gridstats[buildingindex].disabled=false
