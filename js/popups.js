@@ -771,6 +771,7 @@ const popups = [
 			text:"fight!",
 			effect(){
 				m.phase+=1
+				bosstimer = 0
 				document.getElementById("popup_block_buttons").style.display = "none"
 				document.getElementById("popup").style.display = "none"
 				start()
@@ -2548,7 +2549,29 @@ const information = [
 	},
 	
 ]
-
+function displaywarning(type, on = true) {
+	switch (type) {
+		case 'housing':
+			if (on) {
+				document.getElementById('housing-warning').style.display = 'block'
+			} else {
+				document.getElementById('housing-warning').style.display = 'none'
+			}
+		case 'food':
+			if (on) {
+				document.getElementById('food-warning').style.display = 'block'
+			} else {
+				document.getElementById('food-warning').style.display = 'none'
+			}
+		case 'resources':
+			if (on) {
+				document.getElementById('resource-warning').style.display = 'block'
+			} else {
+				document.getElementById('resource-warning').style.display = 'none'
+			}
+	}
+		
+}
 
 function displaypopup(index, list = popups, dt = 50, dl = 50, disable=true){
 ispainting = false
