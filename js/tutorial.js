@@ -4,8 +4,8 @@ const tutorial = [
 {
 	title: "Tutorial",
 	size: "30px",
-	
-	
+
+
 
 	description: 'This is a game about civilization building, where you, as the ruler, must manage your food and resources to build the empire of your dreams!',
 
@@ -104,7 +104,7 @@ const tutorial = [
 	
 	
 
-	description: 'This is your military counter. Military determines the outcome of battles. Any unemployed citizens will automatically be assigned to the military.',
+	description: 'This is your military counter. Military determines the outcome of battles. Any unemployed citizens will automatically be assigned to the military, but will be significantly less effective.',
 		choices: [
 	{
 		text: "Okay",
@@ -153,7 +153,7 @@ const tutorial = [
 	
 	
 
-	description: 'This is your resources counter. From building to trading, resources are the primary currency used by all civilizations. Resources accumulate over time, and the amount gained is shown in parenthesis. For more information, visit the \"Help\" screen.',
+	description: "This is your resources counter. From building to trading, resources are the primary currency used by all civilizations. Resources accumulate over time, and the amount gained is shown in parenthesis. <strong class='color-r'>Careful! Some buildings require resources to maintain reach turn, so make sure you always have more resource production that resource consumption, or you will lose!</strong>",
 		choices: [
 	{
 		text: "Okay",
@@ -309,7 +309,7 @@ title: "Tutorial",
 size: "30px",
 
 
-description: 'Nice! Now you are ready to play this game. Remember that you need balance producing enough food for your people, providing enough housing, and defending your kingdom against attacks. If you are confused about what a certain button does or a number means, the \"Help\" screen has additional information.',
+description: 'Nice! Now you are ready to play this game. Remember that you need balance producing enough food for your people, providing enough housing, and defending your kingdom against attacks. If you are confused about what a certain button does or a number means, the \"Building info\" screen has additional information.',
 choices: [
 {
 	text: "Okay",
