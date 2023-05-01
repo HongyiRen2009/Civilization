@@ -316,7 +316,7 @@ input[type='range']::-webkit-slider-thumb {
     border-top: 0;
     border-radius: 0;
 	border: 3px solid black;
-	height: 55px;
+	height: 50px;
 }
 
 #stats div {
@@ -460,12 +460,15 @@ input[type='range']::-webkit-slider-thumb {
     gap: 50px;
     flex-wrap: wrap;
     padding: 5px;
+	/* position: absolute; */
 }
 .achievement-container {
     background-color: #e9edaf;
     border: 3px solid #000000;
     border-radius: 6px;
     padding: 20px;
+	/* position: fixed; */
+	/* bottom: 10px; */
 }
 
 #market-flex {
@@ -546,7 +549,21 @@ input[type='range']::-webkit-slider-thumb {
 .save-grid h1 {
     font-size: 25px;
 }
-
+@keyframes slightfade {
+	0% {opacity: 100%;}
+	100% {opacity: 20%;}
+}
+.warning-box {
+	position: fixed;
+	background-color: #a63b1b;
+	border: 2px solid black;
+	border-radius: 4px;
+	text-align: center;
+	z-index: 900;
+	pointer-events: none;
+	animation: slightfade 0.5s linear 0s infinite alternate; 
+	opacity: 1;
+}
 #popup_block_buttons {
     display: none;
     /* position: fixed is position relative to the screen, so it will always cover the screen.
