@@ -275,6 +275,7 @@ const tech = [
 					techstats.diplomacy +=0.3
 					this.description="Negotiations with other tribes are 10% cheaper"
 				}
+				diplomacylearned += 1
             }
         },
         
