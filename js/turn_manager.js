@@ -102,7 +102,7 @@ function turnpopup(){
 		
 	
 
-		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0)-outofrange)) <= 0){
+		if (getRandomInt(0,Math.max(0,(3-Math.max(-7,Math.min(15,Math.floor((currentpop-population)/4))))*Math.min(3-difficultymultiplier,food/currentpop)+m.rebel+punishamount+(techstats.social_care ? 2:0))) <= 0){
 			popups[1].choosetext()
 			displaypopup(1)
 			return false
@@ -220,15 +220,21 @@ function enable(){
 
 function next_turn(){
 	window.onbeforeunload = function(){return "hi"}
-	document.getElementById("turn").innerHTML = "please wait"
+	// document.getElementById("turn").innerHTML = "please wait"
 	document.getElementById("turn").disabled = true
 	const pbb = document.getElementById("popup_block_buttons")
 	pbb.style.display = "block"
 	pbb.style.animation = 'none';
 	pbb.offsetHeight; /* trigger reflow */
+	if (bosstimer > -1) {bosstimer += 1}
 	if(!psettings.nofade){
 	pbb.style.animation = "block_done linear 1s 1 normal"; 
 	
+	}
+	if (resources >=100000 && unemployed>=300 && p.pieceROM[17].unlocked) {
+		megatempletimer -= 1
+	} else {
+		megatempletimer = 5	
 	}
 	weathermod = Math.sin(difficulty/3)/10
 	ctx2.clearRect(0,0,screen.width,screen.height)
@@ -277,7 +283,7 @@ function next_turn(){
 	}
 }
 	
-	setTimeout(enable,1000)
+	setTimeout(enable,10)
 	
 }
 
@@ -438,10 +444,25 @@ function displayUI(turn=false){
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = shorten(xp)+"/"+shorten(totalxp)
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
+		if (currentpop>population&&difficulty>10) {
+			displaywarning('housing')
+		} else {
+			displaywarning('housing', false)
+		}
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>&nbsp;"+shorten(food)+"</strong>": shorten(food))
+		if (food<currentpop) {
+			displaywarning('food')
+		} else {
+			displaywarning('food', false)
+		}
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
 document.getElementById("resources").innerHTML = `Resources: ${shorten(resources)} (${(resourcesgained>=0 ? "+":"")}${shorten(resourcesgained)})`
+		if (resourcesgained < 0) {
+			displaywarning('resources')
+		} else {
+			displaywarning('resources', false)
+		}
 		
 }
 function attack(power){
