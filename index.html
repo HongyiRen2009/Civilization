@@ -311,18 +311,18 @@
 		<div class="checkbox-wrapper-2">
 		<input type="checkbox" id = "noweather" class="sc-gJwTLC ikxBAC">
 		</div>
-		<!-- <div> -->
-		<!-- <p>Sans Serif</p> -->
-			<!-- <div class="info-box" style = "margin: -40px 125px;"> -->
-			<!-- <i class="icon-info-sign"></i> -->
+		<div>
+		<p>Autosave</p>
+			<div class="info-box" style = "margin: -40px 105px;">
+			<i class="icon-info-sign"></i>
 	
-			<!-- <span class="extra-info"> -->
-			<!-- Changes font to Sans Serif. -->
-			<!-- </span> -->
-			<!-- </div> -->
-		<!-- </div> -->
-		<!-- <div class="checkbox-wrapper-2"> -->
-		<!-- <input type="checkbox" id = "noserif"class="sc-gJwTLC ikxBAC"> -->
+			<span class="extra-info">
+			Automatically saves every turn.
+			</span>
+			</div>
+		</div>
+		<div class="checkbox-wrapper-2">
+		<input type="checkbox" id = "autosave"class="sc-gJwTLC ikxBAC">
 		</div>
 		
 		</div>
@@ -366,7 +366,7 @@ const psettings = {
 	noflash:false,
 	nompop:false,
 	noweather:false,
-	<!-- noserif:false, -->
+	autosave:false,
 	
 }
 if(localStorage.getItem("settings")==null){
@@ -478,7 +478,7 @@ document.getElementById("notutorial").addEventListener( "change", () => {if ( do
 document.getElementById("noflash").addEventListener( "change", () => {if ( document.getElementById("noflash").checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
 document.getElementById("nompop").addEventListener( "change", () => {if ( document.getElementById("nompop").checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
 document.getElementById("noweather").addEventListener( "change", () => {if ( document.getElementById("noweather").checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(noweather);ctx2.clearRect(0,0,screen.width,screen.height)});
-<!-- document.getElementById("noserif").addEventListener( "change", () => {if ( document.getElementById("noserif").checked ) {psettings.noserif = true;}else{psettings.noserif = false;};change_settings(noserif);changefont()}); -->
+document.getElementById("autosave").addEventListener( "change", () => {if ( document.getElementById("autosave").checked ) {psettings.autosave = true;}else{psettings.autosave = false;};change_settings(autosave)});
 function change_settings(setting){
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
