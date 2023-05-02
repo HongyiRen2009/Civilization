@@ -528,21 +528,21 @@ const tech = [
                 techstats.archery+=0.4
                 for(const b of gridstats){
                     if(b.index==12){
-                        b.military = Math.floor(b.military*1.4)
+                        b.military =+ Math.floor(b.military*1.4)
                     }
                 }
                 
                 }
                 else{
-                    techstats.archery+=0.2
+                    techstats.archery+=Math.max(0.4/(this.tier+1),0.01)
                     for(const b of gridstats){
                         if(b.index==12){
-                            b.military = Math.floor(b.military*1.4)
+                            b.military =+ Math.floor(b.military*Math.max(0.4/(this.tier+1),0.01))
                         }
                     }
                     
                 }
-				this.description = "Fortresses give +20% military"
+				this.description = `Fortresses give +${Math.floor(Math.max(0.4/(this.tier+1),0.01)*100)}% military`
             }
         },
 		{
