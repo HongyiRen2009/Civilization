@@ -1169,6 +1169,8 @@ function newgame(difficult) {
   } else {
     displaypopup(3, confirmation);
   }
+  document.getElementById("year_label").innerHTML = "Year: "+difficulty
+
 }
 function getRandomInt(min, max) {
   min = Math.ceil(min);
