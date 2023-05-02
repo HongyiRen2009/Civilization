@@ -458,7 +458,7 @@ function removebuildings(intensity = 4,onhill=false){
 			case '11':
 			modifiers.military-=1
 		case '18':
-			for (let j=p.cities.length-1;j>0;j--){
+			for (let j=0;j<p.cities.length;j++){
 				if(p.cities[j].x==gridstats[randomb].citypos.x&&p.cities[j].y==gridstats[randomb].citypos.y){
 					p.cities.splice(j,1)
 					break
@@ -1067,7 +1067,6 @@ else if (removing&&grid[position.y/20].includes(position.x)){
 		case "11":
 			modifiers.military-=1
 		case "18":
-			
 			for (let i=0,len=p.cities.length;i<len;i++){
 				if(p.cities[i].x==gridstats[buildingindex].citypos.x&&p.cities[i].y==gridstats[buildingindex].citypos.y){
 					p.cities.splice(i,1)
