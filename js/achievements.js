@@ -23,7 +23,7 @@ const achievements = [
 	acquired: false,
 		title: "Megatropolis",
 		description: `Build <strong class="color-g">100</strong> buildings.`,
-		flavortext: "",
+		flavortext: "Yes we reused the same image, what about it?",
 		imagesrc: "images/achievementMegatropolis.png",
 		requires(){
 		return gridstats.length>=100
@@ -44,7 +44,7 @@ const achievements = [
 	acquired: false,
 	title: "First Shelter",
 	description: `Build your first <strong class="color-g">Canopy</strong>.`,
-	flavortext: "",
+	flavortext: "No longer homeless!",
 	imagesrc: "images/achievementFirstShelter.png",
 	requires(){
 		return buildingamounts[0] > 0
@@ -105,7 +105,7 @@ const achievements = [
 		acquired: false,
 		title: "Cheap Food",
 		description: `Build your first <strong class="color-g">Small Farm</strong>.`,
-		flavortext: "",
+		flavortext: "Only OGs would remember",
 		imagesrc: "images/achievementHoe.png",
 		requires(){
 		return buildingamounts[6] > 0
@@ -181,7 +181,7 @@ const achievements = [
 		acquired: false,
 		title: "Mining Away",
 		description: `Build your first <strong class="color-g">Small Mine</strong>.`,
-		flavortext: "",
+		flavortext: "I DON'T KNOW WHAT TO MINE",
 		imagesrc: "images/achievementSmallMine.png",
 		requires(){
 		return buildingamounts[14] > 0
@@ -192,7 +192,7 @@ const achievements = [
 		acquired: false,
 		title: "Isn't It Medium Mine",
 		description: `Build your first <strong class="color-g">Medium Mine</strong>.`,
-		flavortext: "",
+		flavortext: "It's not an iron pick",
 		imagesrc: "images/achievementMediumMine.png",
 		requires(){
 		return buildingamounts[15] > 0
@@ -243,7 +243,7 @@ const achievements = [
 		acquired: false,
 		title: "Conscription",
 		description: `Gain <strong class="color-g">100</strong> Military Power from unemployed people.`,
-		flavortext: "",
+		flavortext: "<strong class = 'color-r'>Human swarm</strong>",
 		imagesrc: "images/achievementConscription.png",
 		requires(){
 		return unemployed>=100
@@ -404,7 +404,7 @@ const achievements = [
 		acquired: false,
 		title: "Novice Ruler",
 		description: `Beat the game in <strong class="color-g">Copper</strong> difficulty.`,
-		flavortext: "",
+		flavortext: "<strong class = 'color-r'>It's only the beginning</sctrong>",
 		imagesrc: "images/achievementCopper.png",
 		requires(){
 		return false
@@ -415,7 +415,7 @@ const achievements = [
 		acquired: false,
 		title: "Global Empire",
 		description: `Beat the game in <strong class="color-y">Iron</strong> difficulty.`,
-		flavortext: "",
+		flavortext: "Good job",
 		imagesrc: "images/achievementIron.png",
 		requires(){
 		return false
