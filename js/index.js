@@ -1094,6 +1094,18 @@ function newgame(difficult) {
   scrollX = spawnX;
   scrollY = spawnY;
   difficulty = 0;
+  repairbreakamount = 0
+  infovisits = 0
+  diplomacylearned = 0
+  megatempletimer = 5
+  bosstimer = -1
+  for(let i=0;i<tech.length;i++){
+    te.description=defreset[i]
+}
+  for(let i=0;len=p.pieceROM.length;i++){
+    unlocked[i]=reset[i]
+    p.pieceROM[i].unlocked=reset[i]
+  }
   for (let i = 0; i < p.pieceROM.length; i++) {
     buildingamounts.push(0);
   }
