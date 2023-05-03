@@ -366,16 +366,17 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: 4px;
 }
 .info-flex .info-grid {
-    display: grid;
+    display: flex;
     flex-direction: column;
-    grid-template-columns: 80px 1fr;
-    grid-template-rows: 1fr 1fr;
-    border: 3px solid #000000;
-    border-radius: 3px;
-    padding: 20px;
+    /* Fun fact: I wanted to make this 10px, but that caused the Heimann Grid Illusion. */
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
     background-color: #e9edaf;
-    height: 100%;
-}
+    border: 3px solid black;
+    border-radius: 4px;
+
+   }
 
 .bhealth {
     display: block;
