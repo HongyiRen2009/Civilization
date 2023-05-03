@@ -198,8 +198,7 @@ function clearsave(index) {
   localStorage.removeItem("marketmod" + index);
   localStorage.removeItem("marketitems" + index);
   localStorage.removeItem("marketstats" + index);
-}
-function info() {
+}function info() {
   infovisits += 1;
   document.body.style.overflowY = "scroll";
   ispainting = false;
@@ -300,17 +299,17 @@ function info() {
     const title = document.createElement("h1");
     title.className = "infotext";
     title.innerHTML = building.name;
-    title.style.gridColumn = 2;
+    title.style.gridColumn = 3;
     grid.appendChild(title);
     const des = document.createElement("p");
     des.style.gridRow = 2;
-    des.style.gridColumn = "2";
+    des.style.gridColumn = "3/ span 3";
     if (building.unlocked) {
       const buildcanvas = document.createElement("canvas");
       buildcanvas.style.gridRow = 1;
-      buildcanvas.style.gridColumn = 1;
-      buildcanvas.width = 80;
-      buildcanvas.height = 80;
+      buildcanvas.style.gridColumn = 2;
+      buildcanvas.style.width = 80;
+      buildcanvas.style.height = 80;
       const bctx = buildcanvas.getContext("2d");
       for (const pos of building.piecepositions) {
         bctx.drawImage(
@@ -319,8 +318,8 @@ function info() {
           pos.img.dy,
           20,
           20,
-          pos.x * 20,
-          pos.y * 20,
+          (pos.x + 2) * 20,
+          (pos.y + 2) * 20,
           20,
           20
         );
