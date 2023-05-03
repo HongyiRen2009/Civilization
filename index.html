@@ -419,6 +419,7 @@ let infovisits = 0
 let diplomacylearned = 0
 let megatempletimer = 5
 let bosstimer = -1
+let defreset = []
 let modifiers = {
 	population: 0,
 	food: 0,
@@ -469,6 +470,7 @@ let difficultymultiplier = 0
 const choicesdisabled = []
 const buildingamounts = []
 const unlocked = []
+const reset = []
 const roadgrid = {}
 const temporaryeffects = []
 document.getElementById("noimage").addEventListener( "change", () => {if ( document.getElementById("noimage").checked ) {psettings.noimage = true;}else{psettings.noimage = false;};change_settings(noimage)});
