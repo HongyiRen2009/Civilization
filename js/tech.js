@@ -605,3 +605,6 @@ const tech = [
     
 ]
 
+for(const te of tech){
+    defreset.push(te.description)
+}
