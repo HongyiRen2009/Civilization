@@ -417,6 +417,8 @@ entirehill : false,
 }
 for (const un of p.pieceROM){
 	unlocked.push(un.unlocked)
+	reset.push(un.unlocked)
+	
 }
 
 
