@@ -740,6 +740,13 @@ function techscreen() {
             success.style.animation = "done 2s linear 0s 1 normal forwards";
 
             displayUI();
+			for (
+    let i = 0;
+    i < document.getElementsByClassName("warning-box").length;
+    i++
+  ) {
+    document.getElementsByClassName("warning-box")[i].style.display = "none";
+  }
             document.getElementById("boss_health_container").style.display =
               "none";
             setTimeout(function () {
