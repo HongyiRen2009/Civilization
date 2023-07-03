@@ -280,7 +280,7 @@ function next_turn(){
 		
 		for (const p of m.marketselections){
 		p.turnmodify()
-		if(p.title!="Mysterious Artifact"){p.stock+=getRandomInt(-1,2)}
+		if(p.title!="Mysterious Artifact"&&p.title!="Blueprints"){p.stock+=getRandomInt(-1,2)}
 		p.stock = Math.min(3,Math.max(p.stock,0))
 		selectmarketitems()
 		
