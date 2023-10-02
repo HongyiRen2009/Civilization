@@ -331,6 +331,7 @@ const popups = [
       {
         text: "not",
         effect() {
+		information[18].choosetext(Math.floor(currentpop * 0.2));
           displaypopup(18, information);
           currentpop -= Math.floor(currentpop * 0.2);
           displayUI();
