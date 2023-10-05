@@ -448,25 +448,11 @@ function displayUI(turn=false){
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
 		document.getElementById("xp_text").innerHTML = shorten(xp)+"/"+shorten(totalxp)
 		document.getElementById("pop").innerHTML = "Population: " + shorten(currentpop)+"/"+(currentpop>population&&difficulty>10 ? "<strong class = 'color-r'>"+shorten(population)+"</strong>":shorten(population))
-		if (currentpop>population&&difficulty>10) {
-			displaywarning('housing')
-		} else {
-			displaywarning('housing', false)
-		}
 		document.getElementById("food").innerHTML = "Food: " + (food<currentpop ? "<strong class = 'color-r'>&nbsp;"+shorten(food)+"</strong>": shorten(food))
-		if (food<currentpop) {
-			displaywarning('Starving')
-		} else {
-			displaywarning('food', false)
-		}
+
 		document.getElementById("power").innerHTML = "Military: " + shorten(military)
 		document.getElementById("unemployed").innerHTML = "Unemployed People: " + shorten(unemployed)
 document.getElementById("resources").innerHTML = `Resources: ${shorten(resources)} (${(resourcesgained>=0 ? "+":"")}${shorten(resourcesgained)})`
-		if (resourcesgained < 0) {
-			displaywarning('resources')
-		} else {
-			displaywarning('resources', false)
-		}
 		
 }
 function attack(power){
