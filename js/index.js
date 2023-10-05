@@ -1249,7 +1249,7 @@ function start() {
 		displaywarning('housing', false)
 	}
 	if (food<currentpop) {
-		displaywarning('Starving')
+		displaywarning('food')
 	} else {
 		displaywarning('food', false)
 	}
