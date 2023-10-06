@@ -1242,23 +1242,7 @@ function shorten(number) {
   return returnnum + endsymbol;
 }
 function start() {
-	setInterval(function () {
-	if (currentpop>population&&difficulty>10) {
-		displaywarning('housing')
-	} else {
-		displaywarning('housing', false)
-	}
-	if (food<currentpop) {
-		displaywarning('food')
-	} else {
-		displaywarning('food', false)
-	}
-	if (resourcesgained < 1) {
-		displaywarning('resources')
-	} else {
-		displaywarning('resources', false)
-	}
-	}, 100);
+
   tech_music.pause();
   if (m.phase > 1) {
     boss_music.play();
@@ -1317,3 +1301,4 @@ function move(x, y) {
   scrollY += y;
   render();
 }
+
