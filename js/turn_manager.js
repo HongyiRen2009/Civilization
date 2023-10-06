@@ -1,4 +1,5 @@
 
+
 function turnpopup(){
 	if (currentpop>population&&istutorial**difficulty==5){
 		tutorialindex+=1
@@ -443,6 +444,21 @@ function displayUI(turn=false){
 			displaypopup(39, information)
 		}
 		currentpop=Math.max(0,currentpop)
+	if (currentpop>population&&difficulty>10) {
+		displaywarning('housing')
+	} else {
+		displaywarning('housing', false)
+	}
+	if (food<currentpop) {
+		displaywarning('food')
+	} else {
+		displaywarning('food', false)
+	}
+	if (resourcesgained < 1) {
+		displaywarning('resources')
+	} else {
+		displaywarning('resources', false)
+	}
 		displaytab()
 		if(renderend){render()}
 		document.getElementById("xp_bar").style.width = 100*(xp/totalxp)+"%"
