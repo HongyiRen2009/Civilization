@@ -283,17 +283,17 @@
 	<input type="checkbox" id = "noflash"class="sc-gJwTLC ikxBAC">
 	</div>
 	<div>
-	<p>No Market Popup</p>
+	<p>Alternate music</p>
 		<div class="info-box" style = "margin: -40px 175px; z-index: 1">
 		<i class="icon-info-sign"></i>
 
 		<span class="extra-info">
-		Don't display if a trade was successful, still display failed trade.
+		Plays the alternate(better) version of the music
 		</span>
 		</div>
 	</div>
 	<div class="checkbox-wrapper-2">
-	<input type="checkbox" id = "nompop"class="sc-gJwTLC ikxBAC">
+	<input type="checkbox" id = "alternateMusic"class="sc-gJwTLC ikxBAC">
 	</div>
 	
 	</div>
@@ -364,7 +364,7 @@ const psettings = {
 	arrowkeys:false,
 	notutorial:false,
 	noflash:false,
-	nompop:false,
+	alternateMusic:false,
 	noweather:false,
 	autosave:false,
 	
@@ -433,7 +433,7 @@ let allowed = true;
 let military = 0;
 let currentpop = 2;
 const click = new Audio("sounds/click.mp3");
-const build_music = new Audio("music/Build_music.mp3");
+let build_music = new Audio(`music/${psettings.alternateMusic ? "Alternate_music.mp3":"Build_music.mp3"}`);
 const market_music = new Audio("music/Market_music.mp3");
 const boss_music = new Audio("music/Boss_music.mp3");
 const kaching = new Audio("sounds/Purchase.mp3");
@@ -478,10 +478,11 @@ document.getElementById("nofade").addEventListener( "change", () => {if ( docume
 document.getElementById("arrowkeys").addEventListener( "change", () => {if ( document.getElementById("arrowkeys").checked ) {psettings.arrowkeys = true;}else{psettings.arrowkeys = false;};change_settings(arrowkeys)});
 document.getElementById("notutorial").addEventListener( "change", () => {if ( document.getElementById("notutorial").checked ) {psettings.notutorial = true;}else{psettings.notutorial = false;};change_settings(notutorial)});
 document.getElementById("noflash").addEventListener( "change", () => {if ( document.getElementById("noflash").checked ) {psettings.noflash = true;}else{psettings.noflash = false;};change_settings(noflash)});
-document.getElementById("nompop").addEventListener( "change", () => {if ( document.getElementById("nompop").checked ) {psettings.nompop = true;}else{psettings.nompop = false;};change_settings(nompop)});
+document.getElementById("alternateMusic").addEventListener( "change", () => {if ( document.getElementById("alternateMusic").checked ) {psettings.alternateMusic = true;build_music.pause();build_music.src=`music/Alternate_music.mp3`;build_music.play()}else{psettings.alternateMusic = false;build_music.pause();build_music.src=`music/Build_music.mp3`;build_music.play();};change_settings(alternateMusic)});
 document.getElementById("noweather").addEventListener( "change", () => {if ( document.getElementById("noweather").checked ) {psettings.noweather = true;}else{psettings.noweather = false;};change_settings(noweather);ctx2.clearRect(0,0,screen.width,screen.height)});
 document.getElementById("autosave").addEventListener( "change", () => {if ( document.getElementById("autosave").checked ) {psettings.autosave = true;}else{psettings.autosave = false;};change_settings(autosave)});
 function change_settings(setting){
+	debugger
 	localStorage.setItem("settings", JSON.stringify(psettings))
 }
 function changefont() {
