@@ -528,7 +528,7 @@ const tech = [
                 techstats.archery+=0.4
                 for(const b of gridstats){
                     if(b.index==12){
-                        b.military =+ Math.floor(b.military*1.4)
+                        b.military += Math.floor(b.military*1.4)
                     }
                 }
                 
@@ -537,7 +537,7 @@ const tech = [
                     techstats.archery+=Math.max(0.4/(this.tier+1),0.01)
                     for(const b of gridstats){
                         if(b.index==12){
-                            b.military =+ Math.floor(b.military*Math.max(0.4/(this.tier+1),0.01))
+                            b.military += Math.floor(b.military*Math.max(0.4/(this.tier+1),0.01))
                         }
                     }
                     
