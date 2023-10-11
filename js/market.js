@@ -624,6 +624,7 @@ function marketscreen(){
 		instock.innerHTML = "in stock: "+el.stock
 		im.innerHTML = el.image
 		des.innerHTML = el.description
+		des.style.maxWidth = '220px';
 		const buy = document.createElement("button")
 		buy.innerHTML = "Trade"
 		buy.className = "save_button"
