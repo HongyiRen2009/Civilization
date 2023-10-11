@@ -561,7 +561,7 @@ input[type='range']::-webkit-slider-thumb {
 	border: 2px solid black;
 	border-radius: 4px;
 	text-align: center;
-	z-index: 900;
+	z-index: 2;
 	pointer-events: none;
 	animation: slightfade 0.5s linear 0s infinite alternate; 
 	opacity: 1;
