@@ -163,6 +163,9 @@ function settings(ifmenu = true) {
     document.getElementById('back_button').onclick = function () {
         ifmenu ? menu() : start();
     };
+    for (let i = 0; i < document.getElementsByClassName('warning-box').length; i++) {
+        document.getElementsByClassName('warning-box')[i].style.display = 'none';
+    }
     document.getElementById('title_start').style.display = 'block';
     document.getElementById('title_start').innerHTML = 'Settings';
     document.getElementById('start-flex').style.display = 'none';
