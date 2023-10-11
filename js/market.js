@@ -529,7 +529,7 @@ const m = {
 	{
 		price:0,
 		pricemod: 1,
-		title: "Artifact",
+		title: "Mysterious Artifact",
 		description: "An ancient artifact of unknown origins.<br><strong class = 'color-r'>Warning! Harboring this artifact may attract a beast of ultimate power.</strong>",
 		image: "<img src = 'images/egg.png' width='50' height='50'></img>",
 		amountincrease: 0,
