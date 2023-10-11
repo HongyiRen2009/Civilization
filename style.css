@@ -519,7 +519,9 @@ input[type='range']::-webkit-slider-thumb {
     border: 3px solid #000000;
     border-radius: 6px;
 }
-
+.save-grid > p{
+    max-width: 220px;
+}
 .save-grid div,
 .save-grid p,
 .item p {
