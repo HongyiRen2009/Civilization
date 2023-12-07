@@ -233,7 +233,7 @@ function next_turn(){
 	pbb.offsetHeight; /* trigger reflow */
 	if (bosstimer > -1) {bosstimer += 1}
 	if(!psettings.nofade){
-	pbb.style.animation = "block_done linear 1s 1 normal"; 
+	pbb.style.animation = "block_done linear 2s 1 normal"; 
 	
 	}
 	if (resources >=100000 && unemployed>=300 && p.pieceROM[17].unlocked) {
@@ -288,7 +288,7 @@ function next_turn(){
 	}
 }
 	
-	setTimeout(enable,1000)
+	setTimeout(enable,2000)
 	
 }
 
