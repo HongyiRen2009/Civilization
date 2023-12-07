@@ -1653,7 +1653,7 @@ const information = [
   },
   {
     title: "<strong class = 'color-g'>It's better to keep them happy</strong>",
-    size: "25px",
+    size: "30px",
     description: "You bribed them with your resources. -50% resources",
     choosetext(amount) {
       this.description = `You bribed them with your resources. -${amount} resources`;
@@ -1670,7 +1670,7 @@ const information = [
   },
   {
     title: "<strong class = 'color-r'>Let them have it</strong>",
-    size: "25px",
+    size: "30px",
     description: "They didn't deserve better rule anyways. -33% population",
     choosetext(amount) {
       this.description = `They didn't deserve better rule anyways. -${amount} population`;
