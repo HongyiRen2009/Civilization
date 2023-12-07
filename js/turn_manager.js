@@ -197,7 +197,7 @@ function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
 	const turnreturn = turnpopup()
-	
+	document.getElementById("popup_block_buttons").style.display = "none"
 	document.getElementById("popup_block_buttons").style.animation = "none"
 	if(turnreturn==true){
 	
@@ -287,7 +287,7 @@ function next_turn(){
 		
 	}
 }
-	
+	setTimeout(displayUI, 1000)
 	setTimeout(enable,2000)
 	
 }
