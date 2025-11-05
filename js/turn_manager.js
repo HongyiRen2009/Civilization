@@ -197,15 +197,10 @@ function enable(){
 	document.getElementById("turn").innerHTML = "End Year"
 	document.getElementById("turn").disabled = false
 	const turnreturn = turnpopup()
-	document.getElementById("popup_block_buttons").style.display = "none"
+	if(turnreturn){
+		document.getElementById("popup_block_buttons").style.display = "none"
+	}
 	document.getElementById("popup_block_buttons").style.animation = "none"
-	if(turnreturn==true){
-	
-	if(!psettings.nofade){
-	document.getElementById("popup_block_buttons").style.animation = "popup_finish linear 1s 1 normal forwards"
-	}
-	setTimeout(function(){document.getElementById("popup_block_buttons").animation = "none";document.getElementById("popup_block_buttons").style.display = "none"},1000)
-	}
 	
 	
 	
